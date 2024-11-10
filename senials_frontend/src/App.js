@@ -2,9 +2,9 @@ import logo from './logo.svg';
 import './App.css';
 import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import PartyMember from "./party/partyMember";
-import PartyMeet from "./party/partyMeet";
-import PartyReview from "./party/partyReview";
+import PartyMember from "./pages/party/partyMember";
+import PartyMeet from "./pages/party/partyMeet";
+import PartyReview from "./pages/party/partyReview";
 
 function App() {
   return (
