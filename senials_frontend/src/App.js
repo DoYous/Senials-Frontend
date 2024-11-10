@@ -1,24 +1,23 @@
 import logo from './logo.svg';
 import './App.css';
+import { useState, useEffect } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import PartyMember from "./party/partyMember";
+import PartyMeet from "./party/partyMeet";
+import PartyReview from "./party/partyReview";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <BrowserRouter>
+        <Routes>
+          {/* 매칭 멤버 조회 */}
+          <Route path="/partyMember" element={<PartyMember />} />
+          {/*매칭게시판 상세 일정 추가*/}
+          <Route path="/partyMeet" element={<PartyMeet />} />
+            {/*매칭게시판 상세 모임 후기 작성하기*/}
+            <Route path="/partyReview" element={<PartyReview />} />
+        </Routes>
+      </BrowserRouter>
   );
 }
 
