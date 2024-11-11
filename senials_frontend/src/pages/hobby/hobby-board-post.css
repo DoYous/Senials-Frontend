@@ -54,3 +54,11 @@ body {
 .hobby_detail {
     font-size: 1.1em;
 }
+
+.suggest_hobby_button{
+    padding:10px 10px;
+    font-size: 1.2em;
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
+}

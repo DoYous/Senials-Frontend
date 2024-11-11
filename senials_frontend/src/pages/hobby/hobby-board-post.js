@@ -35,6 +35,8 @@ function HobbyBoardPost(){
                     <div className='hobby_detail'>축구는 발로 하는 게임입니다. 어렵지 않아요~</div>
                 </div>
             </div>
+
+            <button className='suggest_hobby_button'>취미 추가 건의</button>
         </>
     );
 }
