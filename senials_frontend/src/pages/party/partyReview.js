@@ -7,18 +7,26 @@ function PartyReview() {
         <div className={styles.bigDiv}>
             <div className={styles.smallDiv}>
                 <form>
-                    <h1>후기를 작성해주세요</h1>
+                    <h1 className={styles.nameflexDiv}>
+                        <div className={styles.pink}>후기</div>
+                        을 작성해주세요!
+                    </h1>
                     <div className={styles.bigSelectDiv}>
                         <div className={styles.selectDiv}>
                             <div className={styles.flexDiv}>
                                 <p><label htmlFor="meetStartDate">최초가입일</label></p>
-                                <input type="date" id="meetStartDate" name="meetStartDate" />
-                                <input type="time" id="meetStartTime" name="meetStartTime" />
-                            </div>
+                                <div className={styles.inputDiv}>
+                                <input type="date" id="meetStartDate" name="meetStartDate"/>
+                                <input type="time" id="meetStartTime" name="meetStartTime"  className={styles.marginLeft}/>
+                                </div>
+                                </div>
 
                             <div className={styles.flexDiv}>
                                 <p>평점을 매겨주세요!</p>
-                                <div>아이콘</div>
+                                <div className={styles.rateInfo}>
+                                    <span className={styles.filledStar}>★★★</span>
+                                    <span className={styles.unfilledStar}>☆☆</span>
+                                </div>
                             </div>
 
                             <div className={styles.contentDiv}>
@@ -27,8 +35,8 @@ function PartyReview() {
                             </div>
 
                             <div className={styles.btnDiv}>
-                                <button>취소</button>
-                                <button type={"submit"}>제출</button>
+                                <button className={`${styles.commonBtn} ${styles.marginLeftAuto}`}>취소</button>
+                                <button className={`${styles.importantBtn} ${styles.marginLeft}`}>제출</button>
                             </div>
                         </div>
                     </div>
