@@ -1,25 +1,22 @@
-import logo from './logo.svg';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
 
+// 컴포넌트
+import Layout from './layouts/Layout.js';
+import BoardWrite from './pages/party/BoardWrite.js';
+
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <BrowserRouter>
+            <Routes>
+                <Route path='/' element={<Layout />}>
+                    <Route path='party'>
+                        <Route path='write' element={<BoardWrite />} />
+                    </Route>
+                </Route>
+            </Routes>
+        </BrowserRouter>
+    )
 }
 
 export default App;
