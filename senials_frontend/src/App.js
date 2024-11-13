@@ -9,6 +9,7 @@ import MypageModify from "./pages/mypage/mypageModify";
 import MypageCalender from "./pages/mypage/mypageCalender";
 import MypageLike from "./pages/mypage/mypageLike";
 import Mypage from "./pages/mypage/mypage";
+import MypageMember from "./pages/mypage/mypageMember";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
             <Route path="/mypage" element={<Mypage />} />
 
             {/*모임 전체 멤버 관리*/}
+            <Route path="/mypageMember" element={<MypageMember />} />
 
         </Routes>
       </BrowserRouter>
