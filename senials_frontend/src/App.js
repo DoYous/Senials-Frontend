@@ -1,4 +1,3 @@
-import './App.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HobbyDetailPost from './pages/hobby/hobby-detail-post';
 
