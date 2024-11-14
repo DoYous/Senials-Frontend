@@ -1,4 +1,3 @@
-import './App.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SuggestHobbyPost from './pages/suggest-hobby/suggest-hobby-post';
 
