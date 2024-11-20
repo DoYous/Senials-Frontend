@@ -1,4 +1,5 @@
 body{
+    font-family: 'Nanum Gothic', sans-serif;
     background-image: url('/public/img/suggest-hobby-background-img.png');   
      background-position: top left;
     background-repeat: no-repeat;
@@ -57,4 +58,9 @@ body{
     background-color: #6CB7DA ;
     border:white;
     border-radius: 15px;
+}
+
+.submit:hover{
+    background-color:#61A2DA;
+
 }
