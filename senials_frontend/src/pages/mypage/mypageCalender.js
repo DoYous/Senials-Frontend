@@ -5,6 +5,7 @@ import React, { useState, useEffect } from "react";
 function MypageCalender() {
     return (
         <div className={styles.bigDiv}>
+                <div className={styles.profile}></div>
             <div className={styles.smallDiv}>
                 <div className={styles.mainDiv}>
                 <h1>닉네임</h1>
