@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 // CSS
 import styles from './PartyDetail.module.css';
 
@@ -21,7 +23,7 @@ function PartyDetail() {
             </div>
 
             {/* 모임 이미지 출력 영역 */}
-            <div style={{width: '100%', height: '300px', border: '1px solid black', marginBottom: '16px'}}/>
+            <Carousel />
 
             {/* 모임 제목, 간단소개 출력 영역 */}
             <div className={styles.separator}>
@@ -148,6 +150,49 @@ function PartyDetail() {
                 <Card />
                 <Card />
                 <Card />
+            </div>
+        </div>
+    )
+}
+
+function Carousel() {
+    
+    // 이미지 총 개수 - 1
+    const lastIndex = 2;
+    const [current, setCurrent] = useState(0);
+    
+
+    const prev = () => {
+        if (current == 0) {
+            setCurrent(2);
+        } else {
+            setCurrent(current - 1);
+        }
+    }
+
+    
+    const next = () => {
+        if (current == lastIndex) {
+            setCurrent(0);
+        } else {
+            setCurrent(current + 1);
+        }
+    }
+
+    return (
+        <div className={`d-flex flex-column w-100 ${styles.marginBottom2}`}>
+            <div className={`d-flex w-100`}>
+                <div className={`${styles.csPrev}`} onClick={() => prev()} />
+
+                <div className={`${styles.csContainer}`} style={{margin: '0 auto 0 auto', width: '1000px', height: '500px'}}>
+                    <div className={`${styles.csInner}`} style={{transform: `translateX(-${current * 1000}px)`}}>
+                        <div className={`${styles.csItem}`} style={{backgroundImage: 'url(/image/1.jpg)'}} />
+                        <div className={`${styles.csItem}`} style={{backgroundImage: 'url(/image/2.jpg)'}} />
+                        <div className={`${styles.csItem}`} style={{backgroundImage: 'url(/image/3.jpg)'}} />
+                    </div>
+                </div>
+
+                <div className={`${styles.csNext}`} onClick={() => next()} />
             </div>
         </div>
     )

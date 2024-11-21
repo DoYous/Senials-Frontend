@@ -386,3 +386,48 @@
     justify-content: space-evenly;
     margin-left: 32px;
 }
+
+/* 캐러셀 */
+.csContainer {
+    display: flex;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.csInner {
+    display: flex;
+    width: 100%;
+    transition: all 0.5s;
+}
+
+.csItem {
+    flex: none;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.csPrev {
+    background-image: url('/public/image/arrow.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    transform: rotate(180deg);
+    width: 35px;
+}
+.csPrev:hover {
+    cursor: pointer;
+}
+
+.csNext {
+    background-image: url('/public/image/arrow.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    width: 35px;
+}
+.csNext:hover {
+    cursor: pointer;
+}
