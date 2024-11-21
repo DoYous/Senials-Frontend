@@ -1,5 +1,4 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import './App.css';
 
 // 컴포넌트
 import Layout from './layouts/Layout.js';
