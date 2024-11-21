@@ -14,6 +14,7 @@ import Layout from './layouts/Layout.js';
 import PartyDetail from './pages/party/PartyDetail.js';
 import Board from './pages/party/Board.js';
 import BoardOverview from './pages/party/BoardOverview.js';
+import BoardWrite from './pages/party/BoardWrite.js';
 
 function App() {
     return (
@@ -24,6 +25,7 @@ function App() {
                         <Route path='board' element={<Board />} />
                         <Route path='board-overview' element={<BoardOverview />} />
                         <Route path='party-number' element={<PartyDetail />} />
+                        <Route path='write' element={<BoardWrite />} />
                     </Route>
                     <Route path="/partyMember" element={<PartyMember />} />
                     {/*매칭게시판 상세 일정 추가*/}
