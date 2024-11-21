@@ -1,0 +1,66 @@
+body{
+    font-family: 'Nanum Gothic', sans-serif;
+    background-image: url('/public/img/suggest-hobby-background-img.png');   
+     background-position: top left;
+    background-repeat: no-repeat;
+    background-size: 100% auto;   
+}
+
+.suggestBox{
+    border: 1px solid #D8D8D8;
+    margin: 10% auto;
+    padding: 1%;
+    width: 1008px;
+    border-radius: 15px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.title{
+    display: flex;
+    font-size: 50px;
+    font-weight: bold;
+    justify-content: center;
+    padding-top: 15px;
+    
+}
+
+.pink{
+    color: #FF5391;
+}
+
+.hobbyGet{
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
+    padding-top: 3%;
+}
+
+.hobbyGet>select{
+    width: 868px;
+    height: 83px;
+    margin: 30px auto;
+    font-size: 30px;
+    border-radius: 10px;
+    padding-left: 3%;
+
+    cursor: pointer;
+    background-size: 20px 20px;
+    padding-right: 30px;     
+}
+
+.submit{
+    width: 491px;
+    height: 110px;
+    margin: 5% auto;
+    font-size: 40px;
+    color: white;
+    background-color: #6CB7DA ;
+    border:white;
+    border-radius: 15px;
+}
+
+.submit:hover{
+    background-color:#61A2DA;
+
+}
