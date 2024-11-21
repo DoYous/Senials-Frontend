@@ -12,6 +12,7 @@ import MypageMember from "./pages/mypage/mypageMember";
 // 컴포넌트
 import Layout from './layouts/Layout.js';
 import PartyDetail from './pages/party/PartyDetail.js';
+import Board from './pages/party/Board.js';
 
 function App() {
     return (
@@ -19,6 +20,7 @@ function App() {
             <Routes>
                 <Route path='/' element={<Layout />}>
                     <Route path='party'>
+                        <Route path='board' element={<Board />} />
                         <Route path='party-number' element={<PartyDetail />} />
                     </Route>
                     <Route path="/partyMember" element={<PartyMember />} />
