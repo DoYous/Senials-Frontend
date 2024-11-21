@@ -13,6 +13,7 @@ import MypageMember from "./pages/mypage/mypageMember";
 import Layout from './layouts/Layout.js';
 import PartyDetail from './pages/party/PartyDetail.js';
 import Board from './pages/party/Board.js';
+import BoardOverview from './pages/party/BoardOverview.js';
 
 function App() {
     return (
@@ -21,6 +22,7 @@ function App() {
                 <Route path='/' element={<Layout />}>
                     <Route path='party'>
                         <Route path='board' element={<Board />} />
+                        <Route path='board-overview' element={<BoardOverview />} />
                         <Route path='party-number' element={<PartyDetail />} />
                     </Route>
                     <Route path="/partyMember" element={<PartyMember />} />
