@@ -16,12 +16,14 @@ import Board from './pages/party/Board.js';
 import BoardOverview from './pages/party/BoardOverview.js';
 import BoardWrite from './pages/party/BoardWrite.js';
 import BoardUpdate from './pages/party/BoardUpdate.js';
+import WholeSearch from './pages/search/WholeSearch.js';
 
 function App() {
     return (
         <BrowserRouter>
             <Routes>
                 <Route path='/' element={<Layout />}>
+                    <Route path='search-whole' element={<WholeSearch />} />
                     <Route path='party'>
                         <Route path='board' element={<Board />} />
                         <Route path='board-overview' element={<BoardOverview />} />
