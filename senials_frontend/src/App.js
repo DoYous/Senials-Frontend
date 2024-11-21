@@ -20,6 +20,7 @@ import Mypage from "./pages/mypage/mypage";
 import MypageMember from "./pages/mypage/mypageMember";
 
 import SuggestHobbyGet from './pages/suggest-hobby/suggest-hobby-get';
+import SuggestHobbyPost from './pages/suggest-hobby/suggest-hobby-post';
 
 function App() {
     return (
@@ -28,6 +29,8 @@ function App() {
                 <Route path='/' element={<Layout />}>
                     <Route path='search-whole' element={<WholeSearch />} />
                     <Route path="/SuggestHobbyGet" element={<SuggestHobbyGet/>}/>
+                    {/*맞춤형 취미 추천 결과 페이지*/}
+                    <Route path="/SuggestHobbyPost" element={<SuggestHobbyPost/>}/>
                       
                     <Route path='party'>
                         <Route path='board' element={<Board />} />
