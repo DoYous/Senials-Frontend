@@ -41,25 +41,26 @@ function App() {
                         <Route path='party-number' element={<PartyDetail />} />
                         <Route path='write' element={<BoardWrite />} />
                         <Route path='update' element={<BoardUpdate />} />
+                        {/*매칭 게시판 멤버 확인*/}
+                        <Route path="member" element={<PartyMember />} />
+                        {/*매칭게시판 상세 일정 추가*/}
+                        <Route path="meet" element={<PartyMeet />} />
+                        {/*매칭게시판 상세 모임 후기 작성하기*/}
+                        <Route path="review" element={<PartyReview />} />
                     </Route>
-  
-                    <Route path="/partyMember" element={<PartyMember />} />
-                    {/*매칭게시판 상세 일정 추가*/}
-                    <Route path="/partyMeet" element={<PartyMeet />} />
-                    {/*매칭게시판 상세 모임 후기 작성하기*/}
-                    <Route path="/partyReview" element={<PartyReview />} />
 
-                    {/*마이페이지 회원정보 변경*/}
-                    <Route path="/mypageModify" element={<MypageModify />} />
-                    {/*마이페이지+캘린더*/}
-                    <Route path="/mypageCalender" element={<MypageCalender />} />
-                    {/*취미 관심사 설정*/}
-                    <Route path="/mypageLike" element={<MypageLike />} />
-                    {/*사용자 프로필(남보기용)*/}
-                    <Route path="/mypage" element={<Mypage />} />
-
-                    {/*모임 전체 멤버 관리*/}
-                    <Route path="/mypageMember" element={<MypageMember />} />
+                    <Route path='mypage'>
+                        {/*마이페이지 회원정보 변경*/}
+                        <Route path="modify" element={<MypageModify />} />
+                        {/*마이페이지+캘린더*/}
+                        <Route path="calender" element={<MypageCalender />} />
+                        {/*취미 관심사 설정*/}
+                        <Route path="like" element={<MypageLike />} />
+                        {/*사용자 프로필(남보기용)*/}
+                        <Route path="" element={<Mypage />} />
+                        {/*모임 전체 멤버 관리*/}
+                        <Route path="member" element={<MypageMember />} />
+                    </Route>
                 </Route>
             </Routes>
         </BrowserRouter>
