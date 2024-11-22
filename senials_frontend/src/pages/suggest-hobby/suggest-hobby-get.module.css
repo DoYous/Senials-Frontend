@@ -1,10 +1,10 @@
-body{
+/*body{
     font-family: 'Nanum Gothic', sans-serif;
     background-image: url('/public/img/suggest-hobby-background-img.png');   
      background-position: top left;
     background-repeat: no-repeat;
     background-size: 100% auto;   
-}
+}*/
 
 .suggestBox{
     border: 1px solid #D8D8D8;

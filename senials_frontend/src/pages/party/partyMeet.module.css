@@ -22,7 +22,7 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     justify-content: center;
 }
-form{width: 80%}
+.formDiv{width: 80%}
 .flexDiv{display: flex;
     width: 100%;
     justify-content: space-between;
@@ -43,7 +43,7 @@ form{width: 80%}
     align-items: center;
     justify-content: center;
 }
-input{    border: 1.3px solid #999999;
+.inputStyle{    border: 1.3px solid #999999;
     padding: 0px 5px;
     border-radius: 8px;
     height: 100%;
