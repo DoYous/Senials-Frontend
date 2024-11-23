@@ -1,24 +1,25 @@
 .body {
-    margin:auto;
     padding: 5% 30%;
 }
 
 .write_review {
-    border: 1px solid;
+    border: 1px solid #c7c7c7;
+    border-radius: 15px ;
     margin: 0 auto;
-    padding: 20px;
+    padding: 50px;
     position: relative;
 }
 
 .title {
-    font-size: 24px;
+    font-size: 36px;
     font-weight: bold;
     margin-bottom: 10px;
     text-align: left;
 }
 
 .write_date {
-    font-size: 14px;
+    font-weight: bold;
+    font-size: 1.3em;
     margin-bottom: 20px;
     text-align: right;
 }
@@ -29,9 +30,13 @@
 }
 
 .review_point .text {
-    font-size: 16px;
-    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 1.3em;
+    margin-top: 60px;
+    margin-bottom: 15px;
+    
 }
+
 
 .star_point {
     font-size: 20px;
@@ -45,17 +50,23 @@
     gap: 15px;
 }
 
-.write_review_detail div {
-    font-size: 16px;
+.write_review_detail .text {
+    font-weight: bold;
+    font-size: 1.3em;
+}
+
+.write_review_detail label{
+    font-size: 1.3em;
 }
 
 .input_text {
     margin: 0 auto;
     padding: 12px;
     font-size: 14px;
-    border: 1px solid;
+    border: 2px solid #c7c7c7;
+    border-radius: 15px;
     width: 95%;
-    height: 100px;
+    height: 300px;
 }
 
 .select_hobby_ability,
@@ -77,12 +88,11 @@
 .select_hobby_budget label,
 .select_hobby_level label {
     display: inline-block;
-    padding: 8px 20px;
+    padding: 8px 30px;
     margin: 5px;
     border: 1px solid #ddd;
     border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.3s;
 }
 
 .select_hobby_ability input:checked + label,
@@ -93,39 +103,42 @@
     color: white;
 }
 
-.button-container {
+.button_container {
+    padding-top: 50px;
     display: flex;
     justify-content: flex-end;
-    gap: 10px;
-    margin-top: 20px;
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
+    gap: 30px;
 }
 
 button, input[type="submit"] {
-    padding: 10px 20px;
-    font-size: 16px;
+    padding: 3px 40px;
+    font-size: 1.3em;
     cursor: pointer;
-    border: 1px solid #007bff;
-    border-radius: 4px;
+    border: 1px solid white;
+    border-radius: 10px;
     transition: background-color 0.3s;
-    background-color: transparent;
-    color: #007bff;
+    background-color: #6CB7DA;
+    color: white;
 }
 
 button:hover, input[type="submit"]:hover {
-    background-color: #0056b3;
+    background-color: #61A2DA;
     color: white;
 }
 
 input[type="submit"] {
-    background-color: transparent;
-    color: #28a745;
-    border: 1px solid #28a745;
+    background-color: #9B60FA;
+    color: white;
+    border: 1px solid white;
 }
 
 input[type="submit"]:hover {
-    background-color: #218838;
+    background-color: #6c11fd;
     color: white;
+}
+
+.star{
+    width: 25px;
+    height: 25px;
+    margin-left: 15px;
 }
