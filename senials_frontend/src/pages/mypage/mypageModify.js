@@ -38,7 +38,7 @@ function MypageModify() {
                     </div>
                         <hr className={styles.divHr}/>
                     <p className={`${common.secondFont} ${styles.margin0}`}>한줄 소개</p>
-                    <div className={`${styles.contentDiv} ${common.secondFont}`}>기존 소개문</div>
+                    <p className={styles.contentDiv}>기존 소개문</p>
                     <div className={styles.saveDiv}>
                         <button className={`${styles.commonBtn} ${styles.saveMargin}`}>저장</button>
                     </div>
