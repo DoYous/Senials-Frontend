@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import HobbyReviewGet from './pages/hobby/hobby-review-get';
+import HobbyReviewGet from './pages/hobby/HobbyReviewGet';
 
 
 function App() {
