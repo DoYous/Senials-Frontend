@@ -22,7 +22,7 @@ import MypageMember from "./pages/mypage/mypageMember";
 import SuggestHobbyGet from './pages/suggest-hobby/suggest-hobby-get';
 import SuggestHobbyPost from './pages/suggest-hobby/suggest-hobby-post';
 import HobbyBoardPost from './pages/hobby/hobby-board-post';
-import HobbyDetailPost from './pages/hobby/hobby-detail-post';
+import HobbyDetailPost from './pages/hobby/HobbyDetailPost.js';
 import HobbyReviewGet from './pages/hobby/HobbyReviewGet';
 import HobbyReviewModify from './pages/hobby/HobbyReviewModify';
 
