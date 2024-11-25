@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import HobbyDetailPost from './pages/hobby/hobby-detail-post';
+import HobbyDetailPost from './pages/hobby/HobbyDetailPost';
 
 function App() {
   return (

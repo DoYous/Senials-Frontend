@@ -1,8 +1,8 @@
-.body {
+.page {
     padding: 5% 25%;
     position: relative;
     background-image: url(/public/img/sampleBackgroundImg.png);
-    background-size:100% 37%;
+    background-size: 100% 37%;
     background-repeat: no-repeat;
 }
 
@@ -11,36 +11,37 @@
     margin: 30px 0;
 }
 
-.hobby_img {
+.hobbyImg {
     width: 300px;
     height: 300px;
     margin-right: 20px;
 }
 
-.hobby_name {
+.hobbyName {
     font-size: 2.0em;
     display: block;
     font-weight: bold;
-    margin:25px 5px;
+    margin: 25px 5px;
 }
 
-.hobby_detail {
+.hobbyDetail {
     font-size: 1.5em;
     margin-top: 20px;
 }
-.hobby_text{
-display: flex;
-flex-direction: column;
-justify-content: space-between;
-height: 250px; 
-max-width: 600px;
+
+.hobbyText {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 250px; 
+    max-width: 600px;
 }
 
-.preference{
+.preference {
     font-size: 1.1em;
     margin-bottom: 0;
-    
 }
+
 .progressBarContainer {
     width: 250px; 
     height: 25px; 
@@ -57,7 +58,7 @@ max-width: 600px;
     transition: width 0.5s ease;
 }
 
-.hobby_point {
+.hobbyPoint {
     border: 1px solid #c2c2c2;
     margin-top: 100px;
     display: flex;
@@ -65,21 +66,21 @@ max-width: 600px;
     border-radius: 10px;
 }
 
-.hobby_ability,
-.hobby_budget,
-.hobby_level {
+.hobbyAbility,
+.hobbyBudget,
+.hobbyLevel {
     font-size: 1.3em;
     flex: 1;
-    text-align:  center;
+    text-align: center;
     border-left: 1px solid #c2c2c2;
-    padding:5px 0;
+    padding: 5px 0;
 }
 
-.hobby_ability {
+.hobbyAbility {
     border-left: none;
 }
 
-.hobby_level {
+.hobbyLevel {
     border-right: none;
 }
 
@@ -89,37 +90,35 @@ hr {
     border-top: 1px solid;
 }
 
-.review_header {
+.reviewHeader {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
 }
 
-.review_count {
+.reviewCount {
     font-weight: bold;
     font-size: 1.5em;
 }
 
-.review_button {
+.reviewButton {
     display: flex;
     gap: 10px;
-    
 }
 
-.write_review{
+.writeReview {
     font-size: 1.5em;
     padding: 3px 15px;
     border-radius: 5px;
     border: 1px solid #ccc;
-    color:white;
+    color: white;
     background-color: #6CB7DA;
     border-color: white;
     cursor: pointer;
 }
 
-
-.sort_review {
+.sortReview {
     font-size: 1.5em;
     padding: 3px 15px;
     border-radius: 5px;
@@ -128,28 +127,27 @@ hr {
     cursor: pointer;
 }
 
-.hobby_review {
+.hobbyReview {
     position: relative;
     padding: 20px 50px;
     border: 1px solid;
     border-radius: 30px;
 }
 
-.hobby_review_detail {
+.hobbyReviewDetail {
     margin-top: 10px;
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-.user_info {
+.userInfo {
     display: flex;
     justify-content: space-between;
     align-items: center;
-   
 }
 
-.user_img {
+.userImg {
     width: 50px;
     height: 50px;
     margin-right: 10px;
@@ -157,58 +155,56 @@ hr {
     object-fit: cover;
 }
 
-.user_name {
+.userName {
     margin-left: 20px;
     font-weight: bold;
     font-size: 1.5em;
 }
 
-.review_point {
+.reviewPoint {
     margin-left: auto;
     font-size: 1.4em;
 }
 
-.star{
+.star {
     width: 25px;
     height: 25px;
     margin-left: 15px;
 }
 
-.report_button{
+.reportButton {
     margin-left: 20px;
     padding: 5px 25px;
     font-size: 1.2em;
-    border :1px solid #ccc;
+    border: 1px solid #ccc;
     border-radius: 10px;
-    color:red;
+    color: red;
     background-color: white;
-
-
 }
 
-.review_title{
+.reviewTitle {
     margin-top: 20px;
     font-weight: bold;
 }
 
-.review_title,
-.review_detail {
+.reviewTitle,
+.reviewDetail {
     text-align: left;
     font-size: 1.2em;
 }
 
-.review_img_container{
-    display:flex;
+.reviewImgContainer {
+    display: flex;
     gap: 30px;
 }
 
-.review_img {
+.reviewImg {
     width: 250px;
     max-width: 250px;
     border-radius: 10px;
 }
 
-.update_review_button {
+.updateReviewButton {
     margin-left: auto;
     padding: 5px 30px;
     font-size: 1.5em;
