@@ -18,11 +18,11 @@ function MainPage() {
                 </span>
                 <button className={`${styles.whiteBtn} ms-auto`}>전체보기</button>
             </div>
-            <div className={`${styles.flex} ${styles.marginBottom2}`}>
-                <Card />
-                <Card />
-                <Card />
-                <Card />
+            <div className={`${styles.separatorContent}`}>
+                <HobbyCard />
+                <HobbyCard />
+                <HobbyCard />
+                <HobbyCard />
             </div>
             
             {/* 핫 매칭 게시글 출력 영역 */}
@@ -32,11 +32,11 @@ function MainPage() {
                 </span>
                 <button className={`${styles.whiteBtn} ms-auto`}>전체보기</button>
             </div>
-            <div className={`${styles.flex} ${styles.marginBottom2}`}>
-                <Card />
-                <Card />
-                <Card />
-                <Card />
+            <div className={`${styles.separatorContent}`}>
+                <PartyCard />
+                <PartyCard />
+                <PartyCard />
+                <PartyCard />
             </div>
         </div>
     )
@@ -295,7 +295,7 @@ function Meet() {
     )
 }
 
-function Card() {
+function PartyCard() {
   return (
     <div className={styles.cardContainer}>
         <div className={styles.cardImage} style={{backgroundImage: 'url(/image/cat.jpg)'}}>
@@ -312,6 +312,22 @@ function Card() {
         </div>
     </div>
   )
+}
+
+function HobbyCard() {
+    return (
+      <div className={styles.cardContainer}>
+          <div className={styles.cardImage} style={{backgroundImage: 'url(/image/1.jpg)'}} />
+          <div className={`${styles.secondFont} ${styles.flex}`}>
+            아웃도어
+            {/* font-size: 텍스트 픽셀 - 1 */}
+            <span style={{fontSize: '17px'}}>
+                &nbsp;|&nbsp;
+            </span>
+            등산
+        </div>
+      </div>
+    )
 }
 
 export default MainPage;
