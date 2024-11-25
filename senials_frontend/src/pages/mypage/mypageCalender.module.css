@@ -29,6 +29,11 @@
     padding-top: 70px;}
 .oneLine{color: #999999}
 
+.hashDiv{display: flex;
+    align-items: center;
+    width: 80%;
+    justify-content: space-between;}
+
 .profile {
     border: 1px solid;
     border-radius: 50%;
