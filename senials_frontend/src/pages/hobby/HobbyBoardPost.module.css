@@ -1,6 +1,6 @@
-body {
+.page {
     font-family: 'Nanum Gothic', sans-serif;
-    /*padding:30px 500px;*/
+    padding: 30px 500px;
 }
 
 .title {
@@ -10,14 +10,14 @@ body {
     font-weight: bold;
 }
 
-.top3_list {
+.top3List {
     display: flex;
     justify-content: center;
     gap: 70px;
     margin-bottom: 30px;
 }
 
-.top3_img {
+.top3Img {
     width: 250px;
     height: 250px;
     object-fit: cover;
@@ -25,7 +25,7 @@ body {
     border-radius: 10px;
 }
 
-.top3_name {
+.top3Name {
     font-size: 1.2em;
     font-weight: bold;
 }
@@ -63,14 +63,14 @@ body {
     cursor: pointer;
 }
 
-.hobby_list {
+.hobbyList {
     display: flex;
     align-items: center;
     margin-bottom: 30px;
-    gap:20px;
+    gap: 20px;
 }
 
-.hobby_img {
+.hobbyImg {
     width: 250px;
     height: 250px;
     object-fit: cover; 
@@ -78,24 +78,24 @@ body {
     border-radius: 10px;
 }
 
-.hobby_name {
+.hobbyName {
     font-size: 1.5em;
     font-weight: bold;
     margin-bottom: 70px;
 }
 
-.hobby_detail {
+.hobbyDetail {
     margin-top: 15px;
     font-size: 1.1em;
 }
 
-.suggest_hobby_button{
-    padding:5px 7px;
+.suggestHobbyButton {
+    padding: 5px 7px;
     font-size: 1.2em;
     position: fixed;
     bottom: 50px;
     right: 50px;
-    color:white;
+    color: white;
     background-color: #6CB7DA;
     border-color: white;
     border-radius: 10px;
@@ -117,3 +117,37 @@ body {
     border-radius: 15px; 
     transition: width 0.5s ease;
 }
+
+/* category */
+
+.separator {
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    margin-bottom: 16px;
+}
+
+.firstFont {
+    font-size: 26.4px;
+    font-weight: bold;
+}
+
+.marginBottom {
+    margin-bottom: 16px;
+}
+
+.ctgrContainer {
+    max-width: 180px;
+    margin: 0 auto;
+}
+
+.ctgrText {
+    color: white;
+    padding: 0 0 5px 5px;
+}
+
+.thirdFont {
+    font-size: 16px;
+    font-weight: bold;
+}
+

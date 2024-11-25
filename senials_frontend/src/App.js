@@ -21,7 +21,8 @@ import MypageMember from "./pages/mypage/mypageMember";
 
 import SuggestHobbyGet from './pages/suggest-hobby/suggest-hobby-get';
 import SuggestHobbyPost from './pages/suggest-hobby/suggest-hobby-post';
-import HobbyBoardPost from './pages/hobby/hobby-board-post';
+import HobbyBoardPost from './pages/hobby/HobbyBoardPost.js';
+import HobbyTagBoardPost from './pages/hobby/HobbyTagBoardPost';
 
 function App() {
     return (
@@ -29,12 +30,15 @@ function App() {
             <Routes>
                 <Route path='/' element={<Layout />}>
                     <Route path='search-whole' element={<WholeSearch />} />
+                      {/*맞춤형 취미 추천 받기 페이지*/}
                     <Route path="/SuggestHobbyGet" element={<SuggestHobbyGet/>}/>
                     {/*맞춤형 취미 추천 결과 페이지*/}
                     <Route path="/SuggestHobbyPost" element={<SuggestHobbyPost/>}/>
                     {/*취미 게시판 전체 보기*/}
                     <Route path="/HobbyBoardPost" element={<HobbyBoardPost/>}/>
-                      
+                    {/*취미태그 게시판 전체 보기*/}
+                    <Route path="/HobbyTagBoardPost" element={<HobbyTagBoardPost/>}/>
+
                     <Route path='party'>
                         <Route path='board' element={<Board />} />
                         <Route path='board-overview' element={<BoardOverview />} />
