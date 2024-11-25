@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 // 컴포넌트
-import Layout from './layouts/Layout.js';
+import MainPage from './pages/mainpage/MainPage.js';
+
 import PartyDetail from './pages/party/PartyDetail.js';
 import Board from './pages/party/Board.js';
 import BoardOverview from './pages/party/BoardOverview.js';
@@ -25,10 +26,6 @@ import HobbyBoardPost from './pages/hobby/hobby-board-post';
 import HobbyDetailPost from './pages/hobby/HobbyDetailPost.js';
 import HobbyReviewGet from './pages/hobby/HobbyReviewGet';
 import HobbyReviewModify from './pages/hobby/HobbyReviewModify';
-
-// 컴포넌트
-import Layout from './layouts/Layout.js';
-import MainPage from './pages/mainpage/MainPage.js';
 
 function App() {
     return (
