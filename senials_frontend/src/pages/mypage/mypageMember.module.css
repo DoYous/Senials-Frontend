@@ -1,0 +1,144 @@
+.pink{color: #FF5391}
+.nameflexDiv{    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+/*p{font-weight: bold;}*/
+.bigName h1{margin-left: 10px;
+    margin-top : 0px;}
+
+.bigDiv{height: 800px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;}
+.smallDiv{
+    height: 65%;
+    background: white;
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 25px;
+    border: 1px solid #999999;
+}
+.mainDiv{width: 80%;}
+.mainName{display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: flex-start;
+}
+
+.modifyDiv{display: flex;
+    width: 70%;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    justify-content: flex-start;}
+.bigName{display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: row;
+    width: 100%;}
+.divHr {
+    border: none;
+    border-top: 1px solid #ddd;
+    width: 100%;
+}
+.commonBtn {
+    padding: 0 10px;
+    background-color: #6CB7DA;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    min-width: 80px;
+    height: 30px;
+    font-weight: bold;
+}
+.marginLeft {
+    margin-left: 10px;
+}
+.saveMargin{margin-top: 20px;}
+
+/*검색창 영역*/
+.bigSearchDiv{    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: space-between;
+    align-items: center;}
+.smallSearchDiv{display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: space-between;
+    width: 50%;}
+.flexDiv{
+    display: flex;
+    align-items: center;
+}
+.selectSort{border: none;}
+.searchDiv{border: 1px solid #000000;
+    border-radius: 8px;
+    height: 15px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    flex-direction: row;
+    margin-top: 10px;
+    margin-left: 10px;}
+.searchDiv input{border: none;}
+
+/*밑줄*/
+.divHr {
+    border: none;
+    border-top: 1px solid #ddd;
+    width: 80%;
+}
+
+/*아이콘 스타일 없애기*/
+.iconDiv{border:none;
+    background: none;}
+
+/*없는 글자 취급*/
+.none{color: white;}
+
+/*메인 영역 (프로필 목록) */
+.mainContentsDiv{display: flex;
+    align-items: center;
+    width: 80%;
+    justify-content: space-between;
+    margin-top: 30px;}
+.mainContentDiv{display: flex;
+    flex-direction: column;}
+.userProfileDiv{    border: 1px solid;
+    border-radius: 50%;
+    width: 90px;
+    height: 90px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center}
+.mainContentDiv h3{margin: 3px;}
+.mainContentDiv p{margin: 3px; color: gray;}
+.reportDiv{margin: 0px;
+    border: 1px solid #999999;
+    border-radius: 8px;
+    background: none;
+    color: red;
+    font-weight: bold;
+    cursor: pointer;
+    height: 30px;
+    width: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;}
+
+/*추방*/
+.lastBtn{display: flex;
+    justify-content: flex-end;
+    width: 70%;
+    margin-top: 20px;}

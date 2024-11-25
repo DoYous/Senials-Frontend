@@ -1,0 +1,135 @@
+.gray{color: #999999;}
+.bigDiv{/*height: 1200px;*/
+    background: #f5f5f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding-bottom: 100px;}
+.smallDiv {
+    height: 70%;
+    background: white;
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: relative; /* profile이 smallDiv 위에 정확히 겹치도록 설정 */
+}
+.mainDiv{display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 60px;}
+.oneLine{color: #999999}
+
+.hashDiv{display: flex;
+    align-items: center;
+    width: 80%;
+    justify-content: space-between;}
+/*h1{margin: 0px;
+    margin-top: 10px;}
+h3{margin: 5px;}*/
+.profile {
+    border: 1px solid;
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    background: #9E9E9E;
+    position: relative; /* 위치를 상대적으로 변경 */
+    top: +80px; /* smallDiv 상단에 반만 걸치도록 설정 */
+    z-index: 1; /* 다른 요소 위로 표시되도록 설정 */
+}
+
+/*해시태그*/
+.hash{display: flex;
+    align-items: center;}
+.hash p {    width: 70px;
+    text-align: center;
+    display: flex;
+    margin-right: 10px;
+    align-items: center;
+    justify-content: center;
+    padding: 0 10px;
+    background-color: #FF5391;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    min-width: 80px;
+    height: 30px;
+    font-weight: bold;}
+
+.contentsDiv{
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;}
+
+.contentDiv1{width: 100%;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #999999;
+    align-items: center;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;}
+.contentDiv2{width: 100%;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #999999;
+    border-left: 0px;
+    border-right: 0px;
+    align-items: center;}
+.contentDiv3{width: 100%;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #999999;
+    align-items: center;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;}
+.calender{width: 80%;
+    height: 400px;
+    border: 1px solid;
+    margin-top: 20px;}
+
+.divHr {
+    border: none;
+    border-top: 1px solid #ddd;
+    width: 100%;
+}
+.btnDiv{    width: 80%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin-top: 20px;}
+
+.importantBtn {
+    padding: 0 10px;
+    color: #FF0000;
+    background: none;
+    border: 1px solid #FF0000;
+    border-radius: 8px;
+    min-width: 80px;
+    height: 30px;
+    font-weight: bold;
+}
+.marginLeftAuto {
+    margin-left: auto;
+}
+
+.marginLeft {
+    margin-left: 10px;
+}
+/*버튼*/
+.commonBtn {
+    padding: 0 10px;
+    background-color: #6CB7DA;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    min-width: 80px;
+    height: 30px;
+    font-weight: bold;
+}
