@@ -1,12 +1,18 @@
 .page {
     font-family: 'Nanum Gothic', sans-serif;
     padding: 30px 500px;
+    
 }
 
 .title {
     font-size: 2em;
     text-align: left;
     margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.seeAllButton{
+    margin-left: auto;
     font-weight: bold;
 }
 

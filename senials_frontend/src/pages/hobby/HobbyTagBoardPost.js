@@ -9,6 +9,7 @@ function HobbyBoardPost() {
     return (
         <div className={styles.page}>
             <div className={styles.title}>👑 <span style={{ color: "#FF5391" }}>인기</span> TOP3</div>
+            <button className={styles.sellAllButton}>전체보기</button>
             <div className={styles.top3List}>
             
                 <HobbyCard/>
