@@ -3,12 +3,14 @@
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
-    margin-bottom: 30px;}
+    margin-bottom: 50px;}
 .bigDiv{height: 800px;
     background: #f5f5f5;
     display: flex;
     align-items: center;
-    justify-content: center;}
+    justify-content: center;
+    min-width: 1020px;
+    padding: 120px 0px;}
 .smallDiv{
     height: 70%;
     background: white;
@@ -21,6 +23,7 @@
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     justify-content: center;
+    min-height: 600px;
 }
 .formDiv{width: 80%}
 .flexDiv{display: flex;
@@ -28,7 +31,7 @@
     justify-content: space-between;
     flex-direction: row;
     align-items: center;
-    margin-bottom: 10px;}
+    margin-bottom: 30px;}
 .bigSelectDiv{    width: 100%;
     display: flex;
     align-items: center;
@@ -44,7 +47,7 @@
     justify-content: center;
 }
 .inputStyle{    border: 1.3px solid #999999;
-    padding: 0px 5px;
+    padding: 0px 10px;
     border-radius: 8px;
     height: 100%;
     width: 100%;

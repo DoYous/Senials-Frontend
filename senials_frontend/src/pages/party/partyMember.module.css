@@ -1,10 +1,12 @@
 .iconDiv{border:none;
 background: none;}
-.bigDiv{height: 800px;
+.bigDiv{height: 100%;
     background: #f5f5f5;
     display: flex;
     align-items: center;
-    justify-content: center;}
+    justify-content: center;
+    min-width: 1020px;
+    padding: 120px 0px;}
 .smallDiv{
     height: 70%;
     background: white;
@@ -16,6 +18,7 @@ background: none;}
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    min-height: 800px;
 }
 .navDiv{
     display: flex;
@@ -38,6 +41,10 @@ background: none;}
     width: 50%;
     justify-content: flex-start;
 }
+.profile{    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;}
 .bigUserDiv{ width: 100%;
     display: flex;
     justify-content: center;
@@ -48,24 +55,26 @@ background: none;}
     width: 80%;
     justify-content: space-between;
 }
-.userProfileDiv{    border: 1px solid;
+.userProfileDiv{border: 1px solid;
     border-radius: 50%;
-    width: 60px;
-    height: 60px;
+    width: 70px;
+    height: 70px;
     text-align: center;
     display: flex;
     align-items: center;
-    justify-content: center}
-.userNameDiv{margin-left: 40px;}
+    justify-content: center;
+    margin-bottom: 0px;}
+.userNameDiv{    margin-left: 40px;
+    margin-bottom: 0px;}
 
 .divHr {
     border: none;
-    border-top: 1px solid #ddd;
-    width: 100%;
+    border-top: 1px solid #575757;
+    width: 90%;
 }
 .searchDiv{border: 1px solid #000000;
     border-radius: 8px;
-    height: 15px;
+    height: 40px;
     padding: 10px;
     display: flex;
     align-items: center;

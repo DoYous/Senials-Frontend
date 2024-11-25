@@ -1,4 +1,5 @@
 import styles from './partyMember.module.css';
+import common from '../common/common.module.css';
 import React, { useState, useEffect } from "react";
 /*리액트 아이콘 사용*/
 import { FaSearch } from "react-icons/fa";
@@ -12,8 +13,8 @@ function PartyMember() {
                 <div className={styles.navDiv}>
                     <div className={`${styles.flexDiv} ${styles.bigName}`}>
                         <FaAngleLeft/>
-                        <h1 className={styles.marginLeft}>모임명 -</h1>
-                        <h1>일정명</h1>
+                        <h1 className={`${styles.marginLeft} ${common.firstFont}`}>모임명 -</h1>
+                        <h1 className={common.firstFont}>일정명</h1>
                     </div>
                     <div className={`${styles.flexDiv} ${styles.searchDiv}`}>
                         <input type="text" placeholder="닉네임 검색"/>
@@ -21,11 +22,23 @@ function PartyMember() {
                     </div>
                 </div>
                 <hr className={styles.divHr}/>
+                <Profile/>
+                <Profile/>
+                <Profile/>
+                <Profile/>
+            </div>
+        </div>
+    );
+}
+
+function Profile() {
+    return (
+            <div className={styles.profile}>
                 <div className={styles.bigUserDiv}>
                     <div className={styles.userDiv}>
                         <div className={styles.flexDiv2}>
                             <p className={styles.userProfileDiv}>프로필</p>
-                            <p className={styles.userNameDiv}>사용자 이름</p>
+                            <p className={`${styles.userNameDiv} ${common.secondFont2}`}>사용자 이름</p>
                         </div>
                         <button type="submit" className={`${styles.flexDiv} ${styles.reportDiv}`}>
                             <FaBell/>신고
@@ -34,8 +47,7 @@ function PartyMember() {
                 </div>
                 <hr className={styles.divHr}/>
             </div>
-        </div>
-    );
+        );
 }
 
 export default PartyMember;
