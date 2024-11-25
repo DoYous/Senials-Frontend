@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 // 컴포넌트
+import Layout from './layouts/Layout.js';
+
 import MainPage from './pages/mainpage/MainPage.js';
 
 import PartyDetail from './pages/party/PartyDetail.js';
