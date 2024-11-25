@@ -1,10 +1,10 @@
-.body {
+.page {
     padding: 5% 30%;
 }
 
-.write_review {
+.writeReview {
     border: 1px solid #c7c7c7;
-    border-radius: 15px ;
+    border-radius: 15px;
     margin: 0 auto;
     padding: 50px;
     position: relative;
@@ -17,49 +17,47 @@
     text-align: left;
 }
 
-.write_date {
+.writeDate {
     font-weight: bold;
     font-size: 1.3em;
     margin-bottom: 20px;
     text-align: right;
 }
 
-.review_point {
+.reviewPoint {
     margin-bottom: 20px;
     text-align: center;
 }
 
-.review_point .text {
+.reviewPoint .text {
     font-weight: bold;
     font-size: 1.3em;
     margin-top: 60px;
     margin-bottom: 15px;
-    
 }
 
-
-.star_point {
+.starPoint {
     font-size: 20px;
     display: block;
     margin-top: 5px;
 }
 
-.write_review_detail {
+.writeReviewDetail {
     display: flex;
     flex-direction: column;
     gap: 15px;
 }
 
-.write_review_detail .text {
+.writeReviewDetail .text {
     font-weight: bold;
     font-size: 1.3em;
 }
 
-.write_review_detail label{
+.writeReviewDetail label {
     font-size: 1.3em;
 }
 
-.input_text {
+.inputText {
     margin: 0 auto;
     padding: 12px;
     font-size: 14px;
@@ -67,26 +65,27 @@
     border-radius: 15px;
     width: 95%;
     height: 300px;
+    resize: none;
 }
 
-.select_hobby_ability,
-.select_hobby_tendency,
-.select_hobby_budget,
-.select_hobby_level {
+.selectHobbyAbility,
+.selectHobbyTendency,
+.selectHobbyBudget,
+.selectHobbyLevel {
     font-size: 14px;
 }
 
-.select_hobby_ability input,
-.select_hobby_tendency input,
-.select_hobby_budget input,
-.select_hobby_level input {
-    display: none; 
+.selectHobbyAbility input,
+.selectHobbyTendency input,
+.selectHobbyBudget input,
+.selectHobbyLevel input {
+    display: none;
 }
 
-.select_hobby_ability label,
-.select_hobby_tendency label,
-.select_hobby_budget label,
-.select_hobby_level label {
+.selectHobbyAbility label,
+.selectHobbyTendency label,
+.selectHobbyBudget label,
+.selectHobbyLevel label {
     display: inline-block;
     padding: 8px 30px;
     margin: 5px;
@@ -95,15 +94,15 @@
     cursor: pointer;
 }
 
-.select_hobby_ability input:checked + label,
-.select_hobby_tendency input:checked + label,
-.select_hobby_budget input:checked + label,
-.select_hobby_level input:checked + label {
+.selectHobbyAbility input:checked + label,
+.selectHobbyTendency input:checked + label,
+.selectHobbyBudget input:checked + label,
+.selectHobbyLevel input:checked + label {
     background-color: #007bff;
     color: white;
 }
 
-.button_container {
+.buttonContainer {
     padding-top: 50px;
     display: flex;
     justify-content: flex-end;
@@ -137,7 +136,7 @@ input[type="submit"]:hover {
     color: white;
 }
 
-.star{
+.star {
     width: 25px;
     height: 25px;
     margin-left: 15px;
