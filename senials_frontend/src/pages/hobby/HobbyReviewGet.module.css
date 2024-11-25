@@ -1,0 +1,143 @@
+.page {
+    padding: 5% 30%;
+}
+
+.writeReview {
+    border: 1px solid #c7c7c7;
+    border-radius: 15px;
+    margin: 0 auto;
+    padding: 50px;
+    position: relative;
+}
+
+.title {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+.writeDate {
+    font-weight: bold;
+    font-size: 1.3em;
+    margin-bottom: 20px;
+    text-align: right;
+}
+
+.reviewPoint {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.reviewPoint .text {
+    font-weight: bold;
+    font-size: 1.3em;
+    margin-top: 60px;
+    margin-bottom: 15px;
+}
+
+.starPoint {
+    font-size: 20px;
+    display: block;
+    margin-top: 5px;
+}
+
+.writeReviewDetail {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.writeReviewDetail .text {
+    font-weight: bold;
+    font-size: 1.3em;
+}
+
+.writeReviewDetail label {
+    font-size: 1.3em;
+}
+
+.inputText {
+    margin: 0 auto;
+    padding: 12px;
+    font-size: 14px;
+    border: 2px solid #c7c7c7;
+    border-radius: 15px;
+    width: 95%;
+    height: 300px;
+    resize: none;
+}
+
+.selectHobbyAbility,
+.selectHobbyTendency,
+.selectHobbyBudget,
+.selectHobbyLevel {
+    font-size: 14px;
+}
+
+.selectHobbyAbility input,
+.selectHobbyTendency input,
+.selectHobbyBudget input,
+.selectHobbyLevel input {
+    display: none;
+}
+
+.selectHobbyAbility label,
+.selectHobbyTendency label,
+.selectHobbyBudget label,
+.selectHobbyLevel label {
+    display: inline-block;
+    padding: 8px 30px;
+    margin: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.selectHobbyAbility input:checked + label,
+.selectHobbyTendency input:checked + label,
+.selectHobbyBudget input:checked + label,
+.selectHobbyLevel input:checked + label {
+    background-color: #007bff;
+    color: white;
+}
+
+.buttonContainer {
+    padding-top: 50px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 30px;
+}
+
+button, input[type="submit"] {
+    padding: 3px 40px;
+    font-size: 1.3em;
+    cursor: pointer;
+    border: 1px solid white;
+    border-radius: 10px;
+    transition: background-color 0.3s;
+    background-color: #6CB7DA;
+    color: white;
+}
+
+button:hover, input[type="submit"]:hover {
+    background-color: #61A2DA;
+    color: white;
+}
+
+input[type="submit"] {
+    background-color: #9B60FA;
+    color: white;
+    border: 1px solid white;
+}
+
+input[type="submit"]:hover {
+    background-color: #6c11fd;
+    color: white;
+}
+
+.star {
+    width: 25px;
+    height: 25px;
+    margin-left: 15px;
+}

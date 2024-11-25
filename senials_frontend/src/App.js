@@ -22,6 +22,8 @@ import MypageMember from "./pages/mypage/mypageMember";
 import SuggestHobbyGet from './pages/suggest-hobby/suggest-hobby-get';
 import SuggestHobbyPost from './pages/suggest-hobby/suggest-hobby-post';
 import HobbyBoardPost from './pages/hobby/hobby-board-post';
+import HobbyDetailPost from './pages/hobby/hobby-detail-post';
+import HobbyReviewGet from './pages/hobby/HobbyReviewGet';
 
 function App() {
     return (
@@ -36,6 +38,8 @@ function App() {
                     <Route path="/HobbyBoardPost" element={<HobbyBoardPost/>}/>
                     {/*취미 게시판 상세 보기*/}
                     <Route path="/HobbyDetailPost" element={<HobbyDetailPost/>}/>
+                    {/*취미 게시판 후기 작성*/}
+                    <Route path="/HobbyReviewGet" element={<HobbyReviewGet/>}/>
                       
                     <Route path='party'>
                         <Route path='board' element={<Board />} />
