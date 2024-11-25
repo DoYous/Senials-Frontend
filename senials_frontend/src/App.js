@@ -22,8 +22,8 @@ import MypageLike from "./pages/mypage/mypageLike";
 import Mypage from "./pages/mypage/mypage";
 import MypageMember from "./pages/mypage/mypageMember";
 
-import SuggestHobbyGet from './pages/suggest-hobby/suggest-hobby-get';
-import SuggestHobbyPost from './pages/suggest-hobby/suggest-hobby-post';
+import SuggestHobbyGet from './pages/suggestHobby/SuggestHobbyGet.js';
+import SuggestHobbyPost from './pages/suggestHobby/SuggestHobbyPost.js';
 import HobbyBoardPost from './pages/hobby/HobbyBoardPost.js';
 import HobbyDetailPost from './pages/hobby/HobbyDetailPost.js';
 import HobbyReviewGet from './pages/hobby/HobbyReviewGet';
@@ -38,19 +38,19 @@ function App() {
                     <Route index element={<MainPage />} />
                     <Route path='search-whole' element={<WholeSearch />} />
                       {/*맞춤형 취미 추천 받기 페이지*/}
-                    <Route path="/SuggestHobbyGet" element={<SuggestHobbyGet/>}/>
+                    <Route path="/suggest-hobby" element={<SuggestHobbyGet/>}/>
                     {/*맞춤형 취미 추천 결과 페이지*/}
-                    <Route path="/SuggestHobbyPost" element={<SuggestHobbyPost/>}/>
+                    <Route path="/suggest-hobby-result" element={<SuggestHobbyPost/>}/>
                     {/*취미 게시판 전체 보기*/}
-                    <Route path="/HobbyBoardPost" element={<HobbyBoardPost/>}/>
+                    <Route path="/hobby-board-all" element={<HobbyBoardPost/>}/>
                     {/*취미태그 게시판 전체 보기*/}
-                    <Route path="/HobbyTagBoardPost" element={<HobbyTagBoardPost/>}/>
+                    <Route path="/hobby-tag-board" element={<HobbyTagBoardPost/>}/>
                     {/*취미 게시판 상세 보기*/}
-                    <Route path="/HobbyDetailPost" element={<HobbyDetailPost/>}/>
+                    <Route path="/hobby-detail" element={<HobbyDetailPost/>}/>
                     {/*취미 게시판 후기 작성*/}
-                    <Route path="/HobbyReviewGet" element={<HobbyReviewGet/>}/>
+                    <Route path="/hobby-review" element={<HobbyReviewGet/>}/>
                     {/*취미 게시판 후기 수정 */}
-                    <Route path="/HobbyReviewModify" element={<HobbyReviewModify/>}/>
+                    <Route path="/hobby-review-modify" element={<HobbyReviewModify/>}/>
                       
                     <Route path='party'>
                         <Route path='board' element={<Board />} />

@@ -55,8 +55,8 @@ function HobbyReviewGet() {
                         <label htmlFor="level5">어려움</label>
                     </div>
                     <div className={styles.buttonContainer}>
-                        <button>취소</button>
-                        <input type="submit" value="제출" />
+                        <button className={styles.cancleButton}>취소</button>
+                        <input className={styles.submitButton} type="submit" value="제출" />
                     </div>
                 </form>
             </div>
