@@ -34,6 +34,8 @@ function App() {
                     <Route path="/SuggestHobbyPost" element={<SuggestHobbyPost/>}/>
                     {/*취미 게시판 전체 보기*/}
                     <Route path="/HobbyBoardPost" element={<HobbyBoardPost/>}/>
+                    {/*취미 게시판 상세 보기*/}
+                    <Route path="/HobbyDetailPost" element={<HobbyDetailPost/>}/>
                       
                     <Route path='party'>
                         <Route path='board' element={<Board />} />
