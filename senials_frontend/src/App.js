@@ -26,11 +26,16 @@ import HobbyDetailPost from './pages/hobby/hobby-detail-post';
 import HobbyReviewGet from './pages/hobby/HobbyReviewGet';
 import HobbyReviewModify from './pages/hobby/HobbyReviewModify';
 
+// 컴포넌트
+import Layout from './layouts/Layout.js';
+import MainPage from './pages/mainpage/MainPage.js';
+
 function App() {
     return (
         <BrowserRouter>
             <Routes>
                 <Route path='/' element={<Layout />}>
+                    <Route index element={<MainPage />} />
                     <Route path='search-whole' element={<WholeSearch />} />
                     <Route path="/SuggestHobbyGet" element={<SuggestHobbyGet/>}/>
                     {/*맞춤형 취미 추천 결과 페이지*/}
