@@ -3,6 +3,9 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 // 컴포넌트
 import Layout from './layouts/Layout.js';
+
+import MainPage from './pages/mainpage/MainPage.js';
+
 import PartyDetail from './pages/party/PartyDetail.js';
 import Board from './pages/party/Board.js';
 import BoardOverview from './pages/party/BoardOverview.js';
@@ -22,6 +25,9 @@ import MypageMember from "./pages/mypage/mypageMember";
 import SuggestHobbyGet from './pages/suggest-hobby/suggest-hobby-get';
 import SuggestHobbyPost from './pages/suggest-hobby/suggest-hobby-post';
 import HobbyBoardPost from './pages/hobby/HobbyBoardPost.js';
+import HobbyDetailPost from './pages/hobby/HobbyDetailPost.js';
+import HobbyReviewGet from './pages/hobby/HobbyReviewGet';
+import HobbyReviewModify from './pages/hobby/HobbyReviewModify';
 import HobbyTagBoardPost from './pages/hobby/HobbyTagBoardPost';
 
 function App() {
@@ -29,6 +35,7 @@ function App() {
         <BrowserRouter>
             <Routes>
                 <Route path='/' element={<Layout />}>
+                    <Route index element={<MainPage />} />
                     <Route path='search-whole' element={<WholeSearch />} />
                       {/*맞춤형 취미 추천 받기 페이지*/}
                     <Route path="/SuggestHobbyGet" element={<SuggestHobbyGet/>}/>
@@ -38,7 +45,13 @@ function App() {
                     <Route path="/HobbyBoardPost" element={<HobbyBoardPost/>}/>
                     {/*취미태그 게시판 전체 보기*/}
                     <Route path="/HobbyTagBoardPost" element={<HobbyTagBoardPost/>}/>
-
+                    {/*취미 게시판 상세 보기*/}
+                    <Route path="/HobbyDetailPost" element={<HobbyDetailPost/>}/>
+                    {/*취미 게시판 후기 작성*/}
+                    <Route path="/HobbyReviewGet" element={<HobbyReviewGet/>}/>
+                    {/*취미 게시판 후기 수정 */}
+                    <Route path="/HobbyReviewModify" element={<HobbyReviewModify/>}/>
+                      
                     <Route path='party'>
                         <Route path='board' element={<Board />} />
                         <Route path='board-overview' element={<BoardOverview />} />

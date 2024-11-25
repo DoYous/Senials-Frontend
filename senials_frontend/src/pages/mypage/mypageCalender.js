@@ -1,17 +1,17 @@
 import styles from './mypageCalender.module.css';
+import common from '../common/common.module.css';
 import React, { useState, useEffect } from "react";
 {/*마이페이지+캘린더*/}
 
 function MypageCalender() {
     return (
         <div className={styles.bigDiv}>
-                <div className={styles.profile}>
-
-                </div>
+            {/*프로필 사진 기입*/}
+            <div className={styles.profile}></div>
             <div className={styles.smallDiv}>
                 <div className={styles.mainDiv}>
-                <h1>닉네임</h1>
-                <p className={styles.oneLine}>한줄 소개</p>
+                <h1 className={common.firstFont}>닉네임</h1>
+                <p className={`${styles.oneLine} ${common.secondFont}`}>한줄 소개</p>
                 </div>
                 <div className={styles.hashDiv}>
                     <div className={styles.hash}>
@@ -23,16 +23,16 @@ function MypageCalender() {
                 </div>
                 <div className={styles.contentsDiv}>
                     <div className={styles.contentDiv1}>
-                        <h3>좋아요 한 모임</h3>
-                        <h3 className={styles.gray}>00</h3>
+                        <h3 className={common.firstFont}>좋아요 한 모임</h3>
+                        <h3 className={`${styles.gray} ${common.firstFont}`}>00</h3>
                     </div>
                     <div className={styles.contentDiv2}>
-                        <h3>참여 모임</h3>
-                        <h3 className={styles.gray}>00</h3>
+                        <h3  className={common.firstFont}>참여 모임</h3>
+                        <h3 className={`${styles.gray} ${common.firstFont}`}>00</h3>
                     </div>
                     <div className={styles.contentDiv3}>
-                        <h3>생성 모임</h3>
-                        <h3 className={styles.gray}>00</h3>
+                        <h3  className={common.firstFont}>생성 모임</h3>
+                        <h3 className={`${styles.gray} ${common.firstFont}`}>00</h3>
                     </div>
                 </div>
                 <div className={styles.calender}>캘린더 영역</div>

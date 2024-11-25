@@ -5,13 +5,16 @@
     justify-content: flex-start;
   }
 .bigName h1{margin-left: 10px;
-margin-top : 0px;}
+margin-top : 0px;
+margin-bottom: 0px;}
 
-.bigDiv{height: 800px;
+.bigDiv{height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-direction: column;}
+    flex-direction: column;
+    min-width: 1020px;
+    margin-top:100px;}
 .smallDiv{
     height: 65%;
     background: white;
@@ -24,6 +27,7 @@ margin-top : 0px;}
     border-radius: 10px;
     margin-top: 25px;
     border: 1px solid #999999;
+    max-width: 1200px;
     /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); */
     justify-content: center;}
 .mainDiv{width: 80%;}
@@ -31,6 +35,7 @@ margin-top : 0px;}
     align-items: center;
     align-content: center;
     justify-content: flex-start;
+    margin: 23px 0px;
 }
 .profileChange{margin-left: 10px;
     border: none;
@@ -52,7 +57,8 @@ margin-top : 0px;}
     flex-direction: row;
     align-items: center;
     align-content: center;
-    justify-content: space-between;}
+    justify-content: space-between;
+    margin: 23px 0px;}
 .flex2{    display: flex;
     align-items: center;
     flex-direction: row;}
@@ -65,7 +71,8 @@ margin-top : 0px;}
     align-items: center;
     color: #656565;
     justify-content: center;
-font-weight: normal;}
+font-weight: normal;
+    margin: 0px;}
 .contentDiv{border: #999999 1px solid;
     display: flex;
     align-items: flex-start;
@@ -74,13 +81,16 @@ font-weight: normal;}
     padding: 10px;
     border-radius: 8px;
     color: #656565;
+    margin-top: 20px;
 }
 .saveDiv{    width: 100%;
     display: flex;
     justify-content: flex-end;}
+
+/*밑줄*/
 .divHr {
     border: none;
-    border-top: 1px solid #ddd;
+    border-top: 1px solid #575757;
     width: 100%;
 }
 .commonBtn {
@@ -96,4 +106,6 @@ font-weight: normal;}
 .marginLeft {
     margin-left: 10px;
 }
-.saveMargin{margin-top: 20px;}
+.saveMargin{margin-top: 20px;
+    margin-bottom: 30px;}
+.margin0{margin:0px;}
