@@ -24,6 +24,7 @@ import SuggestHobbyPost from './pages/suggest-hobby/suggest-hobby-post';
 import HobbyBoardPost from './pages/hobby/hobby-board-post';
 import HobbyDetailPost from './pages/hobby/hobby-detail-post';
 import HobbyReviewGet from './pages/hobby/HobbyReviewGet';
+import HobbyReviewModify from './pages/hobby/HobbyReviewModify';
 
 function App() {
     return (
@@ -40,6 +41,8 @@ function App() {
                     <Route path="/HobbyDetailPost" element={<HobbyDetailPost/>}/>
                     {/*취미 게시판 후기 작성*/}
                     <Route path="/HobbyReviewGet" element={<HobbyReviewGet/>}/>
+                    {/*취미 게시판 후기 수정 */}
+                    <Route path="/HobbyReviewModify" element={<HobbyReviewModify/>}/>
                       
                     <Route path='party'>
                         <Route path='board' element={<Board />} />
