@@ -2,7 +2,7 @@
 name: "\U0001F388Branch issue template"
 about: if you create branch use it
 title: ''
-labels: create branch
+labels: ''
 assignees: hyojunahn111
 
 ---
