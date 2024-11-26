@@ -3,6 +3,10 @@ import styles from './HobbyDetailPost.module.css';
 
 function HobbyDetailPost() {
     return (
+        <>
+        <div className={styles.background}>
+           
+        </div>
         <div className={styles.page}>
             <div className={styles.hobby}>
                 <img src='/img/sampleImg4.png' className={styles.hobbyImg} alt="취미" />
@@ -41,6 +45,8 @@ function HobbyDetailPost() {
             </div>         
             <HobbyReview />
         </div>
+
+        </>
     );
 }
 

@@ -7,9 +7,9 @@ function SuggestHobbyPost() {
             <header>
                 {/* 헤더 */}
             </header>
-
+            <div className={styles.page}>
             <div className={styles.title}>
-                이런 <span className={styles.highlight}>취미</span> 어떠세요?
+                이런 <span style={{color:'#FF5391'}}>취미</span> 어떠세요?
             </div>
 
             <div className={styles.hobby}>
@@ -25,13 +25,15 @@ function SuggestHobbyPost() {
                 </div>
 
                 <div className={styles.otherHobby}>
-                    <div className={styles.subtitle}>비슷한 취미들</div>
-                    {[1, 2, 3].map((_, index) => (
-                        <div key={index} className={styles.otherHobbyDetail}>
+                    <div className={styles.subtitle}>비슷한 취미들</div>         
+                        <div className={styles.otherHobbyDetail}>
+                            <img src="/img/sampleImg2.png" className={styles.otherHobbyImg} alt="다른 취미" />
+                            <div className={styles.otherHobbyName}>명상하기</div>
+                            <img src="/img/sampleImg2.png" className={styles.otherHobbyImg} alt="다른 취미" />
+                            <div className={styles.otherHobbyName}>명상하기</div>
                             <img src="/img/sampleImg2.png" className={styles.otherHobbyImg} alt="다른 취미" />
                             <div className={styles.otherHobbyName}>명상하기</div>
                         </div>
-                    ))}
                 </div>
             </div>
 
@@ -40,12 +42,14 @@ function SuggestHobbyPost() {
                 <button>나의 취미로 등록</button>
                 <button>동일한 취미 모임 찾기</button>
             </div>
-
+            </div>
             <footer>
                 {/* 푸터 */}
             </footer>
         </>
     );
 }
+
+
 
 export default SuggestHobbyPost;
