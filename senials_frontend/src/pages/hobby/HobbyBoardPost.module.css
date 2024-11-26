@@ -1,10 +1,10 @@
 .page {
-    width: 1280px;
+    width: 1008px;
     margin: 0 auto;  
 }
 
 .title {
-    font-size: 26.4px;
+    font-size: 33px;
     text-align: left;
     margin-bottom: 20px;
     font-weight: bold;
@@ -18,7 +18,7 @@
 .top3List {
     display: flex;
     justify-content: center;
-    gap: 250px;
+    gap: 125px;
     margin-bottom: 30px;
 }
 
@@ -31,7 +31,7 @@
 }
 
 .top3Name {
-    font-size: 1.2em;
+    font-size: 23px;
     font-weight: bold;
 }
 
