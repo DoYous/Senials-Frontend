@@ -14,42 +14,48 @@ function PartyMeetModify() {
                             <div className={styles.flexDiv}>
                                 <h7 className={common.secondFont}><label htmlFor="meetStartDate">시작 일정</label></h7>
                                 <div className={styles.inputDiv}>
-                                    <input type="date" id="meetStartDate" name="meetStartDate" className={styles.inputStyle}/>
-                                    <input type="time" id="meetStartTime" name="meetStartTime" className={`${styles.marginLeft} ${styles.inputStyle}`}/>
+                                    <input type="date" id="meetStartDate" name="meetStartDate"
+                                           className={styles.inputStyle}/>
+                                    <input type="time" id="meetStartTime" name="meetStartTime"
+                                           className={`${styles.marginLeft} ${styles.inputStyle}`}/>
                                 </div>
                             </div>
                             <div className={styles.flexDiv}>
-                                <h7  className={common.secondFont}><label htmlFor="meetEndDate">종료 일정</label></h7>
+                                <h7 className={common.secondFont}><label htmlFor="meetEndDate">종료 일정</label></h7>
                                 <div className={styles.inputDiv}>
-                                    <input type="date" id="meetEndDate" name="meetEndDate"  className={styles.inputStyle}/>
-                                    <input type="time" id="meetEndTime" name="meetEndTime" className={`${styles.marginLeft} ${styles.inputStyle}`}/>
+                                    <input type="date" id="meetEndDate" name="meetEndDate"
+                                           className={styles.inputStyle}/>
+                                    <input type="time" id="meetEndTime" name="meetEndTime"
+                                           className={`${styles.marginLeft} ${styles.inputStyle}`}/>
                                 </div>
                             </div>
 
                             <div className={styles.flexDiv}>
                                 <div className={common.secondFont}>모집인원</div>
                                 <div className={styles.inputDiv}>
-                                    <input type="number" placeholder="모집인원을 정해주세요!"  className={styles.inputStyle}/>
+                                    <input type="number" placeholder="모집인원을 정해주세요!" className={styles.inputStyle}/>
                                 </div>
                             </div>
 
                             <div className={styles.flexDiv}>
                                 <div className={common.secondFont}>참가비용</div>
                                 <div className={styles.inputDiv}>
-                                    <input type="number" placeholder="참가비용을 정해주세요!"  className={styles.inputStyle}/>
+                                    <input type="number" placeholder="참가비용을 정해주세요!" className={styles.inputStyle}/>
                                 </div>
                             </div>
 
                             <div className={styles.flexDiv}>
                                 <h7 className={common.secondFont}>위치</h7>
                                 <div className={styles.inputDiv}>
-                                    <input type="text" placeholder="정확한 위치를 작성해주세요!" className={styles.inputStyle} />
+                                    <input type="text" placeholder="정확한 위치를 작성해주세요!" className={styles.inputStyle}/>
                                 </div>
                             </div>
-                            <div className={styles.btnDiv}>
-                                <button className={`${common.commonBtn} ${styles.marginLeftAuto}`}>삭제</button>
-                                <button className={`${common.commonBtn} ${styles.marginLeft}`}>취소</button>
-                                <button className={`${common.importantBtn} ${styles.marginLeft}`}>제출</button>
+                            <div className={styles.flex}>
+                                <button className={styles.uniqueBtn}>삭제</button>
+                                <div className={styles.flex2}>
+                                    <button className={common.commonBtn}>취소</button>
+                                    <button className={`${common.importantBtn} ${styles.marginLeft}`}>제출</button>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -17,28 +17,33 @@ function PartyReviewModify() {
                             <div className={styles.flexDiv}>
                                 <p className={common.secondFont}><label htmlFor="meetStartDate">최초가입일</label></p>
                                 <div className={styles.inputDiv}>
-                                    <input type="date" id="meetStartDate" name="meetStartDate"  className={styles.inputStyle}/>
-                                    <input type="time" id="meetStartTime" name="meetStartTime"  className={`${styles.marginLeft} ${styles.inputStyle}`}/>
+                                    <input type="date" id="meetStartDate" name="meetStartDate"
+                                           className={styles.inputStyle}/>
+                                    <input type="time" id="meetStartTime" name="meetStartTime"
+                                           className={`${styles.marginLeft} ${styles.inputStyle}`}/>
                                 </div>
                             </div>
 
                             <div className={styles.flexDiv}>
                                 <p className={common.secondFont}>평점을 매겨주세요!</p>
-                                <Star />
+                                <Star/>
                             </div>
 
                             <div className={styles.contentDiv}>
                                 <p className={common.secondFont}>내용</p>
-                                <textarea className={styles.textDiv} id="content" name="content" placeholder="활동이 어땠는지 당신의 이야기를 적어주세요!"></textarea>
+                                <textarea className={styles.textDiv} id="content" name="content"
+                                          placeholder="활동이 어땠는지 당신의 이야기를 적어주세요!"></textarea>
                             </div>
                             <div className={styles.pDiv}>
                                 <p className={`${common.thirdFont} ${styles.pDiv2}`}>1000자 내외</p>
                             </div>
 
-                            <div className={styles.btnDiv}>
-                                <button className={`${common.commonBtn} ${styles.marginLeftAuto}`}>삭제</button>
-                                <button className={`${common.commonBtn} ${styles.marginLeft}`}>취소</button>
-                                <button className={`${styles.importantBtn} ${styles.marginLeft}`}>제출</button>
+                            <div className={styles.flex}>
+                                <button className={styles.uniqueBtn}>삭제</button>
+                                <div className={styles.flex2}>
+                                    <button className={common.commonBtn}>취소</button>
+                                    <button className={`${styles.importantBtn} ${styles.marginLeft}`}>제출</button>
+                                </div>
                             </div>
                         </div>
                     </div>

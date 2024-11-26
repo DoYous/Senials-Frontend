@@ -124,13 +124,13 @@ color: gray;}
     justify-content: flex-end;
 margin-bottom: 20px;}
 .commonBtn {
-    padding: 0 10px;
+    padding: 0 20px;
     background-color: #6CB7DA;
     color: white;
     border: none;
     border-radius: 8px;
     min-width: 80px;
-    height: 30px;
+    height: 35px;
     font-weight: bold;
 }
 .importantBtn {
@@ -144,6 +144,19 @@ margin-bottom: 20px;}
     font-weight: bold;
     font-size: 18px;
 }
+.flex{display: flex;
+    width: 100%;
+    justify-content: space-between;}
+.flex2{}
+.uniqueBtn{    padding: 0 20px;
+    background-color: gray;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    min-width: 80px;
+    height: 35px;
+    font-weight: bold;
+    font-size: 18px;}
 .marginLeftAuto {
     margin-left: auto;
 }
