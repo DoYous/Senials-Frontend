@@ -1,7 +1,3 @@
-.body{
-    font-family: 'Nanum Gothic', sans-serif;
-}
-
 .title {
     padding-left: 350px;
     padding-bottom: 2%;
@@ -40,7 +36,7 @@
     font-size: 1.5em;
 }
 
-.subtitle{
+.subtitle {
     margin-bottom: 25px;
     text-align: center;
     font-weight: bold;
@@ -63,14 +59,13 @@
     align-items: center;
 }
 
-.otherHobbyName{
+.otherHobbyName {
     align-items: left;
     width: 100%;
     margin-left: 75px;
-    font-size:1.2em;
+    font-size: 1.2em;
     font-weight: bold;
     margin-bottom: 23px;
-
 }
 
 .otherHobbyImg {
@@ -88,12 +83,12 @@
 .selectButton > button {
     font-size: 1.5em;
     padding: 10px 40px;
-    color:white;
-    background-color: #6CB7DA ;
-    border:white;
+    color: white;
+    background-color: #6CB7DA;
+    border: white;
     border-radius: 10px;
 }
 
-.selectButton > button:hover{
-    background-color: #61A2DA ;
+.selectButton > button:hover {
+    background-color: #61A2DA;
 }

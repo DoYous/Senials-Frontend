@@ -109,7 +109,7 @@
     gap: 30px;
 }
 
-button, input[type="submit"] {
+.cancleButton, .submitButton {
     padding: 3px 40px;
     font-size: 1.3em;
     cursor: pointer;
@@ -120,18 +120,18 @@ button, input[type="submit"] {
     color: white;
 }
 
-button:hover, input[type="submit"]:hover {
+.cancleButton:hover, .submitButton:hover {
     background-color: #61A2DA;
     color: white;
 }
 
-input[type="submit"] {
+.submitButton {
     background-color: #9B60FA;
     color: white;
     border: 1px solid white;
 }
 
-input[type="submit"]:hover {
+.submitButton:hover {
     background-color: #6c11fd;
     color: white;
 }

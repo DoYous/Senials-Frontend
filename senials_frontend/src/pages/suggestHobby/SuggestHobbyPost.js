@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './suggest-hobby-post.module.css'; 
+import styles from './SuggestHobbyPost.module.css';
 
 function SuggestHobbyPost() {
     return (
@@ -9,14 +9,14 @@ function SuggestHobbyPost() {
             </header>
 
             <div className={styles.title}>
-                이런 <span style={{color:"#FF5391"}}>취미</span> 어떠세요?
+                이런 <span className={styles.highlight}>취미</span> 어떠세요?
             </div>
 
             <div className={styles.hobby}>
                 <div className={styles.resultHobby}>
-                    <img src='/img/sampleImg.png' className={styles.resultHobbyImg} alt="추천 취미" />
+                    <img src="/img/sampleImg.png" className={styles.resultHobbyImg} alt="추천 취미" />
                     <div className={styles.resultHobbyName}>
-                        <span style={{color:"grey"}}>추천 취미:</span> 낚시
+                        <span className={styles.label}>추천 취미:</span> 낚시
                     </div>
                     <div className={styles.resultHobbyDetail}>
                         낚시는 물고기를 잡기 위해 낚싯대, 낚싯줄, 미끼 등을 사용하는 활동입니다. 오랜 역사를 가진 낚시는 과거에는 생계를 위한 수단이었으나,
@@ -26,20 +26,12 @@ function SuggestHobbyPost() {
 
                 <div className={styles.otherHobby}>
                     <div className={styles.subtitle}>비슷한 취미들</div>
-                    <div className={styles.otherHobbyDetail}>
-                        <img src='/img/sampleImg2.png' className={styles.otherHobbyImg} alt="다른 취미" />
-                        <div className={styles.otherHobbyName}>명상하기</div>
-                    </div>
-
-                    <div className={styles.otherHobbyDetail}>
-                        <img src='/img/sampleImg2.png' className={styles.otherHobbyImg} alt="다른 취미" />
-                        <div className={styles.otherHobbyName}>명상하기</div>
-                    </div>
-
-                    <div className={styles.otherHobbyDetail}>
-                        <img src='/img/sampleImg2.png' className={styles.otherHobbyImg} alt="다른 취미" />
-                        <div className={styles.otherHobbyName}>명상하기</div>
-                    </div>
+                    {[1, 2, 3].map((_, index) => (
+                        <div key={index} className={styles.otherHobbyDetail}>
+                            <img src="/img/sampleImg2.png" className={styles.otherHobbyImg} alt="다른 취미" />
+                            <div className={styles.otherHobbyName}>명상하기</div>
+                        </div>
+                    ))}
                 </div>
             </div>
 
