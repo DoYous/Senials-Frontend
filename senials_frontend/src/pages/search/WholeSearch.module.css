@@ -1,12 +1,12 @@
 .centerContainer {
     width: 1280px;
-    height: 100%;
+    min-height: 100vh;
     margin: 0 auto;
     background-color: white;
     /* whole 수정 - 상하 패딩 60, 좌우 패딩 0 */
     padding: 60px 0;
     /* whole 수정 - 컨테이너 그림자 */
-    box-shadow: 0px 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    /* box-shadow: 0px 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23); */
 }
 
 .flex {
@@ -32,14 +32,11 @@
     font-weight: bold;
 }
 
-.showAllBtn {
-    margin-left: auto;
-    background-color: white;
-    color: black;
-    border: 2px grey solid;
-    border-radius: 8px;
-    height: 30px;
-    font-weight: bold;
+.separatorContent {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+    margin-bottom: 32px;
 }
 
 .commonBtn {
@@ -51,6 +48,34 @@
     min-width: 80px;
     height: 30px;
     font-weight: bold;
+}
+
+.commonBtn:hover {
+    background-color: #61a2da;
+}
+
+.showAllBtn {
+    margin-left: auto;
+    padding: 0 10px;
+    background-color: white;
+    color: black;
+    border: 1px grey solid;
+    border-radius: 8px;
+    min-width: 80px;
+    height: 30px;
+    font-weight: bold;
+}
+
+.whiteBtn {
+    padding: 0 10px;
+    background-color: white;
+    color: black;
+    border: 1px grey solid;
+    border-radius: 8px;
+    min-width: 80px;
+    height: 30px;
+    font-weight: bold;
+    text-align: center;
 }
 
 .partySearch {
@@ -83,21 +108,43 @@
 .rateInfo {
     display: flex;
     align-items: center;
-    font-size: 20px;
+    padding: 3px 0;
 }
 
 .filledStar {
-    color: #FF5391;
+    background-image: url('/public/image/filledStar.svg');
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100%;
 }
 
-.unfilledStar {
-    color: black;
+.halfStar {
+    background-image: url('/public/image/filledStar.svg');
+    background-position: left;
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 50%;
+    height: 100%;
+    margin-right: 50%;
+}
+
+.baseStar {
+    background-image: url('/public/image/unfilledStar.svg');
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 18px;
+    height: 18px;
 }
 
 .cardContainer {
     /* cardImage - width와 동일하게 설정해야함 */
     max-width: 240px;
-    margin: 0 auto;
+    /* separatorContent 속성 justify-content: space-between 으로 대체
+    Card 컴포넌트 separatorContent로 감싸야 함 */
+    /* margin: 0 auto; */
 }
 
 .cardImage {
@@ -110,7 +157,13 @@
     background-position: center;
 }
 
-.heart {
+.hobbyCardText {
+    display: flex;
+    align-items: end;
+}
+
+/* 이미지 속 하트 */
+.imgHeart {
     align-self: end;
     margin: 0 5px 5px auto;
     width: 40px;
@@ -119,7 +172,7 @@
 
 .memberInfo {
     display: flex;
-    justify-content: space-between;
+    align-items: center;
 }
 
 .openedParty {
@@ -127,20 +180,22 @@
     padding: 0 10px;
     background-color: white;
     color: #569AFF;
-    border: 2px #569AFF solid;
+    border: 1px #569AFF solid;
     border-radius: 8px;
     height: 30px;
-    font-weight: bold;}
+    font-weight: bold;
+}
 
 .closedParty {
     margin-left: auto;
     padding: 0 10px;
     background-color: white;
     color: black;
-    border: 2px grey solid;
+    border: 1px grey solid;
     border-radius: 8px;
     height: 30px;
-    font-weight: bold;}
+    font-weight: bold;
+}
 
 .ctgrContainer {
     max-width: 180px;
@@ -184,6 +239,10 @@
     margin-left: 10px;
 }
 
+.marginRight {
+    margin-right: 16px;
+}
+
 .marginBottom {
     margin-bottom: 16px;
 }
@@ -201,4 +260,236 @@
 .noSearchResult {
     padding: 16px 0 32px 0;
     color: #999999;
+}
+
+/* PartyDetail */
+/* 모임장 프로필 - 모임 상세 */
+.masterProfile {
+    border-radius: 50%;
+    object-fit: cover;
+    width: 100px;
+    height: 100px;
+}
+
+.separatorLines {
+    display: flex;
+    padding: 0 20px;
+    margin-bottom: 16px;
+}
+
+.meetContainer {
+    display: flex;
+    justify-content: space-between;
+    margin-left: auto; margin-right: auto;
+    margin-bottom: 16px;
+    padding: 20px 30px;
+    width: 80%;
+    height: 170px;
+    border-radius: 8px;
+    box-shadow: 0px 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+.meetDate {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 15%;
+    height: 100%;
+    border-radius: 8px;
+    background-color: #D9D9D9;
+}
+
+.meetInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 70%;
+    height: 100%;
+    border-radius: 8px;
+    color: black;
+}
+
+.meetButtons {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+/* 별점 표현 */
+/* unFilledStar를 베이스로 filledStar / halfStar div를 중첩해 출력 */
+/* 
+    소수점 표현하고 싶은 경우 inline-css로 
+    width: (소수점 * 100)%, margin-right: (100 - width)% 
+*/
+.detailFilledStar {
+    background-image: url('/public/image/filledStar.svg');
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100%;
+}
+
+.detailHalfStar {
+    background-image: url('/public/image/filledStar.svg');
+    background-position: left;
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 50%;
+    height: 100%;
+    margin-right: 50%;
+}
+
+.detailBaseStar {
+    background-image: url('/public/image/unfilledStar.svg');
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 30px;
+    height: 30px;
+}
+
+.detailSmallBaseStar {
+    background-image: url('/public/image/unfilledStar.svg');
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 25px;
+    height: 25px;
+}
+
+.detailRateInfo {
+    display: flex;
+    align-items: center;
+    margin-left: 32px;
+}
+
+.detailRateText {
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 16px;
+}
+
+.reviewContainer {
+    display: flex;
+    margin-left: auto; margin-right: auto;
+    margin-bottom: 16px;
+    padding: 10px 30px;
+    width: 80%;
+}
+
+.reviewContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin-left: 32px;
+}
+
+.memberContainer {
+    display: flex;
+    margin-left: auto; margin-right: auto;
+    margin-bottom: 16px;
+    padding: 10px 30px;
+    width: 80%;
+}
+
+.memberContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin-left: 32px;
+}
+
+/* 캐러셀 */
+.csContainer {
+    margin: 0 auto 0 auto;
+    display: flex;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.csInner {
+    display: flex;
+    width: 100%;
+    transition: all 0.5s;
+}
+
+.csItem {
+    flex: none;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.csPrev {
+    background-image: url('/public/image/arrow-left.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    width: 35px;
+}
+.csPrev:hover {
+    cursor: pointer;
+}
+
+.csNext {
+    background-image: url('/public/image/arrow-right.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    width: 35px;
+}
+.csNext:hover {
+    cursor: pointer;
+}
+
+/* 무한 캐러셀 */
+.mcsContainer {
+    display: flex;
+    justify-content: center;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.mcsInner {
+    display: flex;
+    transition: all 0.3s;
+    position: relative;
+}
+
+.mcsItem {
+    flex: none;
+    width: 520px;
+    margin-left: 15px;
+    margin-right: 15px;
+    border-radius: 10px;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.mcsPrev {
+    background-image: url('/public/image/arrow-left.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    width: 35px;
+}
+.mcsPrev:hover {
+    cursor: pointer;
+}
+
+.mcsNext {
+    background-image: url('/public/image/arrow-right.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    width: 35px;
+}
+.mcsNext:hover {
+    cursor: pointer;
 }

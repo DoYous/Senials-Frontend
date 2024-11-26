@@ -18,7 +18,7 @@ function WholeSearch() {
                 </span>
             </div>
             <hr />
-            <div className={`${styles.flexCenter} ${styles.marginBottom2}`}>
+            <div className={`${styles.separatorContent}`}>
                 <Card />
                 <Card />
                 <Card />
@@ -35,18 +35,31 @@ function WholeSearch() {
                 </span>
             </div>
             <hr />
-            {/* <Row className={styles.marginBottom2}>
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-            </Row>
-            <div className={styles.flexCenter}>
-                <button className={`${styles.commonBtn} ${styles.loadBtn}`}>더보기</button>
-            </div> */}
+
             <div className={styles.flexCenter}>
                 <span className={`${styles.noSearchResult} ${styles.firstFont}`}>검색결과가 존재하지 않습니다.</span>
+            </div>
+        </div>
+    )
+}
+
+function Rate() {
+    return (
+        <div className={`${styles.rateInfo}`}>
+            <div className={`${styles.baseStar}`}>
+                <div className={`${styles.filledStar}`}></div>
+            </div>
+            <div className={`${styles.baseStar}`}>
+                <div className={`${styles.filledStar}`}></div>
+            </div>
+            <div className={`${styles.baseStar}`}>
+                <div className={`${styles.filledStar}`}></div>
+            </div>
+            <div className={`${styles.baseStar}`}>
+                <div className={`${styles.filledStar}`}></div>
+            </div>
+            <div className={`${styles.baseStar}`}>
+                <div className={`${styles.halfStar}`} style={{width: '30%', marginRight: '70%'}}></div>
             </div>
         </div>
     )
@@ -56,12 +69,11 @@ function Card() {
   return (
     <div className={styles.cardContainer}>
         <div className={styles.cardImage} style={{backgroundImage: 'url(/image/cat.jpg)'}}>
-            <img className={styles.heart} src='/image/unfilledHeart.svg'/>
+            <img className={styles.imgHeart} src='/image/unfilledHeart.svg'/>
         </div>
         <div className={`${styles.secondFont}`}>농구 같이 할 사람~</div>
         <div className={styles.rateInfo}>
-            <span className={styles.filledStar}>★★★</span>
-            <span className={styles.unfilledStar}>☆☆</span>
+            <Rate />
         </div>
         <div className={styles.memberInfo}>
             <img src='/image/people.svg' style={{width: '20px'}}/>&nbsp;
