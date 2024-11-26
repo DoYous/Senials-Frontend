@@ -11,7 +11,7 @@ function BoardOverview() {
             <div className={styles.separator}>
                 {/* marinLeft css 개선 해야함 */}
                 <span className={`${styles.firstFont}`}>
-                    👑 <span className={styles.pointColor}>인기</span> TOP 3
+                    👑&nbsp;<span className={styles.pointColor}>인기</span>&nbsp;추천&nbsp;모임
                 </span>
             </div>
             <div className={`${styles.separatorContent}`}>

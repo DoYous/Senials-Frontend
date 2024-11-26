@@ -9,7 +9,7 @@ function Board() {
         <div className={styles.centerContainer}>
             <div className={styles.separator}>
                 <span className={`${styles.firstFont}`}>
-                    👑 <span className={styles.pointColor}>인기</span> TOP 3
+                    👑&nbsp;<span className={styles.pointColor}>인기</span>&nbsp;추천&nbsp;모임
                 </span>
                 <button className={`${styles.showAllBtn} ${styles.thirdFont}`}>전체보기</button>
             </div>
