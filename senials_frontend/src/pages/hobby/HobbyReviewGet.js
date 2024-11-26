@@ -3,7 +3,9 @@ import styles from "./HobbyReviewGet.module.css";
 
 function HobbyReviewGet() {
     return (
-        <div className={styles.page}>
+        <>    
+            <div className={styles.background}></div>    
+            <div className={styles.page}>
             <div className={styles.writeReview}>
                 <div className={styles.title}>
                     <span style={{color: "#FF5391"}}>후기</span>를 적어주세요!
@@ -61,6 +63,7 @@ function HobbyReviewGet() {
                 </form>
             </div>
         </div>
+        </>
     );
 }
 

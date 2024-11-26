@@ -1,8 +1,13 @@
 .background {
+    position: absolute; 
+    top: 0; 
+    left: 0;
+    width: 100%;
+    height: 70vh;
+    background-size:cover;
     background-image: url('/public/img/suggest-hobby-background-img.png');   
-    background-position: top left;
     background-repeat: no-repeat;
-    background-size: 100% auto;   
+    z-index: -1; 
 }
 
 .suggestBox {
@@ -17,7 +22,7 @@
 
 .title {
     display: flex;
-    font-size: 50px;
+    font-size: 40px;
     font-weight: bold;
     justify-content: center;
     padding-top: 15px;
@@ -36,22 +41,27 @@
 
 .hobbyGet > select {
     width: 868px;
-    height: 83px;
+    height: 75px;
     margin: 30px auto;
-    font-size: 30px;
+    font-size: 23px;
     border-radius: 10px;
     padding-left: 3%;
 
-    cursor: pointer;
-    background-size: 20px 20px;
-    padding-right: 30px;     
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    background:url('/public/img/arrow.png') no-repeat 97% 50%/30px auto;
+
+    
 }
 
+
 .submit {
-    width: 491px;
-    height: 110px;
+    width: 300px;
+    height: 70px;
     margin: 5% auto;
-    font-size: 40px;
+    font-size: 33px;
     color: white;
     background-color: #6CB7DA ;
     border: white;

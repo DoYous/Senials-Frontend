@@ -10,7 +10,7 @@ function SuggestHobbyGet() {
             <div className={style.background}></div>
             <div className={style.suggestBox}>
                 <div className={style.title}>
-                    당신만의 <span className={style.pink}>취미</span>를 찾아보세요!
+                    당신만의 <span className={style.pink}>&nbsp;취미</span>를 찾아보세요!
                 </div>
                 <form className={style.hobbyGet}>
                     <select className={style.hobbyAbility}>
