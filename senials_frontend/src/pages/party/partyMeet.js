@@ -27,14 +27,14 @@ function PartyMeet() {
                     </div>
 
                     <div className={styles.flexDiv}>
-                    <h3 className={common.secondFont}>모집인원</h3>
+                    <div className={common.secondFont}>모집인원</div>
                         <div className={styles.inputDiv}>
                             <input type="number" placeholder="모집인원을 정해주세요!"  className={styles.inputStyle}/>
                         </div>
                     </div>
 
                     <div className={styles.flexDiv}>
-                    <h7 className={common.secondFont}>참가비용</h7>
+                    <div className={common.secondFont}>참가비용</div>
                         <div className={styles.inputDiv}>
                             <input type="number" placeholder="참가비용을 정해주세요!"  className={styles.inputStyle}/>
                         </div>
@@ -47,8 +47,8 @@ function PartyMeet() {
                         </div>
                         </div>
                     <div className={styles.btnDiv}>
-                        <button className={`${styles.commonBtn} ${styles.marginLeftAuto}`}>취소</button>
-                        <button className={`${styles.importantBtn} ${styles.marginLeft}`}>제출</button>
+                        <button className={`${common.commonBtn} ${styles.marginLeftAuto}`}>취소</button>
+                        <button className={`${common.importantBtn} ${styles.marginLeft}`}>제출</button>
                     </div>
                 </div>
             </div>

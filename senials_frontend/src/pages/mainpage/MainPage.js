@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 // CSS
-import styles from './MainPage.module.css';
+import styles from '../common/MainVer1.module.css';
 
 function MainPage() {
 
@@ -16,7 +16,7 @@ function MainPage() {
                 <span className={`${styles.firstFont}`}>
                     이달의&nbsp;<span className={`${styles.pointColor}`}>인기</span>&nbsp;취미
                 </span>
-                <button className={`${styles.whiteBtn} ms-auto`}>전체보기</button>
+                <button className={`${styles.whiteBtn} ${styles.thirdFont} ${styles.mlAuto}`}>전체보기</button>
             </div>
             <div className={`${styles.separatorContent}`}>
                 <HobbyCard />
@@ -30,7 +30,7 @@ function MainPage() {
                 <span className={`${styles.firstFont}`}>
                     <span className={`${styles.pointColor}`}>핫</span>&nbsp;매칭&nbsp;게시글
                 </span>
-                <button className={`${styles.whiteBtn} ms-auto`}>전체보기</button>
+                <button className={`${styles.whiteBtn} ${styles.thirdFont} ${styles.mlAuto}`}>전체보기</button>
             </div>
             <div className={`${styles.separatorContent}`}>
                 <PartyCard />

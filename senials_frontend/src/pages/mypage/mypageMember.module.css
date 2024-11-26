@@ -85,7 +85,8 @@
     display: flex;
     align-items: center;
 }
-.selectSort{border: none;}
+.selectSort{border: none;
+font-size: 18px;}
 .searchDiv{border: 1px solid #000000;
     border-radius: 8px;
     height: 40px;
@@ -94,8 +95,10 @@
     align-items: center;
     align-content: center;
     flex-direction: row;
-    margin-left: 10px;}
-.searchDiv input{border: none;}
+    margin-left: 10px;
+    padding: 0px 10px;}
+.searchDiv input{border: none;
+font-size: 18px;}
 
 /*밑줄*/
 .divHr {

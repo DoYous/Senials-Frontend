@@ -10,8 +10,8 @@ function MypageCalender() {
             <div className={styles.profile}></div>
             <div className={styles.smallDiv}>
                 <div className={styles.mainDiv}>
-                <h1 className={common.firstFont}>닉네임</h1>
-                <p className={`${styles.oneLine} ${common.secondFont}`}>한줄 소개</p>
+                <div className={common.firstFont}>닉네임</div>
+                <div className={`${styles.oneLine} ${common.secondFont}`}>한줄 소개</div>
                 </div>
                 <div className={styles.hashDiv}>
                     <div className={styles.hash}>
@@ -19,27 +19,27 @@ function MypageCalender() {
                         <p>해시태그</p>
                         <p>해시태그</p>
                     </div>
-                    <button type={"submit"} className={styles.commonBtn}>관심사 설정</button>
+                    <button type={"submit"} className={common.commonBtn}>관심사 설정</button>
                 </div>
                 <div className={styles.contentsDiv}>
                     <div className={styles.contentDiv1}>
-                        <h3 className={common.firstFont}>좋아요 한 모임</h3>
-                        <h3 className={`${styles.gray} ${common.firstFont}`}>00</h3>
+                        <div className={common.secondFont}>좋아요 한 모임</div>
+                        <div className={`${styles.gray} ${common.secondFont}`}>00</div>
                     </div>
                     <div className={styles.contentDiv2}>
-                        <h3  className={common.firstFont}>참여 모임</h3>
-                        <h3 className={`${styles.gray} ${common.firstFont}`}>00</h3>
+                        <div  className={common.secondFont}>참여 모임</div>
+                        <div className={`${styles.gray} ${common.secondFont}`}>00</div>
                     </div>
                     <div className={styles.contentDiv3}>
-                        <h3  className={common.firstFont}>생성 모임</h3>
-                        <h3 className={`${styles.gray} ${common.firstFont}`}>00</h3>
+                        <div className={common.secondFont}>생성 모임</div>
+                        <div className={`${styles.gray} ${common.secondFont}`}>00</div>
                     </div>
                 </div>
                 <div className={styles.calender}>캘린더 영역</div>
 
                     <div className={styles.btnDiv}>
-                        <button className={`${styles.commonBtn} ${styles.marginLeftAuto}`}>회원정보 변경</button>
-                        <button className={`${styles.importantBtn} ${styles.marginLeft}`}>회원 탈퇴</button>
+                        <button className={`${common.commonBtn} ${styles.marginLeftAuto}`}>회원정보 변경</button>
+                        <button className={`${common.importantBtn} ${styles.marginLeft}`}>회원 탈퇴</button>
                     </div>
             </div>
         </div>

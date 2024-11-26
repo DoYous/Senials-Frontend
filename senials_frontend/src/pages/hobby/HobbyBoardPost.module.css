@@ -1,11 +1,10 @@
 .page {
-    font-family: 'Nanum Gothic', sans-serif;
-    padding: 30px 500px;
-    
+    width: 1280px;
+    margin: 0 auto;  
 }
 
 .title {
-    font-size: 2em;
+    font-size: 26.4px;
     text-align: left;
     margin-bottom: 20px;
     font-weight: bold;
@@ -19,7 +18,7 @@
 .top3List {
     display: flex;
     justify-content: center;
-    gap: 70px;
+    gap: 250px;
     margin-bottom: 30px;
 }
 

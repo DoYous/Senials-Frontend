@@ -1,7 +1,7 @@
 import styles from './mypageMember.module.css';
 import common from '../common/common.module.css';
 import React, { useState } from "react";
-import { FaAngleLeft, FaSearch } from "react-icons/fa";
+import {FaAngleLeft, FaBell, FaSearch} from "react-icons/fa";
 import { MdOutlineCheckBoxOutlineBlank, MdCheckBox, MdCheckBoxOutlineBlank } from "react-icons/md";
 
 function MypageMember() {
@@ -29,7 +29,7 @@ function MypageMember() {
             <div className={styles.bigDiv}>
                 <div className={styles.modifyDiv}>
                     <div className={styles.bigName}>
-                        <FaAngleLeft />
+                        <FaAngleLeft size={20}/>
                         <div className={`${styles.nameflexDiv} ${common.firstFont}`}>
                             <div className={`${styles.pink} ${styles.marginLeft}`}>모임이름</div>
                             <div className={styles.marginLeft}>- 멤버 목록</div>
@@ -54,7 +54,7 @@ function MypageMember() {
                                 </div>
                                 <div className={`${styles.flexDiv} ${styles.searchDiv}`}>
                                     <input type="text" placeholder="닉네임 검색" />
-                                    <button className={styles.iconDiv}><FaSearch /></button>
+                                    <button className={styles.iconDiv}><FaSearch size={20}/></button>
                                 </div>
                             </div>
                         </div>
@@ -68,7 +68,7 @@ function MypageMember() {
                     ))}
                 </div>
                 <div className={styles.lastBtn}>
-                    <button type="submit" className={`${styles.flexDiv} ${styles.reportDiv}`}>
+                    <button type="submit" className={`${styles.flexDiv} ${common.reportDiv}`}>
                         추방
                     </button>
                 </div>
@@ -102,8 +102,8 @@ function Profile({ isChecked, onClick }) {
                         </div>
                     </div>
                 </div>
-                <button type="submit" className={`${styles.flexDiv} ${styles.reportDiv}`}>
-                    신고
+                <button type="submit" className={`${styles.flexDiv} ${common.reportDiv}`}>
+                    <FaBell/>신고
                 </button>
             </div>
             <hr className={styles.divHr} />

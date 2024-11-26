@@ -1,5 +1,11 @@
+.background{
+
+}
+
 .page {
-    padding: 5% 30%;
+    background-color: white;
+    width: 1008px;
+    margin: 120px auto;
 }
 
 .writeReview {

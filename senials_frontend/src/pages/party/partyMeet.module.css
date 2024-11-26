@@ -46,15 +46,16 @@
     align-items: center;
     justify-content: center;
 }
-.inputStyle{    border: 1.3px solid #999999;
+.inputStyle{border: 1.3px solid #999999;
     padding: 0px 10px;
     border-radius: 8px;
-    height: 100%;
+    height: 35px;
     width: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-around;}
+    justify-content: space-around;
+    font-size: 18px;}
 .btnDiv{width: 100%;
     display: flex;
     flex-direction: row;

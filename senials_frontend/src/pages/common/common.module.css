@@ -1,6 +1,12 @@
-body {
-    font-family: 'Nanum Gothic', sans-serif;
+body{
+    font-family: 'Pretendard', sans-serif;
 }
+/*@import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+body {
+    font-family: "Gowun Dodum", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}*/
 /* 전체 영역 설정 */
 .centerContainer {
     max-width: 1008px;
@@ -16,8 +22,31 @@ body {
     padding: 0 20px;
     margin-bottom: 16px;
 }
+/* 검색창 */
+.searchDiv{border: 1px solid #000000;
+    border-radius: 8px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    flex-direction: row;
+    margin-top: 10px;
+    padding: 0px 10px;
+    font-size: 18px;}
+.searchDiv input{border: none;
+    font-size: 18px;}
 
 /* 버튼 */
+/*파란색 기본 버튼*/
+.commonBtn{padding: 0 20px;
+    background-color: #6CB7DA;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    min-width: 80px;
+    height: 35px;
+    font-weight: bold;
+    font-size: 18px;}
 .showAllBtn {
     margin-left: auto;
     background-color: white;
@@ -26,7 +55,36 @@ body {
     border-radius: 8px;
     height: 30px;
     font-weight: bold;
+    text-align: center;
+    font-size: 18px;
+    padding: 0px 20px;
 }
+/* 보라색 버튼 */
+.importantBtn {
+    padding: 0 20px;
+    background-color: #9B60FA;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    min-width: 80px;
+    height: 35px;
+    font-weight: bold;
+    font-size: 18px;
+}
+/* 신고 버튼 */
+.reportDiv{margin: 0px;
+    border: 2px solid #999999;
+    border-radius: 8px;
+    background: none;
+    color: red;
+    cursor: pointer;
+    height: 35px;
+    padding: 0px 12px;
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    font-weight: bold;
+    justify-content: space-around;}
 
 .rateInfo {
     display: flex;
@@ -45,25 +103,28 @@ body {
 
 /* 글자 크기 */
 .firstFont {
-    font-size: 26.4px;
+    font-size: 33px;
     font-weight: bold;
 }
 
 .secondFont {
-    font-size: 20px;
+    font-size: 23px;
     font-weight: bold;
 }
 .secondFont2{
-    font-size: 20px;
+    font-size: 23px;
 }
 
 .thirdFont {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: bold;
+}
+.thirdFont2 {
+    font-size: 18px;
 }
 
 .fourthFont {
-    font-size: 14px;
+    font-size: 16px;
     font-weight: bold;
 }
 
@@ -71,3 +132,6 @@ body {
 .pointColor {
     color: #FF5391;
 }
+
+/*margin*/
+.marginRight{margin-right: 10px;}
