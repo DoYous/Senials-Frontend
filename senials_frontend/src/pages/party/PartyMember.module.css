@@ -77,7 +77,7 @@ background: none;}
 /* 검색창 */
 .searchDiv{border: 1px solid #000000;
     border-radius: 8px;
-    height: 40px;
+    height: 35px;
     display: flex;
     align-items: center;
     align-content: center;

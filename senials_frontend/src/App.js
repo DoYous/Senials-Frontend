@@ -32,6 +32,8 @@ import HobbyTagBoardPost from './pages/hobby/HobbyTagBoardPost';
 import MypageLikedParty from "./pages/mypage/MypageLikedParty";
 import MypageMade from "./pages/mypage/MypageMade";
 import MypageParticipate from "./pages/mypage/MypageParticipate";
+import PartyMeetModify from "./pages/party/PartyMeetModify";
+import PartyReviewModify from "./pages/party/PartyReviewModify";
 
 function App() {
     return (
@@ -61,12 +63,18 @@ function App() {
                         <Route path='party-number' element={<PartyDetail />} />
                         <Route path='write' element={<BoardWrite />} />
                         <Route path='update' element={<BoardUpdate />} />
-                        {/*매칭 게시판 멤버 확인*/}
+                        {/*매칭 게시판 일정 멤버 확인*/}
                         <Route path="member" element={<PartyMember />} />
+                        {/*매칭 게시판 일정 멤버 관리*/}
+
                         {/*매칭게시판 상세 일정 추가*/}
                         <Route path="meet" element={<PartyMeet />} />
+                        {/*매칭게시판 상세 일정 수정*/}
+                        <Route path="meet-modify" element={<PartyMeetModify />} />
                         {/*매칭게시판 상세 모임 후기 작성하기*/}
                         <Route path="review" element={<PartyReview />} />
+                        {/*매칭게시판 상세 모임 후기 수정하기*/}
+                        <Route path="review-modify" element={<PartyReviewModify />} />
                     </Route>
 
                     <Route path='mypage'>

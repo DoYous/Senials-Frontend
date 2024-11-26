@@ -3,7 +3,7 @@ import common from '../common/Common.module.css';
 import React, { useState } from "react";
 import {FaAngleLeft, FaBell, FaSearch} from "react-icons/fa";
 import { MdOutlineCheckBoxOutlineBlank, MdCheckBox, MdCheckBoxOutlineBlank } from "react-icons/md";
-
+/*모임 멤버 전체 보기*/
 function MypageMember() {
     const [selectAll, setSelectAll] = useState(false); /*전체 선택 상태*/
     const [checkedItems, setCheckedItems] = useState(new Array(3).fill(false)); /*각 멤버 선택 상태 근데 데이터양에 따라 달라질게 해야함*/
@@ -67,6 +67,7 @@ function MypageMember() {
                         />
                     ))}
                 </div>
+                {/*본인이 만든 모임일시에만 추방버튼 보이게*/}
                 <div className={styles.lastBtn}>
                     <button type="submit" className={`${styles.flexDiv} ${common.reportDiv}`}>
                         추방
