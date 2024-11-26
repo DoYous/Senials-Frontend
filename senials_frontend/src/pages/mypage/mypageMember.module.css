@@ -14,12 +14,11 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    min-width: 1020px;
     padding: 120px 0px;}
 .smallDiv{
     height: 65%;
     background: white;
-    width: 70%;
+    width: 1280px;
     display: flex;
     flex-direction: column;
     align-content: center;
@@ -38,7 +37,7 @@
 }
 
 .modifyDiv{display: flex;
-    width: 70%;
+    width: 1280px;
     flex-direction: column;
     align-items: center;
     align-content: center;
@@ -74,7 +73,8 @@
     align-content: center;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;}
+    margin-bottom: 20px;
+    margin-top: 10px;}
 .smallSearchDiv{display: flex;
     align-items: center;
     align-content: center;
@@ -94,7 +94,6 @@
     align-items: center;
     align-content: center;
     flex-direction: row;
-    margin-top: 10px;
     margin-left: 10px;}
 .searchDiv input{border: none;}
 
@@ -109,8 +108,6 @@
 .iconDiv{border:none;
     background: none;}
 
-/*없는 글자 취급*/
-.none{color: white;}
 
 /*메인 영역 (프로필 목록) */
 .mainContentsDiv{    display: flex;
@@ -145,6 +142,14 @@
     margin-bottom: 0px;}
 .mainContentDiv h3{margin: 3px;}
 .mainContentDiv p{margin: 3px; color: gray;}
+.bigProfileDiv{    display: flex;
+    flex-direction: column;
+    align-items: flex-start;}
+.bigProfileDiv h3{margin-left: 60px;}
+.smallProfileDiv{display: flex;
+    flex-direction: row;
+    align-items: center;}
+
 .reportDiv{margin: 0px;
     border: 1px solid #999999;
     border-radius: 8px;
@@ -161,5 +166,5 @@
 /*추방*/
 .lastBtn{display: flex;
     justify-content: flex-end;
-    width: 70%;
+    width: 1280px;
     margin-top: 20px;}

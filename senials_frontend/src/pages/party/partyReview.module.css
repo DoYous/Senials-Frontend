@@ -17,7 +17,7 @@ padding: 120px 0px;}
 .smallDiv{
     height: 70%;
     background: white;
-    width: 70%;
+    width: 1008px;
     display: flex;
     flex-direction: column;
     align-content: center;
@@ -59,19 +59,42 @@ padding: 120px 0px;}
     display: flex;
     flex-direction: column;
     align-items: flex-start;}
+
+/* star */
 .rateInfo {
     display: flex;
     align-items: center;
     font-size: 25px;
 }
 
-.filledStar {
-    color: #FF5391;
+.baseStar {
+    background-image: url('/public/image/unfilledStar.svg');
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 40px;
+    height: 28px;
+    cursor: pointer;
 }
 
-.unfilledStar {
-    color: black;
+.filledStar {
+    background-image: url('/public/image/filledStar.svg');
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
 }
+
+.halfStar {
+    background-image: url('/public/image/filledStar.svg');
+    background-position: left;
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 50%;
+    height: 100%;
+    margin-right: 50%;
+}
+
+
 .contentDiv{
     width: 98%;
 }
@@ -82,6 +105,7 @@ padding: 120px 0px;}
     padding: 10px;
     margin-bottom: 5px;
     margin-top: 20px;
+    resize: none;
 }
 .pDiv{display: flex
 ;
