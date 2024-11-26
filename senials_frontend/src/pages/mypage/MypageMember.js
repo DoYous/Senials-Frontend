@@ -1,5 +1,5 @@
-import styles from './mypageMember.module.css';
-import common from '../common/common.module.css';
+import styles from './MypageMember.module.css';
+import common from '../common/Common.module.css';
 import React, { useState } from "react";
 import {FaAngleLeft, FaBell, FaSearch} from "react-icons/fa";
 import { MdOutlineCheckBoxOutlineBlank, MdCheckBox, MdCheckBoxOutlineBlank } from "react-icons/md";

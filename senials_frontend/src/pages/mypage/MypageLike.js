@@ -1,5 +1,5 @@
-import styles from './mypageLike.module.css';
-import common from '../common/common.module.css';
+import styles from './MypageLike.module.css';
+import common from '../common/Common.module.css';
 import React, { useState } from "react";
 /*아이콘*/
 import { FaAngleLeft, FaAngleUp, FaAngleDown } from "react-icons/fa6";

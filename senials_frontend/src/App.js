@@ -13,14 +13,14 @@ import BoardWrite from './pages/party/BoardWrite.js';
 import BoardUpdate from './pages/party/BoardUpdate.js';
 import WholeSearch from './pages/search/WholeSearch.js';
 
-import PartyMember from "./pages/party/partyMember";
-import PartyMeet from "./pages/party/partyMeet";
-import PartyReview from "./pages/party/partyReview";
-import MypageModify from "./pages/mypage/mypageModify";
-import MypageCalender from "./pages/mypage/mypageCalender";
-import MypageLike from "./pages/mypage/mypageLike";
-import Mypage from "./pages/mypage/mypage";
-import MypageMember from "./pages/mypage/mypageMember";
+import PartyMember from "./pages/party/PartyMember";
+import PartyMeet from "./pages/party/PartyMeet";
+import PartyReview from "./pages/party/PartyReview";
+import MypageModify from "./pages/mypage/MypageModify";
+import MypageCalender from "./pages/mypage/MypageCalender";
+import MypageLike from "./pages/mypage/MypageLike";
+import Mypage from "./pages/mypage/Mypage";
+import MypageMember from "./pages/mypage/MypageMember";
 
 import SuggestHobbyGet from './pages/suggestHobby/SuggestHobbyGet.js';
 import SuggestHobbyPost from './pages/suggestHobby/SuggestHobbyPost.js';
@@ -29,9 +29,9 @@ import HobbyDetailPost from './pages/hobby/HobbyDetailPost.js';
 import HobbyReviewGet from './pages/hobby/HobbyReviewGet';
 import HobbyReviewModify from './pages/hobby/HobbyReviewModify';
 import HobbyTagBoardPost from './pages/hobby/HobbyTagBoardPost';
-import MypageLikedParty from "./pages/mypage/mypageLikedParty";
-import MypageMade from "./pages/mypage/mypageMade";
-import MypageParticipate from "./pages/mypage/mypageParticipate";
+import MypageLikedParty from "./pages/mypage/MypageLikedParty";
+import MypageMade from "./pages/mypage/MypageMade";
+import MypageParticipate from "./pages/mypage/MypageParticipate";
 
 function App() {
     return (
