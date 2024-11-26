@@ -36,7 +36,7 @@ function PartyReview() {
                             </div>
 
                             <div className={styles.btnDiv}>
-                                <button className={`${styles.commonBtn} ${styles.marginLeftAuto}`}>취소</button>
+                                <button className={`${common.commonBtn} ${styles.marginLeftAuto}`}>취소</button>
                                 <button className={`${styles.importantBtn} ${styles.marginLeft}`}>제출</button>
                             </div>
                         </div>
