@@ -29,6 +29,9 @@ import HobbyDetailPost from './pages/hobby/HobbyDetailPost.js';
 import HobbyReviewGet from './pages/hobby/HobbyReviewGet';
 import HobbyReviewModify from './pages/hobby/HobbyReviewModify';
 import HobbyTagBoardPost from './pages/hobby/HobbyTagBoardPost';
+import MypageLikedParty from "./pages/mypage/mypageLikedParty";
+import MypageMade from "./pages/mypage/mypageMade";
+import MypageParticipate from "./pages/mypage/mypageParticipate";
 
 function App() {
     return (
@@ -77,6 +80,12 @@ function App() {
                         <Route path="" element={<Mypage />} />
                         {/*모임 전체 멤버 관리*/}
                         <Route path="member" element={<MypageMember />} />
+                        {/*좋아요 한 모임*/}
+                        <Route path="likedparty" element={<MypageLikedParty />}/>
+                        {/*참여 한 모임*/}
+                        <Route path="participate" element={<MypageParticipate />}/>
+                        {/*생성 모임*/}
+                        <Route path="made" element={<MypageMade />}/>
                     </Route>
                 </Route>
             </Routes>

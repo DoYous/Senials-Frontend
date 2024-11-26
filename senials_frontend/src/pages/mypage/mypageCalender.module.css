@@ -22,6 +22,19 @@
     border: 1px solid lightgray;
     position: relative; /* profile이 smallDiv 위에 정확히 겹치도록 설정 */
 }
+.mypageSmallDiv{    height: 70%;
+    background: white;
+    width: 1280px;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    padding: 20px;
+    padding-bottom: 50px;
+    border-radius: 10px;
+    border: 1px solid lightgray;
+    position: relative;
+}
 .mainDiv{display: flex;
     flex-direction: column;
     align-items: center;

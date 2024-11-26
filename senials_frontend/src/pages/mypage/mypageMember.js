@@ -30,15 +30,15 @@ function MypageMember() {
                 <div className={styles.modifyDiv}>
                     <div className={styles.bigName}>
                         <FaAngleLeft />
-                        <h1 className={`${styles.nameflexDiv} ${common.firstFont}`}>
-                            <div className={styles.pink}>모임이름</div>
-                            - 멤버 목록
-                        </h1>
+                        <div className={`${styles.nameflexDiv} ${common.firstFont}`}>
+                            <div className={`${styles.pink} ${styles.marginLeft}`}>모임이름</div>
+                            <div className={styles.marginLeft}>- 멤버 목록</div>
+                        </div>
                     </div>
-                    <hr className={styles.divHr} />
+                    <hr className={styles.divHr}/>
                 </div>
                 <div className={styles.smallDiv}>
-                    <div className={styles.mainDiv}>
+                <div className={styles.mainDiv}>
                         <div className={styles.bigSearchDiv}>
                             <div onClick={handleSelectAll} style={{ cursor: "pointer" }}>
                                 {selectAll ? <MdCheckBox  size={25}/> : <MdCheckBoxOutlineBlank  size={25}/>}

@@ -13,15 +13,15 @@ function MypageModify() {
                 <div className={styles.modifyDiv}>
                     <div className={styles.bigName}>
                         <FaAngleLeft/>
-                        <h1 className={`${styles.nameflexDiv} ${common.firstFont}`}>
-                            <div className={styles.pink}>회원정보 </div>
-                             변경
-                        </h1>
+                        <div className={`${styles.nameflexDiv} ${common.firstFont}`}>
+                            <div className={`${styles.pink} ${styles.marginLeft}`}>회원정보</div>
+                            <div className={styles.marginLeft}>변경</div>
+                        </div>
                     </div>
                     <hr className={styles.divHr}/>
                 </div>
                 <div className={styles.smallDiv}>
-                    <div className={styles.mainDiv}>
+                <div className={styles.mainDiv}>
                     <div className={styles.mainName}>
                         <div className={`${common.secondFont} ${styles.margin0} ${styles.profileFlex}`}><div className={styles.profile}></div>프로필 사진 변경</div>
                         <button className={styles.profileChange}>
