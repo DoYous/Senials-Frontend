@@ -63,16 +63,18 @@ margin-bottom: 0px;}
     align-items: center;
     flex-direction: row;}
 .nickNameDiv{padding: 0 10px;
-    border: 1px solid #999999;
+    border: 2px solid #999999;
     border-radius: 8px;
     min-width: 80px;
-    height: 30px;
+    height: 35px;
     display: flex;
     align-items: center;
     color: #656565;
     justify-content: center;
-font-weight: normal;
-    margin: 0px;}
+    font-weight: normal;
+    margin: 0px;
+    font-size: 18px;
+}
 .contentDiv{border: #999999 1px solid;
     display: flex;
     align-items: flex-start;
@@ -84,6 +86,7 @@ font-weight: normal;
     margin-top: 20px;
     width: 100%;
     resize: none;
+    font-size: 18px;
 }
 .saveDiv{    width: 100%;
     display: flex;

@@ -63,36 +63,44 @@ background: none;}
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 0px;}
+    margin-bottom: 0px;
+    margin-top: 0px;}
 .userNameDiv{    margin-left: 40px;
-    margin-bottom: 0px;}
+    margin-bottom: 0px;
+    margin-top: 0px;}
 
 .divHr {
     border: none;
     border-top: 1px solid #575757;
     width: 90%;
 }
+/* 검색창 */
 .searchDiv{border: 1px solid #000000;
     border-radius: 8px;
     height: 40px;
-    padding: 10px;
     display: flex;
     align-items: center;
     align-content: center;
     flex-direction: row;
-    margin-top: 10px;}
-.searchDiv input{border: none;}
+    margin-top: 10px;
+    padding: 0px 10px;
+    font-size: 18px;}
+.searchDiv input{border: none;
+    font-size: 18px;}
+
+/* 신고 버튼 */
 .reportDiv{margin: 0px;
-    border: 1px solid #999999;
+    border: 2px solid #999999;
     border-radius: 8px;
     background: none;
     color: red;
-    font-weight: bold;
     cursor: pointer;
-    height: 30px;
-    width: 70px;
+    height: 35px;
+    padding: 0px 20px;
     display: flex;
     align-items: center;
-    justify-content: space-evenly;}
+    font-size: 18px;
+    font-weight: bold;
+    justify-content: space-around;}
 
 

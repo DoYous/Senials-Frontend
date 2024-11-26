@@ -9,17 +9,17 @@ function Mypage() {
                     <div className={styles.profile}></div>
                     <div className={styles.mypageSmallDiv}>
                         <div className={styles.mainDiv}>
-                            <h1 className={common.firstFont}>닉네임</h1>
-                            <p className={`${styles.oneLine} ${common.secondFont}`}>한줄 소개</p>
+                            <div className={common.firstFont}>닉네임</div>
+                            <div className={`${styles.oneLine} ${common.secondFont}`}>한줄 소개</div>
                         </div>
                         <div className={styles.contentsDiv}>
                             <div className={styles.contentDiv1}>
-                                <h3 className={common.firstFont}>참여 모임</h3>
-                                <h3 className={`${styles.gray} ${common.firstFont}`}>00</h3>
+                                <div className={common.secondFont}>참여 모임</div>
+                                <div className={`${styles.gray} ${common.secondFont}`}>00</div>
                             </div>
                             <div className={styles.contentDiv3}>
-                                <h3  className={common.firstFont}>생성 모임</h3>
-                                <h3 className={`${styles.gray} ${common.firstFont}`}>00</h3>
+                                <div  className={common.secondFont}>생성 모임</div>
+                                <div className={`${styles.gray} ${common.secondFont}`}>00</div>
                             </div>
                         </div>
             </div>

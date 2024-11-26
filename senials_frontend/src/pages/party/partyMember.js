@@ -18,7 +18,7 @@ function PartyMember() {
                     </div>
                     <div className={`${styles.flexDiv} ${styles.searchDiv}`}>
                         <input type="text" placeholder="닉네임 검색"/>
-                        <button className={styles.iconDiv}><FaSearch /></button>
+                        <button className={styles.iconDiv}><FaSearch size={20}/></button>
                     </div>
                 </div>
                 <hr className={styles.divHr}/>
