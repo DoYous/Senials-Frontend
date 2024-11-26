@@ -24,10 +24,7 @@ function PartyReview() {
 
                             <div className={styles.flexDiv}>
                                 <p className={common.secondFont}>평점을 매겨주세요!</p>
-                                <div className={styles.rateInfo}>
-                                    <span className={styles.filledStar}>★★★</span>
-                                    <span className={styles.unfilledStar}>☆☆</span>
-                                </div>
+                                <Star />
                             </div>
 
                             <div className={styles.contentDiv}>
@@ -51,4 +48,24 @@ function PartyReview() {
     );
 }
 
+/* 별점 매기기 */
+function Star() {
+    const [rating, setRating] = useState(0); /* 현재 별점 상태 */
+
+    const handleStarClick = (index) => {
+        setRating(index); /*클릭*/
+    };
+
+    return (
+        <div className={styles.rateInfo}>
+            {[1, 2, 3, 4, 5].map((star) => (
+                <div
+                    key={star}
+                    className={`${styles.baseStar} ${star <= rating ? styles.filledStar : ""}`}
+                    onClick={() => handleStarClick(star)}
+                />
+            ))}
+        </div>
+    );
+}
 export default PartyReview;

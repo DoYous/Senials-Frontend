@@ -23,7 +23,7 @@ function MypageModify() {
                 <div className={styles.smallDiv}>
                     <div className={styles.mainDiv}>
                     <div className={styles.mainName}>
-                        <p className={`${common.secondFont} ${styles.margin0}`}>프로필 사진 변경</p>
+                        <div className={`${common.secondFont} ${styles.margin0} ${styles.profileFlex}`}><div className={styles.profile}></div>프로필 사진 변경</div>
                         <button className={styles.profileChange}>
                         <FaArrowUpRightFromSquare/>
                         </button>
@@ -38,7 +38,7 @@ function MypageModify() {
                     </div>
                         <hr className={styles.divHr}/>
                     <p className={`${common.secondFont} ${styles.margin0}`}>한줄 소개</p>
-                    <p className={styles.contentDiv}>기존 소개문</p>
+                    <textarea className={styles.contentDiv}>기존 소개문</textarea>
                     <div className={styles.saveDiv}>
                         <button className={`${styles.commonBtn} ${styles.saveMargin}`}>저장</button>
                     </div>

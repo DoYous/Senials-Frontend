@@ -1,6 +1,5 @@
 .gray{color: #999999;}
-.bigDiv{/*height: 1200px;*/
-    background: #f5f5f5;
+.bigDiv{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -13,14 +12,14 @@
 .smallDiv {
     height: 70%;
     background: white;
-    width: 70%;
+    width: 1280px;
     display: flex;
     flex-direction: column;
     align-content: center;
     align-items: center;
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: 1px solid lightgray;
     position: relative; /* profile이 smallDiv 위에 정확히 겹치도록 설정 */
 }
 .mainDiv{display: flex;
