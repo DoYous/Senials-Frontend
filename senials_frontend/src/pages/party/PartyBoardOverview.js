@@ -4,7 +4,7 @@ import { FaSearch } from "react-icons/fa";
 // CSS
 import styles from '../common/MainVer1.module.css';
 
-function BoardOverview() {
+function PartyBoardOverview() {
 
     return (
         <div className={styles.centerContainer}>
@@ -31,7 +31,7 @@ function BoardOverview() {
                     {/* <img className={styles.searchIcon} src='/image/search.svg'/> */}
                 </div>
                 &nbsp;
-                <button className={`${styles.commonBtn} ${styles.thirdFont}`}>정렬</button>
+                <span className={`${styles.commonBtn}`}>정렬</span>
             </div>
             <div className={`${styles.separatorContent}`}>
                 <PartyCard />
@@ -46,10 +46,10 @@ function BoardOverview() {
                 <PartyCard />
             </div>
             <div className={styles.separator}>
-                <button className={`${styles.commonBtn} ${styles.thirdFont} ${styles.mlAuto}`}>게시글 작성</button>
+                <span className={`${styles.commonBtn} ${styles.mlAuto}`}>게시글 작성</span>
             </div>
             <div className={styles.flexCenter}>
-                <button className={`${styles.commonBtn} ${styles.thirdFont} ${styles.loadBtn}`}>더보기</button>
+                <span className={`${styles.commonBtn}`}>더보기</span>
             </div>
         </div>
     )
@@ -321,7 +321,7 @@ function PartyCard() {
         <div className={styles.memberInfo}>
             <img src='/image/people.svg' style={{width: '20px'}}/>&nbsp;
             <span className={`${styles.memberCount} ${styles.fourthFont}`}>10명</span>
-            <span className={`${styles.openedParty} ${styles.thirdFont}`}>모집중</span>
+            <span className={`${styles.openedParty} ${styles.thirdFont} ${styles.mlAuto}`}>모집중</span>
         </div>
     </div>
   )
@@ -353,4 +353,4 @@ function Category() {
     )
 }
 
-export default BoardOverview;
+export default PartyBoardOverview;

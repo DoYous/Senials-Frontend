@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 // CSS
 import styles from '../common/MainVer1.module.css';
 
-function Board() {
+function PartyBoard() {
 
     return (
         <div className={styles.centerContainer}>
@@ -11,7 +11,7 @@ function Board() {
                 <span className={`${styles.firstFont}`}>
                     👑&nbsp;<span className={styles.pointColor}>인기</span>&nbsp;추천&nbsp;모임
                 </span>
-                <button className={`${styles.showAllBtn} ${styles.thirdFont}`}>전체보기</button>
+                <span className={`${styles.whiteBtn} ${styles.mlAuto}`}>전체보기</span>
             </div>
             <div className={`${styles.separatorContent}`}>
                 <PartyCard />
@@ -24,7 +24,7 @@ function Board() {
                 <span className={`${styles.firstFont}`}>
                     <span className={styles.pointColor}>관심사</span> 기반 추천 모임
                 </span>
-                <button className={`${styles.showAllBtn} ${styles.thirdFont}`}>전체보기</button>
+                <span className={`${styles.whiteBtn} ${styles.mlAuto}`}>전체보기</span>
             </div>
             <div className={`${styles.separatorContent}`}>
                 <PartyCard />
@@ -328,8 +328,8 @@ function PartyCard() {
         </div>
         <div className={styles.memberInfo}>
             <img src='/image/people.svg' style={{width: '20px'}}/>&nbsp;
-            <span className={`${styles.memberCount} ${styles.fourthFont}`}>10명</span>
-            <span className={`${styles.openedParty} ${styles.thirdFont}`}>모집중</span>
+            <span className={`${styles.fourthFont}`}>10명</span>
+            <span className={`${styles.openedParty} ${styles.thirdFont} ${styles.mlAuto}`}>모집중</span>
         </div>
     </div>
   )
@@ -361,4 +361,4 @@ function Category() {
     )
 }
 
-export default Board;
+export default PartyBoard;

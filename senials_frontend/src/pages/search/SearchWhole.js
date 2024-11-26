@@ -1,13 +1,13 @@
 // CSS
-import styles from './WholeSearch.module.css';
+import styles from '../common/MainVer1.module.css';
 
-function WholeSearch() {
+function SearchWhole() {
 
     return (
         <div className={styles.centerContainer}>
             <div className={styles.separator}>
                 <span className={`${styles.firstFont}`}>
-                    '<span className={styles.pointColor}>검색어</span>'의 검색 결과
+                    '<span className={styles.pointColor}>검색어</span>'&nbsp;의 검색 결과
                 </span>
             </div>
 
@@ -25,7 +25,7 @@ function WholeSearch() {
                 <Card />
             </div>
             <div className={styles.flexCenter}>
-                <button className={`${styles.commonBtn} ${styles.loadBtn}`}>더보기</button>
+                <span className={`${styles.commonBtn}`}>더보기</span>
             </div>
 
             {/* 취미 검색결과 출력 영역 */}
@@ -77,11 +77,11 @@ function Card() {
         </div>
         <div className={styles.memberInfo}>
             <img src='/image/people.svg' style={{width: '20px'}}/>&nbsp;
-            <span className={`${styles.memberCount} ${styles.fourthFont}`}>10명</span>
-            <span className={`${styles.openedParty} ${styles.thirdFont}`}>모집중</span>
+            <span className={`${styles.fourthFont}`}>10명</span>
+            <span className={`${styles.openedParty} ${styles.thirdFont} ${styles.mlAuto}`}>모집중</span>
         </div>
     </div>
   )
 }
 
-export default WholeSearch;
+export default SearchWhole;

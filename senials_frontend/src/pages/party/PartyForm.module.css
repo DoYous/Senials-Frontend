@@ -1,0 +1,109 @@
+/* PartyWrite, PartyUpdate */
+
+.formCenterContainer {
+    display: flex;
+
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+    width: 1008px;
+    min-height: 80vh;
+    margin: 60px auto;
+}
+
+.formInner {
+    width: 82%;
+    height: 100%;
+    min-height: calc(80vh - 120px);
+    margin: 60px auto;
+}
+
+.partyFormImageContainer {
+    width: 300px;
+    height: 300px;
+}
+
+.partyFormImage {
+    border-radius: 30px;
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+.partyFormInfoContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    width: 450px;
+    height: 300px;
+
+    margin-left: auto;
+}
+
+.inputContainer {
+    display: flex;
+    
+    width: 100%;
+    height: 33px;
+    border: 1px #adadad solid;
+    border-radius: 8px;
+
+    margin-top: 4px;
+}
+
+.inputInner {
+    border: none;
+    border-radius: 8px;
+
+    width: 80%;
+    padding-left: 5px;
+    font-size: 16px;
+}
+.inputInner:focus {
+    outline: none;
+}
+
+.partyFormText {
+    border: 1px #adadad solid;
+    border-radius: 8px;
+
+    width: 100%;
+    height: 500px;
+    padding: 10px;
+
+    font-family: 'Pretendard', sans-serif;
+    font-size: 16px;
+    resize: none;
+}
+
+.statusContainer {
+    display: flex;
+    border: 1px #adadad solid;
+    border-radius: 8px;
+    
+    width: 200px;
+    height: 33px;
+    padding-left: 2px;
+
+    font-weight: bold;
+    font-size: 16px;
+    font-family: 'Pretendard', sans-serif;
+}
+
+.statusOpened {
+    color: #569aff;
+
+    font-weight: bold;
+    font-size: 16px;
+    font-family: 'Pretendard', sans-serif;
+}
+
+.statusClosed {
+    color: #000000;
+
+    font-weight: bold;
+    font-size: 16px;
+    font-family: 'Pretendard', sans-serif;
+}
