@@ -1,5 +1,5 @@
-import styles from './mypageModify.module.css';
-import common from '../common/common.module.css';
+import styles from './MypageModify.module.css';
+import common from '../common/Common.module.css';
 import React, { useState, useEffect } from "react";
 /*아이콘*/
 import {FaAngleLeft} from "react-icons/fa6";

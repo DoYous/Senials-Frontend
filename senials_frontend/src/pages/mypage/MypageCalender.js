@@ -1,5 +1,5 @@
-import styles from './mypageCalender.module.css';
-import common from '../common/common.module.css';
+import styles from './MypageCalender.module.css';
+import common from '../common/Common.module.css';
 import React, { useState, useEffect } from "react";
 {/*마이페이지+캘린더*/}
 

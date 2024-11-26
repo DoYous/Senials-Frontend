@@ -1,6 +1,6 @@
 /*매칭게시판 상세 모임 후기 작성*/
-import styles from './partyReview.module.css';
-import common from '../common/common.module.css';
+import styles from './PartyReview.module.css';
+import common from '../common/Common.module.css';
 import React, { useState, useEffect } from "react";
 
 function PartyReview() {

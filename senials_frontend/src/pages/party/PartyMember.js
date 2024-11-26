@@ -1,5 +1,5 @@
-import styles from './partyMember.module.css';
-import common from '../common/common.module.css';
+import styles from './PartyMember.module.css';
+import common from '../common/Common.module.css';
 import React, { useState, useEffect } from "react";
 /*리액트 아이콘 사용*/
 import { FaSearch } from "react-icons/fa";

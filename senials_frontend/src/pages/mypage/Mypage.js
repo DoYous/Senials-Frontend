@@ -1,6 +1,6 @@
-import styles from './mypageCalender.module.css';
+import styles from './MypageCalender.module.css';
 import React, { useState, useEffect } from "react";
-import common from "../common/common.module.css";
+import common from "../common/Common.module.css";
 {/*사용자 프로필(남보기용)*/}
 
 function Mypage() {

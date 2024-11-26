@@ -1,5 +1,5 @@
-import styles from './partyMeet.module.css';
-import common from '../common/common.module.css';
+import styles from './PartyMeet.module.css';
+import common from '../common/Common.module.css';
 import React, { useState, useEffect } from "react";
 
 function PartyMeet() {
