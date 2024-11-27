@@ -344,14 +344,25 @@
 
 .ctgrRow {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
+
+    row-gap: 16px;
     padding: 0 20px;
     margin-bottom: 16px;
 }
 
+.emptyCtgrContainer {
+    flex: none;
+    width: 230px;
+}
+
+
 .ctgrContainer {
     /* ctgrImage - width와 동일하게 설정해야함 */
     max-width: 230px;
+
+    cursor: pointer;
 }
 
 .ctgrImage {
