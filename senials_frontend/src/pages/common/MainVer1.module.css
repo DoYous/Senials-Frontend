@@ -275,11 +275,13 @@
 .cardContainer {
     /* cardImage - width와 동일하게 설정해야함 */
     max-width: 240px;
+
+    cursor: pointer;
 }
 
 .cardImage {
     display: flex;
-    border: 1px solid grey;
+    border: 1px solid #adadad;
     width: 240px;
     height: 240px;
     border-radius: 10px; 
@@ -645,14 +647,19 @@
 
 .mcsItem {
     flex: none;
-    width: 520px;
-    margin-left: 15px;
-    margin-right: 15px;
+
     border-radius: 10px;
-    height: 100%;
+
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+
+    width: 520px;
+    height: 100%;
+    margin-left: 15px;
+    margin-right: 15px;
+
+    cursor: pointer;
 }
 
 .mcsPrev {
