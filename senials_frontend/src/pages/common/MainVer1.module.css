@@ -90,8 +90,11 @@
 
 .separatorContent {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     padding: 0 20px;
+    gap: 80px;
+    row-gap: 32px;
     margin-bottom: 32px;
 }
 
@@ -272,6 +275,11 @@
     height: 18px;
 }
 
+.emptyCardContainer {
+    flex: none;
+    width: 240px;
+}
+
 .cardContainer {
     /* cardImage - width와 동일하게 설정해야함 */
     max-width: 240px;
@@ -443,8 +451,10 @@
 /* search-whole */
 /* 검색결과 없을 때 출력되는 문구 */
 .noSearchResult {
-    padding: 16px 0 32px 0;
+    padding-top: 16px;
     color: #999999;
+    font-size: 33px;
+    font-weight: bold;
 }
 
 /* PartyDetail */
