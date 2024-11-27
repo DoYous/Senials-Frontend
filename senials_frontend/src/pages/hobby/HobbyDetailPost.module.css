@@ -3,7 +3,7 @@
     top: 0; 
     left: 0;
     width: 100%;
-    height: 50vh;
+    height: 45vh;
     background-image: url(/public/img/sampleBackgroundImg.png);
     background-repeat: no-repeat; 
     background-size: cover;
@@ -75,6 +75,8 @@
     margin-top: 100px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
     border-radius: 10px;
 }
 
@@ -86,15 +88,17 @@
     flex: 1;
     text-align: center;
     border-left: 1px solid #c2c2c2;
-    padding: 5px 0;
+    padding: 10px 0;
 }
 
 .hobbyAbility {
-    border-left: none;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
 }
 
 .hobbyLevel {
-    border-right: none;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
 }
 
 hr {
