@@ -1,12 +1,18 @@
 import React from 'react';
 import style from './SuggestHobbyGet.module.css';
+import { useNavigate } from 'react-router-dom';
 
 function SuggestHobbyGet() {
+    const navigate=useNavigate();
+
+    // 맞춤형 취미 추천 입력후 제출, 결과 페이지 이동 이벤트
+    const linkSubmitHobby=()=>{
+        navigate('/suggest-hobby-result');
+    }
+
+
     return (
         <>
-            <header>
-                {/* 헤더 */}
-            </header>
             <div className={style.background}></div>
             <div className={style.suggestBox}>
                 <div className={style.title}>
@@ -49,12 +55,9 @@ function SuggestHobbyGet() {
                         <option value="3">3</option>
                     </select>
 
-                    <input type="submit" value="추천받기" className={style.submit} />
+                    <input type="submit" value="추천받기" className={style.submit} onClick={()=>linkSubmitHobby()} />
                 </form>
             </div>
-            <footer>
-                {/* 푸터 */}
-            </footer>
         </>
     );
 }
