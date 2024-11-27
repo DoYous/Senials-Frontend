@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './HobbyDetailPost.module.css';
-import common from '../common/common.module.css';
+import common from '../common/Common.module.css';
 import {FaAngleLeft, FaBell, FaSearch} from "react-icons/fa";
 
 function HobbyDetailPost() {
