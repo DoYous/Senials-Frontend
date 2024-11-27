@@ -13,12 +13,12 @@ function HobbyBoardPost() {
     const navigate = useNavigate();
 
     //취미 상세 페이지 이동 이벤트
-    const linkHobby = (hobbyNumber) => {
+    const linkHobbyDetail = (hobbyNumber) => {
         navigate(`/hobby-detail/${hobbyNumber}`);
     }
 
     //취미 목록 페이지 이동 이벤트
-    const linkHobbyCategory=()=>{
+    const linkHobby=()=>{
         navigate('/hobby-board');
     }
 
@@ -28,7 +28,7 @@ function HobbyBoardPost() {
             <div className={styles.top3List}>
             
             {top3List.map((item,index) => {
-                return <HobbyCard key={index} hobby={item.hobby} linkHobby={linkHobby}/>
+                return <HobbyCard key={index} hobby={item.hobby} linkHobby={linkHobbyDetail}/>
             })}
     
             </div>
@@ -40,26 +40,26 @@ function HobbyBoardPost() {
             </div>
             <div>
                 <div className={styles.sort}>
-                    <Category  linkHobbyCategory={linkHobbyCategory}/>
-                    <Category  linkHobbyCategory={linkHobbyCategory}/>
-                    <Category  linkHobbyCategory={linkHobbyCategory}/>
-                    <Category  linkHobbyCategory={linkHobbyCategory}/>
-                    <Category  linkHobbyCategory={linkHobbyCategory}/>
+                    <Category  linkHobbyCategory={linkHobby}/>
+                    <Category  linkHobbyCategory={linkHobby}/>
+                    <Category  linkHobbyCategory={linkHobby}/>
+                    <Category  linkHobbyCategory={linkHobby}/>
+                    <Category  linkHobbyCategory={linkHobby}/>
                     
                 </div>
                 <div className={styles.sort}>
-                    <Category  linkHobbyCategory={linkHobbyCategory}/>
-                    <Category  linkHobbyCategory={linkHobbyCategory}/>
-                    <Category  linkHobbyCategory={linkHobbyCategory}/>
-                    <Category  linkHobbyCategory={linkHobbyCategory}/>
-                    <Category  linkHobbyCategory={linkHobbyCategory}/>
+                    <Category  linkHobbyCategory={linkHobby}/>
+                    <Category  linkHobbyCategory={linkHobby}/>
+                    <Category  linkHobbyCategory={linkHobby}/>
+                    <Category  linkHobbyCategory={linkHobby}/>
+                    <Category  linkHobbyCategory={linkHobby}/>
                 </div>
                 <div className={styles.sort}>
-                    <Category  linkHobbyCategory={linkHobbyCategory}/>
-                    <Category  linkHobbyCategory={linkHobbyCategory}/>
-                    <Category  linkHobbyCategory={linkHobbyCategory}/>
-                    <Category  linkHobbyCategory={linkHobbyCategory}/>
-                    <Category  linkHobbyCategory={linkHobbyCategory}/>
+                    <Category  linkHobbyCategory={linkHobby}/>
+                    <Category  linkHobbyCategory={linkHobby}/>
+                    <Category  linkHobbyCategory={linkHobby}/>
+                    <Category  linkHobbyCategory={linkHobby}/>
+                    <Category  linkHobbyCategory={linkHobby}/>
                 </div>
             </div>
         </div>
@@ -83,9 +83,9 @@ function HobbyCard({hobby,linkHobby}){
     );
 }
 
-function Category({linkHobbyCategory}) {
+function Category({linkHobby}) {
     return (
-            <div className={styles.ctgrContainer} onClick={()=>linkHobbyCategory()}>
+            <div className={styles.ctgrContainer} onClick={()=>linkHobby()}>
                 <div style={{backgroundImage: 'url(/img/sampleImg.png)', 
                     backgroundSize: 'cover', backgroundPosition: 'center',
                     border: '1px solid grey', width:'232px', height:'122px', borderColor: '#c7c7c7',
