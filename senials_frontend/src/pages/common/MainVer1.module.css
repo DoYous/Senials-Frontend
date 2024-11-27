@@ -204,6 +204,9 @@
     padding: 0 10px;
     min-width: 60px;
     height: 31px;
+
+    font-size: 18px;
+    font-weight: bold;
 }
 
 .partySearch {
@@ -475,6 +478,8 @@
     object-fit: cover;
     width: 150px;
     height: 150px;
+
+    cursor: pointer;
 }
 
 .separatorLines {

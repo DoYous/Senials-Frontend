@@ -1,12 +1,23 @@
 import { FaBell, FaHeart, FaRegHeart, FaRegClock, FaWonSign } from "react-icons/fa";
 import { FaLocationDot  } from "react-icons/fa6";
 import { BsPeopleFill } from "react-icons/bs";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useParams, useNavigate } from "react-router-dom";
 
 // CSS
 import styles from '../common/MainVer1.module.css';
 
 function PartyDetail() {
+
+    const testArray3 = [{number: 1}, {number: 2}, {number: 3}];
+    const testArray4 = [{number: 1}, {number: 2}, {number: 3}, {number: 4}];
+    const testArray5 = [{number: 1}, {number: 2}, {number: 3}, {number: 4}, {number: 5}]
+    const testArray6 = [{number: 1}, {number: 2}, {number: 3}, {number: 4}, {number: 5}, {number: 6}]
+    const testArray7 = [{number: 1}, {number: 2}, {number: 3}, {number: 4}, {number: 5}, {number: 6}, {number: 7}]
+
+    const { partyNumber } = useParams();
+
+    const navigate = useNavigate();
 
     return (
         <div className={styles.centerContainer}>
@@ -17,7 +28,7 @@ function PartyDetail() {
             {/* 모임 제목, 간단소개 출력 영역 */}
             <div className={`${styles.separator}`}>
                 {/* 카테고리 */}
-                <span className={`${styles.whiteBtn}`}>운동</span>
+                <span className={`${styles.whiteIndicator}`}>운동</span>
                 &nbsp;
                 {/* 좋아요 누르기 전은 FaRegHeart */}
                 {/* <span className={`${styles.whiteBtn} ${styles.thirdFont} ${styles.mrAuto}`}>
@@ -29,7 +40,7 @@ function PartyDetail() {
                     &nbsp;&nbsp;좋아요
                 </span>
 
-                <span className={`${styles.whiteBtn} ${styles.thirdFont} ${styles.mlAuto}`} style={{color: 'red'}}>
+                <span className={`${styles.whiteBtn} ${styles.thirdFont} ${styles.mlAuto}`} style={{color: 'red'}} onClick={() => navigate(`/report?party=${partyNumber}`)}>
                     <FaBell />
                     &nbsp;&nbsp;신고
                 </span>
@@ -79,13 +90,15 @@ function PartyDetail() {
                 <span className={`${styles.secondFont}`}>
                     일정
                 </span>
-                <span className={`${styles.commonBtn} ${styles.mlAuto}`}>
+                <span className={`${styles.commonBtn} ${styles.mlAuto}`} onClick={() => navigate(`/meet/write?partyNumber=${partyNumber}`)}>
                     일정 추가
                 </span>
             </div>
-            <Meet />
-            <Meet />
-            <Meet />
+            {
+                testArray4.map((meet, idx) => {
+                    return <Meet key={`meetCard${idx}`} meet={meet} navigate={navigate} />
+                })
+            }
             <div className={`${styles.flexCenter} ${styles.marginBottom2}`}>
                 <span className={`${styles.commonBtn}`}>더보기</span>
             </div>
@@ -96,9 +109,9 @@ function PartyDetail() {
                 <span className={`${styles.secondFont}`}>
                     내가 작성한 후기
                 </span>
-                <span className={`${styles.commonBtn} ${styles.mlAuto}`}>수정</span>
+                <span className={`${styles.commonBtn} ${styles.mlAuto}`} onClick={() => navigate('review-modify')}>수정</span>
             </div>
-            <Review />
+            <Review review={{number: 99}} navigate={navigate}/>
             <hr />
 
             {/* 후기 출력 영역 */}
@@ -107,11 +120,15 @@ function PartyDetail() {
                     후기&nbsp;&nbsp;99
                 </span>
                 <DetailRateAverage />
-                <span className={`${styles.commonBtn} ${styles.mlAuto}`}>후기 작성</span>
+                <span className={`${styles.commonBtn} ${styles.mlAuto}`} onClick={() => navigate('review-write')}>후기 작성</span>
             </div>
-            <Review />
-            <Review />
-            <Review />
+            {
+                testArray3.map((review, idx) => {
+                    return (
+                        <Review key={`reviewCard${idx}`} review={review} navigate={navigate} />
+                    )
+                })
+            }
             <div className={`${styles.flexCenter} ${styles.marginBottom2}`}>
                 <span className={`${styles.commonBtn} ${styles.thirdFont}`}>더보기</span>
             </div>
@@ -122,9 +139,15 @@ function PartyDetail() {
                 <span className={`${styles.secondFont} ${styles.marginRight}`}>
                     멤버&nbsp;&nbsp;99
                 </span>
-                <span className={`${styles.whiteBtn} ${styles.mlAuto}`}>전체보기</span>
+                <span className={`${styles.whiteBtn} ${styles.mlAuto}`} onClick={() => navigate('members')}>전체보기</span>
             </div>
-            <Member/>
+            {
+                testArray3.map((member, idx) => {
+                    return (
+                        <Member key={`memberCard${idx}`} member={member} navigate={navigate} />
+                    )
+                })
+            }
             <hr />
             
             {/* 모임 추천 영역 */}
@@ -132,13 +155,16 @@ function PartyDetail() {
                 <span className={`${styles.firstFont}`}>
                     이런 <span className={`${styles.pointColor}`}>모임</span>도 추천해요!
                 </span>
-                <span className={`${styles.whiteBtn} ${styles.mlAuto}`}>전체보기</span>
+                <span className={`${styles.whiteBtn} ${styles.mlAuto}`} onClick={() => navigate('/party/board-overview')}>전체보기</span>
             </div>
             <div className={`${styles.separatorContent}`}>
-                <Card />
-                <Card />
-                <Card />
-                <Card />
+                {
+                    testArray4.map((party, idx) => {
+                        return (
+                            <PartyCard key={`partyCard${idx}`} party={party} navigate={navigate} />
+                        )
+                    })
+                }
             </div>
         </div>
     )
@@ -187,10 +213,10 @@ function Carousel() {
     )
 }
 
-function Member() {
+function Member({ member, navigate }) {
     return (
         <div className={`${styles.memberContainer}`}>
-            <img className={`${styles.masterProfile}`} src='/image/sampleProfile.png' />
+            <img className={`${styles.masterProfile}`} src='/image/sampleProfile.png' onClick={() => navigate(`/user/${member.number}/profile`)} />
             <div className={`${styles.memberContent}`}>
                 <span className={`${styles.secondFont}`}>수영물개</span>
                 <span className={`${styles.secondFont}`} style={{color: '#999999'}}>
@@ -268,10 +294,10 @@ function DetailRateAverage() {
     )
 }
 
-function Review() {
+function Review({review, navigate}) {
     return (
         <div className={`${styles.reviewContainer}`}>
-            <img className={`${styles.masterProfile}`} src='/image/sampleProfile.png' />
+            <img className={`${styles.masterProfile}`} src='/image/sampleProfile.png' onClick={() => navigate(`/user/${review.number}/profile`)}/>
             <div className={`${styles.reviewContent}`}>
                 <div className={`${styles.flex}`}>
                     <span className={`${styles.secondFont}`}>물개</span>
@@ -283,7 +309,7 @@ function Review() {
     )
 }
 
-function Meet() {
+function Meet({meet, navigate}) {
     return (
         <div className={`${styles.meetContainer}`}>
             {/* 일정 날짜 출력영역 */}
@@ -328,30 +354,32 @@ function Meet() {
             </div>
             {/* 일정 버튼 영역 */}
             <div className={`${styles.meetButtons}`}>
-                <span className={`${styles.commonBtn}`}>참여 멤버</span>
+                <span className={`${styles.commonBtn}`} onClick={() => navigate(`/meet/${meet.number}/members`)}>참여 멤버</span>
                 <span className={`${styles.commonBtn}`}>신청 취소</span>
             </div>
         </div>
     )
 }
 
-function Card() {
-  return (
-    <div className={styles.cardContainer}>
-        <div className={styles.cardImage} style={{backgroundImage: 'url(/image/cat.jpg)'}}>
-            <img className={styles.imgHeart} src='/image/unfilledHeart.svg'/>
-        </div>
-        <div className={`${styles.secondFont}`}>농구 같이 할 사람~</div>
-        <div className={styles.rateInfo}>
-            <Rate />
-        </div>
-        <div className={styles.memberInfo}>
-            <img src='/image/people.svg' style={{width: '20px'}}/>&nbsp;
-            <span className={`${styles.fourthFont}`}>10명</span>
-            <span className={`${styles.openedParty} ${styles.thirdFont} ${styles.mlAuto}`}>모집중</span>
-        </div>
-    </div>
-  )
-}
+
+// 모임 카드
+function PartyCard({party, navigate}) {
+    return (
+      <div className={styles.cardContainer} onClick={() => navigate(`/party/${party.number}`)}>
+          <div className={styles.cardImage} style={{backgroundImage: 'url(/image/cat.jpg)'}}>
+              <img className={styles.imgHeart} src='/image/unfilledHeart.svg'/>
+          </div>
+          <div className={`${styles.secondFont}`}>농구 같이 할 사람~</div>
+          <div className={styles.rateInfo}>
+              <Rate />
+          </div>
+          <div className={styles.memberInfo}>
+              <img src='/image/people.svg' style={{width: '20px'}}/>&nbsp;
+              <span className={`${styles.fourthFont}`}>10명</span>
+              <span className={`${styles.openedParty} ${styles.thirdFont} ${styles.mlAuto}`}>모집중</span>
+          </div>
+      </div>
+    )
+  }
 
 export default PartyDetail;
