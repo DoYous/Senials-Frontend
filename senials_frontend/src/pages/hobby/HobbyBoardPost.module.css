@@ -4,9 +4,9 @@
 }
 
 .title {
-    font-size: 26.4px;
+    font-size: 33px;
     text-align: left;
-    margin-bottom: 20px;
+    margin: 20px 0;
     font-weight: bold;
 }
 
@@ -18,7 +18,7 @@
 .top3List {
     display: flex;
     justify-content: center;
-    gap: 250px;
+    gap: 125px;
     margin-bottom: 30px;
 }
 
@@ -31,7 +31,7 @@
 }
 
 .top3Name {
-    font-size: 1.2em;
+    font-size: 23px;
     font-weight: bold;
 }
 
@@ -69,6 +69,8 @@
 }
 
 .hobbyList {
+    max-width: 1000px;
+    margin-left: 80px;
     display: flex;
     align-items: center;
     margin-bottom: 30px;
@@ -108,6 +110,7 @@
 }
 
 .progressBarContainer {
+    max-width: 250px;
     width: 100%; 
     height: 10px; 
     background-color: #e0e0e0; 
@@ -133,7 +136,7 @@
 }
 
 .firstFont {
-    font-size: 26.4px;
+    font-size: 33px;
     font-weight: bold;
 }
 
@@ -142,8 +145,11 @@
 }
 
 .ctgrContainer {
-    max-width: 180px;
     margin: 0 auto;
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    margin:10px;
 }
 
 .ctgrText {
@@ -151,8 +157,17 @@
     padding: 0 0 5px 5px;
 }
 
+.secondFont{
+    font-size: 23px;
+}
+
 .thirdFont {
     font-size: 16px;
     font-weight: bold;
+}
+
+.sort{
+    display:flex;
+    justify-content: center; 
 }
 
