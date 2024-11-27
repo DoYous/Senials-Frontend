@@ -1,9 +1,29 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styles from './HobbyDetailPost.module.css';
 import common from '../common/Common.module.css';
 import {FaAngleLeft, FaBell, FaSearch} from "react-icons/fa";
+import { useNavigate } from 'react-router-dom';
 
 function HobbyDetailPost() {
+
+    const reviewList = [
+        { review: { number: 1, name: "김상익", rate: 4 } },
+        { review: { number: 2, name: "배민서", rate: 5 } },
+        { review: { number: 3, name: "도영익", rate: 1 } }
+      ];
+
+    const navigate=useNavigate();
+
+    //후기작성페이지 이동 이벤트
+    const linkHobbyReview=()=>{
+        navigate(`/hobby-review`);
+    }
+
+    //작성된 후기 수정 페이지 이동 이벤트
+    const linkHobbyReviewModify=(reviewNumber)=>{
+        navigate(`/hobby-review-modify${reviewNumber}`);
+    }
+
     return (
         <>
         <div className={styles.background}>
@@ -41,7 +61,7 @@ function HobbyDetailPost() {
             <div className={styles.reviewHeader}>
                 <div className={styles.reviewCount}>후기 99+</div>
                 <div className={styles.reviewButton}>
-                    <button className={styles.writeReview}>후기작성</button>
+                    <button className={styles.writeReview} onClick={linkHobbyReview}>후기작성</button>
                     <select className={styles.sortReview}>
                         <option value="newest">최신순</option>
                         <option value="highRate">높은별점순</option>
@@ -49,21 +69,22 @@ function HobbyDetailPost() {
                     </select>
                 </div>  
             </div>         
-            <HobbyReview />
-            <HobbyReview />
+            {reviewList.map((item,index)=>{
+                return <HobbyReview key={index} review={item.review} linkHobbyReviewModify={linkHobbyReviewModify}/>
+            })}
         </div>
 
         </>
     );
 }
 
-function HobbyReview() {
+function HobbyReview({review,linkHobbyReviewModify}) {
     return (
-        <div className={styles.hobbyReview}>
+        <div className={styles.hobbyReview} >
             <div className={styles.hobbyReviewDetail}>
                 <div className={styles.userInfo}>
                     <img src='/img/sampleImg5.png' className={styles.userImg} alt="사용자" />
-                    <div className={styles.userName}>홍길동</div>
+                    <div className={styles.userName}>{review.name}</div>
                     <div className={styles.reviewPoint}>별점 
                         <StarPoint />
                     </div>
@@ -78,7 +99,7 @@ function HobbyReview() {
                     <img src='/img/sampleImg4.png' className={styles.reviewImg} alt="후기" />
                     <img src='/img/sampleImg4.png' className={styles.reviewImg} alt="후기" />
                 </div>
-                <button className={styles.updateReviewButton}>수정</button>
+                <button className={styles.updateReviewButton} onClick={()=>linkHobbyReviewModify(review.number)}>수정</button>
             </div>
         </div>
     );
