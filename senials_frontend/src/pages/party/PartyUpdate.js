@@ -1,8 +1,12 @@
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom'
 // CSS
 import common from '../common/MainVer1.module.css';
 import styles from './PartyForm.module.css';
 
 function PartyUpdate() {
+
+    const navigate = useNavigate();
 
     return (
         <div className={styles.formCenterContainer}>
@@ -53,7 +57,7 @@ function PartyUpdate() {
 
                 <div className={`${common.separator}`}>
                     <span className={`${common.uniqueBtn}`}>삭제</span>
-                    <span className={`${common.commonBtn} ${common.mlAuto}`}>취소</span>
+                    <span className={`${common.commonBtn} ${common.mlAuto}`} onClick={() => navigate('/party/board-overview')}>취소</span>
                     <span className={`${common.importantBtn} ${common.marginLeft}`}>제출</span>
                 </div>
             </div>
