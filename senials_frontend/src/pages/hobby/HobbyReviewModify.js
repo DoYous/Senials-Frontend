@@ -16,7 +16,7 @@ function HobbyReviewGet() {
         navigate('/hobby-detail')
     }
 
-    // 수정 작성후 제출 이벤트
+    // 리뷰 수정후 제출 이벤트
     const linkSubmitReivew=()=>{
         navigate('/hobby-detail');
     }
