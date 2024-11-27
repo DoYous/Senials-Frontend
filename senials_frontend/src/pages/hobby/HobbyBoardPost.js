@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './HobbyBoardPost.module.css';
+import {FaAngleLeft, FaBell, FaSearch} from "react-icons/fa";
 
 let percentage = 70;
 
@@ -17,7 +18,7 @@ function HobbyBoardPost() {
             <hr />
             <form className={styles.searchBox}>
                 <input type="text" />
-                <button type="submit" className={styles.searchButton}>🔍</button>
+                <button type="submit" className={styles.searchButton}><FaSearch size={20}/></button>
             </form>
             
             <HobbyList/>
@@ -36,7 +37,7 @@ function HobbyList(){
         <div>
             <div className={styles.hobbyName}>축구</div>
 
-            <div>선호도 : {percentage}%</div>
+            <div className={styles.thirdFont}>선호도 : {percentage}%</div>
             <div className={styles.progressBarContainer}>
                 <div
                     className={styles.progressBar}
@@ -57,7 +58,7 @@ function HobbyCard(){
         <div className={styles.top3}>
                     <img src='/img/sampleImg3.png' className={styles.top3Img} alt="농구" />
                     <div className={styles.top3Name}>농구</div>
-                    <div>선호도 : {percentage}%</div>
+                    <div className={styles.th}>선호도 : {percentage}%</div>
 
                     <div className={styles.progressBarContainer}>
                         <div

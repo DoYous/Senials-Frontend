@@ -19,6 +19,7 @@
 .hobby {
     display: flex;
     margin: 30px 0;
+    margin-left: 100px;
 }
 
 .hobbyImg {
@@ -28,14 +29,14 @@
 }
 
 .hobbyName {
-    font-size: 2.0em;
+    font-size: 33px;
     display: block;
     font-weight: bold;
     margin: 25px 5px;
 }
 
 .hobbyDetail {
-    font-size: 1.5em;
+    font-size: 23px;
     margin-top: 20px;
 }
 
@@ -48,12 +49,13 @@
 }
 
 .preference {
-    font-size: 1.1em;
+    font-size: 18px;
     margin-bottom: 0;
 }
 
 .progressBarContainer {
-    width: 250px; 
+    max-width:280px;
+    width: 280px; 
     height: 25px; 
     background-color: #e0e0e0; 
     border: 1px solid black;
@@ -80,7 +82,7 @@
 .hobbyBudget,
 .hobbyLevel {
     background-color: white;
-    font-size: 1.3em;
+    font-size: 23px;
     flex: 1;
     text-align: center;
     border-left: 1px solid #c2c2c2;
@@ -110,7 +112,7 @@ hr {
 
 .reviewCount {
     font-weight: bold;
-    font-size: 1.5em;
+    font-size: 23px;
 }
 
 .reviewButton {
@@ -119,23 +121,31 @@ hr {
 }
 
 .writeReview {
-    font-size: 1.5em;
-    padding: 3px 15px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    color: white;
     background-color: #6CB7DA;
-    border-color: white;
-    cursor: pointer;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    min-width: 80px;
+    height: 35px;
+    font-weight: bold;
+    font-size: 18px;
 }
 
 .sortReview {
-    font-size: 1.5em;
-    padding: 3px 15px;
-    border-radius: 5px;
-    border: 1px solid black;
     background-color: white;
-    cursor: pointer;
+    color: black;
+    border: 1px solid black;
+    border-radius: 8px;
+    min-width: 80px;
+    height: 35px;
+    font-weight: bold;
+    font-size: 18px;
+
+    text-align: center;
+    
+    -webkit-appearance: none;
+
+    
 }
 
 .hobbyReview {
@@ -170,12 +180,12 @@ hr {
 .userName {
     margin-left: 20px;
     font-weight: bold;
-    font-size: 1.5em;
+    font-size: 23px;
 }
 
 .reviewPoint {
     margin-left: auto;
-    font-size: 1.4em;
+    font-size: 23px;
 }
 
 .star {
@@ -186,12 +196,6 @@ hr {
 
 .reportButton {
     margin-left: 20px;
-    padding: 5px 25px;
-    font-size: 1.2em;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    color: red;
-    background-color: white;
 }
 
 .reviewTitle {
@@ -218,11 +222,12 @@ hr {
 
 .updateReviewButton {
     margin-left: auto;
-    padding: 5px 30px;
-    font-size: 1.5em;
-    border: 1px solid white;
     background-color: #6CB7DA;
     color: white;
-    border-radius: 5px;
-    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    min-width: 80px;
+    height: 35px;
+    font-weight: bold;
+    font-size: 18px;
 }

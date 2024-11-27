@@ -1,5 +1,7 @@
 import React from 'react';
 import styles from './HobbyDetailPost.module.css';
+import common from '../common/common.module.css';
+import {FaAngleLeft, FaBell, FaSearch} from "react-icons/fa";
 
 function HobbyDetailPost() {
     return (
@@ -40,7 +42,11 @@ function HobbyDetailPost() {
                 <div className={styles.reviewCount}>후기 99+</div>
                 <div className={styles.reviewButton}>
                     <button className={styles.writeReview}>후기작성</button>
-                    <button className={styles.sortReview}>정렬</button>
+                    <select className={styles.sortReview}>
+                        <option value="newest">최신순</option>
+                        <option value="highRate">높은별점순</option>
+                        <option value="lowRate">낮은별점순</option>
+                    </select>
                 </div>  
             </div>         
             <HobbyReview />
@@ -60,8 +66,8 @@ function HobbyReview() {
                     <div className={styles.reviewPoint}>별점 
                         <StarPoint />
                     </div>
-                    <button className={styles.reportButton}>
-                        <img src='/img/reportIcon.png' style={{width:'18px', height:'18px'}} alt='' />
+                    <button className={`${styles.reportButton} ${common.reportDiv}`}>
+                    <FaBell/>
                         신고
                     </button>
                 </div>
