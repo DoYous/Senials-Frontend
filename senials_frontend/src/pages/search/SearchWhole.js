@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 
 // CSS
 import styles from '../common/MainVer1.module.css';
@@ -11,9 +11,12 @@ const testArray6 = [{number: 1}, {number: 2}, {number: 3}, {number: 4}, {number:
 
 function SearchWhole() {
 
+    const [searchParams, setSearchParams] = useSearchParams();
     const navigate = useNavigate();
 
     const [tarr, setTarr] = useState([...testArray6]);
+
+    const keyword = searchParams.get("keyword");
 
     const testLoad = () => {
         setTarr(prev => [...prev, {number: 5}]);
@@ -31,7 +34,7 @@ function SearchWhole() {
         <div className={styles.centerContainer}>
             <div className={styles.separator}>
                 <span className={`${styles.firstFont}`}>
-                    '<span className={styles.pointColor}>검색어</span>'&nbsp;의 검색 결과
+                    '<span className={styles.pointColor}>&nbsp;{ keyword }&nbsp;</span>'의 검색 결과
                 </span>
             </div>
 
