@@ -7,11 +7,11 @@ import Layout from './layouts/Layout.js';
 import MainPage from './pages/mainpage/MainPage.js';
 
 import PartyDetail from './pages/party/PartyDetail.js';
-import Board from './pages/party/Board.js';
-import BoardOverview from './pages/party/BoardOverview.js';
-import BoardWrite from './pages/party/BoardWrite.js';
-import BoardUpdate from './pages/party/BoardUpdate.js';
-import WholeSearch from './pages/search/WholeSearch.js';
+import PartyBoard from './pages/party/PartyBoard.js';
+import PartyBoardOverview from './pages/party/PartyBoardOverview.js';
+import PartyWrite from './pages/party/PartyWrite.js';
+import PartyUpdate from './pages/party/PartyUpdate.js';
+import SearchWhole from './pages/search/SearchWhole.js';
 
 import PartyMember from "./pages/party/PartyMember";
 import PartyMeet from "./pages/party/PartyMeet";
@@ -41,7 +41,7 @@ function App() {
             <Routes>
                 <Route path='/' element={<Layout />}>
                     <Route index element={<MainPage />} />
-                    <Route path='search-whole' element={<WholeSearch />} />
+                    <Route path='search-whole' element={<SearchWhole />} />
                       {/*맞춤형 취미 추천 받기 페이지*/}
                     <Route path="/suggest-hobby" element={<SuggestHobbyGet/>}/>
                     {/*맞춤형 취미 추천 결과 페이지*/}
@@ -58,11 +58,11 @@ function App() {
                     <Route path="/hobby-review-modify" element={<HobbyReviewModify/>}/>
                       
                     <Route path='party'>
-                        <Route path='board' element={<Board />} />
-                        <Route path='board-overview' element={<BoardOverview />} />
+                        <Route path='board' element={<PartyBoard />} />
+                        <Route path='board-overview' element={<PartyBoardOverview />} />
                         <Route path='party-number' element={<PartyDetail />} />
-                        <Route path='write' element={<BoardWrite />} />
-                        <Route path='update' element={<BoardUpdate />} />
+                        <Route path='write' element={<PartyWrite />} />
+                        <Route path='update' element={<PartyUpdate />} />
                         {/*매칭 게시판 일정 멤버 확인*/}
                         <Route path="member" element={<PartyMember />} />
                         {/*매칭 게시판 일정 멤버 관리*/}

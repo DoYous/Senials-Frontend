@@ -16,7 +16,7 @@ function MainPage() {
                 <span className={`${styles.firstFont}`}>
                     이달의&nbsp;<span className={`${styles.pointColor}`}>인기</span>&nbsp;취미
                 </span>
-                <button className={`${styles.whiteBtn} ${styles.thirdFont} ${styles.mlAuto}`}>전체보기</button>
+                <span className={`${styles.whiteBtn} ${styles.mlAuto}`}>전체보기</span>
             </div>
             <div className={`${styles.separatorContent}`}>
                 <HobbyCard />
@@ -30,7 +30,7 @@ function MainPage() {
                 <span className={`${styles.firstFont}`}>
                     <span className={`${styles.pointColor}`}>핫</span>&nbsp;매칭&nbsp;게시글
                 </span>
-                <button className={`${styles.whiteBtn} ${styles.thirdFont} ${styles.mlAuto}`}>전체보기</button>
+                <span className={`${styles.whiteBtn} ${styles.mlAuto}`}>전체보기</span>
             </div>
             <div className={`${styles.separatorContent}`}>
                 <PartyCard />
@@ -307,8 +307,8 @@ function PartyCard() {
         </div>
         <div className={styles.memberInfo}>
             <img src='/image/people.svg' style={{width: '20px'}}/>&nbsp;
-            <span className={`${styles.memberCount} ${styles.fourthFont}`}>10명</span>
-            <span className={`${styles.openedParty} ${styles.thirdFont}`}>모집중</span>
+            <span className={`${styles.fourthFont}`}>10명</span>
+            <span className={`${styles.openedParty} ${styles.thirdFont} ${styles.mlAuto}`}>모집중</span>
         </div>
     </div>
   )
@@ -320,8 +320,7 @@ function HobbyCard() {
           <div className={styles.cardImage} style={{backgroundImage: 'url(/image/1.jpg)'}} />
           <div className={`${styles.secondFont} ${styles.flex}`}>
             아웃도어
-            {/* font-size: 텍스트 픽셀 - 1 */}
-            <span style={{fontSize: '17px'}}>
+            <span className={`${styles.separatorV}`}>
                 &nbsp;|&nbsp;
             </span>
             등산
