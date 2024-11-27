@@ -1,12 +1,28 @@
 import React from 'react';
 import styles from './SuggestHobbyPost.module.css';
+import { useNavigate } from 'react-router-dom';
 
 function SuggestHobbyPost() {
+
+    const navigate=useNavigate();
+
+    //이전 페이지로 돌아가기 (취소) 이벤트
+    const goBack=()=>{
+        navigate(-1);
+    }
+
+    // 마이페이지 이동 이벤트
+    const linkMyPage=()=>{
+        navigate('/mypage/calender');
+    }
+
+    //모임 목록 이동 이벤트
+    const linkMyParty=()=>{
+        navigate('/party/board');
+    }
+
     return (
         <>
-            <header>
-                {/* 헤더 */}
-            </header>
             <div className={styles.page}>
             <div className={styles.title}>
                 이런 <span style={{color:'#FF5391'}}>취미</span> 어떠세요?
@@ -38,14 +54,12 @@ function SuggestHobbyPost() {
             </div>
 
             <div className={styles.selectButton}>
-                <button>다시 추천 받기</button>
-                <button>나의 취미로 등록</button>
-                <button>동일한 취미 모임 찾기</button>
+                <button onClick={()=>goBack()}>다시 추천 받기</button>
+                <button onClick={()=>linkMyPage()}>나의 취미로 등록</button>
+                <button onClick={()=>linkMyParty()}>동일한 취미 모임 찾기</button>
             </div>
             </div>
-            <footer>
-                {/* 푸터 */}
-            </footer>
+    
         </>
     );
 }
