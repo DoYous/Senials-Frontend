@@ -7,7 +7,7 @@
     background-image: url(/public/img/sampleBackgroundImg.png);
     background-repeat: no-repeat; 
     background-size: cover;
-    z-index: -1; 
+    z-index: -2; 
 }
 
 .page {
@@ -144,6 +144,7 @@ hr {
     padding: 20px 50px;
     border: 1px solid;
     border-radius: 30px;
+    margin-bottom: 60px;
 }
 
 .hobbyReviewDetail {

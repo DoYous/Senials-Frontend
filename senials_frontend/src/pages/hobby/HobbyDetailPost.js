@@ -44,6 +44,7 @@ function HobbyDetailPost() {
                 </div>  
             </div>         
             <HobbyReview />
+            <HobbyReview />
         </div>
 
         </>
