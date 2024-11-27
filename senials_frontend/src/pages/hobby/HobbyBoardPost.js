@@ -23,8 +23,8 @@ function HobbyBoardPost() {
     const[filterList,setFilterList]=useState(hobbyList);
 
 
-    //페이지 이동 이벤트
-    const linkHobby = (hobbyNumber) => {
+    //취미 상세 후기 페이지 이동 이벤트
+    const linkHobbyDetail = (hobbyNumber) => {
         navigate(`/hobby-detail/${hobbyNumber}`);
     }
 
@@ -44,7 +44,7 @@ function HobbyBoardPost() {
             <div className={styles.top3List}>
                 
             {top3List.map((item,index) => {
-                return <HobbyCard key={index} hobby={item.hobby} linkHobby={linkHobby}/>
+                return <HobbyCard key={index} hobby={item.hobby} linkHobbyDetail={linkHobbyDetail}/>
             })}
                 
             </div>
@@ -55,7 +55,7 @@ function HobbyBoardPost() {
             </form>
 
             {filterList.map((item,index)=>{
-                return <HobbyList key={index} hobby={item.hobby} linkHobby={linkHobby}/>
+                return <HobbyList key={index} hobby={item.hobby} linkHobbyDetail={linkHobbyDetail}/>
             })}
             
             <button className={styles.suggestHobbyButton}>취미 추가 건의</button>
@@ -63,10 +63,10 @@ function HobbyBoardPost() {
     );
 }
 
-function HobbyList({hobby,linkHobby}){
+function HobbyList({hobby,linkHobbyDetail}){
     return(
         <>
-        <div className={styles.hobbyList} onClick={()=>linkHobby(hobby.number)}>
+        <div className={styles.hobbyList} onClick={()=>linkHobbyDetail(hobby.number)}>
         <img src='/img/sampleImg3.png' className={styles.hobbyImg} alt="축구" />
         <div>
             <div className={styles.hobbyName}>{hobby.name}</div>
