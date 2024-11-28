@@ -1,7 +1,21 @@
 import React from 'react';
 import styles from "./HobbyReviewGet.module.css";
+import { useNavigate } from 'react-router-dom';
 
 function HobbyReviewGet() {
+
+    const navigate=useNavigate();
+
+    //이전 페이지로 돌아가기 (취소) 이벤트
+    const goBack=()=>{
+        navigate(-1);
+    }
+
+    // 후기 작성후 제출 페이지 이동 이벤트
+    const linkSubmitReivew=()=>{
+        navigate('/hobby-detail');
+    }
+
     return (
         <>    
             <div className={styles.background}></div>    
@@ -57,8 +71,8 @@ function HobbyReviewGet() {
                         <label htmlFor="level5">어려움</label>
                     </div>
                     <div className={styles.buttonContainer}>
-                        <button className={styles.cancleButton}>취소</button>
-                        <input className={styles.submitButton} type="submit" value="제출" />
+                        <button className={styles.cancleButton} onClick={()=>goBack()}>취소</button>
+                        <input className={styles.submitButton} type="submit" value="제출" onClick={()=>linkSubmitReivew()} />
                     </div>
                 </form>
             </div>

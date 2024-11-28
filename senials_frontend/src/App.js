@@ -55,9 +55,9 @@ function App() {
                     {/*맞춤형 취미 추천 결과 페이지*/}
                     <Route path="/suggest-hobby-result" element={<SuggestHobbyPost/>}/>
                     {/*취미 게시판 전체 보기*/}
-                    <Route path="/hobby-board-all" element={<HobbyBoardPost/>}/>
+                    <Route path="/hobby-board" element={<HobbyBoardPost/>}/>
                     {/*취미태그 게시판 전체 보기*/}
-                    <Route path="/hobby-tag-board" element={<HobbyTagBoardPost/>}/>
+                    <Route path="/hobby-tag" element={<HobbyTagBoardPost/>}/>
                     <Route path="/hobby/board" element={<HobbyTagBoardPost/>}/>
                     {/*취미 게시판 상세 보기*/}
                     <Route path="/hobby-detail" element={<HobbyDetailPost/>}/>
