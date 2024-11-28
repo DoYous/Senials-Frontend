@@ -90,8 +90,11 @@
 
 .separatorContent {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     padding: 0 20px;
+    gap: 80px;
+    row-gap: 32px;
     margin-bottom: 32px;
 }
 
@@ -201,6 +204,9 @@
     padding: 0 10px;
     min-width: 60px;
     height: 31px;
+
+    font-size: 18px;
+    font-weight: bold;
 }
 
 .partySearch {
@@ -272,14 +278,21 @@
     height: 18px;
 }
 
+.emptyCardContainer {
+    flex: none;
+    width: 240px;
+}
+
 .cardContainer {
     /* cardImage - width와 동일하게 설정해야함 */
     max-width: 240px;
+
+    cursor: pointer;
 }
 
 .cardImage {
     display: flex;
-    border: 1px solid grey;
+    border: 1px solid #adadad;
     width: 240px;
     height: 240px;
     border-radius: 10px; 
@@ -334,14 +347,25 @@
 
 .ctgrRow {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
+
+    row-gap: 16px;
     padding: 0 20px;
     margin-bottom: 16px;
 }
 
+.emptyCtgrContainer {
+    flex: none;
+    width: 230px;
+}
+
+
 .ctgrContainer {
     /* ctgrImage - width와 동일하게 설정해야함 */
     max-width: 230px;
+
+    cursor: pointer;
 }
 
 .ctgrImage {
@@ -441,8 +465,10 @@
 /* search-whole */
 /* 검색결과 없을 때 출력되는 문구 */
 .noSearchResult {
-    padding: 16px 0 32px 0;
+    padding-top: 16px;
     color: #999999;
+    font-size: 33px;
+    font-weight: bold;
 }
 
 /* PartyDetail */
@@ -452,6 +478,8 @@
     object-fit: cover;
     width: 150px;
     height: 150px;
+
+    cursor: pointer;
 }
 
 .separatorLines {
@@ -645,14 +673,19 @@
 
 .mcsItem {
     flex: none;
-    width: 520px;
-    margin-left: 15px;
-    margin-right: 15px;
+
     border-radius: 10px;
-    height: 100%;
+
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+
+    width: 520px;
+    height: 100%;
+    margin-left: 15px;
+    margin-right: 15px;
+
+    cursor: pointer;
 }
 
 .mcsPrev {
