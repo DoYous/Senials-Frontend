@@ -1,12 +1,28 @@
 import styles from './PartyMeet.module.css';
 import common from '../common/Common.module.css';
 import React, { useState, useEffect } from "react";
+import {useNavigate} from "react-router-dom";
 
 function PartyMeet() {
+    const navigate = useNavigate();
+
+    /* 취소 */
+    const handleCancel = (event) => {
+        event.preventDefault(); // 기본 동작 방지
+        navigate(-1); // 지정된 경로로 이동
+    };
+
+    /* 제출 */
+    const handleSubmit = (event) => {
+        event.preventDefault(); // 기본 동작 방지
+        alert("제출되었습니다!");
+        navigate(-1); // 지정된 경로로 이동
+    };
+
     return (
         <div className={styles.bigDiv}>
             <div className={styles.smallDiv}>
-        <form className={styles.formDiv}>
+        <form className={styles.formDiv} onSubmit={handleSubmit}>
             <h1 className={`${styles.nameflexDiv} ${common.firstFont}`}><div className={styles.pink}>일정</div>을 추가해주세요!</h1>
             <div className={styles.bigSelectDiv}>
 
@@ -47,8 +63,8 @@ function PartyMeet() {
                         </div>
                         </div>
                     <div className={styles.btnDiv}>
-                        <button className={`${common.commonBtn} ${styles.marginLeftAuto}`}>취소</button>
-                        <button className={`${common.importantBtn} ${styles.marginLeft}`}>제출</button>
+                        <button className={`${common.commonBtn} ${styles.marginLeftAuto}`} onClick={handleCancel}>취소</button>
+                        <button type={"submit"} className={`${common.importantBtn} ${styles.marginLeft}`}>제출</button>
                     </div>
                 </div>
             </div>

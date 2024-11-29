@@ -3,20 +3,29 @@ import common from '../common/Common.module.css';
 import React, { useState } from "react";
 /*아이콘*/
 import { FaAngleLeft, FaAngleUp, FaAngleDown } from "react-icons/fa6";
+import {useNavigate} from "react-router-dom";
 
 function MypageLike() {
+    const navigate = useNavigate();
+
+    /* 마이페이지(캘린더)로 이동 */
+    const handleCalender = (userNumber) => {
+        navigate(`/user/${userNumber}/meet`);
+    }
+
     return (
         <div className={styles.bigDiv}>
             <div className={styles.smallDiv}>
                 <div className={styles.bigName}>
                     <div className={styles.bigNameFlex}>
-                        <FaAngleLeft size={20}/>
+                        <FaAngleLeft size={20} onClick={handleCalender} style={{ cursor: 'pointer' }}/>
                         <h1 className={`${styles.nameflexDiv} ${common.firstFont}`}>
                             <div className={`${styles.pink} ${styles.marginName}`}>관심사</div>
                             설정
                         </h1>
                     </div>
-                    <button className={`${common.commonBtn} ${styles.saveMargin}`}>저장</button>
+                    {/* 저장되게 설정 */}
+                    <button className={`${common.commonBtn} ${styles.saveMargin}`} >저장</button>
                 </div>
                 <Hash title="운동" />
                 <Hash title="독서" />
@@ -43,7 +52,7 @@ function Hash({ title }) {
                 onClick={toggleOpen}
             >
                 <div className={`${common.secondFont} ${common.marginRight}`}>{title}</div>
-                {isOpen ? <FaAngleUp size={20}/> : <FaAngleDown size={20}/>}
+                {isOpen ? <FaAngleUp size={20} style={{ cursor: 'pointer' }}/> : <FaAngleDown size={20} style={{ cursor: 'pointer' }}/>}
             </button>
             {isOpen && (
                 <div className={styles.select_hobby_tendency}>

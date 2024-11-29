@@ -171,3 +171,10 @@ font-size: 18px;}
     justify-content: flex-end;
     width: 1280px;
     margin-top: 20px;}
+
+.flex{display: flex;
+    align-items: flex-start;
+    align-content: center;
+    flex-direction: row;
+    width: 120px;
+    justify-content: space-between;}

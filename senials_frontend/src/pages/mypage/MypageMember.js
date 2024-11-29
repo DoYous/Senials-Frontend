@@ -3,8 +3,18 @@ import common from '../common/Common.module.css';
 import React, { useState } from "react";
 import {FaAngleLeft, FaBell, FaSearch} from "react-icons/fa";
 import { MdOutlineCheckBoxOutlineBlank, MdCheckBox, MdCheckBoxOutlineBlank } from "react-icons/md";
+import {useNavigate} from "react-router-dom";
 /*모임 멤버 전체 보기*/
 function MypageMember() {
+    const navigate = useNavigate();
+
+    /* 이전 페이지로 이동 */
+    const handleBack = (event) => {
+        event.preventDefault(); // 기본 동작 방지
+        navigate(-1); // 지정된 경로로 이동
+    };
+
+    /* 전체 선택 */
     const [selectAll, setSelectAll] = useState(false); /*전체 선택 상태*/
     const [checkedItems, setCheckedItems] = useState(new Array(3).fill(false)); /*각 멤버 선택 상태 근데 데이터양에 따라 달라질게 해야함*/
 
@@ -13,7 +23,7 @@ function MypageMember() {
         setSelectAll(newState);
         setCheckedItems(checkedItems.map(() => newState));
     };
-
+    /* 체크 박스 설정 */
     const handleItemClick = (index) => {
         const newCheckedItems = [...checkedItems];
         newCheckedItems[index] = !newCheckedItems[index];
@@ -29,7 +39,7 @@ function MypageMember() {
             <div className={styles.bigDiv}>
                 <div className={styles.modifyDiv}>
                     <div className={styles.bigName}>
-                        <FaAngleLeft size={20}/>
+                        <FaAngleLeft size={20} onClick={handleBack}/>
                         <div className={`${styles.nameflexDiv} ${common.firstFont}`}>
                             <div className={`${styles.pink} ${styles.marginLeft}`}>모임이름</div>
                             <div className={styles.marginLeft}>- 멤버 목록</div>
@@ -40,8 +50,11 @@ function MypageMember() {
                 <div className={styles.smallDiv}>
                 <div className={styles.mainDiv}>
                         <div className={styles.bigSearchDiv}>
-                            <div onClick={handleSelectAll} style={{ cursor: "pointer" }}>
-                                {selectAll ? <MdCheckBox  size={25}/> : <MdCheckBoxOutlineBlank  size={25}/>}
+                            <div className={styles.flex}>
+                                <div onClick={handleSelectAll} style={{ cursor: "pointer" , margin: "0px"}}>
+                                    {selectAll ? <MdCheckBox  size={25}/> : <MdCheckBoxOutlineBlank  size={25}/>}
+                                </div>
+                                <div className={common.secondFont}>전체 선택</div>
                             </div>
                             <div className={styles.smallSearchDiv}>
                                 <div className={`${styles.flexDiv} ${styles.searchDiv}`}>
@@ -59,6 +72,7 @@ function MypageMember() {
                             </div>
                         </div>
                     </div>
+                    {/* 사용자 프로필 이동 */}
                     {checkedItems.map((isChecked, index) => (
                         <Profile
                             key={index}

@@ -42,9 +42,23 @@ function App() {
                 <Route path='/' element={<Layout />}>
                     <Route index element={<MainPage />} />
 
+                    {/*마이페이지*/}
                     <Route path="user" >
                         <Route path=":userNumber">
+                            {/*사용자 프로필(남보기용)*/}
                             <Route path="profile" element={<Mypage />} />
+                            {/*마이페이지 회원정보 변경*/}
+                            <Route path="modify" element={<MypageModify />} />
+                            {/*마이페이지+캘린더*/}
+                            <Route path="meet" element={<MypageCalender />} />
+                            {/*좋아요 한 모임*/}
+                            <Route path="likes" element={<MypageLikedParty />}/>
+                            {/*참여 한 모임*/}
+                            <Route path="parties" element={<MypageParticipate />}/>
+                            {/*생성 모임*/}
+                            <Route path="made" element={<MypageMade />}/>
+                            {/*취미 관심사 설정*/}
+                            <Route path="favorites" element={<MypageLike />} />
                         </Route>
                     </Route>
 
@@ -81,26 +95,15 @@ function App() {
                             <Route path="review-modify" element={<PartyReviewModify />} />
                             {/* 모임 멤버 전체보기*/}
                             <Route path="members" element={<MypageMember />} />
+                            {/* 모임 수정 */}
+                            <Route path='update' element={<PartyUpdate />} />
                         </Route>
                         {/* 모임 작성 */}
                         <Route path='write' element={<PartyWrite />} />
-                        {/* 모임 수정 */}
-                        <Route path='update' element={<PartyUpdate />} />
-                        {/*매칭 게시판 일정 멤버 확인*/}
-                        <Route path="member" element={<PartyMember />} />
-                        {/*매칭 게시판 일정 멤버 관리*/}
-
-                        {/*매칭게시판 상세 일정 추가*/}
-                        <Route path="meet" element={<PartyMeet />} />
-                        {/*매칭게시판 상세 일정 수정*/}
-                        <Route path="meet-modify" element={<PartyMeetModify />} />
-                        {/*매칭게시판 상세 모임 후기 작성하기*/}
-                        <Route path="review" element={<PartyReview />} />
-                        {/*매칭게시판 상세 모임 후기 수정하기*/}
-                        <Route path="review-modify" element={<PartyReviewModify />} />
                     </Route>
 
                     <Route path="meet">
+                        {/*매칭게시판 상세 일정 추가*/}
                         <Route path="write" element={<PartyMeet />} />
                         <Route path=":meetNumber">
                             {/* 모임 일정 수정 */}
@@ -108,25 +111,6 @@ function App() {
                             {/* 모임 일정 멤버 목록 */}
                             <Route path="members" element={<PartyMember />} />
                         </Route>
-                    </Route>
-
-                    <Route path='mypage'>
-                        {/*마이페이지 회원정보 변경*/}
-                        <Route path="modify" element={<MypageModify />} />
-                        {/*마이페이지+캘린더*/}
-                        <Route path="calender" element={<MypageCalender />} />
-                        {/*취미 관심사 설정*/}
-                        <Route path="like" element={<MypageLike />} />
-                        {/*사용자 프로필(남보기용)*/}
-                        <Route path="" element={<Mypage />} />
-                        {/*모임 전체 멤버 관리*/}
-                        <Route path="member" element={<MypageMember />} />
-                        {/*좋아요 한 모임*/}
-                        <Route path="likedparty" element={<MypageLikedParty />}/>
-                        {/*참여 한 모임*/}
-                        <Route path="participate" element={<MypageParticipate />}/>
-                        {/*생성 모임*/}
-                        <Route path="made" element={<MypageMade />}/>
                     </Route>
                 </Route>
             </Routes>

@@ -3,19 +3,36 @@ import React, { useState } from "react";
 import common from "../common/Common.module.css";
 import { FaAngleLeft } from "react-icons/fa";
 import main from "../common/MainVer1.module.css";
+import {useNavigate} from "react-router-dom";
 
 function MypageParticipate() {
-    const [filter, setFilter] = useState("참여");
-
+    /* 예비 데이터 */
     const partyData = [
-        { id: 1, title: "농구 같이 할 사람~", status: "참여" },
-        { id: 2, title: "축구 모임", status: "미참여" },
-        { id: 3, title: "독서 모임", status: "참여" },
-        { id: 4, title: "요리 클래스", status: "미참여" },
-        { id: 5, title: "러닝 동호회", status: "참여" },
-        { id: 6, title: "음악 밴드", status: "미참여" },
-        { id: 7, title: "뮤지컬", status: "참여" },
+        { number:1, id: 1, title: "농구 같이 할 사람~", status: "참여" },
+        { number:2, id: 2, title: "축구 모임", status: "미참여" },
+        { number:3, id: 3, title: "독서 모임", status: "참여" },
+        { number:4, id: 4, title: "요리 클래스", status: "미참여" },
+        { number:5, id: 5, title: "러닝 동호회", status: "참여" },
+        { number:6, id: 6, title: "음악 밴드", status: "미참여" },
+        { number:7, id: 7, title: "뮤지컬", status: "참여" },
     ];
+    const navigate = useNavigate();
+    /* 모임별 페이지 이동 */
+    const linkParty = (partyNumber) => {
+        navigate(`/party/${partyNumber}`);
+    }
+    /* 마이페이지(캘린더)로 이동 */
+    const handleCalender = (userNumber) => {
+        navigate(`/user/${userNumber}/meet`);
+    }
+
+    /* 후기 페이지 이동 */
+    const handleReview = (partyNumber) => {
+        navigate(`/party/${partyNumber}/review-write`);
+    };
+
+    /* 참여 상태 관리 */
+    const [filter, setFilter] = useState("참여");
 
     const filteredParties = partyData.filter(party => party.status === filter);
 
@@ -23,7 +40,7 @@ function MypageParticipate() {
         <div className={styles.bigDiv}>
             <div className={styles.modifyDiv}>
                 <div className={styles.bigName}>
-                    <FaAngleLeft size={20} />
+                    <FaAngleLeft size={20} onClick={handleCalender}/>
                     <div className={`${styles.nameflexDiv} ${common.firstFont}`}>
                         <div className={`${styles.pink} ${styles.marginLeft}`}>참여</div>
                         <div className={styles.marginLeft}>모임</div>
@@ -53,7 +70,8 @@ function MypageParticipate() {
                     <div className={styles.mainDiv}>
                         <div className={styles.cardGrid}>
                             {filteredParties.map(party => (
-                                <PartyCard key={party.id} title={party.title} />
+                                <PartyCard key={party.id} title={party.title} status={party.status} party={party}
+                                           linkParty={linkParty} handleReview={handleReview}/>
                             ))}
                         </div>
                     </div>
@@ -63,13 +81,13 @@ function MypageParticipate() {
     );
 }
 
-function PartyCard({ title }) {
+function PartyCard({ title, status , party, linkParty, handleReview}) {
     return (
         <div className={main.cardContainer}>
-            <div className={main.cardImage} style={{backgroundImage: 'url(/image/cat.jpg)'}}>
+            <div onClick={() => linkParty(party.number)} className={main.cardImage} style={{backgroundImage: 'url(/image/cat.jpg)'}}>
                 <img className={main.imgHeart} src='/image/unfilledHeart.svg' alt="heart"/>
             </div>
-            <div className={`${main.secondFont}`}>{title}</div>
+            <div onClick={() => linkParty(party.number)} className={`${main.secondFont}`}>{title}</div>
             <div className={main.rateInfo}>
                 <Rate/>
             </div>
@@ -82,7 +100,7 @@ function PartyCard({ title }) {
                 <button className={`${styles.outBtn} ${main.thirdFont}`}>탈퇴</button>
             </div>
             <div className={styles.btnDiv}>
-                <button className={styles.commonBtn2}>후기 작성</button>
+                <button className={styles.commonBtn2} onClick={() => handleReview(party.number)}>후기 작성</button>
             </div>
         </div>
     );
