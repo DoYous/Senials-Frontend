@@ -23,8 +23,8 @@ const Header = () => {
     }
 
     // 마이페이지 이동 이벤트
-    const linkMyPage=()=>{
-        navigate('/mypage/calender');
+    const linkMyPage=(userNumber)=>{
+        navigate(`/user/${userNumber}/meet`);
     }
 
     //모임 목록 페이지 이동 이벤트

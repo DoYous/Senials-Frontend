@@ -90,7 +90,8 @@
     align-items: center;
     justify-content: center;
     flex-direction: row;
-    margin-top: 20px;}
+    margin-top: 20px;
+    cursor: pointer;}
 
 .contentDiv1{width: 100%;
     display: flex;

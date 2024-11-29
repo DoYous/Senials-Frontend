@@ -25,7 +25,8 @@ padding: 120px 0px;}
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    justify-content: center;}
+    justify-content: center;
+    padding-bottom: 40px;}
 .formDiv{width: 80%}
 .inputDiv{
     height: 40px;
