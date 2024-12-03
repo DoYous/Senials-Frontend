@@ -34,6 +34,7 @@ import MypageMade from "./pages/mypage/MypageMade";
 import MypageParticipate from "./pages/mypage/MypageParticipate";
 import PartyMeetModify from "./pages/party/PartyMeetModify";
 import PartyReviewModify from "./pages/party/PartyReviewModify";
+import ManageUser from "./pages/admin/ManageUser";
 
 function App() {
     return (
@@ -113,7 +114,12 @@ function App() {
                         </Route>
                     </Route>
                 </Route>
+                <Route path="admin">
+                    {/*관리자페이지-사용자 관리*/}
+                    <Route path="manage-user" element={<ManageUser/>}/>
+                </Route>
             </Routes>
+            
         </BrowserRouter>
     )
 }
