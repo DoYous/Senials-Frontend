@@ -1,7 +1,7 @@
 import {configureStore, createSlice} from '@reduxjs/toolkit'
 
 //example state data
-let user =createSlice({
+let user = createSlice({
     
     name:'state이름~',
     initialState:'kim',
