@@ -2,14 +2,18 @@ import React,{useEffect, useState} from 'react';
 import styles from './admin.module.css';
 import {useDispatch,userSelector, useSelector} from "react-redux";
 
-let state=useSelector((state)=>state)
-let dispatch=useDispatch()
+
 
 
 let userData={id:'sangik', name:'김상익',birth:'1999-09-09', email:'sangik9999@naver.com',gender:'male',reportCount:12}
 
 
 function ManageUser(){
+
+    let state=useSelector((state)=>state)
+    let dispatch=useDispatch()
+
+
     return(
         <div>
             <div className={styles.adminHeader}>
