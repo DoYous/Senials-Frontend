@@ -26,12 +26,7 @@ function MypageLikedParty() {
     const handleCalender = (userNumber) => {
         navigate(`/user/${userNumber}/meet`);
     }
-
-    /*모집 상태 관리 */
-    const [filter, setFilter] = useState("모집 중");
-
-    /*필터링 카드*/
-    const filteredParties = partyData.filter(party => party.status === filter);
+    const filteredParties = partyData;
 
     return (
         <div className={styles.bigDiv}>
@@ -46,41 +41,28 @@ function MypageLikedParty() {
                 <hr className={styles.divHr} />
                 <div className={styles.smallDiv}>
                     <div className={styles.contentsDiv}>
-                        {/* 모집 중 버튼 */}
-                        <div className={styles.contentDiv1}
-                            onClick={() => setFilter("모집 중")} >
-                            <div className={`${common.secondFont} ${filter !== "모집 중" ? styles.gray : ""}`}>
-                                모집 중
-                            </div>
-                        </div>
-                        {/* 모집 완료 버튼 */}
-                        <div className={styles.contentDiv3}
-                            onClick={() => setFilter("모집 완료")} >
-                            <div className={`${common.secondFont} ${filter !== "모집 완료" ? styles.gray : ""}`}>
-                                모집 완료
+                        <div className={styles.mainDiv}>
+                            <div className={styles.cardGrid}>
+                                {filteredParties.map(party => (
+                                    <PartyCard key={party.id} title={party.title} status={party.status} party={party}
+                                               linkParty={linkParty}/>
+                                ))}
                             </div>
                         </div>
                     </div>
 
-                    <div className={styles.mainDiv}>
-                        <div className={styles.cardGrid}>
-                            {filteredParties.map(party => (
-                                <PartyCard key={party.id} title={party.title} status={party.status} party={party}
-                                           linkParty={linkParty}/>
-                            ))}
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </div>
     );
 }
 
-function PartyCard({ title, status , party, linkParty}) {
+function PartyCard({title, status, party, linkParty}) {
     return (
         <div className={main.cardContainer} onClick={() => linkParty(party.number)}>
-            <div className={main.cardImage} style={{ backgroundImage: 'url(/image/cat.jpg)' }}>
-                <img className={main.imgHeart} src='/image/unfilledHeart.svg' alt="heart" />
+            <div className={main.cardImage} style={{backgroundImage: 'url(/image/cat.jpg)'}}>
+                <img className={main.imgHeart} src='/image/unfilledHeart.svg' alt="heart"/>
             </div>
             <div className={`${main.secondFont}`}>{party.title}</div>
             <div className={main.rateInfo}>

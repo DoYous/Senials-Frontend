@@ -39,6 +39,16 @@
     flex-direction: column;
     align-items: center;
     padding-top: 70px;}
+
+.mainDiv input{resize: none;
+    border: none;
+    text-align: center;
+    font-family: 'Pretendard', sans-serif;}
+
+.mainDiv textarea{resize: none;
+border: none;
+text-align: center;
+font-family: 'Pretendard', sans-serif;}
 .oneLine{
     color: #999999;
     margin: 15px;

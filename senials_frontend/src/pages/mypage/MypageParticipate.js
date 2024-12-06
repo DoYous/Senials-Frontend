@@ -30,11 +30,7 @@ function MypageParticipate() {
     const handleReview = (partyNumber) => {
         navigate(`/party/${partyNumber}/review-write`);
     };
-
-    /* 참여 상태 관리 */
-    const [filter, setFilter] = useState("참여");
-
-    const filteredParties = partyData.filter(party => party.status === filter);
+    const filteredParties = partyData;
 
     return (
         <div className={styles.bigDiv}>
@@ -49,23 +45,7 @@ function MypageParticipate() {
                 <hr className={styles.divHr} />
                 <div className={styles.smallDiv}>
                     <div className={styles.contentsDiv}>
-                        <div
-                            className={styles.contentDiv1}
-                            onClick={() => setFilter("참여")}
-                        >
-                            <div className={`${common.secondFont} ${filter !== "참여" ? styles.gray : ""}`}>
-                                일정 참여
-                            </div>
-                        </div>
-                        <div
-                            className={styles.contentDiv3}
-                            onClick={() => setFilter("미참여")}
-                        >
-                            <div className={`${common.secondFont} ${filter !== "미참여" ? styles.gray : ""}`}>
-                                일정 미 참여
-                            </div>
-                        </div>
-                    </div>
+
 
                     <div className={styles.mainDiv}>
                         <div className={styles.cardGrid}>
@@ -75,6 +55,7 @@ function MypageParticipate() {
                             ))}
                         </div>
                     </div>
+                </div>
                 </div>
             </div>
         </div>
