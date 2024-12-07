@@ -1,43 +1,73 @@
 import styles from './MypageParty.module.css';
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import common from "../common/Common.module.css";
 import main from '../common/MainVer1.module.css';
 import { FaAngleLeft } from "react-icons/fa";
 import {useNavigate} from "react-router-dom";
+import axios from "axios";
 
-function MypageLikedParty() {
+function MypageLikedParty({ userNumber }) {
+    const [likedParties, setLikedParties] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
-    /*예비 데이터*/
-    const partyData = [
-        { number:1, id: 1, title: "농구 같이 할 사람~", status: "모집 중" },
-        { number:2, id: 2, title: "축구 모임", status: "모집 완료" },
-        { number:3, id: 3, title: "독서 모임", status: "모집 중" },
-        { number:4, id: 4, title: "요리 클래스", status: "모집 완료" },
-        { number:5, id: 5, title: "러닝 동호회", status: "모집 중" },
-        { number:6, id: 6, title: "음악 밴드", status: "모집 완료" },
-        { number:7, id: 7, title: "뮤지컬", status: "모집 중" },
-    ];
+
     const navigate = useNavigate();
-    /* 모임별 페이지 이동 */
+
+    // 좋아요한 모임 데이터 가져오기
+    useEffect(() => {
+        const userNumber = 1; //임시용
+            /* 테스트용 */
+            axios.get(`/users/${userNumber}/likes`).then((data)=>{console.log(data)});
+        const fetchLikedParties = async () => {
+
+            try {
+                const response = await axios.get(`/users/${userNumber}/likes`, {
+                    params: {
+                        page: 1,
+                        size: 9,
+                    },
+                });
+                setLikedParties(response.data.results.likesParties);
+            } catch (err) {
+                setError("데이터를 가져오는 데 실패했습니다.");
+                console.error(err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchLikedParties();
+    }, [userNumber]);
+
+    // 상태 변환 함수: 0이면 '모집중', 1이면 '모집완료'
+    const getStatusText = (status) => {
+        return status === 0 ? "모집중" : status === 1 ? "모집완료" : "상태미정";
+    };
+
+    // 모임별 페이지 이동
     const linkParty = (partyNumber) => {
         navigate(`/party/${partyNumber}`);
-    }
-    /* 마이페이지(캘린더)로 이동 */
-    const handleCalender = (userNumber) => {
+    };
+
+    //마이페이지(캘린더) 이동
+    const handleCalender = () => {
         navigate(`/user/${userNumber}/meet`);
+    };
+
+    if (loading) {
+        return <div className={common.loading}>로딩 중...</div>;
     }
 
-    /*모집 상태 관리 */
-    const [filter, setFilter] = useState("모집 중");
-
-    /*필터링 카드*/
-    const filteredParties = partyData.filter(party => party.status === filter);
+    if (error) {
+        return <div className={common.error}>{error}</div>;
+    }
 
     return (
         <div className={styles.bigDiv}>
             <div className={styles.modifyDiv}>
                 <div className={styles.bigName}>
-                    <FaAngleLeft size={20} onClick={handleCalender}/>
+                    <FaAngleLeft size={20} onClick={handleCalender} />
                     <div className={`${styles.nameflexDiv} ${common.firstFont}`}>
                         <div className={`${styles.pink} ${styles.marginLeft}`}>좋아요</div>
                         <div className={styles.marginLeft}>한 모임</div>
@@ -46,28 +76,18 @@ function MypageLikedParty() {
                 <hr className={styles.divHr} />
                 <div className={styles.smallDiv}>
                     <div className={styles.contentsDiv}>
-                        {/* 모집 중 버튼 */}
-                        <div className={styles.contentDiv1}
-                            onClick={() => setFilter("모집 중")} >
-                            <div className={`${common.secondFont} ${filter !== "모집 중" ? styles.gray : ""}`}>
-                                모집 중
+                        <div className={styles.mainDiv}>
+                            <div className={styles.cardGrid}>
+                                {likedParties.map((party) => (
+                                    <PartyCard
+                                        key={party.partyBoardNumber}
+                                        title={party.partyBoardName}
+                                        status={getStatusText(party.partyBoardStatus)}
+                                        party={party}
+                                        linkParty={linkParty}
+                                    />
+                                ))}
                             </div>
-                        </div>
-                        {/* 모집 완료 버튼 */}
-                        <div className={styles.contentDiv3}
-                            onClick={() => setFilter("모집 완료")} >
-                            <div className={`${common.secondFont} ${filter !== "모집 완료" ? styles.gray : ""}`}>
-                                모집 완료
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className={styles.mainDiv}>
-                        <div className={styles.cardGrid}>
-                            {filteredParties.map(party => (
-                                <PartyCard key={party.id} title={party.title} status={party.status} party={party}
-                                           linkParty={linkParty}/>
-                            ))}
                         </div>
                     </div>
                 </div>
@@ -76,46 +96,70 @@ function MypageLikedParty() {
     );
 }
 
-function PartyCard({ title, status , party, linkParty}) {
+function PartyCard({ title, status, party, linkParty }) {
+    // 모집 상태에 따라 클래스 설정
+    const cardClass = party.partyBoardStatus === 1
+        ? `${main.thirdFont} ${main.closedParty}`
+        : `${main.thirdFont} ${main.openedParty}`;
+
     return (
-        <div className={main.cardContainer} onClick={() => linkParty(party.number)}>
-            <div className={main.cardImage} style={{ backgroundImage: 'url(/image/cat.jpg)' }}>
+        <div className={main.cardContainer} onClick={() => linkParty(party.partyBoardNumber)}>
+            <div
+                className={main.cardImage}
+                style={{
+                    backgroundImage: `url(${party.firstImage || '/image/default.jpg'})`,
+                }}
+            >
                 <img className={main.imgHeart} src='/image/unfilledHeart.svg' alt="heart" />
             </div>
-            <div className={`${main.secondFont}`}>{party.title}</div>
+            <div className={`${main.secondFont}`}>{title}</div>
             <div className={main.rateInfo}>
-                <Rate />
+                <Rate rating={party.averageRating} />
             </div>
             <div className={styles.memberInfo}>
                 <div className={styles.flex}>
                     <img src='/image/people.svg' alt="people" style={{ width: '20px' }} />
                     &nbsp;
-                    <span className={`${main.memberCount} ${main.fourthFont}`}>10명</span>
+                    <span className={`${main.memberCount} ${main.fourthFont}`}>
+                        {party.memberCount}명
+                    </span>
                 </div>
-                <span className={`${main.openedParty} ${main.thirdFont}`}>{party.status}</span>
+                <span className={cardClass}>{status}</span>
             </div>
         </div>
     );
 }
 
-function Rate() {
+function Rate({ rating }) {
+    const maxStars = 5;
+    const filledStars = Math.floor(rating); // 채워진 별의 개수
+    const hasHalfStar = rating % 1 !== 0; // 반 별이 필요한지 여부
+    const emptyStars = maxStars - filledStars - (hasHalfStar ? 1 : 0); // 빈 별의 개수
+
     return (
         <div className={`${main.rateInfo}`}>
-            <div className={`${main.baseStar}`}>
-                <div className={`${main.filledStar}`}></div>
-            </div>
-            <div className={`${main.baseStar}`}>
-                <div className={`${main.filledStar}`}></div>
-            </div>
-            <div className={`${main.baseStar}`}>
-                <div className={`${main.filledStar}`}></div>
-            </div>
-            <div className={`${main.baseStar}`}>
-                <div className={`${main.filledStar}`}></div>
-            </div>
-            <div className={`${main.baseStar}`}>
-                <div className={`${main.halfStar}`} style={{ width: '30%', marginRight: '70%' }}></div>
-            </div>
+            {/* 채워진 별 */}
+            {Array(filledStars)
+                .fill()
+                .map((_, index) => (
+                    <div key={`filled-${index}`} className={`${main.baseStar}`}>
+                        <div className={`${main.filledStar}`}></div>
+                    </div>
+                ))}
+
+            {/* 반 별 */}
+            {hasHalfStar && (
+                <div className={`${main.baseStar}`}>
+                    <div className={`${main.halfStar}`} style={{ width: '50%' }}></div>
+                </div>
+            )}
+
+            {/* 빈 별 */}
+            {Array(emptyStars)
+                .fill()
+                .map((_, index) => (
+                    <div key={`empty-${index}`} className={`${main.baseStar}`}></div>
+                ))}
         </div>
     );
 }
