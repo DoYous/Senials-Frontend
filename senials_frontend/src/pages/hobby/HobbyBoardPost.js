@@ -1,26 +1,40 @@
-import React,{useState} from 'react';
+import React,{useState, useEffect} from 'react';
 import styles from './HobbyBoardPost.module.css';
 import {FaAngleLeft, FaBell, FaSearch} from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from "react-redux";
+import axios from 'axios';
+import { setHobbyCard } from '../../redux/hobbySlice';
+
 
 const top3List = [
     { hobby: { number: 23, percentage: 23, name: "축구" } },
     { hobby: { number: 33, percentage: 33, name: "농구" } },
     { hobby: { number: 22, percentage: 22, name: "배드민턴" } }
   ];
-  const hobbyList = [
-    { hobby: { number: 11, percentage: 11, name: "탁구" } },
-    { hobby: { number: 12, percentage: 12, name: "배드민턴" } },
-    { hobby: { number: 13, percentage: 13, name: "축구" } }
-  ];
 
 function HobbyBoardPost() {
 
+    const dispatch=useDispatch();
+    const hobbyList=useSelector((state)=>state.hobbyList)
     const navigate = useNavigate();
 
     //검색 텍스트, 필터링 목록
     const[searchText, setSearchText]=useState("");
-    const[filterList,setFilterList]=useState(hobbyList);
+    const[filterList,setFilterList]=useState([]);
+
+    useEffect(() => {
+        axios.get('/hobby-board')
+            .then((response) => {
+                dispatch(setHobbyCard(response.data.results.hobby));
+            })
+            .catch((error) => console.error(error));
+    }, [dispatch]);
+
+    useEffect(() => {
+        console.log(hobbyList);
+        setFilterList(hobbyList);
+    }, [hobbyList]);
 
 
     //취미 상세 후기 페이지 이동 이벤트
@@ -32,14 +46,11 @@ function HobbyBoardPost() {
     const textSearch=(e)=>{
         e.preventDefault();
 
-        const filtered=hobbyList.filter(item=>item.hobby.name.includes(searchText));
+        const filtered=hobbyList.filter(item=>item.hobbyName.includes(searchText));
         setFilterList(filtered);
     }
-
-    
-
     return (
-        <div className={styles.page}>
+        <div className={styles.page}>            
             <div className={styles.title}>👑 <span style={{ color: "#FF5391" }}>인기</span> TOP3</div>
             <div className={styles.top3List}>
                 
@@ -55,7 +66,7 @@ function HobbyBoardPost() {
             </form>
 
             {filterList.map((item,index)=>{
-                return <HobbyList key={index} hobby={item.hobby} linkHobbyDetail={linkHobbyDetail}/>
+                return <HobbyList key={index} hobby={item} linkHobbyDetail={linkHobbyDetail}/>
             })}
             
             <button className={styles.suggestHobbyButton}>취미 추가 건의</button>
@@ -66,10 +77,10 @@ function HobbyBoardPost() {
 function HobbyList({hobby,linkHobbyDetail}){
     return(
         <>
-        <div className={styles.hobbyList} onClick={()=>linkHobbyDetail(hobby.number)}>
+        <div className={styles.hobbyList} onClick={()=>linkHobbyDetail(hobby.hobbyNumber)}>
         <img src='/img/sampleImg3.png' className={styles.hobbyImg} alt="축구" />
         <div>
-            <div className={styles.hobbyName}>{hobby.name}</div>
+            <div className={styles.hobbyName}>{hobby.hobbyName}</div>
 
             <div className={styles.thirdFont}>선호도 : {hobby.percentage}%</div>
             <div className={styles.progressBarContainer}>
@@ -78,7 +89,7 @@ function HobbyList({hobby,linkHobbyDetail}){
                     style={{ width: `${hobby.percentage}%` }}
                 ></div>
             </div>
-            <div className={styles.hobbyDetail}>축구는 발로 하는 게임입니다. 어렵지 않아요~</div>
+            <div className={styles.hobbyDetail}>{hobby.hobbyExplain}</div>
         </div>
     </div>
 

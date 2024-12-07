@@ -1,4 +1,5 @@
 import {configureStore, createSlice} from '@reduxjs/toolkit'
+import hobbySlice from './hobbySlice';
 
 //example state data
 let user = createSlice({
@@ -17,7 +18,7 @@ export let {changeName}=user.actions
 export default configureStore({
     reducer: {
         //example reducer data
-        user: user.reducer
-
+        user: user.reducer,
+        hobbyList:hobbySlice
     }
 })
