@@ -334,6 +334,9 @@
 }
 
 .closedParty {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border: 2px grey solid;
     border-radius: 8px;
 
