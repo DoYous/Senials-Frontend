@@ -38,7 +38,7 @@ function HobbyBoardPost() {
 
 
     //취미 상세 후기 페이지 이동 이벤트
-    const linkHobbyDetail = (hobbyNumber) => {
+    const linkHobby = (hobbyNumber) => {
         navigate(`/hobby-detail/${hobbyNumber}`);
     }
 
@@ -55,7 +55,7 @@ function HobbyBoardPost() {
             <div className={styles.top3List}>
                 
             {top3List.map((item,index) => {
-                return <HobbyCard key={index} hobby={item.hobby} linkHobbyDetail={linkHobbyDetail}/>
+                return <HobbyCard key={index} hobby={item.hobby} linkHobby={linkHobby}/>
             })}
                 
             </div>
@@ -66,7 +66,7 @@ function HobbyBoardPost() {
             </form>
 
             {filterList.map((item,index)=>{
-                return <HobbyList key={index} hobby={item} linkHobbyDetail={linkHobbyDetail}/>
+                return <HobbyList key={index} hobby={item} linkHobby={linkHobby}/>
             })}
             
             <button className={styles.suggestHobbyButton}>취미 추가 건의</button>
@@ -74,19 +74,19 @@ function HobbyBoardPost() {
     );
 }
 
-function HobbyList({hobby,linkHobbyDetail}){
+function HobbyList({hobby,linkHobby}){
     return(
         <>
-        <div className={styles.hobbyList} onClick={()=>linkHobbyDetail(hobby.hobbyNumber)}>
+        <div className={styles.hobbyList} onClick={()=>linkHobby(hobby.hobbyNumber)}>
         <img src='/img/sampleImg3.png' className={styles.hobbyImg} alt="축구" />
         <div>
             <div className={styles.hobbyName}>{hobby.hobbyName}</div>
 
-            <div className={styles.thirdFont}>선호도 : {hobby.percentage}%</div>
+            <div className={styles.thirdFont}>선호도 : {setPercentage(hobby.rating)}%</div>
             <div className={styles.progressBarContainer}>
                 <div
                     className={styles.progressBar}
-                    style={{ width: `${hobby.percentage}%` }}
+                    style={{ width: `${setPercentage(hobby.rating)}%` }}
                 ></div>
             </div>
             <div className={styles.hobbyDetail}>{hobby.hobbyExplain}</div>
@@ -100,7 +100,7 @@ function HobbyList({hobby,linkHobbyDetail}){
 
 function HobbyCard({ hobby,linkHobby }){
     return(
-        <div className={styles.top3} onClick={()=>linkHobby(hobby.number)}>
+        <div className={styles.top3} onClick={()=>linkHobby(hobby.hobbyNumber)}>
                     <img src='/img/sampleImg3.png' className={styles.top3Img} alt="농구" />
                     <div className={styles.top3Name}>농구</div>
                     <div className={styles.th}>선호도 : {hobby.percentage}%</div>
@@ -113,6 +113,11 @@ function HobbyCard({ hobby,linkHobby }){
                     </div>
                 </div>
     );
+}
+
+function setPercentage(rating){
+    
+    return Math.ceil(rating*20);
 }
 
 export default HobbyBoardPost;
