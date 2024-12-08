@@ -35,6 +35,8 @@ import MypageParticipate from "./pages/mypage/MypageParticipate";
 import PartyMeetModify from "./pages/party/PartyMeetModify";
 import PartyReviewModify from "./pages/party/PartyReviewModify";
 import ManageUser from "./pages/admin/ManageUser";
+import Login from "./pages/login/login";
+import Signup from "./pages/login/signup";
 
 function App() {
     return (
@@ -42,6 +44,11 @@ function App() {
             <Routes>
                 <Route path='/' element={<Layout />}>
                     <Route index element={<MainPage />} />
+
+                    {/*로그인페이지*/}
+                    <Route path="login" element={<Login />}>
+                           <Route path="signup" element={<Signup />}/>
+                    </Route>
 
                     {/*마이페이지*/}
                     <Route path="user" >
