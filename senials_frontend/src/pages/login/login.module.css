@@ -1,0 +1,51 @@
+.kakaocontainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 수평 중앙 정렬 */
+    padding-top : 10%;
+    padding-bottom: 10%;
+}
+
+.kakaoimageWrapper {
+    display: flex;
+    justify-content: center; /* 이미지 수평 중앙 정렬 */
+    margin-top: 1%;
+}
+
+.SimpleLogin {
+    color: #569AFF;
+    font-size: 200%;
+}
+
+.OrgLogin {
+    margin-top: 1%;
+    color: #569AFF;
+    font-size: 200%;
+}
+
+.kakaobt {
+    width: auto; /* 너비 조정 */
+    height: auto; /* 비율 유지 */
+    cursor: pointer;
+    transition: filter 0.3s ease;
+}
+
+.kakaobt:hover {
+    filter: brightness(0.9);
+}
+
+.simpleSignupButton {
+    margin-top: 5%;
+    padding: 11px 50px;
+    background-color: #6CB7DA;
+    border: none;
+    border-radius: 5px; /* 라운드 모서리 */
+    cursor: pointer; /* 마우스 커서 변경 */
+    font-size: 14px; /* 글자 크기 */
+    transition: filter 0.3s ease;
+    color: white;
+}
+
+.simpleSignupButton:hover {
+    filter: brightness(0.9); /* 호버 시 색상 변경 */
+}
