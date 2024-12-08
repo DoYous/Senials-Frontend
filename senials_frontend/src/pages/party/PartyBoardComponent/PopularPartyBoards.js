@@ -30,9 +30,6 @@ function PopularPartyBoards() {
                 <span className={`${styles.firstFont}`}>
                     👑&nbsp;<span className={styles.pointColor}>인기</span>&nbsp;추천&nbsp;모임
                 </span>
-                <span className={`${styles.whiteBtn} ${styles.mlAuto}`} onClick={() => {navigate('/party/board-overview')}}>
-                    전체보기
-                </span>
             </div>
             <div className={`${styles.separatorContent}`}>
                 <PopularPartyCard navigate={navigate} />
