@@ -10,16 +10,14 @@ function HobbyReviewGet() {
     const queryParams = new URLSearchParams(location.search);
     const hobbyNumber = queryParams.get('hobbyNumber');
 
-    console.log(hobbyNumber);
-
     //이전 페이지로 돌아가기 (취소) 이벤트
     const goBack=()=>{
-        navigate(-1);
+        navigate(`/hobby-detail/${hobbyNumber}`);
     }
 
     // 후기 작성후 제출 페이지 이동 이벤트
     const linkSubmitReivew=()=>{
-        navigate('/hobby-detail');
+        navigate(`/hobby-detail/${hobbyNumber}`);
     }
 
     return (
@@ -61,13 +59,13 @@ function HobbyReviewGet() {
                     <div className={styles.selectHobbyBudget}>
                         <div className={styles.text}>지출범위</div>
                         <input type="radio" id="budget1" name="hobbyBudget" value="0" />
-                        <label htmlFor="budget">0~100,000</label>
+                        <label htmlFor="budget1">0~100,000</label>
                         <input type="radio" id="budget2" name="hobbyBudget" value="1" />
-                        <label htmlFor="budget">100,000~400,000</label>
+                        <label htmlFor="budget2">100,000~400,000</label>
                         <input type="radio" id="budget3" name="hobbyBudget" value="2" />
-                        <label htmlFor="budget">400,000~1,000,000</label>
+                        <label htmlFor="budget3">400,000~1,000,000</label>
                         <input type="radio" id="budget4" name="hobbyBudget" value="3" />
-                        <label htmlFor="budget">1,000,000~</label>
+                        <label htmlFor="budget4">1,000,000~</label>
                     </div>
                     <div className={styles.selectHobbyLevel}>
                         <div className={styles.text}>난이도</div>
