@@ -109,16 +109,16 @@ function PartyCard({ title, status, party, linkParty,handleReview }) {
         : `${main.thirdFont} ${main.openedParty}`;
 
     return (
-        <div className={main.cardContainer} onClick={() => linkParty(party.partyBoardNumber)}>
+        <div className={main.cardContainer}>
             <div
                 className={main.cardImage}
                 style={{
                     backgroundImage: `url(${party.firstImage || '/image/default.jpg'})`,
                 }}
+                onClick={() => linkParty(party.partyBoardNumber)}
             >
-                <img className={main.imgHeart} src='/image/unfilledHeart.svg' alt="heart"/>
             </div>
-            <div className={`${main.secondFont}`}>{title}</div>
+            <div className={`${main.secondFont}`} onClick={() => linkParty(party.partyBoardNumber)}>{title}</div>
             <div className={main.rateInfo}>
                 <Rate rating={party.averageRating}/>
             </div>
