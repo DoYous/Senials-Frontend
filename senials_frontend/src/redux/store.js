@@ -1,5 +1,6 @@
 import {configureStore, createSlice} from '@reduxjs/toolkit'
-import { isRemain, cursor, sortMethod, partyKeyword, wholeParties, popularParties } from './partySlice.js'
+import { isRemain, cursor, sortMethod, partyKeyword, wholeParties, popularParties, lastestParties } from './partySlice.js'
+import categories from './categorySlice.js'
 
 //example state data
 let user = createSlice({
@@ -25,6 +26,8 @@ export default configureStore({
         , partyKeyword: partyKeyword.reducer
         , wholeParties: wholeParties.reducer
         , popularParties: popularParties.reducer
+        , lastestParties: lastestParties.reducer
+        , categories: categories
 
     }
 })

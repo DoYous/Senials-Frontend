@@ -34,7 +34,7 @@ function PartyBoardOverview() {
             dispatch(setWholeParties(results.partyBoards));
         });
 
-    }, [])
+    }, [dispatch])
 
 
     const loadMoreParties = () => {
