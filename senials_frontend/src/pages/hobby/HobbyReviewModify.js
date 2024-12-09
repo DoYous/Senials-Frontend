@@ -13,7 +13,7 @@ function HobbyReviewGet() {
 
     //해당 리뷰 삭제 이벤트
     const linkDeleteReview=()=>{
-        navigate('/hobby-detail')
+        navigate('/hobby-detail?hobbyNumber=${hobbyNumber}')
     }
 
     // 리뷰 수정후 제출 이벤트
