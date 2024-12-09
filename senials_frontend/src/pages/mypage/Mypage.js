@@ -45,7 +45,7 @@ function Mypage() {
 
     return (
         <div className={styles.bigDiv}>
-                    <div className={styles.profile}></div>
+                    <div className={styles.profile} style={{ backgroundImage: `url(${profileImg})` }}></div>
                     <div className={styles.mypageSmallDiv}>
                         <div className={styles.mainDiv}>
                             <div className={common.firstFont}>{nickname}</div>

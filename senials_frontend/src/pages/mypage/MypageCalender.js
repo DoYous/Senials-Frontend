@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function MypageCalender() {
-    const [userNumber] = useState(1);
+    const [userNumber] = useState(2);
 
     /* 사용자 프로필 */
     const [nickname, setNickname] = useState("");
@@ -46,6 +46,8 @@ function MypageCalender() {
                 const madeCountResponse = await axios.get(`/users/${userNumber}/made/count`);
                 setMadePartyCount(madeCountResponse.data.results.madePartyCount);
 
+                // 좋아한 모임 개수 가져오기
+                await fetchLikedPartyCount();
             } catch (error) {
                 console.error("에러:", error.response ? error.response.data : error.message);
             }
@@ -56,20 +58,47 @@ function MypageCalender() {
     // 좋아한 모임 개수 가져오기 이거 안댐
     const fetchLikedPartyCount = async () => {
         try {
-            const likedCountResponse = await axios.get(`/users/${userNumber}/likes/count`);
-            setLikedPartyCount(likedCountResponse.data.result.likesPartyCount);
+            const likedCountResponse = await axios.get(`/users/${userNumber}/like/count`);
+            if (likedCountResponse.data && likedCountResponse.data.results) {
+                setLikedPartyCount(likedCountResponse.data.results.likesPartyCount);
+            } else {
+                console.error("Unexpected response format:", likedCountResponse.data);
+            }
         } catch (error) {
             console.error("좋아한 모임 개수 가져오기 에러:", error.response ? error.response.data : error.message);
         }
     };
+/*
     const handleRefreshLikedCount = () => {
         fetchLikedPartyCount();
+    };
+*/
+
+    /* 탈퇴하기 */
+    const handleDeleteUser = async () => {
+        // 브라우저 기본 확인 창
+        const isConfirmed = window.confirm("정말로 탈퇴하시겠습니까? 모든 데이터가 삭제됩니다.");
+        if (!isConfirmed) {
+            return; // 사용자가 취소를 선택하면 함수 종료
+        }
+
+        try {
+            // REST API 요청으로 사용자 삭제
+            await axios.delete(`/users/${userNumber}`);
+            alert("회원 탈퇴가 성공적으로 처리되었습니다.");
+
+            // 홈 화면으로 이동
+            navigate('/');
+        } catch (error) {
+            console.error('탈퇴 요청 중 에러:', error);
+            alert("회원 탈퇴 중 문제가 발생했습니다. 다시 시도해주세요.");
+        }
     };
 
     return (
         <div className={styles.bigDiv}>
             {/* 프로필 사진 */}
-            <div className={styles.profile}></div>
+            <div className={styles.profile} style={{ backgroundImage: `url(${profileImg})` }}></div>
             <div className={styles.smallDiv}>
                 <div className={styles.mainDiv}>
                     <input
@@ -85,8 +114,8 @@ function MypageCalender() {
                 </div>
                 <div className={styles.hashDiv}>
                     <div className={styles.hash}>
-                        {/* 관심사 제목 */}
-                        {favoriteTitles.map((title, index) => (
+                        {/* 관심사 제목 최대 5개 출력 */}
+                        {favoriteTitles.slice(0, 5).map((title, index) => (
                             <p key={index}>{title}</p>
                         ))}
                     </div>
@@ -124,7 +153,7 @@ function MypageCalender() {
                     >
                         회원정보 변경
                     </button>
-                    <button className={`${common.importantBtn} ${styles.marginLeft}`}>회원 탈퇴</button>
+                    <button className={`${common.importantBtn} ${styles.marginLeft}`} onClick={handleDeleteUser}>회원 탈퇴</button>
                 </div>
             </div>
         </div>
