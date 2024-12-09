@@ -95,3 +95,8 @@ margin-bottom: 0px;}
     background-color: #FF5391;
     color: white;
 }
+/* 핑크색 적용 */
+.favoriteActive label {
+    background-color: #FF5391;
+    color: white;
+}
