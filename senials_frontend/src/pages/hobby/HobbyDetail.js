@@ -13,11 +13,15 @@ function HobbyDetailPost() {
 
     const { hobbyNumber } = useParams();
     
-      const dispatch=useDispatch();
-      const navigate = useNavigate();
+    const dispatch=useDispatch();
+    const navigate = useNavigate();
 
-      const hobbyDetail=useSelector((state)=>state.hobbyDetail);
-      const hobbyReviewList=useSelector((state)=>state.hobbyReview);
+    const hobbyDetail=useSelector((state)=>state.hobbyDetail);
+    const hobbyReviewList=useSelector((state)=>state.hobbyReview);
+
+
+    const [sortedReviews, setSortedReviews] = useState([]);
+    const [sortOption, setSortOption] = useState('newest'); // 정렬 옵션: 'newest', 'highRate', 'lowRate'
 
       useEffect(()=>{
         axios.get(`/hobby-detail/${hobbyNumber}`)
@@ -29,6 +33,24 @@ function HobbyDetailPost() {
             })
             .catch((error) => console.error(error));
       },[dispatch])
+
+      //후기 정렬
+      useEffect(() => {
+        sortReviews(sortOption);
+    }, [sortOption, hobbyReviewList]);
+
+    //정렬 방식
+    const sortReviews = (option) => {
+        let sorted = [...hobbyReviewList];
+        if (option === 'newest') {
+            sorted.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        } else if (option === 'highRate') {
+            sorted.sort((a, b) => b.hobbyReviewRate - a.hobbyReviewRate);
+        } else if (option === 'lowRate') {
+            sorted.sort((a, b) => a.hobbyReviewRate - b.hobbyReviewRate);
+        }
+        setSortedReviews(sorted);
+    };
 
     //후기작성페이지 이동 이벤트
     const linkHobbyReview=()=>{
@@ -70,7 +92,7 @@ function HobbyDetailPost() {
         }
     };
 
-    //
+    //비용 출력
     const getBudget = (Budget) => {
         switch (Budget) {
             case 0:
@@ -130,17 +152,18 @@ function HobbyDetailPost() {
                 <div className={styles.reviewCount}>{`후기 ${hobbyDetail.reviewCount}`}</div>
                 <div className={styles.reviewButton}>
                     <button className={styles.writeReview} onClick={linkHobbyReview}>후기작성</button>
-                    <select className={styles.sortReview}>
+                    <select className={styles.sortReview}value={sortOption}
+                            onChange={(e) => setSortOption(e.target.value)}>
                         <option value="newest">최신순</option>
                         <option value="highRate">높은별점순</option>
                         <option value="lowRate">낮은별점순</option>
                     </select>
                 </div>  
             </div>         
-            {hobbyReviewList.map((item,index)=>{
-                return <HobbyReview key={index} review={item} linkHobbyReviewModify={linkHobbyReviewModify}/>
-            })}
-        </div>
+            {sortedReviews.map((item, index) => (
+                <HobbyReview key={index} review={item} linkHobbyReviewModify={linkHobbyReviewModify} />
+            ))}
+            </div>
         </>
     );
 }
