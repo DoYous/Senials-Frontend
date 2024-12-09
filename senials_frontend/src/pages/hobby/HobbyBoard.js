@@ -77,12 +77,9 @@ function HobbyBoardPost() {
 }
 
 function HobbyCard({ hobby,linkHobby }){
-
-    const imgSrc = `/img/hobbyboard/${hobby.hobbyNumber}`;
-
     return(
         <div className={styles.top3} onClick={()=>linkHobby(hobby.hobbyNumber)}>
-                    <img src={imgSrc} className={styles.top3Img} alt="농구" />
+                    <img src={`/img/hobbyboard/${hobby.hobbyNumber}`} className={styles.top3Img} alt="농구" />
                     <div className={styles.top3Name}>{hobby.hobbyName}</div>
                     <div className={styles.th}>선호도 : {setPercentage(hobby.rating)}%</div>
 
@@ -98,13 +95,10 @@ function HobbyCard({ hobby,linkHobby }){
 
 
 function HobbyList({hobby,linkHobby}){
-
-    const imgSrc = `/img/hobbyboard/${hobby.hobbyNumber}`;
-
     return(
         <>
         <div className={styles.hobbyList} onClick={()=>linkHobby(hobby.hobbyNumber)}>
-        <img src={imgSrc} className={styles.hobbyImg} alt="축구" />
+        <img src={`/img/hobbyboard/${hobby.hobbyNumber}`} className={styles.hobbyImg} alt="축구" />
         <div>
             <div className={styles.hobbyName}>{hobby.hobbyName}</div>
 

@@ -31,23 +31,23 @@ export const hobbyDetail = createSlice({
     initialState:
         [],
       reducers:{
-        settHobbyDetail(state, action) {
+        setHobbyDetail(state, action) {
             return action.payload
         }
     }
 })
 
-export const {settHobbyDetail}=hobbyDetail.actions
+export const {setHobbyDetail}=hobbyDetail.actions
 
 export const hobbyReview = createSlice({
     name:'hobbyReview',
     initialState:
         [],
       reducers:{
-        settHobbyReview(state, action) {
+        setHobbyReview(state, action) {
             return action.payload
         }
     }
 })
 
-export const {settHobbyReview}=hobbyReview.actions
+export const {setHobbyReview}=hobbyReview.actions

@@ -24,7 +24,7 @@ export default configureStore({
         hobbyList:hobbyCard.reducer,
         hobbyTop3List:hobbyTop3Card.reducer,
         hobbyDetail:hobbyDetail.reducer,
-        hobbyReview:hobbyTop3Card.reducer
+        hobbyReview:hobbyReview.reducer
         , isRemain: isRemain.reducer
         , cursor: cursor.reducer
         , sortMethod: sortMethod.reducer

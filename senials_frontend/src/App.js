@@ -23,8 +23,8 @@ import MypageMember from "./pages/mypage/MypageMember";
 
 import SuggestHobbyGet from './pages/suggestHobby/SuggestHobbyGet.js';
 import SuggestHobbyPost from './pages/suggestHobby/SuggestHobbyPost.js';
-import HobbyBoardPost from './pages/hobby/HobbyBoardPost.js';
-import HobbyDetailPost from './pages/hobby/HobbyDetail.js';
+import HobbyBoard from './pages/hobby/HobbyBoard.js';
+import HobbyDetail from './pages/hobby/HobbyDetail.js';
 import HobbyReviewGet from './pages/hobby/HobbyReviewGet';
 import HobbyReviewModify from './pages/hobby/HobbyReviewModify';
 import HobbyTagBoardPost from './pages/hobby/HobbyTagBoardPost';
@@ -72,10 +72,10 @@ function App() {
                     <Route path="/hobby-board" element={<HobbyBoard/>}/>
                     {/*취미태그 게시판 전체 보기*/}
                     <Route path="/hobby-tag" element={<HobbyTagBoardPost/>}/>
-                    <Route path="/hobby/board" element={<HobbyBoardPost/>}/>
+                    <Route path="/hobby/board" element={<HobbyBoard/>}/>
                     {/*취미 게시판 상세 보기*/}
-                    <Route path="/hobby-detail/:hobbyNumber" element={<HobbyDetailPost/>}/>
-                    <Route path="/hobby/:hobbyNumber" element={<HobbyDetailPost/>}/>
+                    <Route path="/hobby-detail/:hobbyNumber" element={<HobbyDetail/>}/>
+                    <Route path="/hobby/:hobbyNumber" element={<HobbyDetail/>}/>
                     {/*취미 게시판 후기 작성*/}
                     <Route path="/hobby-review" element={<HobbyReviewGet/>}/>
                     {/*취미 게시판 후기 수정 */}
