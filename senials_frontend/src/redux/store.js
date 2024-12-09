@@ -1,6 +1,7 @@
-import {configureStore, createSlice} from '@reduxjs/toolkit'
-import { isRemain, cursor, sortMethod, partyKeyword, wholeParties, popularParties, lastestParties } from './partySlice.js'
-import categories from './categorySlice.js'
+import {configureStore, createSlice} from '@reduxjs/toolkit';
+import {hobbyCard,hobbyTop3Card} from './hobbySlice';
+import { isRemain, cursor, sortMethod, partyKeyword, wholeParties, popularParties, lastestParties } from './partySlice.js';
+import categories from './categorySlice.js';
 
 //example state data
 let user = createSlice({
@@ -20,7 +21,9 @@ export default configureStore({
     reducer: {
         //example reducer data
         user: user.reducer,
-        isRemain: isRemain.reducer
+        hobbyList:hobbyCard.reducer,
+        hobbyTop3List:hobbyTop3Card.reducer
+        , isRemain: isRemain.reducer
         , cursor: cursor.reducer
         , sortMethod: sortMethod.reducer
         , partyKeyword: partyKeyword.reducer
@@ -28,6 +31,5 @@ export default configureStore({
         , popularParties: popularParties.reducer
         , lastestParties: lastestParties.reducer
         , categories: categories
-
     }
 })

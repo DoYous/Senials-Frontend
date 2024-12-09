@@ -72,7 +72,7 @@ function App() {
                     <Route path="/hobby-board" element={<HobbyBoardPost/>}/>
                     {/*취미태그 게시판 전체 보기*/}
                     <Route path="/hobby-tag" element={<HobbyTagBoardPost/>}/>
-                    <Route path="/hobby/board" element={<HobbyTagBoardPost/>}/>
+                    <Route path="/hobby/board" element={<HobbyBoardPost/>}/>
                     {/*취미 게시판 상세 보기*/}
                     <Route path="/hobby-detail" element={<HobbyDetailPost/>}/>
                     <Route path="/hobby/:hobbyNumber" element={<HobbyDetailPost/>}/>
