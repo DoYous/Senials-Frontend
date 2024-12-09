@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios';
@@ -16,10 +16,14 @@ function PartyWrite() {
 
     const { categories, hobbies } = useSelector(state => ({ categories: state.categoriesWithHobbies, hobbies: state.hobbiesForWrite }));
 
-    
-    const [imageFiles, setImageFiles] = useState([]);
     const [imagePreviews, setImagePreviews] = useState([]);
     const [current, setCurrent] = useState(0);
+
+
+    const imageFilesInput = useRef();
+    const hobbyNumberInput = useRef();
+    const partyBoardNameInput = useRef();
+    const partyBoardDetailInput = useRef();
 
 
     /* 페이지 마운트 시 카테고리 정보 로드 */
@@ -49,20 +53,100 @@ function PartyWrite() {
 
     /* 이미지 선택 시 프리뷰 */
     const onUploadImage = (e) => {
-        const files = Array.from(e.target.files);
-        setImageFiles(files);
+
+        const newFiles = Array.from(e.target.files);
+        const allowedTypes = ['image/png', 'image/jpeg']
 
 
-        imagePreviews.forEach(imagePreview => {
-            URL.revokeObjectURL(imagePreview);
+        /* 업로드 이미지 개수 검사 */
+        if(newFiles.length > 3) {
+            e.target.value = '';
+            alert('이미지는 3개 이하로 업로드 가능합니다.');
+            return;
+        }
+
+
+        /* 확장자 검사 */
+        const invalidFile = newFiles.some(newFile => {
+            if(!allowedTypes.includes(newFile.type)) {
+                e.target.value = '';
+                alert('이미지 파일만 업로드 가능합니다.(JPG, JPEG, PNG)');
+                return true;
+            }
+            return false;
         })
-        setImagePreviews([]);
+        if(invalidFile) {
+            return;
+        }
 
 
-        const newImagePreviews = files.map(file => URL.createObjectURL(file));
-        setImagePreviews(newImagePreviews);
+        /* 이미지를 업로드 했을 때만 업데이트 */
+        if(newFiles.length !== 0) {
+            imagePreviews.forEach(imagePreview => {
+                URL.revokeObjectURL(imagePreview);
+            })
+            setImagePreviews([]);
 
-        setCurrent(0);
+            const newImagePreviews = newFiles.map(file => URL.createObjectURL(file));
+            setImagePreviews(newImagePreviews);
+    
+            setCurrent(0);
+        }
+
+
+    }
+
+
+    /* 선택 카테고리에 따라 취미 option 태그 변경 */
+    const selectCategory = (e) => {
+        dispatch(setHobbiesForWrite(categories[e.target.value].hobbies));
+    }
+
+
+    const submitPartyForm = (e) => {
+
+        const formData = new FormData();
+
+        const imageFiles = Array.from(imageFilesInput.current.files);
+        const hobbyNumber = hobbyNumberInput.current.value;
+        const partyBoardName = partyBoardNameInput.current.value;
+        const partyBoardDetail = partyBoardDetailInput.current.value;
+        
+
+        if (imageFiles.length === 0) {
+            alert('이미지는 최소 1개 이상 업로드해야 합니다.');
+            return;
+        } else if (hobbyNumber == -1) {
+            alert('취미를 선택하셔야 합니다.');
+            return;
+        } else if (partyBoardName.length < 2) {
+            alert('모임명은 2자 이상 입력하셔야 합니다.');
+            return;
+        } else if (partyBoardDetail.length < 50) {
+            alert('모임 소개는 50자 이상 입력하셔야 합니다.');
+            return;
+        }
+
+
+        imageFiles.forEach(imageFile => {
+            formData.append('imageFiles', imageFile);
+        })
+        formData.append('hobbyNumber', hobbyNumberInput.current.value);
+        formData.append('partyBoardName', partyBoardNameInput.current.value);
+        formData.append('partyBoardDetail', partyBoardDetailInput.current.value);
+
+        axios.post('/partyboards', formData , {
+            headers: {
+                'Content-Type' : 'multipart/form-data'
+            }
+        })
+        .then(result => {
+            alert(result.data.message);
+        })
+        .catch(err => {
+            console.error('[Error]: ' + err);
+        })
+
     }
     
 
@@ -86,12 +170,6 @@ function PartyWrite() {
             }
         }
     }
-
-
-    /* 선택 카테고리에 따라 취미 option 태그 변경 */
-    const selectCategory = (e) => {
-        dispatch(setHobbiesForWrite(categories[e.target.value].hobbies));
-    }
     
 
     return (
@@ -104,22 +182,27 @@ function PartyWrite() {
                 </div>
                 <div className={`${common.separator} ${common.marginBottom2}`}>
                     <div className={`${styles.partyFormImageContainer} ${common.flexColumn} ${common.posRelative}`}>
-                        <div className={`${common.csPrev} ${common.fullHeight} ${common.posAbsolute}`} style={{zIndex: '1', right: '100%'}} onClick={prev}/>
                         <label htmlFor={'partyFormImage'} className={styles.partyFormImage} >
                             {
                                 <Carousel imagePreviews={imagePreviews} current={current}/>
                             }
                         </label>
-                        <div className={`${common.csNext} ${common.fullHeight} ${common.posAbsolute}`} style={{zIndex: '1', left: '100%'}} onClick={next}/>
+                        {
+                            imagePreviews.length > 1 ?
+                            <>
+                            <div className={`${common.csPrev} ${common.fullHeight} ${common.posAbsolute}`} style={{zIndex: '1', right: '100%'}} onClick={prev}/>
+                            <div className={`${common.csNext} ${common.fullHeight} ${common.posAbsolute}`} style={{zIndex: '1', left: '100%'}} onClick={next}/>
+                            </>
+                            :
+                            null
+                        }
                     </div>
-                    <form id='partyFormImageUpload' action='/partyboardimages' method='post' encType='multipart/form-data'>
-                        <input name='multifiles' id={'partyFormImage'} type='file' onChange={onUploadImage} accept='.jpg, .jpeg, .png' multiple hidden />
-                    </form>
+                    <input ref={imageFilesInput} id={'partyFormImage'} type='file' onChange={onUploadImage} accept='.jpg, .jpeg, .png' multiple hidden />
                     
                     <div className={`${styles.partyFormInfoContainer}`}>
                         <span className={`${common.secondFont} ${common.mtAuto}`}>모임명</span>
                         <div className={`${styles.inputContainer} ${common.marginBottom}`}>
-                            <input className={`${styles.inputInner}`} placeholder='모임 제목을 정해주세요!' required/>
+                            <input ref={partyBoardNameInput} className={`${styles.inputInner}`} placeholder='모임 제목을 정해주세요!' required/>
                         </div>
 
                         <span className={`${common.secondFont}`}>카테고리</span>
@@ -138,7 +221,7 @@ function PartyWrite() {
 
                         <span className={common.secondFont}>취미명</span>
                         <div className={`${styles.inputContainer}`}>
-                            <select className={`${styles.inputInner}`} defaultValue={-1} required>
+                            <select ref={hobbyNumberInput} className={`${styles.inputInner}`} defaultValue={-1} required>
                                 <option value={-1} disabled>취미를 선택해 주세요!</option>
                                 {
                                     hobbies.map((hobby, idx) => {
@@ -158,11 +241,11 @@ function PartyWrite() {
                     </span>
                 </div>
                 <div className={`${common.separator}`}>
-                    <textarea className={`${styles.partyFormText}`} placeholder='모임을 소개해주세요! 준비물, 마음가짐 등 자유롭게 기입해주세요!'></textarea>
+                    <textarea ref={partyBoardDetailInput} className={`${styles.partyFormText}`} placeholder='모임을 소개해주세요! 준비물, 마음가짐 등 자유롭게 기입해주세요!'></textarea>
                 </div>
                 <div className={`${common.separator}`}>
                     <span className={`${common.commonBtn} ${common.mlAuto}`} onClick={() => navigate('/party/board-overview')}>취소</span>
-                    <span className={`${common.importantBtn} ${common.marginLeft}`}>제출</span>
+                    <span className={`${common.importantBtn} ${common.marginLeft}`} onClick={submitPartyForm}>제출</span>
                 </div>
             </div>
         </div>
