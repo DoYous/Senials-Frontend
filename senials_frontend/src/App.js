@@ -45,10 +45,11 @@ function App() {
                 <Route path='/' element={<Layout />}>
                     <Route index element={<MainPage />} />
 
-                    {/*로그인페이지*/}
-                    <Route path="login" element={<Login />}>
-                           <Route path="signup" element={<Signup />}/>
-                    </Route>
+                    {/* 로그인 페이지 */}
+                    <Route path="login" element={<Login />} />
+
+                    {/* 회원가입 페이지 */}
+                    <Route path="login/signup" element={<Signup />} />
 
                     {/*마이페이지*/}
                     <Route path="user" >
