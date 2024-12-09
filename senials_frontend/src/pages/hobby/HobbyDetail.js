@@ -1,18 +1,32 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from './HobbyDetailPost.module.css';
 import common from '../common/Common.module.css';
 import {FaAngleLeft, FaBell, FaSearch} from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from "react-redux";
+import axios from 'axios';
+import { settHobbyDetail,settHobbyReview} from '../../redux/hobbySlice';
+import { useParams } from 'react-router-dom';
+
 
 function HobbyDetailPost() {
 
-    const reviewList = [
-        { review: { number: 1, name: "김상익", rate: 4 } },
-        { review: { number: 2, name: "배민서", rate: 5 } },
-        { review: { number: 3, name: "도영익", rate: 1 } }
-      ];
+    const { hobbyNumber } = useParams();
+    
+      const dispatch=useDispatch();
+      const navigate = useNavigate();
 
-    const navigate=useNavigate();
+      const hobbyDetailList=useSelector((state)=>state.hobbyDetail);
+      const hobbyReviewList=useSelector((state)=>state.hobbyReview);
+
+      useEffect(()=>{
+        axios.get('hobby-detail/${hobbyNumber}')
+            .then((response) => {
+                dispatch(settHobbyDetail(response.data.results.hobby));
+                dispatch(settHobbyReview(response.data.results.hobbyReview));
+            })
+            .catch((error) => console.error(error));
+      })
 
     //후기작성페이지 이동 이벤트
     const linkHobbyReview=()=>{
