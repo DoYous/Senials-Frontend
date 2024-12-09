@@ -1,21 +1,39 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { FaHeart, FaRegHeart } from 'react-icons/fa';
+import axios from 'axios';
+
+// actions
+import { setCategories } from '../../redux/categorySlice.js';
 
 // CSS
 import styles from '../common/MainVer1.module.css';
+import PopularPartyBoards from './PartyBoardComponent/PopularPartyBoards.js';
+import { setLastestParties, toggleLastestLike } from '../../redux/partySlice.js';
 
-const testArray4 = [{number: 1}, {number: 2}, {number: 3}, {number: 4}];
-const testArray5 = [{number: 1}, {number: 2}, {number: 3}, {number: 4}, {number: 5}]
-const testArray6 = [{number: 1}, {number: 2}, {number: 3}, {number: 4}, {number: 5}, {number: 6}]
-const testArray7 = [{number: 1}, {number: 2}, {number: 3}, {number: 4}, {number: 5}, {number: 6}, {number: 7}]
 
 function PartyBoard() {
 
+
     const navigate = useNavigate();
 
-    const linkHobby = (hobbyNumber) => {
-        navigate(`/hobby/${hobbyNumber}`);
-    }
+    const dispatch = useDispatch();
+    
+    
+    useEffect(() => {
+        axios.get('/partyboards/search?size=4')
+        .then(result => {
+            let results = result.data.results;
+
+            dispatch(setLastestParties(results.partyBoards));
+        })
+        axios.get('/categories')
+        .then(result => {
+            dispatch(setCategories(result.data.results.categories));
+        })
+    }, [dispatch])
+
 
     const linkParty = (partyNumber) => {
         navigate(`/party/${partyNumber}`);
@@ -25,36 +43,18 @@ function PartyBoard() {
         navigate(`/hobby/board?category=${ctgrNumber}`)
     }
 
+
     return (
         <div className={styles.centerContainer}>
+            <PopularPartyBoards />
             <div className={styles.separator}>
                 <span className={`${styles.firstFont}`}>
-                    👑&nbsp;<span className={styles.pointColor}>인기</span>&nbsp;추천&nbsp;모임
-                </span>
-                <span className={`${styles.whiteBtn} ${styles.mlAuto}`} onClick={() => {navigate('/party/board-overview')}}>
-                    전체보기
-                </span>
-            </div>
-            <div className={`${styles.separatorContent}`}>
-                {testArray4.map((party, idx) => {
-                    return (
-                        <PartyCard key={`partyCard${idx}`} party={party} linkParty={linkParty}/>
-                    )
-                })}
-            </div>
-            <hr/>
-            <div className={styles.separator}>
-                <span className={`${styles.firstFont}`}>
-                    <span className={styles.pointColor}>관심사</span> 기반 추천 모임
+                    <span className={styles.pointColor}>최근</span> 오픈한 모임
                 </span>
                 <span className={`${styles.whiteBtn} ${styles.mlAuto}`} onClick={() => navigate('/party/board-overview')}>전체보기</span>
             </div>
             <div className={`${styles.separatorContent}`}>
-                {testArray4.map((party, idx) => {
-                    return (
-                        <PartyCard key={`partyCard${idx}`} party={party} linkParty={linkParty}/>
-                    )
-                })}
+                <PartyCard navigate={navigate}/>
             </div>
             <hr/>
             <div className={styles.separator}>
@@ -63,89 +63,184 @@ function PartyBoard() {
                 </span>
             </div>
             <div className={`${styles.ctgrRow}`}>
-                {
-                    testArray7.map((ctgr, idx) => {
-                        return (
-                            <Category key={`ctgr${idx}`} ctgr={ctgr} linkCtgr={linkCtgr}/>
-                        )
-                    })
-                }
-                {
-                    <EmptyCtgrs length={testArray7.length} maxLength={5} />
-                }
+                <Category navigate={navigate}/>
             </div>
         </div>
     )
 }
 
 
-function Rate() {
+function Rate({averageRating}) {
+
+    let filled = parseInt(averageRating);
+    let halfFilled = averageRating * 100 % 100;
+    let unfilled = parseInt(5 - averageRating);
+
     return (
         <div className={`${styles.rateInfo}`}>
-            <div className={`${styles.baseStar}`}>
-                <div className={`${styles.filledStar}`}></div>
-            </div>
-            <div className={`${styles.baseStar}`}>
-                <div className={`${styles.filledStar}`}></div>
-            </div>
-            <div className={`${styles.baseStar}`}>
-                <div className={`${styles.filledStar}`}></div>
-            </div>
-            <div className={`${styles.baseStar}`}>
-                <div className={`${styles.filledStar}`}></div>
-            </div>
-            <div className={`${styles.baseStar}`}>
-                <div className={`${styles.halfStar}`} style={{width: '30%', marginRight: '70%'}}></div>
-            </div>
+            {
+                Array.from({length: filled}).map((_, idx) => {
+                    return (
+                        <div key={`filledStar${idx}`} className={`${styles.baseStar}`}>
+                            <div className={`${styles.filledStar}`}></div>
+                        </div>
+                    )
+                })
+            }
+            {
+                halfFilled > 0 ?
+                    <div className={`${styles.baseStar}`}>
+                        <div className={`${styles.halfStar}`} style={{width: `${halfFilled}%`, marginRight: `${100 - halfFilled}%`}}></div>
+                    </div>
+                :
+                    null
+            }
+            {
+                Array.from({length: unfilled}).map((_, idx) => {
+                    return (
+                        <div key={`unfilledStar${idx}`} className={`${styles.baseStar}`} />
+                    )
+                })
+            }
         </div>
     )
 }
 
-// 줄 맞춤용 빈 카테고리 생성 컴포넌트
-function EmptyCtgrs({length, maxLength}) {
-    const arr = [];
-    if(length % maxLength != 0) {
-        const cnt = maxLength - (length % maxLength);
-        for(let i = 0; i < cnt; i++) {
-            arr.push(<div className={`${styles.emptyCtgrContainer}`} key={`emptyCtgr${i}`} />)
-        }
+
+// 모임 카드
+function PartyCard({ navigate }) {
+
+    const dispatch = useDispatch();
+
+    let parties = useSelector((state) => state.lastestParties);
+    let length = parties.length;
+    let maxLength = 4;
+
+
+    const clickHeart = (e, partyBoardNumber) => {
+        e.stopPropagation();
+
+        axios.put(`/likes/partyBoards/${partyBoardNumber}`)
+        .then(result => {
+            let results = result.data.results;
+
+            if(results.code === 2) {
+                alert('로그인이 필요합니다.');
+            } else {
+                let partyIdx = parties.findIndex((party) => {
+                    return party.partyBoardNumber === partyBoardNumber;
+                })
+                dispatch(toggleLastestLike(partyIdx));
+            }
+        });
+
+
     }
+
+
     return (
         <>
-            { arr }
+        {
+            parties.map((party, i) => {
+                // let thumbnail = party.firstImage;
+                let thumbnail = party.firstImage != null ? `url(/img/partyboard/${party.partyBoardNumber}/thumbnail/${party.firstImage})` : `url(/img/NoImage.svg)`
+                
+                return (
+                    <div key={`partyCard${i}`} className={styles.cardContainer} onClick={() => navigate(`/party/${party.partyBoardNumber}`)}>
+                        {
+                            <div className={styles.cardImage} style={{backgroundImage: thumbnail}}>
+                                {
+                                    party.liked ? 
+                                    <FaHeart className={styles.imgHeart} onClick={(e) => clickHeart(e, party.partyBoardNumber)} />
+                                    :
+                                    <FaRegHeart className={styles.imgHeart} onClick={(e) => clickHeart(e, party.partyBoardNumber)} />
+                                }
+                            </div>
+                        }
+                        <div className={`${styles.secondFont}`}>{party.partyBoardName}</div>
+                        <div className={styles.rateInfo}>
+                            <Rate averageRating={party.averageRating} />
+                        </div>
+                        <div className={styles.memberInfo}>
+                            <img src='/image/people.svg' style={{width: '20px'}} alt='participants' />&nbsp;
+                            <span className={`${styles.fourthFont}`}>{party.memberCount}</span>
+                            {
+                                party.partyBoardStatus == 0 ?
+                                <span className={`${styles.openedParty} ${styles.thirdFont} ${styles.mlAuto}`}>모집중</span>
+                                :
+                                <span className={`${styles.closedParty} ${styles.thirdFont} ${styles.mlAuto}`}>모집완료</span>
+                            }
+                            
+                        </div>
+                    </div>
+                )
+            })
+        }
+        {
+            length % maxLength != 0 ?
+            // 빈 카드 계산
+            Array.from({length: maxLength - (length % maxLength)}).map((_, i) => {
+                return <div key={`emptyCard${i}`} className={`${styles.emptyCardContainer}`} />
+            })
+            :
+            null
+        }
+        {
+            length === 0 ?
+            // 결과 없음 안내
+            <div className={`${styles.flexCenter} ${styles.fullWidth}`}>
+                <span className={`${styles.noSearchResult}`}>서비스 준비 중</span>
+            </div>
+            :
+            null
+        }
         </>
     )
 }
 
-// 모임 카드
-function PartyCard({party, linkParty}) {
-  return (
-    <div className={styles.cardContainer} onClick={() => linkParty(party.number)}>
-        <div className={styles.cardImage} style={{backgroundImage: 'url(/image/cat.jpg)'}}>
-            <img className={styles.imgHeart} src='/image/unfilledHeart.svg'/>
-        </div>
-        <div className={`${styles.secondFont}`}>농구 같이 할 사람~</div>
-        <div className={styles.rateInfo}>
-            <Rate />
-        </div>
-        <div className={styles.memberInfo}>
-            <img src='/image/people.svg' style={{width: '20px'}}/>&nbsp;
-            <span className={`${styles.fourthFont}`}>10명</span>
-            <span className={`${styles.openedParty} ${styles.thirdFont} ${styles.mlAuto}`}>모집중</span>
-        </div>
-    </div>
-  )
-}
 
+// 카테고리 카드
+function Category({ navigate }) {
 
-function Category({ctgr, linkCtgr}) {
+    let categories = useSelector((state) => state.categories);
+    let length = categories.length;
+    let maxLength = 5;
+
     return (
-        <div className={styles.ctgrContainer} onClick={() => {linkCtgr(ctgr.number)}}>
-            <div className={`${styles.ctgrImage}`} style={{backgroundImage: 'url(/image/cat.jpg)'}}>
-                <span className={`${styles.ctgrText} ${styles.thirdFont}`}>카테고리</span>
+        <>
+        {
+            categories.map((category, idx) => {
+                
+
+                return (
+                    <div key={`categoryCard${idx}`} className={styles.ctgrContainer} onClick={() => {navigate(`/hobby/board?category=${category.categoryNumber}`)}}>
+                        <div className={`${styles.ctgrImage}`} style={{backgroundImage: `url(/img/category/${category.categoryNumber})`}}>
+                            <span className={`${styles.ctgrText} ${styles.thirdFont}`}>{category.categoryName}</span>
+                        </div>
+                    </div>
+                )
+            })
+        }
+        {
+            length % maxLength != 0 ?
+            Array.from({length: maxLength - (length % maxLength)}).map((_, i) => {
+                return <div key={`emptyCtgr${i}`} className={`${styles.emptyCtgrContainer}`} />
+            })
+            :
+            null
+        }
+        {
+            length === 0 ?
+            // 결과 없음 안내
+            <div className={`${styles.flexCenter} ${styles.fullWidth}`}>
+                <span className={`${styles.noSearchResult}`}>서비스 준비 중</span>
             </div>
-        </div>
+            :
+            null
+        }
+        </>
     )
+
 }
 
 export default PartyBoard;

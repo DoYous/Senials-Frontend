@@ -1,165 +1,285 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaSearch } from "react-icons/fa";
+import { useDispatch, useSelector } from 'react-redux';
+import { FaHeart, FaRegHeart, FaSearch } from "react-icons/fa";
+import axios from 'axios';
 
 // CSS
 import styles from '../common/MainVer1.module.css';
+
+// Components
+import PopularPartyBoards from './PartyBoardComponent/PopularPartyBoards';
+
+// actions
+import { setRemain, setCursor, setSortMethod, setPartyKeyword, setWholeParties, addWholeParties, toggleLike } from '../../redux/partySlice';
+
 
 function PartyBoardOverview() {
 
     const navigate = useNavigate();
 
-    const testArray4 = [{number: 1}, {number: 2}, {number: 3}, {number: 4}];
-    const testArray5 = [{number: 1}, {number: 2}, {number: 3}, {number: 4}, {number: 5}]
-    const testArray6 = [{number: 1}, {number: 2}, {number: 3}, {number: 4}, {number: 5}, {number: 6}]
-    const testArray7 = [{number: 1}, {number: 2}, {number: 3}, {number: 4}, {number: 5}, {number: 6}, {number: 7}]
+    const dispatch = useDispatch();
 
-    const testArray = useMemo(() => {
-        let temp = [];
-        for (let i = 0; i < 10; i++) {
-            temp.push({number: i})
-        }
-        return temp;
-    })
+    const { isRemain, cursor, partyKeyword, sortMethod } = useSelector((state) => state);
+    
+    
+    useEffect(() => {
 
-    const linkParty = (partyNumber) => {
-        navigate(`/party/${partyNumber}`);
+        axios.get('/partyboards/search')
+        .then(result => {
+            let results = result.data.results;
+
+            dispatch(setRemain(results.isRemain));
+            dispatch(setCursor(results.cursor));
+            dispatch(setWholeParties(results.partyBoards));
+        });
+
+    }, [dispatch])
+
+
+    const loadMoreParties = () => {
+
+        axios.get(`/partyboards/search?sortMethod=${sortMethod}&keyword=${partyKeyword}&cursor=${cursor}`)
+        .then(result => {
+            let results = result.data.results;
+
+            dispatch(setRemain(results.isRemain));
+            dispatch(setCursor(results.cursor))
+            dispatch(addWholeParties(results.partyBoards));
+        });
+
     }
 
-    const linkPartySearch = (keyword) => {
-        navigate(`/search-whole?keyword=${keyword}`);
-    }
 
     return (
         <div className={styles.centerContainer}>
-            <div className={styles.separator}>
-                {/* marinLeft css 개선 해야함 */}
-                <span className={`${styles.firstFont}`}>
-                    👑&nbsp;<span className={styles.pointColor}>인기</span>&nbsp;추천&nbsp;모임
-                </span>
-            </div>
-            <div className={`${styles.separatorContent}`}>
-                {
-                    testArray4.map((party, idx) => {
-                        return (
-                            <PartyCard key={`partyCard${idx}`} party={party} linkParty={linkParty} />
-                        )
-                    })
-                }
-            </div>
-            <hr/>
+            <PopularPartyBoards />
             <div className={styles.separator}>
                 <span className={`${styles.firstFont}`}>
                     전체 모임
                 </span>
-                <PartySearchBar linkPartySearch={linkPartySearch}/>
+                <PartySearchBar />
                 &nbsp;
                 <span className={`${styles.commonBtn}`}>정렬</span>
             </div>
             <div className={`${styles.separatorContent}`}>
-                {
-                    testArray.map((party, idx) => {
-                        return (
-                            <PartyCard key={`partyCard${idx}`} party={party} linkParty={linkParty} />
-                        )
-                    })
-                }
-                {
-                    <EmptyCards length={testArray.length} maxLength={4}/>
-                }
+                <PartyCard navigate={navigate} />
             </div>
             <div className={styles.separator}>
                 <span className={`${styles.commonBtn} ${styles.mlAuto}`} onClick={() => navigate('/party/write')}>게시글 작성</span>
             </div>
-            <div className={styles.flexCenter}>
-                <span className={`${styles.commonBtn}`}>더보기</span>
-            </div>
+            {
+                isRemain ? 
+                <div className={styles.flexCenter}>
+                    <span className={`${styles.commonBtn}`} onClick={loadMoreParties}>더보기</span>
+                </div>
+                :
+                null
+            }
         </div>
     )
 }
+
 
 // 모임 검색창
-function PartySearchBar({linkPartySearch}) {
+function PartySearchBar() {
 
-    const [keyword, setKeyword] = useState('');
+    const dispatch = useDispatch();
 
-    const submit = (e) => {
+    const { sortMethod, partyKeyword } = useSelector((state) => state);
+
+
+    /* 정렬 방식 번경 후 자동 검색*/
+    const changeSortMethod = (e) => {
+
+        dispatch(setPartyKeyword(''));
+        dispatch(setCursor(null));
+        dispatch(setSortMethod(e.target.value));
+
+        axios.get(`/partyboards/search?sortMethod=${e.target.value}`)
+        .then(result => {
+            let results = result.data.results;
+
+            dispatch(setRemain(results.isRemain));
+            dispatch(setCursor(results.cursor));
+            dispatch(setWholeParties(results.partyBoards));
+        })
+
+    }
+
+    /* partyKeyword 변경 */
+    const changePartyKeyword = e => {
+        dispatch(setPartyKeyword(e.target.value));
+    }
+
+    /* Enter 키 입력 시 submit */
+    const submitEnter = (e) => {
         if (e.key == 'Enter') {
-            if (keyword.length < 2) {
-                alert('검색어는 2자 이상 입력하셔야 합니다.')
-            } else {
-                linkPartySearch(keyword);
-            }
+            submit();
         }
     }
 
+    /* 검색 */
+    const submit = () => {
 
-    return (
-        <div className={styles.partySearch}>
-            <input className={`${styles.partySearchInput}`} onKeyDown={submit} onChange={(e) => setKeyword(e.target.value)}/>
-            <FaSearch className={`${styles.partySearchIcon}`} onClick={() => linkPartySearch(keyword)}/>
-        </div>
-    )
-}
+        dispatch(setCursor(null));
 
+        axios.get(`/partyboards/search?sortMethod=${sortMethod}&keyword=${partyKeyword}`)
+        .then(result => {
+            let results = result.data.results;
 
-function Rate() {
-    return (
-        <div className={`${styles.rateInfo}`}>
-            <div className={`${styles.baseStar}`}>
-                <div className={`${styles.filledStar}`}></div>
-            </div>
-            <div className={`${styles.baseStar}`}>
-                <div className={`${styles.filledStar}`}></div>
-            </div>
-            <div className={`${styles.baseStar}`}>
-                <div className={`${styles.filledStar}`}></div>
-            </div>
-            <div className={`${styles.baseStar}`}>
-                <div className={`${styles.filledStar}`}></div>
-            </div>
-            <div className={`${styles.baseStar}`}>
-                <div className={`${styles.halfStar}`} style={{width: '30%', marginRight: '70%'}}></div>
-            </div>
-        </div>
-    )
-}
+            dispatch(setRemain(results.isRemain));
+            dispatch(setCursor(results.cursor));
+            dispatch(setWholeParties(results.partyBoards));
+        });
 
-// 줄 맞춤용 빈 카드 생성 컴포넌트
-function EmptyCards({length, maxLength}) {
-    const arr = [];
-    if(length % maxLength != 0) {
-        const cnt = maxLength - (length % maxLength);
-        for(let i = 0; i < cnt; i++) {
-            arr.push(<div className={`${styles.emptyCardContainer}`} key={`emptyCard${i}`} />)
-        }
     }
+
+
     return (
         <>
-            { arr }
+            <select className={styles.partySearchSort} onChange={changeSortMethod}>
+                <option value={'lastest'}>최신순</option>
+                <option value={'oldest'}>오래된순</option>
+                <option value={'mostLiked'}>좋아요순</option>
+                <option value={'mostViewed'}>조회수순</option>
+            </select>
+            &nbsp;
+            <div className={styles.partySearch}>
+                <input className={`${styles.partySearchInput}`} value={partyKeyword} onKeyDown={submitEnter} onChange={changePartyKeyword}/>
+                <FaSearch className={`${styles.partySearchIcon}`} onClick={submit}/>
+            </div>
         </>
     )
 }
 
 
-// 모임 카드
-function PartyCard({party, linkParty}) {
+function Rate({averageRating}) {
+
+    let filled = parseInt(averageRating);
+    let halfFilled = averageRating * 100 % 100;
+    let unfilled = parseInt(5 - averageRating);
+
     return (
-      <div className={styles.cardContainer} onClick={() => linkParty(party.number)}>
-          <div className={styles.cardImage} style={{backgroundImage: 'url(/image/cat.jpg)'}}>
-              <img className={styles.imgHeart} src='/image/unfilledHeart.svg'/>
-          </div>
-          <div className={`${styles.secondFont}`}>농구 같이 할 사람~</div>
-          <div className={styles.rateInfo}>
-              <Rate />
-          </div>
-          <div className={styles.memberInfo}>
-              <img src='/image/people.svg' style={{width: '20px'}}/>&nbsp;
-              <span className={`${styles.fourthFont}`}>10명</span>
-              <span className={`${styles.openedParty} ${styles.thirdFont} ${styles.mlAuto}`}>모집중</span>
-          </div>
-      </div>
+        <div className={`${styles.rateInfo}`}>
+            {
+                Array.from({length: filled}).map((_, idx) => {
+                    return (
+                        <div key={`filledStar${idx}`} className={`${styles.baseStar}`}>
+                            <div className={`${styles.filledStar}`}></div>
+                        </div>
+                    )
+                })
+            }
+            {
+                halfFilled > 0 ?
+                    <div className={`${styles.baseStar}`}>
+                        <div className={`${styles.halfStar}`} style={{width: `${halfFilled}%`, marginRight: `${100 - halfFilled}%`}}></div>
+                    </div>
+                :
+                    null
+            }
+            {
+                Array.from({length: unfilled}).map((_, idx) => {
+                    return (
+                        <div key={`unfilledStar${idx}`} className={`${styles.baseStar}`} />
+                    )
+                })
+            }
+        </div>
     )
-  }
+}
+
+
+// 모임 카드
+function PartyCard({ navigate }) {
+
+    const dispatch = useDispatch();
+
+    let parties = useSelector((state) => state.wholeParties);
+    let length = parties.length;
+    let maxLength = 4;
+
+
+    const clickHeart = (e, partyBoardNumber) => {
+        e.stopPropagation();
+
+        axios.put(`/likes/partyBoards/${partyBoardNumber}`)
+        .then(result => {
+            let results = result.data.results;
+
+            if(results.code === 2) {
+                alert('로그인이 필요합니다.');
+            } else {
+                let partyIdx = parties.findIndex((party) => {
+                    return party.partyBoardNumber === partyBoardNumber;
+                })
+                dispatch(toggleLike(partyIdx));
+            }
+        });
+
+
+    }
+
+
+    return (
+        <>
+        {
+            parties.map((party, i) => {
+                // let thumbnail = party.firstImage;
+                let thumbnail = party.firstImage != null ? `url(/img/partyboard/${party.partyBoardNumber}/thumbnail/${party.firstImage})` : `url(/img/NoImage.svg)`
+                
+                return (
+                    <div key={`partyCard${i}`} className={styles.cardContainer} onClick={() => navigate(`/party/${party.partyBoardNumber}`)}>
+                        {
+                            <div className={styles.cardImage} style={{backgroundImage: thumbnail}}>
+                                {
+                                    party.liked ? 
+                                    <FaHeart className={styles.imgHeart} onClick={(e) => clickHeart(e, party.partyBoardNumber)} />
+                                    :
+                                    <FaRegHeart className={styles.imgHeart} onClick={(e) => clickHeart(e, party.partyBoardNumber)} />
+                                }
+                            </div>
+                        }
+                        <div className={`${styles.secondFont}`}>{party.partyBoardName}</div>
+                        <div className={styles.rateInfo}>
+                            <Rate averageRating={party.averageRating} />
+                        </div>
+                        <div className={styles.memberInfo}>
+                            <img src='/image/people.svg' style={{width: '20px'}} alt='participants' />&nbsp;
+                            <span className={`${styles.fourthFont}`}>{party.memberCount}</span>
+                            {
+                                party.partyBoardStatus == 0 ?
+                                <span className={`${styles.openedParty} ${styles.thirdFont} ${styles.mlAuto}`}>모집중</span>
+                                :
+                                <span className={`${styles.closedParty} ${styles.thirdFont} ${styles.mlAuto}`}>모집완료</span>
+                            }
+                            
+                        </div>
+                    </div>
+                )
+            })
+        }
+        {
+            length % maxLength != 0 ?
+            // 빈 카드 계산
+            Array.from({length: maxLength - (length % maxLength)}).map((_, i) => {
+                return <div key={`emptyCard${i}`} className={`${styles.emptyCardContainer}`} />
+            })
+            :
+            null
+        }
+        {
+            length === 0 ?
+            // 검색결과 없음 안내
+            <div className={`${styles.flexCenter} ${styles.fullWidth}`}>
+                <span className={`${styles.noSearchResult}`}>검색결과가 존재하지 않습니다.</span>
+            </div>
+            :
+            null
+        }
+        </>
+    )
+}
 
 export default PartyBoardOverview;
