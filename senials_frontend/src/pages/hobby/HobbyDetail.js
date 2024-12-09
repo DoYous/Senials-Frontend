@@ -53,8 +53,8 @@ function HobbyDetailPost() {
     };
 
     //후기작성페이지 이동 이벤트
-    const linkHobbyReview=()=>{
-        navigate(`/hobby-review`);
+    const linkHobbyReview=(hobbyNumber)=>{
+        navigate(`/hobby-review?hobbyNumber=${hobbyNumber}`);
     }
 
     //작성된 후기 수정 페이지 이동 이벤트
@@ -151,7 +151,7 @@ function HobbyDetailPost() {
             <div className={styles.reviewHeader}>
                 <div className={styles.reviewCount}>{`후기 ${hobbyDetail.reviewCount}`}</div>
                 <div className={styles.reviewButton}>
-                    <button className={styles.writeReview} onClick={linkHobbyReview}>후기작성</button>
+                    <button className={styles.writeReview} onClick={linkHobbyReview(hobbyDetail.hobbyNumber)}>후기작성</button>
                     <select className={styles.sortReview}value={sortOption}
                             onChange={(e) => setSortOption(e.target.value)}>
                         <option value="newest">최신순</option>

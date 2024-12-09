@@ -1,10 +1,16 @@
 import React from 'react';
 import styles from "./HobbyReview.module.css";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,useLocation } from 'react-router-dom';
 
 function HobbyReviewGet() {
 
     const navigate=useNavigate();
+
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const hobbyNumber = queryParams.get('hobbyNumber');
+
+    console.log(hobbyNumber);
 
     //이전 페이지로 돌아가기 (취소) 이벤트
     const goBack=()=>{
