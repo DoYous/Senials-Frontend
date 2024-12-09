@@ -1,9 +1,9 @@
-import React,{useEffect, useState} from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-//CSS
+// CSS
 import styles from './signup.module.css';
 
-function Signup(){
+function Signup() {
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
@@ -32,57 +32,60 @@ function Signup(){
     };
 
     return (
-        <div>
-            <h1>회원가입 페이지</h1>
-            <hr />
-            <form onSubmit={handleSubmit}>
+        <div className={styles.signupcontainer}>
+            <h1 className={styles.signuptitle}>회원가입 페이지</h1>
+            <hr className={styles.signupdivider} />
+            <form className={styles.signupform} onSubmit={handleSubmit}>
                 <input
+                    className={styles.signupinput}
                     type="text"
                     name="username"
                     placeholder="Username"
                     value={formData.username}
                     onChange={handleChange}
                     required
-                /> <br />
+                />
                 <input
+                    className={styles.signupinput}
                     type="password"
                     name="password"
                     placeholder="Password"
                     value={formData.password}
                     onChange={handleChange}
                     required
-                /> <br />
+                />
                 <input
+                    className={styles.signupinput}
                     type="email"
                     name="email"
                     placeholder="Email"
                     value={formData.email}
                     onChange={handleChange}
                     required
-                /> <br />
-
+                />
                 <label htmlFor="nickname">닉네임:</label>
                 <input
+                    className={styles.signupinput}
                     type="text"
                     name="nickname"
                     id="nickname"
                     value={formData.nickname}
                     onChange={handleChange}
                     required
-                /> <br />
-
+                />
                 <label htmlFor="birth">생년월일:</label>
                 <input
+                    className={styles.signupinput}
                     type="date"
                     name="birth"
                     id="birth"
                     value={formData.birth}
                     onChange={handleChange}
                     required
-                /> <br />
-
+                />
                 <label htmlFor="gender">성별:</label>
                 <select
+                    className={styles.signupselect}
                     name="gender"
                     id="gender"
                     value={formData.gender}
@@ -93,9 +96,10 @@ function Signup(){
                     <option value="0">남성</option>
                     <option value="1">여성</option>
                     <option value="2">기타</option>
-                </select> <br />
-
-                <button type="submit">회원가입</button>
+                </select>
+                <button className={styles.signupbutton} type="submit">
+                    회원가입
+                </button>
             </form>
         </div>
     );
