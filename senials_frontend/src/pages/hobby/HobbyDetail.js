@@ -39,6 +39,49 @@ function HobbyDetailPost() {
         navigate(`/hobby-review-modify${reviewNumber}`);
     }
 
+    const getTendency = (tendency) => {
+        switch (tendency) {
+            case 0:
+                return "외향적";
+            case 1:
+                return "내향적";
+            default:
+                return "정보 없음";
+        }
+    };
+
+    const getLevel = (level) => {
+        switch (level) {
+            case 0:
+                return "쉬움";
+            case 1:
+                return "좀 쉬움";
+            case 2:
+                return "평범";
+            case 3:
+                return "좀 어려움";
+            case 4:
+                return "어려움";
+            default:
+                return "정보 없음";
+        }
+    };
+
+    const getBudget = (Budget) => {
+        switch (Budget) {
+            case 0:
+                return "0~100,000";
+            case 1:
+                return "100,000~400,000";
+            case 2:
+                return "400,000~1,000,000";
+            case 3:
+                return "1,000,000~";
+            default:
+                return "정보 없음";
+        }
+    };
+
     return (
         <>
         <div className={styles.background}>
@@ -63,13 +106,19 @@ function HobbyDetailPost() {
             </div>
             <div className={styles.hobbyPoint}>
                 <div className={styles.hobbyAbility}>성향<br />
-                    <span style={{color:"#808080"}}>외향적</span>
+                    <span style={{color:"#808080"}}>
+                        {getTendency(hobbyDetail.hobbyTendency)}
+                    </span>
                 </div>
                 <div className={styles.hobbyBudget}>지출범위<br />
-                    <span style={{color:"#808080"}}>100000</span>
+                    <span style={{color:"#808080"}}>
+                        {getBudget(hobbyDetail.hobbyBudget)}
+                    </span>
                 </div>
-                <div className={styles.hobbyLevel}>난이도<br />
-                    <span style={{color:"#808080"}}>최강</span>
+                <div className={styles.hobbyLevel}>난이도<br/>
+                    <span style={{color:"#808080"}}>
+                        {getLevel(hobbyDetail.hobbyLevel)}
+                    </span>
                 </div>
             </div>
             <hr />
