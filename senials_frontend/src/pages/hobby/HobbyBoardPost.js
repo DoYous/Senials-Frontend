@@ -4,35 +4,37 @@ import {FaAngleLeft, FaBell, FaSearch} from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
 import axios from 'axios';
-import { setHobbyCard } from '../../redux/hobbySlice';
-
-
-const top3List = [
-    { hobby: { number: 23, percentage: 23, name: "축구" } },
-    { hobby: { number: 33, percentage: 33, name: "농구" } },
-    { hobby: { number: 22, percentage: 22, name: "배드민턴" } }
-  ];
+import { setHobbyCard,setHobbyTop3Card } from '../../redux/hobbySlice';
 
 function HobbyBoardPost() {
 
     const dispatch=useDispatch();
-    const hobbyList=useSelector((state)=>state.hobbyList)
     const navigate = useNavigate();
+
+    const hobbyList=useSelector((state)=>state.hobbyList);
+    const top3List=useSelector((state=>state.hobbyTop3List));
 
     //검색 텍스트, 필터링 목록
     const[searchText, setSearchText]=useState("");
     const[filterList,setFilterList]=useState([]);
 
     useEffect(() => {
+        //취미 전체 조회
         axios.get('/hobby-board')
             .then((response) => {
                 dispatch(setHobbyCard(response.data.results.hobby));
             })
             .catch((error) => console.error(error));
+
+        //취미 top3 조회
+        axios.get('/hobby-board/top3')
+        .then((response) => {
+            dispatch(setHobbyTop3Card(response.data.results.hobby));
+        })
+        .catch((error) => console.error(error));
     }, [dispatch]);
 
     useEffect(() => {
-        console.log(hobbyList);
         setFilterList(hobbyList);
     }, [hobbyList]);
 
@@ -55,9 +57,9 @@ function HobbyBoardPost() {
             <div className={styles.top3List}>
                 
             {top3List.map((item,index) => {
-                return <HobbyCard key={index} hobby={item.hobby} linkHobby={linkHobby}/>
+                return <HobbyCard key={index} hobby={item} linkHobby={linkHobby}/>
             })}
-                
+         
             </div>
             <hr />
             <form className={styles.searchBox} onSubmit={textSearch}>
@@ -73,6 +75,24 @@ function HobbyBoardPost() {
         </div>
     );
 }
+
+function HobbyCard({ hobby,linkHobby }){
+    return(
+        <div className={styles.top3} onClick={()=>linkHobby(hobby.hobbyNumber)}>
+                    <img src='/img/sampleImg3.png' className={styles.top3Img} alt="농구" />
+                    <div className={styles.top3Name}>{hobby.hobbyName}</div>
+                    <div className={styles.th}>선호도 : {setPercentage(hobby.rating)}%</div>
+
+                    <div className={styles.progressBarContainer}>
+                        <div
+                            className={styles.progressBar}
+                            style={{ width: `${setPercentage(hobby.rating)}%` }}
+                        ></div>
+                    </div>
+                </div>
+    );
+}
+
 
 function HobbyList({hobby,linkHobby}){
     return(
@@ -95,23 +115,6 @@ function HobbyList({hobby,linkHobby}){
 
     <button className={styles.suggestHobbyButton}>취미 추가 건의</button>
     </>
-    );
-}
-
-function HobbyCard({ hobby,linkHobby }){
-    return(
-        <div className={styles.top3} onClick={()=>linkHobby(hobby.hobbyNumber)}>
-                    <img src='/img/sampleImg3.png' className={styles.top3Img} alt="농구" />
-                    <div className={styles.top3Name}>농구</div>
-                    <div className={styles.th}>선호도 : {hobby.percentage}%</div>
-
-                    <div className={styles.progressBarContainer}>
-                        <div
-                            className={styles.progressBar}
-                            style={{ width: `${hobby.percentage}%` }}
-                        ></div>
-                    </div>
-                </div>
     );
 }
 

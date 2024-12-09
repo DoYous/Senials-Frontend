@@ -1,6 +1,6 @@
 import { createSlice} from "@reduxjs/toolkit";
 
-const hobbyCard = createSlice({
+export const hobbyCard = createSlice({
     name:'hobbyCard',
     initialState:
         [],
@@ -10,6 +10,18 @@ const hobbyCard = createSlice({
         }
     }
 })
+
 export const {setHobbyCard}=hobbyCard.actions
 
-export default hobbyCard.reducer;
+export const hobbyTop3Card = createSlice({
+    name:'hobbyTop3Card',
+    initialState:
+        [],
+      reducers:{
+        setHobbyTop3Card(state, action) {
+            return action.payload
+        }
+    }
+})
+
+export const {setHobbyTop3Card}=hobbyTop3Card.actions

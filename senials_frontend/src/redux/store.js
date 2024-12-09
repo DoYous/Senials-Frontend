@@ -1,5 +1,5 @@
 import {configureStore, createSlice} from '@reduxjs/toolkit'
-import hobbySlice from './hobbySlice';
+import {hobbyCard,hobbyTop3Card} from './hobbySlice';
 
 //example state data
 let user = createSlice({
@@ -19,6 +19,7 @@ export default configureStore({
     reducer: {
         //example reducer data
         user: user.reducer,
-        hobbyList:hobbySlice
+        hobbyList:hobbyCard.reducer,
+        hobbyTop3List:hobbyTop3Card.reducer
     }
 })
