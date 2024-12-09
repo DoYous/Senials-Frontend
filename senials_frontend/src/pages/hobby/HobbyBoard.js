@@ -1,5 +1,5 @@
 import React,{useState, useEffect} from 'react';
-import styles from './HobbyBoardPost.module.css';
+import styles from './HobbyBoard.module.css';
 import {FaAngleLeft, FaBell, FaSearch} from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import styles from './HobbyDetailPost.module.css';
+import styles from './HobbyDetail.module.css';
 import common from '../common/Common.module.css';
 import {FaAngleLeft, FaBell, FaSearch} from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';

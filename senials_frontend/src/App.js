@@ -21,13 +21,14 @@ import MypageLike from "./pages/mypage/MypageLike";
 import Mypage from "./pages/mypage/Mypage";
 import MypageMember from "./pages/mypage/MypageMember";
 
-import SuggestHobbyGet from './pages/suggestHobby/SuggestHobbyGet.js';
-import SuggestHobbyPost from './pages/suggestHobby/SuggestHobbyPost.js';
+import SuggestHobbyResult from './pages/suggestHobby/SuggestHobbyResult.js';
+import SuggestHobby from './pages/suggestHobby/SuggestHobby.js';
 import HobbyBoard from './pages/hobby/HobbyBoard.js';
 import HobbyDetail from './pages/hobby/HobbyDetail.js';
-import HobbyReviewGet from './pages/hobby/HobbyReviewGet';
+import HobbyReview from './pages/hobby/HobbyReview.js';
 import HobbyReviewModify from './pages/hobby/HobbyReviewModify';
-import HobbyTagBoardPost from './pages/hobby/HobbyTagBoardPost';
+import HobbyTagBoard from './pages/hobby/HobbyTagBoard.js';
+
 import MypageLikedParty from "./pages/mypage/MypageLikedParty";
 import MypageMade from "./pages/mypage/MypageMade";
 import MypageParticipate from "./pages/mypage/MypageParticipate";
@@ -65,19 +66,19 @@ function App() {
                     {/* 헤더 통합검색 결과 */}
                     <Route path='search-whole' element={<SearchWhole />} />
                       {/*맞춤형 취미 추천 받기 페이지*/}
-                    <Route path="/suggest-hobby" element={<SuggestHobbyGet/>}/>
+                    <Route path="/suggest-hobby" element={<SuggestHobby/>}/>
                     {/*맞춤형 취미 추천 결과 페이지*/}
-                    <Route path="/suggest-hobby-result" element={<SuggestHobbyPost/>}/>
+                    <Route path="/suggest-hobby-result" element={<SuggestHobbyResult/>}/>
                     {/*취미 게시판 전체 보기*/}
                     <Route path="/hobby-board" element={<HobbyBoard/>}/>
                     {/*취미태그 게시판 전체 보기*/}
-                    <Route path="/hobby-tag" element={<HobbyTagBoardPost/>}/>
+                    <Route path="/hobby-tag" element={<HobbyTagBoard/>}/>
                     <Route path="/hobby/board" element={<HobbyBoard/>}/>
                     {/*취미 게시판 상세 보기*/}
                     <Route path="/hobby-detail/:hobbyNumber" element={<HobbyDetail/>}/>
                     <Route path="/hobby/:hobbyNumber" element={<HobbyDetail/>}/>
                     {/*취미 게시판 후기 작성*/}
-                    <Route path="/hobby-review" element={<HobbyReviewGet/>}/>
+                    <Route path="/hobby-review" element={<HobbyReview/>}/>
                     {/*취미 게시판 후기 수정 */}
                     <Route path="/hobby-review-modify" element={<HobbyReviewModify/>}/>
                       

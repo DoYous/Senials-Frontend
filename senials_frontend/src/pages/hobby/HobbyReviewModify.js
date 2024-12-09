@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from "./HobbyReviewGet.module.css";
+import styles from "./HobbyReview.module.css";
 import { useNavigate } from 'react-router-dom';
 
 function HobbyReviewGet() {
