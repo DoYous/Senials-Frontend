@@ -85,3 +85,19 @@ export let popularParties = createSlice({
     }
 }) 
 export let { setPopularParties } = popularParties.actions;
+
+
+export let lastestParties = createSlice({
+
+    name: 'lastestParties'
+    , initialState: []
+    , reducers: {
+        setLastestParties(state, action) {
+            return action.payload;
+        }
+        , toggleLastestLike(state, action) {
+            state[action.payload].liked = !state[action.payload].liked;
+        }
+    }
+})
+export let { setLastestParties, toggleLastestLike } = lastestParties.actions;

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 
-import { setPopularParties, togglePopularLike } from "../../../redux/partySlice";
+import { setPopularParties } from "../../../redux/partySlice";
 
 import styles from '../../common/MainVer1.module.css';
 
@@ -21,7 +21,7 @@ function PopularPartyBoards() {
             dispatch(setPopularParties(result.data.results.popularPartyBoards));
         });
 
-    }, [])
+    }, [dispatch])
 
 
     return (
@@ -43,8 +43,7 @@ function PopularPartyBoards() {
 // 모임 카드
 function PopularPartyCard({ navigate }) {
 
-    const dispatch = useDispatch();
-
+    
     let parties = useSelector((state) => state.popularParties);
     let length = parties.length;
     let maxLength = 4;
