@@ -1,0 +1,53 @@
+.signupcontainer {
+    max-width: 400px;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+}
+
+.signuptitle {
+    text-align: center;
+    color: #569AFF;
+}
+
+.signupdivider {
+    margin: 20px 0;
+}
+
+.signupform {
+    display: flex;
+    flex-direction: column;
+}
+
+.signupinput,
+.signupselect {
+    padding: 10px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.signupinput:focus,
+.signupselect:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.signupbutton {
+    padding: 10px;
+    background-color: #6CB7DA;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.signupbutton:hover {
+    background-color: #0056b3;
+}
