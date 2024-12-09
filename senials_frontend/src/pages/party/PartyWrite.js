@@ -58,6 +58,14 @@ function PartyWrite() {
         const allowedTypes = ['image/png', 'image/jpeg']
 
 
+        /* 이미지 프리뷰 초기화 */
+        imagePreviews.forEach(imagePreview => {
+            URL.revokeObjectURL(imagePreview);
+        })
+        setImagePreviews([]);
+        setCurrent(0);
+
+
         /* 업로드 이미지 개수 검사 */
         if(newFiles.length > 3) {
             e.target.value = '';
@@ -80,19 +88,10 @@ function PartyWrite() {
         }
 
 
-        /* 이미지를 업로드 했을 때만 업데이트 */
-        if(newFiles.length !== 0) {
-            imagePreviews.forEach(imagePreview => {
-                URL.revokeObjectURL(imagePreview);
-            })
-            setImagePreviews([]);
-
-            const newImagePreviews = newFiles.map(file => URL.createObjectURL(file));
-            setImagePreviews(newImagePreviews);
+        /* 프리뷰 생성 */
+        const newImagePreviews = newFiles.map(file => URL.createObjectURL(file));
+        setImagePreviews(newImagePreviews);
     
-            setCurrent(0);
-        }
-
 
     }
 
@@ -111,7 +110,7 @@ function PartyWrite() {
         const hobbyNumber = hobbyNumberInput.current.value;
         const partyBoardName = partyBoardNameInput.current.value;
         const partyBoardDetail = partyBoardDetailInput.current.value;
-        
+
 
         if (imageFiles.length === 0) {
             alert('이미지는 최소 1개 이상 업로드해야 합니다.');
@@ -141,10 +140,13 @@ function PartyWrite() {
             }
         })
         .then(result => {
-            alert(result.data.message);
+            let results = result.data.results;
+            console.log(result.data.message);
+            navigate(`/party/${results.partyBoardNumber}`);
         })
         .catch(err => {
-            console.error('[Error]: ' + err);
+            console.log('[Error]: ' + err);
+            alert('[에러]: ' + err);
         })
 
     }
