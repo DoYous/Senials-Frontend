@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function MypageCalender() {
-    const [userNumber] = useState(1);
+    const [userNumber] = useState(2);
 
     /* 사용자 프로필 */
     const [nickname, setNickname] = useState("");
@@ -46,6 +46,8 @@ function MypageCalender() {
                 const madeCountResponse = await axios.get(`/users/${userNumber}/made/count`);
                 setMadePartyCount(madeCountResponse.data.results.madePartyCount);
 
+                // 좋아한 모임 개수 가져오기
+                await fetchLikedPartyCount();
             } catch (error) {
                 console.error("에러:", error.response ? error.response.data : error.message);
             }
@@ -56,15 +58,21 @@ function MypageCalender() {
     // 좋아한 모임 개수 가져오기 이거 안댐
     const fetchLikedPartyCount = async () => {
         try {
-            const likedCountResponse = await axios.get(`/users/${userNumber}/likes/count`);
-            setLikedPartyCount(likedCountResponse.data.result.likesPartyCount);
+            const likedCountResponse = await axios.get(`/users/${userNumber}/like/count`);
+            if (likedCountResponse.data && likedCountResponse.data.results) {
+                setLikedPartyCount(likedCountResponse.data.results.likesPartyCount);
+            } else {
+                console.error("Unexpected response format:", likedCountResponse.data);
+            }
         } catch (error) {
             console.error("좋아한 모임 개수 가져오기 에러:", error.response ? error.response.data : error.message);
         }
     };
+/*
     const handleRefreshLikedCount = () => {
         fetchLikedPartyCount();
     };
+*/
 
     /* 탈퇴하기 */
     const handleDeleteUser = async () => {
