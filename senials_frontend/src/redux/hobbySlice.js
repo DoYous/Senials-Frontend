@@ -5,7 +5,7 @@ export const hobbyCard = createSlice({
     initialState:
         [],
       reducers:{
-        setHobbyCard(state, action) {
+        setHobbyCard(state,action) {
             return action.payload
         }
     }
@@ -18,10 +18,36 @@ export const hobbyTop3Card = createSlice({
     initialState:
         [],
       reducers:{
-        setHobbyTop3Card(state, action) {
+        setHobbyTop3Card(state,action) {
             return action.payload
         }
     }
 })
 
 export const {setHobbyTop3Card}=hobbyTop3Card.actions
+
+export const hobbyDetail = createSlice({
+    name:'hobbyDetail',
+    initialState:
+        [],
+      reducers:{
+        settHobbyDetail(state, action) {
+            return action.payload
+        }
+    }
+})
+
+export const {settHobbyDetail}=hobbyDetail.actions
+
+export const hobbyReview = createSlice({
+    name:'hobbyReview',
+    initialState:
+        [],
+      reducers:{
+        settHobbyReview(state, action) {
+            return action.payload
+        }
+    }
+})
+
+export const {settHobbyReview}=hobbyReview.actions

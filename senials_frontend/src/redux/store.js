@@ -1,5 +1,5 @@
 import {configureStore, createSlice} from '@reduxjs/toolkit';
-import {hobbyCard,hobbyTop3Card} from './hobbySlice';
+import {hobbyCard,hobbyDetail,hobbyReview,hobbyTop3Card} from './hobbySlice';
 import { isRemain, cursor, sortMethod, partyKeyword, wholeParties, popularParties, lastestParties } from './partySlice.js';
 import categories from './categorySlice.js';
 
@@ -22,7 +22,9 @@ export default configureStore({
         //example reducer data
         user: user.reducer,
         hobbyList:hobbyCard.reducer,
-        hobbyTop3List:hobbyTop3Card.reducer
+        hobbyTop3List:hobbyTop3Card.reducer,
+        hobbyDetail:hobbyDetail.reducer,
+        hobbyReview:hobbyTop3Card.reducer
         , isRemain: isRemain.reducer
         , cursor: cursor.reducer
         , sortMethod: sortMethod.reducer
