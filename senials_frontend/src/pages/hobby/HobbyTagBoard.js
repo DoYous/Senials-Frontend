@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './HobbyBoardPost.module.css';
+import styles from './HobbyBoard.module.css';
 import { useNavigate } from 'react-router-dom';
 
 const top3List = [
