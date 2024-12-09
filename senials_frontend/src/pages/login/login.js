@@ -7,14 +7,18 @@ function Login() {
     const navigate = useNavigate();
 
     const linkSignup = () => {
-        navigate('/signup');
+        navigate('/login/signup');
+    };
+
+    const handleKakaoLogin = () => {
+        window.location.href = "/oauth2/authorization/kakao"; // 카카오 로그인 URL로 이동
     };
 
     return (
         <div className={styles.kakaocontainer}>
             <div className={styles.SimpleLogin}>간편로그인</div>
             <div className={styles.kakaoimageWrapper}>
-                <img className={styles.kakaobt} src={'/image/kakaologinbt.png'} alt="카카오 로그인"/>
+                <img className={styles.kakaobt} src={'/image/kakaologinbt.png'} alt="카카오 로그인" onClick={handleKakaoLogin} />
             </div>
             <div className={styles.OrgLogin}>일반로그인</div>
             <div className={styles.buttonContainer}>
