@@ -19,6 +19,10 @@
     position: relative;
 }
 
+.posAbsolute {
+    position: absolute;
+}
+
 .posCenter {
     position: absolute;
     left: 50%;
@@ -650,6 +654,7 @@
 
 .csItem {
     flex: none;
+    border-radius: 30px;
     width: 100%;
     height: 100%;
     background-size: cover;
