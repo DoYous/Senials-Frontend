@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import styles from './HobbyDetail.module.css';
+import starRate from '../common/MainVer1.module.css';
 import common from '../common/Common.module.css';
 import {FaAngleLeft, FaBell, FaSearch} from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
@@ -39,6 +40,7 @@ function HobbyDetailPost() {
         navigate(`/hobby-review-modify${reviewNumber}`);
     }
 
+    //성향 출력
     const getTendency = (tendency) => {
         switch (tendency) {
             case 0:
@@ -50,6 +52,7 @@ function HobbyDetailPost() {
         }
     };
 
+    //난이도 출력
     const getLevel = (level) => {
         switch (level) {
             case 0:
@@ -67,6 +70,7 @@ function HobbyDetailPost() {
         }
     };
 
+    //
     const getBudget = (Budget) => {
         switch (Budget) {
             case 0:
@@ -148,8 +152,8 @@ function HobbyReview({ review, linkHobbyReviewModify }) {
                 <div className={styles.userInfo}>
                     <img src='/img/sampleImg5.png' className={styles.userImg} alt="사용자" />
                     <div className={styles.userName}>{review.userName}</div>
-                    <div className={styles.reviewPoint}>별점 
-                        <StarPoint />
+                    <div className={styles.reviewPoint}><span className={styles.star}>별점</span>
+                        <Rate averageRating={review.hobbyReviewRate} />
                     </div>
                     <button className={`${styles.reportButton} ${common.reportDiv}`}>
                         <FaBell/> 신고
@@ -168,16 +172,40 @@ function HobbyReview({ review, linkHobbyReviewModify }) {
 }
 
 
-function StarPoint() {
+function Rate({averageRating}) {
+
+    let filled = parseInt(averageRating);
+    let halfFilled = averageRating * 100 % 100;
+    let unfilled = parseInt(5 - averageRating);
+
     return (
-        <span>
-            <img className={styles.star} src='/img/starFull.png' alt='' />
-            <img className={styles.star} src='/img/starFull.png' alt='' />
-            <img className={styles.star} src='/img/starFull.png' alt='' />
-            <img className={styles.star} src='/img/starFull.png' alt='' />
-            <img className={styles.star} src='/img/starEmpty.png' alt='' />
-        </span>
-    );
+        <div className={`${starRate.rateInfo}`}>
+            {
+                Array.from({length: filled}).map((_, idx) => {
+                    return (
+                        <div key={`filledStar${idx}`} className={`${starRate.baseStar}`}>
+                            <div className={`${starRate.filledStar}`}></div>
+                        </div>
+                    )
+                })
+            }
+            {
+                halfFilled > 0 ?
+                    <div className={`${starRate.baseStar}`}>
+                        <div className={`${starRate.halfStar}`} style={{width: `${halfFilled}%`, marginRight: `${100 - halfFilled}%`}}></div>
+                    </div>
+                :
+                    null
+            }
+            {
+                Array.from({length: unfilled}).map((_, idx) => {
+                    return (
+                        <div key={`unfilledStar${idx}`} className={`${starRate.baseStar}`} />
+                    )
+                })
+            }
+        </div>
+    )
 }
 
 function setPercentage(rating){
