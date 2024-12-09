@@ -44,7 +44,7 @@ margin-top: 30px;}
 
 .contentName{display: flex;
     align-items: center;
-    width: 70%;
+    width: 100%;
     margin-top: 30px;
     border: none;
     background: none;
@@ -94,4 +94,18 @@ margin-bottom: 0px;}
 .select_hobby_tendency input:checked + label{
     background-color: #FF5391;
     color: white;
+}
+/* 핑크색 적용 */
+.favoriteActive label {
+    background-color: #FF5391;
+    color: white;
+}
+
+.maxScroll{
+    width: 75%;
+    max-height: 700px;
+    overflow-y: auto;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }
