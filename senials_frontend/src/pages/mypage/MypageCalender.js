@@ -3,10 +3,13 @@ import common from '../common/Common.module.css';
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Calendar from "react-calendar"; // 캘린더 컴포넌트
+import "react-calendar/dist/Calendar.css"; // 기본 스타일
 
 function MypageCalender() {
-    const [userNumber] = useState(2);
-
+    const [userNumber] = useState(10);
+    const [events, setEvents] = useState([]); // 사용자 모임 일정
+    const [selectedDate, setSelectedDate] = useState(new Date()); // 선택된 날짜
     /* 사용자 프로필 */
     const [nickname, setNickname] = useState("");
     const [detail, setDetail] = useState("");
@@ -55,7 +58,7 @@ function MypageCalender() {
         fetchUserData();
     }, []);
 
-    // 좋아한 모임 개수 가져오기 이거 안댐
+    // 좋아한 모임 개수 가져오기
     const fetchLikedPartyCount = async () => {
         try {
             const likedCountResponse = await axios.get(`/users/${userNumber}/like/count`);
@@ -68,11 +71,67 @@ function MypageCalender() {
             console.error("좋아한 모임 개수 가져오기 에러:", error.response ? error.response.data : error.message);
         }
     };
-/*
-    const handleRefreshLikedCount = () => {
-        fetchLikedPartyCount();
+
+    // 사용자 모임 일정 가져오기
+    useEffect(() => {
+        const fetchEvents = async () => {
+            try {
+                const response = await axios.get(`/users/${userNumber}/meets`);
+                setEvents(response.data); // 데이터 설정
+            } catch (error) {
+                console.error("일정 데이터 가져오기 오류:", error.response ? error.response.data : error.message);
+            }
+        };
+        fetchEvents();
+    }, [userNumber]);
+
+    // 클릭 시 모임 페이지로 이동
+    const handleEventClick = (partyBoardNumber) => {
+        navigate(`/party/${partyBoardNumber}`);
     };
-*/
+
+    // 캘린더 tileContent로 일정 표시
+    const renderEventTiles = ({ date }) => {
+        // 해당 날짜의 일정 필터링
+        const dayEvents = events.filter(
+            (event) =>
+                new Date(event.meetStartDate).toDateString() === date.toDateString()
+        );
+
+        // 일정 시간순 정렬
+        const sortedEvents = dayEvents.sort((a, b) => {
+            const timeA = a.meetStartTime.split(":").map(Number); // "14:00:00" → [14, 0, 0]
+            const timeB = b.meetStartTime.split(":").map(Number);
+            return timeA[0] - timeB[0] || timeA[1] - timeB[1]; // 시간 비교 후 분 비교
+        });
+
+        if (sortedEvents.length > 0) {
+            return (
+                <ul className={styles.eventList}>
+                    {sortedEvents.map((event) => {
+                        // meetNumber를 기반으로 색상 클래스 결정
+                        const colorClass = `color${(event.meetNumber % 5) + 1}`; // 5가지 색상 순환
+
+                        // 시간과 분만 표시
+                        const [hours, minutes] = event.meetStartTime.split(":");
+
+                        return (
+                            <li
+                                key={event.meetNumber}
+                                className={`${styles.eventTile} ${styles[colorClass]}`}
+                                onClick={() => handleEventClick(event.partyBoardNumber)}
+                            >
+                                {event.meetLocation} ({hours}:{minutes})
+                            </li>
+                        );
+                    })}
+                </ul>
+            );
+        }
+        return null;
+    };
+
+
 
     /* 탈퇴하기 */
     const handleDeleteUser = async () => {
@@ -94,11 +153,13 @@ function MypageCalender() {
             alert("회원 탈퇴 중 문제가 발생했습니다. 다시 시도해주세요.");
         }
     };
+    //프로필 사진
+    const imgSrc = `/img/userProfile/${userNumber}`;
 
     return (
         <div className={styles.bigDiv}>
             {/* 프로필 사진 */}
-            <div className={styles.profile} style={{ backgroundImage: `url(${profileImg})` }}></div>
+            <img src={imgSrc} className={styles.profile}></img>
             <div className={styles.smallDiv}>
                 <div className={styles.mainDiv}>
                     <input
@@ -145,13 +206,33 @@ function MypageCalender() {
                         </div>
                     </div>
                 </div>
-                <div className={styles.calender}>캘린더 영역</div>
+
+                    <div className={styles.calendarContainer}>
+                        <Calendar
+                            value={selectedDate}
+                            onChange={setSelectedDate}
+                            tileContent={renderEventTiles} // 일정 표시
+                            className={styles.reactCalendar}
+                            //날짜 칸 css
+                            tileClassName={({ activeStartDate, date, view }) =>
+                                view === "month" && date.getDate() === new Date().getDate()
+                                    ? styles.reactCalendarTileActive
+                                    : styles.reactCalendarTile
+                            }
+                            //*월 칸 css
+                            navigationLabel={({ date, view }) => (
+                                <div className={styles.navigationButton}>
+                                    {view === "month" ? date.toLocaleString("default", { month: "long" }) : null}
+                                </div>)}
+                        />
+                    </div>
+
                 <div className={styles.btnDiv}>
                     <button
                         className={`${common.commonBtn} ${styles.marginLeftAuto}`}
                         onClick={() => navigate(`/user/1/modify`)}
                     >
-                        회원정보 변경
+                    회원정보 변경
                     </button>
                     <button className={`${common.importantBtn} ${styles.marginLeft}`} onClick={handleDeleteUser}>회원 탈퇴</button>
                 </div>

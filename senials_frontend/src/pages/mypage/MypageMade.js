@@ -108,14 +108,13 @@ function PartyCard({ title, status, party, linkParty,handleMember, handleBoard})
     const cardClass = party.partyBoardStatus === 1
         ? `${main.thirdFont} ${main.closedParty}`
         : `${main.thirdFont} ${main.openedParty}`;
+    let thumbnail = party.firstImage != null ? `url(/img/partyboard/${party.partyBoardNumber}/thumbnail/${party.firstImage})` : `url(/img/NoImage.svg)`
 
     return (
         <div className={main.cardContainer}>
             <div
                 className={main.cardImage}
-                style={{
-                    backgroundImage: `url(${party.firstImage || '/image/default.jpg'})`,
-                }}
+                style={{backgroundImage: thumbnail}}
                 onClick={() => linkParty(party.partyBoardNumber)}
             >
             </div>
