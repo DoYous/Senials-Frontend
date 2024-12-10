@@ -43,20 +43,26 @@ function MypageModify() {
         const file = event.target.files[0];
         if (file) {
             const formData = new FormData();
-            formData.append("file", file);
+            formData.append("profileImage", file);
 
             try {
+                // 이미지 업로드 API 호출
                 const response = await axios.post(`/users/${userNumber}/profile/upload`, formData, {
-                    headers: { "Content-Type": "multipart/form-data" },
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    },
                 });
+
                 if (response.status === 200) {
-                    alert("프로필 사진이 성공적으로 변경되었습니다.");
-                    // 새 프로필 이미지를 반영
+                    alert("프로필 사진이 변경되었습니다.");
+                    // 변경된 이미지의 URL을 설정하여 미리보기 업데이트
                     setProfileImg(`/img/userProfile/${userNumber}?t=${new Date().getTime()}`);
+                } else {
+                    alert("프로필 사진 변경에 실패했습니다.");
                 }
             } catch (error) {
-                console.error("프로필 업로드 실패:", error);
-                alert("프로필 사진 업로드 중 문제가 발생했습니다.");
+                console.error("에러:", error);
+                alert("이미지 업로드 중 오류가 발생했습니다.");
             }
         }
     };
