@@ -9,7 +9,7 @@ function HobbyReviewGet() {
     const queryParams = new URLSearchParams(location.search);
     const hobbyNumber = queryParams.get('hobbyNumber');
 
-    // 이전 페이지로 돌아가기 (취소) 이벤트
+    // 이전 페이지로 돌아가기 이벤트
     const goBack = () => {
         navigate(`/hobby-detail/${hobbyNumber}`);
     }
@@ -32,9 +32,9 @@ function HobbyReviewGet() {
      // 별점 상태 관리
      const [rating, setRating] = useState(0);
 
-     // 별점 클릭 처리 함수
+     // 별점 클릭 처리 로직
      const handleStarClick = (index) => {
-         setRating(index + 1);  // 클릭한 별의 번호(1~5)로 상태 변경
+         setRating(index + 1);  // 클릭한 별의 번호로 상태 변경
      }
 
     // form 제출 처리
