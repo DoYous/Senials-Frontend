@@ -1,6 +1,6 @@
 import {configureStore, createSlice} from '@reduxjs/toolkit';
 import {hobbyCard,hobbyDetail,hobbyReview,hobbyTop3Card} from './hobbySlice';
-import { isRemain, cursor, sortMethod, partyKeyword, wholeParties, popularParties, lastestParties } from './partySlice.js';
+import { isRemain, cursor, sortMethod, partyKeyword, wholeParties, popularParties, lastestParties, partyBoardDetail } from './partySlice.js'
 import { categories, categoriesWithHobbies, hobbiesForWrite } from './categorySlice.js'
 
 //example state data
@@ -37,5 +37,6 @@ export default configureStore({
         // 글 작성, 수정 용 카테고리 & 취미
         , categoriesWithHobbies: categoriesWithHobbies.reducer
         , hobbiesForWrite: hobbiesForWrite.reducer
+        , partyBoardDetail: partyBoardDetail.reducer
     }
 })
