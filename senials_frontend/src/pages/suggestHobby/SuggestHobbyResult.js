@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './SuggestHobbyPost.module.css';
+import styles from './SuggestHobbyResult.module.css';
 import { useNavigate } from 'react-router-dom';
 
 function SuggestHobbyPost() {
