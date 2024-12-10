@@ -5,7 +5,7 @@ import axios from "axios";
 {/*사용자 프로필(남보기용)*/}
 
 function Mypage() {
-    const [userNumber] = useState(1);
+    const [userNumber] = useState(10);
 
     /* 사용자 프로필 */
     const [nickname, setNickname] = useState("");
@@ -43,10 +43,13 @@ function Mypage() {
         fetchUserData();
     }, []);
 
+    //프로필 사진
+    const imgSrc = `/img/userProfile/${userNumber}`;
+
     return (
         <div className={styles.bigDiv}>
-                    <div className={styles.profile} style={{ backgroundImage: `url(${profileImg})` }}></div>
-                    <div className={styles.mypageSmallDiv}>
+            <img src={imgSrc} className={styles.profile}></img>
+            <div className={styles.mypageSmallDiv}>
                         <div className={styles.mainDiv}>
                             <div className={common.firstFont}>{nickname}</div>
                             <div className={`${styles.oneLine} ${common.secondFont}`}>{detail}</div>

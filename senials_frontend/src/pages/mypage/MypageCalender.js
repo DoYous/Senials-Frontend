@@ -7,7 +7,7 @@ import Calendar from "react-calendar"; // 캘린더 컴포넌트
 import "react-calendar/dist/Calendar.css"; // 기본 스타일
 
 function MypageCalender() {
-    const [userNumber] = useState(1);
+    const [userNumber] = useState(10);
     const [events, setEvents] = useState([]); // 사용자 모임 일정
     const [selectedDate, setSelectedDate] = useState(new Date()); // 선택된 날짜
     /* 사용자 프로필 */
@@ -153,11 +153,13 @@ function MypageCalender() {
             alert("회원 탈퇴 중 문제가 발생했습니다. 다시 시도해주세요.");
         }
     };
+    //프로필 사진
+    const imgSrc = `/img/userProfile/${userNumber}`;
 
     return (
         <div className={styles.bigDiv}>
             {/* 프로필 사진 */}
-            <div className={styles.profile} style={{ backgroundImage: `url(${profileImg})` }}></div>
+            <img src={imgSrc} className={styles.profile}></img>
             <div className={styles.smallDiv}>
                 <div className={styles.mainDiv}>
                     <input

@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function MypageModify() {
-
+    const [userNumber] = useState(10); //유저 넘버
     const navigate = useNavigate();
     const [nickname, setNickname] = useState(""); // 닉네임
     const [detail, setDetail] = useState(""); // 한줄 소개
@@ -26,7 +26,6 @@ function MypageModify() {
     useEffect(() => {
         const fetchUserData = async () => {
             try {
-                const userNumber = 1; // 사용자 아이디 - 나중에 받아와야함
                 const response = await axios.get(`/users/${userNumber}`);
                 const userData = response.data.results.user;
                 setNickname(userData.userNickname);
@@ -41,35 +40,32 @@ function MypageModify() {
 
     // 프로필 사진 변경
     const handleProfileChange = async (event) => {
-        const file = document.querySelector('input[type="file"]').files[0];
-        const fileName = file.name;
+        const file = event.target.files[0];
+        if (file) {
+            const formData = new FormData();
+            formData.append("file", file);
 
-        const reader = new FileReader();
-        reader.onload = async () => {
-            const userNumber = 1; // 사용자 아이디 - 나중에 받아와야함
-            const fileData = new Uint8Array(reader.result);
             try {
-                const response = await axios.post(`/users/${userNumber}/upload-profile`, fileData, {
-                    headers: {
-                        'Content-Type': 'application/octet-stream',
-                    },
-                    params: {
-                        fileName: fileName,
-                    },
+                const response = await axios.post(`/users/${userNumber}/profile/upload`, formData, {
+                    headers: { "Content-Type": "multipart/form-data" },
                 });
-                console.log("파일 업로드 성공:", response.data);
+                if (response.status === 200) {
+                    alert("프로필 사진이 성공적으로 변경되었습니다.");
+                    // 새 프로필 이미지를 반영
+                    setProfileImg(`/img/userProfile/${userNumber}?t=${new Date().getTime()}`);
+                }
             } catch (error) {
-                console.error("파일 업로드 실패:", error);
+                console.error("프로필 업로드 실패:", error);
+                alert("프로필 사진 업로드 중 문제가 발생했습니다.");
             }
-        };
-        reader.readAsArrayBuffer(file);
+        }
     };
+
 
 
     // 데이터 저장 요청
     const handleSave = async () => {
         try {
-            const userNumber = 1; // 사용자 아이디 - 나중에 받아와야함
             const response = await axios.put(`/users/${userNumber}/modify`, {
                 userNickname: nickname,
                 userDetail: detail,
@@ -81,6 +77,10 @@ function MypageModify() {
             alert("저장 실패");
         }
     };
+
+    //프로필 사진
+  /*  const imgSrc = `/img/userProfile/${userNumber}`;*/
+    const imgSrc = `/img/userProfile/${userNumber}?t=${new Date().getTime()}`;
 
     return (
         <div>
@@ -99,14 +99,10 @@ function MypageModify() {
                     <div className={styles.mainDiv}>
                         <div className={styles.mainName}>
                             <div className={`${common.secondFont} ${styles.margin0} ${styles.profileFlex}`}>
-                                <div
-                                    className={styles.profile}
-                                    style={{ backgroundImage: `url(${profileImg})` }}
-                                >
-                                </div>
-                                프로필 사진 변경
-                            </div>
-                            <label className={styles.profileChange}>
+                                <img src={imgSrc} className={styles.profile}></img>
+                            프로필 사진 변경
+                        </div>
+                        <label className={styles.profileChange}>
                                 <FaArrowUpRightFromSquare size={20} />
                                 <input
                                     type="file"

@@ -60,6 +60,7 @@ font-family: 'Pretendard', sans-serif;}
     justify-content: space-between;}
 
 .profile {
+    object-fit: cover;
     border: 1px solid;
     border-radius: 50%;
     width: 200px;
