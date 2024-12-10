@@ -101,3 +101,19 @@ export let lastestParties = createSlice({
     }
 })
 export let { setLastestParties, toggleLastestLike } = lastestParties.actions;
+
+
+export let partyBoardDetail = createSlice({
+
+    name: 'partyBoardDetail'
+    , initialState: {
+        images:[],
+        partyMaster: {}
+    }
+    , reducers: {
+        setPartyBoardDetail(state, action) {
+            return action.payload;
+        }
+    }
+});
+export let { setPartyBoardDetail } = partyBoardDetail.actions;

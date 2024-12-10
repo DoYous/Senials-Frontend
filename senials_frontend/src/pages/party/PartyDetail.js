@@ -3,6 +3,10 @@ import { FaLocationDot  } from "react-icons/fa6";
 import { BsPeopleFill } from "react-icons/bs";
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import axios from "axios";
+
+import { setPartyBoardDetail } from "../../redux/partySlice";
 
 // CSS
 import styles from '../common/MainVer1.module.css';
@@ -11,13 +15,35 @@ function PartyDetail() {
 
     const testArray3 = [{number: 1}, {number: 2}, {number: 3}];
     const testArray4 = [{number: 1}, {number: 2}, {number: 3}, {number: 4}];
-    const testArray5 = [{number: 1}, {number: 2}, {number: 3}, {number: 4}, {number: 5}]
-    const testArray6 = [{number: 1}, {number: 2}, {number: 3}, {number: 4}, {number: 5}, {number: 6}]
-    const testArray7 = [{number: 1}, {number: 2}, {number: 3}, {number: 4}, {number: 5}, {number: 6}, {number: 7}]
+
 
     const { partyNumber } = useParams();
 
     const navigate = useNavigate();
+
+    const dispatch = useDispatch();
+
+
+    // const {party, setParty} =  useState({});
+
+    const partyBoard = useSelector(state => state.partyBoardDetail);
+    const partyMaster = useSelector(state => state.partyBoardDetail.partyMaster);
+
+
+    useEffect(() => {
+
+        axios.get(`/partyboards/${partyNumber}`)
+        .then(response => {
+            let results = response.data.results;
+            
+            let partyBoardDetail = results.partyBoard;
+            partyBoardDetail.partyMaster = results.partyMaster;
+            
+            dispatch(setPartyBoardDetail(results.partyBoard));
+        })
+    }, []);
+
+
 
     return (
         <div className={styles.centerContainer}>
@@ -28,7 +54,7 @@ function PartyDetail() {
             {/* 모임 제목, 간단소개 출력 영역 */}
             <div className={`${styles.separator}`}>
                 {/* 카테고리 */}
-                <span className={`${styles.whiteIndicator}`}>운동</span>
+                <span className={`${styles.whiteIndicator}`}>{partyBoard.categoryName}</span>
                 &nbsp;
                 {/* 좋아요 누르기 전은 FaRegHeart */}
                 {/* <span className={`${styles.whiteBtn} ${styles.thirdFont} ${styles.mrAuto}`}>
@@ -47,16 +73,12 @@ function PartyDetail() {
             </div>
             <div className={styles.separator}>
                 <span className={`${styles.firstFont}`}>
-                    월수금 수영 같이해요!
+                    {partyBoard.partyBoardName}
                 </span>
             </div>
             <div className={styles.separator}>
                 <span className={`${styles.secondFont}`} style={{fontWeight: 'normal'}}>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ut tellus urna. Ut quis elementum ante. Nulla eget tortor ultrices sapien tempor fermentum. Maecenas ut metus a est malesuada sodales in at elit. Etiam id dignissim urna, porta feugiat ex. Sed laoreet tellus sed ligula accumsan, ut ultrices lectus varius. Nam ut luctus erat. In eros justo, molestie id orci quis, bibendum cursus tortor. Proin bibendum magna efficitur nulla cursus pretium. Phasellus consequat volutpat lacus eu molestie. Vestibulum eu mollis ante. Praesent tincidunt sollicitudin ligula, at tempor nisl dapibus in. Ut eu augue et est finibus pulvinar eu vitae augue.
-
-                    Curabitur eget egestas lacus. Sed rutrum vestibulum convallis. Vivamus maximus ipsum sit amet hendrerit iaculis. Quisque nunc orci, ultrices ut arcu congue, convallis euismod enim. Aenean sed elit condimentum, condimentum arcu bibendum, ultricies dui. Nullam faucibus arcu et varius cursus. Pellentesque neque urna, placerat eget hendrerit sit amet, laoreet eu metus. Praesent maximus sapien maximus ipsum facilisis blandit. Donec eleifend tristique felis, vel lobortis mi placerat ut. Maecenas id dolor lacus.
-
-                    Vivamus varius nunc in sapien sagittis, at fermentum tortor aliquet. Mauris rhoncus risus elit, fringilla pretium ante semper ut. In tincidunt varius venenatis. Sed placerat enim at consequat rutrum. Ut dictum, velit eu rutrum accumsan, mi lectus blandit odio, eu feugiat magna eros id quam. Nullam et suscipit risus. Quisque vitae rutrum neque.
+                    {partyBoard.partyBoardDetail}
                 </span>
             </div>
             <div className={`${styles.flex}`}>
@@ -65,10 +87,15 @@ function PartyDetail() {
                     <img style={{width: '20px'}} src='/image/people.svg' />
                     &nbsp;
                     <span className={`${styles.secondFont}`}>
-                        10명
+                        {partyBoard.partyMemberCnt}
                     </span>
                     &nbsp;
-                    <span className={`${styles.openedParty} ${styles.thirdFont}`}>모집중</span>
+                    {
+                        partyBoard.partyBoardStatus === 0 ?
+                        <span className={`${styles.openedParty} ${styles.thirdFont}`}>모집중</span>
+                        :
+                        <span className={`${styles.closedParty} ${styles.thirdFont}`}>모집중</span>
+                    }
                     &nbsp;
                     <span className={`${styles.commonBtn} `}>신청</span>
                     {/* <span className={`${styles.commonBtn}`}>수정</span> */}   
@@ -82,7 +109,7 @@ function PartyDetail() {
                     모임장
                 </span>
             </div>
-            <Member />
+            <Member navigate={navigate} user={partyMaster}/>
             <hr />
 
             {/* 일정 출력 영역 */}
@@ -144,7 +171,7 @@ function PartyDetail() {
             {
                 testArray3.map((member, idx) => {
                     return (
-                        <Member key={`memberCard${idx}`} member={member} navigate={navigate} />
+                        <Member key={`memberCard${idx}`} user={member} navigate={navigate} />
                     )
                 })
             }
@@ -171,9 +198,12 @@ function PartyDetail() {
 }
 
 function Carousel() {
+
+    const { partyNumber } = useParams();
+    const images = useSelector(state => state.partyBoardDetail.images)
     
     // 이미지 총 개수 - 1
-    const lastIndex = 2;
+    const lastIndex = images.length - 1;
     const [current, setCurrent] = useState(0);
     
 
@@ -197,30 +227,43 @@ function Carousel() {
     return (
         <div className={`${styles.flexColumn} ${styles.fullWidth} ${styles.marginBottom2}`}>
             <div className={`${styles.flex} ${styles.fullWidth}`}>
-                <div className={`${styles.csPrev}`} onClick={() => prev()} />
-
+                {
+                    images.length > 1 ?
+                    <div className={`${styles.csPrev}`} onClick={() => prev()} />
+                    :
+                    null
+                }
                 <div className={`${styles.csContainer}`} style={{margin: '0 auto 0 auto', width: '1000px', height: '500px'}}>
                     <div className={`${styles.csInner}`} style={{transform: `translateX(-${current * 1000}px)`}}>
-                        <div className={`${styles.csItem}`} style={{backgroundImage: 'url(/image/1.jpg)'}} />
-                        <div className={`${styles.csItem}`} style={{backgroundImage: 'url(/image/2.jpg)'}} />
-                        <div className={`${styles.csItem}`} style={{backgroundImage: 'url(/image/3.jpg)'}} />
+                        {
+                            images.map((image, idx) => 
+                                <div key={idx} className={`${styles.csItem}`} style={{backgroundImage: `url(/img/partyboard/${partyNumber}/thumbnail/${image.partyBoardImg})`}} />
+                            )
+                        }
                     </div>
                 </div>
-
-                <div className={`${styles.csNext}`} onClick={() => next()} />
+                {
+                    images.length > 1 ?
+                    <div className={`${styles.csNext}`} onClick={() => next()} />
+                    :
+                    null
+                }
             </div>
         </div>
     )
 }
 
-function Member({ member, navigate }) {
+function Member({ navigate, user }) {
+
+    const partyBoard = useSelector(state => state.partyBoardDetail);
+
     return (
         <div className={`${styles.memberContainer}`}>
-            <img className={`${styles.masterProfile}`} src='/image/sampleProfile.png' onClick={() => navigate(`/user/${member.number}/profile`)} />
+            <img className={`${styles.masterProfile}`} src='/image/sampleProfile.png' onClick={() => navigate(`/user/${partyBoard.userNumber}/profile`)} />
             <div className={`${styles.memberContent}`}>
-                <span className={`${styles.secondFont}`}>수영물개</span>
+                <span className={`${styles.secondFont}`}>{user.userNickname}</span>
                 <span className={`${styles.secondFont}`} style={{color: '#999999'}}>
-                    안녕하세요. 수영 1년차 입니다~
+                    {user.userDetail}
                 </span>
             </div>
         </div>
