@@ -1,5 +1,6 @@
-import {configureStore, createSlice} from '@reduxjs/toolkit'
-import { isRemain, cursor, sortMethod, partyKeyword, wholeParties, popularParties, lastestParties } from './partySlice.js'
+import {configureStore, createSlice} from '@reduxjs/toolkit';
+import {hobbyCard,hobbyDetail,hobbyReview,hobbyTop3Card} from './hobbySlice';
+import { isRemain, cursor, sortMethod, partyKeyword, wholeParties, popularParties, lastestParties } from './partySlice.js';
 import { categories, categoriesWithHobbies, hobbiesForWrite } from './categorySlice.js'
 
 //example state data
@@ -18,7 +19,13 @@ export let {changeName}=user.actions
 
 export default configureStore({
     reducer: {
-        isRemain: isRemain.reducer
+        //example reducer data
+        user: user.reducer,
+        hobbyList:hobbyCard.reducer,
+        hobbyTop3List:hobbyTop3Card.reducer,
+        hobbyDetail:hobbyDetail.reducer,
+        hobbyReview:hobbyReview.reducer
+        , isRemain: isRemain.reducer
         , cursor: cursor.reducer
         , sortMethod: sortMethod.reducer
         , partyKeyword: partyKeyword.reducer
@@ -30,6 +37,5 @@ export default configureStore({
         // 글 작성, 수정 용 카테고리 & 취미
         , categoriesWithHobbies: categoriesWithHobbies.reducer
         , hobbiesForWrite: hobbiesForWrite.reducer
-
     }
 })
