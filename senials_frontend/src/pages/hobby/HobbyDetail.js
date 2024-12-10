@@ -58,8 +58,8 @@ function HobbyDetailPost() {
     }
 
     //작성된 후기 수정 페이지 이동 이벤트
-    const linkHobbyReviewModify=(review)=>{
-        navigate(`/hobby-review-modify?revie=${review.hobbyReviewNumber}`);
+    const linkHobbyReviewModify=(reviewNumber)=>{
+        navigate(`/hobby-review-modify?review=${reviewNumber}`);
     }
 
     //성향 출력
@@ -188,7 +188,9 @@ function HobbyReview({ review, linkHobbyReviewModify }) {
                     <img src='/img/sampleImg4.png' className={styles.reviewImg} alt="후기" />
                     <img src='/img/sampleImg4.png' className={styles.reviewImg} alt="후기" />
                 </div>
-                <button className={styles.updateReviewButton} onClick={() => linkHobbyReviewModify(review.hobbyReviewNumber)}>수정</button>
+                <button className={styles.updateReviewButton} onClick={() => linkHobbyReviewModify(review.hobbyReviewNumber)}>
+                    수정
+                </button>
             </div>
         </div>
     );
