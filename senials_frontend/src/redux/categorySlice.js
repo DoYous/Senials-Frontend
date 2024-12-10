@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-let categories = createSlice({
+export let categories = createSlice({
     name: 'categories',
     initialState: [],
     reducers: {
@@ -9,6 +9,28 @@ let categories = createSlice({
         }
     }
 })
-
 export let { setCategories } = categories.actions;
-export default categories.reducer;
+
+
+export let categoriesWithHobbies = createSlice({
+    name: 'categoriesWithHobbies'
+    , initialState: []
+    , reducers: {
+        setCategoriesWithHobbies(state, action) {
+            return action.payload;
+        }
+    }
+})
+export let { setCategoriesWithHobbies } = categoriesWithHobbies.actions;
+
+
+export let hobbiesForWrite = createSlice({
+    name: 'hobbiesForWrite'
+    , initialState: []
+    , reducers: {
+        setHobbiesForWrite(state, action) {
+            return action.payload;
+        }
+    }
+})
+export let { setHobbiesForWrite } = hobbiesForWrite.actions;
