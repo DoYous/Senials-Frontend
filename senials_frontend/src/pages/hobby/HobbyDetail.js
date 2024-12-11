@@ -9,6 +9,8 @@ import axios from 'axios';
 import { setHobbyDetail,setHobbyReview} from '../../redux/hobbySlice';
 import { useParams } from 'react-router-dom';
 
+const userNumber=1;
+
 function HobbyDetailPost() {
 
     const { hobbyNumber } = useParams();
@@ -188,9 +190,11 @@ function HobbyReview({ review, linkHobbyReviewModify }) {
                     <img src='/img/sampleImg4.png' className={styles.reviewImg} alt="후기" />
                     <img src='/img/sampleImg4.png' className={styles.reviewImg} alt="후기" />
                 </div>
+                {userNumber===review.userNumber&&(
                 <button className={styles.updateReviewButton} onClick={() => linkHobbyReviewModify(review.hobbyReviewNumber,review.hobbyNumber)}>
                     수정
                 </button>
+                )}
             </div>
         </div>
     );
