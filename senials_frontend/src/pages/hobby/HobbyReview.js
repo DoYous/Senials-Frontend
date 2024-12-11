@@ -11,7 +11,7 @@ function HobbyReviewGet() {
 
     // 이전 페이지로 돌아가기 이벤트
     const goBack = () => {
-        navigate(`/hobby-detail/${hobbyNumber}`);
+        navigate(-1);
     }
 
     // 현재 날짜 출력

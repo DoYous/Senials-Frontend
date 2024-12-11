@@ -79,15 +79,15 @@ function HobbyDetailPost() {
     //난이도 출력
     const getLevel = (level) => {
         switch (level) {
-            case 0:
-                return "쉬움";
             case 1:
-                return "좀 쉬움";
+                return "쉬움";
             case 2:
-                return "평범";
+                return "좀 쉬움";
             case 3:
-                return "좀 어려움";
+                return "평범";
             case 4:
+                return "좀 어려움";
+            case 5:
                 return "어려움";
             default:
                 return "정보 없음";
@@ -97,13 +97,13 @@ function HobbyDetailPost() {
     //비용 출력
     const getBudget = (Budget) => {
         switch (Budget) {
-            case 0:
-                return "0~100,000";
             case 1:
-                return "100,000~400,000";
+                return "0~100,000";
             case 2:
-                return "400,000~1,000,000";
+                return "100,000~400,000";
             case 3:
+                return "400,000~1,000,000";
+            case 4:
                 return "1,000,000~";
             default:
                 return "정보 없음";
