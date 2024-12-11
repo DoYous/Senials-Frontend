@@ -114,6 +114,50 @@ export let partyBoardDetail = createSlice({
         setPartyBoardDetail(state, action) {
             return action.payload;
         }
+        , toggleDetailLike(state) {
+            state.isLiked = !state.isLiked;
+        }
+        , setMember(state, action) {
+            if(action.payload) {
+                state.partyMemberCnt += 1;
+                state.isMember = action.payload;
+            } else {
+                state.partyMemberCnt -= 1;
+                state.isMember = action.payload;
+            }
+        }
     }
 });
-export let { setPartyBoardDetail } = partyBoardDetail.actions;
+export let { setPartyBoardDetail, toggleDetailLike, setMember } = partyBoardDetail.actions;
+
+
+export let partyBoardDetailMeets = createSlice({
+
+    name: 'partyBoardDetailMeets'
+    , initialState: {
+        pageNumber: 0
+        , hasMoreMeets: false
+        , meets: []
+    }
+    , reducers: {
+        increasePageNumber(state) {
+            return state.pageNumber + 1;
+        }
+        , setHasMoreMeets(state, action) {
+            state.hasMore = action.payload;
+        }
+        , setMeets(state, action) {
+            state.meets = action.payload;
+        }
+        , toggleMeetJoined(state, action) {
+            let { idx, isJoined } = action.payload;
+            state.meets[idx].joined = isJoined
+            if(isJoined){
+                state.meets[idx].meetMemberCnt += 1;
+            } else {
+                state.meets[idx].meetMemberCnt -= 1;
+            }
+        }
+    }
+});
+export let { increasePageNumber, setHasMoreMeets, setMeets, toggleMeetJoined } = partyBoardDetailMeets.actions;

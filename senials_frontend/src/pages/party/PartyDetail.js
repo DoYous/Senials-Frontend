@@ -6,7 +6,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 
-import { setPartyBoardDetail } from "../../redux/partySlice";
+import { setMember, setPartyBoardDetail, toggleDetailLike, setMeets, increasePageNumber, setHasMoreMeets, toggleMeetJoined } from "../../redux/partySlice";
 
 // CSS
 import styles from '../common/MainVer1.module.css';
@@ -24,25 +24,99 @@ function PartyDetail() {
     const dispatch = useDispatch();
 
 
-    // const {party, setParty} =  useState({});
-
-    const partyBoard = useSelector(state => state.partyBoardDetail);
-    const partyMaster = useSelector(state => state.partyBoardDetail.partyMaster);
+    const {partyBoard, partyMaster, meets, hasMoreMeets} = useSelector(state => ({
+        partyBoard: state.partyBoardDetail
+        , partyMaster: state.partyBoardDetail.partyMaster
+        , meets: state.partyBoardDetailMeets.meets
+        , hasMoreMeets: state.partyBoardDetailMeets.hasMoreMeets
+    }))
 
 
     useEffect(() => {
-
+        
         axios.get(`/partyboards/${partyNumber}`)
         .then(response => {
             let results = response.data.results;
             
             let partyBoardDetail = results.partyBoard;
             partyBoardDetail.partyMaster = results.partyMaster;
-            
+            partyBoardDetail.isLiked = results.isLiked;
+            partyBoardDetail.isMember = results.isMember;
+            partyBoardDetail.isMaster = results.isMaster;
+
             dispatch(setPartyBoardDetail(results.partyBoard));
         })
+
+        axios.get(`/partyboards/${partyNumber}/meets`)
+        .then(response => {
+            let results = response.data.results;
+
+            dispatch(setMeets(results.meets));
+            dispatch(setHasMoreMeets(results.hasMore));
+        })
+
     }, []);
 
+
+
+    const clickLike = () => {
+
+        axios.put(`/likes/partyBoards/${partyNumber}`)
+        .then(result => {
+            let results = result.data.results;
+
+            if(results.code === 2) {
+                alert('로그인이 필요합니다.');
+            } else {
+                dispatch(toggleDetailLike());
+            }
+        });
+
+    }
+
+
+    const joinParty = () => {
+
+        axios.post(`/partyboards/${partyNumber}/partymembers`)
+        .then(result => {
+            let results = result.data.results;
+
+            if(results.code === 1){
+                dispatch(setMember(true));
+            } else if(results.code === 2) {
+                alert('로그인이 필요합니다.');
+            } else {
+                alert(result.message);
+            }
+        })
+    }
+
+    const quitParty = () => {
+
+        axios.delete(`/partyboards/${partyNumber}/partymembers`)
+        .then(result => {
+            let results = result.data.results;
+
+            if(results.code === 1){
+                dispatch(setMember(false));
+            } else {
+                alert(result.message);
+            }
+        })
+    }
+
+
+    const loadMoreMeets = () => {
+
+        axios.get(`/partyboards/${partyNumber}/meets`)
+        .then(response => {
+            let results = response.data.results;
+
+            dispatch(setMeets(results.meets));
+            dispatch(setHasMoreMeets(results.hasMore));
+            dispatch(increasePageNumber());
+        })
+    }
 
 
     return (
@@ -56,13 +130,13 @@ function PartyDetail() {
                 {/* 카테고리 */}
                 <span className={`${styles.whiteIndicator}`}>{partyBoard.categoryName}</span>
                 &nbsp;
-                {/* 좋아요 누르기 전은 FaRegHeart */}
-                {/* <span className={`${styles.whiteBtn} ${styles.thirdFont} ${styles.mrAuto}`}>
-                    <FaHeart style={{color: 'red'}}/>
-                    &nbsp;&nbsp;좋아요
-                </span> */}
-                <span className={`${styles.whiteBtn} ${styles.thirdFont}`}>
-                    <FaHeart style={{color: 'red'}}/>
+                <span className={`${styles.whiteBtn} ${styles.thirdFont}`} onClick={clickLike}>
+                    {
+                        partyBoard.isLiked ? 
+                        <FaHeart style={{color: 'red'}}/>
+                        :
+                        <FaRegHeart style={{color: 'red'}}/>
+                    }
                     &nbsp;&nbsp;좋아요
                 </span>
 
@@ -97,8 +171,16 @@ function PartyDetail() {
                         <span className={`${styles.closedParty} ${styles.thirdFont}`}>모집중</span>
                     }
                     &nbsp;
-                    <span className={`${styles.commonBtn} `}>신청</span>
-                    {/* <span className={`${styles.commonBtn}`}>수정</span> */}   
+                    {
+                        partyBoard.isMaster ?
+                        <span className={`${styles.commonBtn}`} onClick={() => navigate(`/party/${partyNumber}/update`)}>수정</span>
+                        :
+                            partyBoard.isMember ?
+                            <span className={`${styles.importantBtn}`} onClick={quitParty}>나가기</span>
+                            :
+                            <span className={`${styles.commonBtn}`} onClick={joinParty}>신청</span>
+                    }
+                    {/* <span className={`${styles.commonBtn} `}>신청</span> */}
                 </div>                 
             </div>
             <hr />
@@ -117,17 +199,27 @@ function PartyDetail() {
                 <span className={`${styles.secondFont}`}>
                     일정
                 </span>
-                <span className={`${styles.commonBtn} ${styles.mlAuto}`} onClick={() => navigate(`/meet/write?partyNumber=${partyNumber}`)}>
-                    일정 추가
-                </span>
+                {
+                    partyBoard.isMaster ?
+                    <span className={`${styles.commonBtn} ${styles.mlAuto}`} onClick={() => navigate(`/meet/write?partyNumber=${partyNumber}`)}>
+                        일정 추가
+                    </span>
+                    :
+                    null
+                }
             </div>
             {
-                testArray4.map((meet, idx) => {
-                    return <Meet key={`meetCard${idx}`} meet={meet} navigate={navigate} />
+                meets.map((meet, idx) => {
+                    return <Meet key={idx} meet={meet} idx={idx} isMaster={partyBoard.isMaster} navigate={navigate} />
                 })
             }
             <div className={`${styles.flexCenter} ${styles.marginBottom2}`}>
-                <span className={`${styles.commonBtn}`}>더보기</span>
+                {
+                    hasMoreMeets ?
+                        <span className={`${styles.commonBtn}`} onClick={loadMoreMeets}>더보기</span>
+                    :
+                    null
+                }
             </div>
             <hr />
 
@@ -352,13 +444,47 @@ function Review({review, navigate}) {
     )
 }
 
-function Meet({meet, navigate}) {
+function Meet({meet, idx, isMaster, navigate}) {
+
+    const dispatch = useDispatch();
+
+    let tempPresent = new Date();
+    let tempOpen = new Date(meet.meetStartDate)
+    let presentDate = new Date(tempPresent.getFullYear(), tempPresent.getMonth(), tempPresent.getDate());
+    let openDate = new Date(tempOpen.getFullYear(), tempOpen.getMonth(), tempOpen.getDate());
+
+    
+    let openDateArr = meet.meetStartDate.split('-');
+    let startTime = meet.meetStartTime.substring(0, meet.meetStartTime.lastIndexOf(':'));
+    let finishTime = meet.meetFinishTime.substring(0, meet.meetFinishTime.lastIndexOf(':'));
+
+    const joinMeet = () => {
+        axios.post(`/meets/${meet.meetNumber}/meetmembers`)
+        .then(response => {
+            dispatch(toggleMeetJoined({"idx" : idx, "isJoined" : true}))
+        })
+        .catch(err => {
+            alert(err.response.data.message);
+        })
+    }
+
+    const quitMeet = () => {
+        axios.delete(`/meets/${meet.meetNumber}/meetmembers`)
+        .then(() => {
+            dispatch(toggleMeetJoined({"idx" : idx, "isJoined" : false}));
+        })
+        .catch(err => {
+            alert(err.response.data.message);
+        })
+    }
+
+
     return (
         <div className={`${styles.meetContainer}`}>
             {/* 일정 날짜 출력영역 */}
             <div className={`${styles.meetDate}`}>
-                <div className={`${styles.firstFontNormal}`}>10월</div>
-                <div className={`${styles.fwBold}`} style={{fontSize: '50px'}}>12</div>
+                <div className={`${styles.firstFontNormal}`}>{openDateArr[1]}월</div>
+                <div className={`${styles.fwBold}`} style={{fontSize: '50px'}}>{openDateArr[2]}</div>
             </div>
             {/* 일정 세부정보 출력영역 */}
             <div className={`${styles.meetInfo}`}>
@@ -366,39 +492,64 @@ function Meet({meet, navigate}) {
                     <FaLocationDot className={`${styles.reactIcon}`}/>
                     &nbsp;&nbsp;
                     <span className={`${styles.thirdFont}`}>
-                        서울특별시 노원구 화랑로 815
+                        {meet.meetLocation}
                     </span>
                 </div>
                 <div className={`${styles.flex} ${styles.alCenter}`}>
                     <FaRegClock className={`${styles.reactIcon}`}/>
                     &nbsp;&nbsp;
                     <span className={`${styles.thirdFont}`}>
-                        00:00 ~ 00:00
+                        {startTime} ~ {finishTime}
                     </span>
                 </div>
                 <div className={`${styles.flex} ${styles.alCenter}`}>
                     <FaWonSign className={`${styles.reactIcon}`}/>
                     &nbsp;&nbsp;
                     <span className={`${styles.thirdFont}`}>
-                        0000원
+                        {meet.meetEntryFee}원
                     </span>
                 </div>
                 <div className={`${styles.flex} ${styles.alCenter}`}>
                     <BsPeopleFill className={`${styles.reactIcon}`} />
                     &nbsp;&nbsp;
                     <span className={`${styles.thirdFontNormal}`}>
-                        00
+                        {meet.meetMemberCnt}
                     </span>
                     <span className={`${styles.thirdFont}`}>
                         &nbsp;/&nbsp;
-                        00 명
+                        {meet.meetMaxMember} 명
                     </span>
                 </div>
             </div>
             {/* 일정 버튼 영역 */}
             <div className={`${styles.meetButtons}`}>
-                <span className={`${styles.commonBtn}`} onClick={() => navigate(`/meet/${meet.number}/members`)}>참여 멤버</span>
-                <span className={`${styles.commonBtn}`}>신청 취소</span>
+            {
+                isMaster ?
+                    <span className={`${styles.commonBtn}`}>수정</span>
+                : 
+                (
+                    meet.joined ?
+                    (
+                        <>
+                        <span className={`${styles.commonBtn}`} onClick={() => navigate(`/meet/${meet.number}/members`)}>참여 멤버</span>
+                        {
+                            new Date(openDate.getFullYear(), openDate.getMonth(), openDate.getDate() - 2) > presentDate ? 
+                            <span className={`${styles.importantBtn}`} onClick={quitMeet}>신청 취소</span>
+                            :
+                            <span className={`${styles.uniqueBtn}`} onClick={quitMeet}>신청 취소</span>
+                        }
+                        </>
+                    ) 
+                    : 
+                    (
+                        openDate > presentDate ? 
+                        <span className={`${styles.commonBtn}`} onClick={joinMeet}>신청</span>
+                        :
+                        <span className={`${styles.uniqueBtn}`} onClick={joinMeet}>신청</span>
+                    )
+                )
+            }
+
             </div>
         </div>
     )
