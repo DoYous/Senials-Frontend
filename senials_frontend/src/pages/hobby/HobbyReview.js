@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import styles from "./HobbyReview.module.css";
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
+import {jwtDecode} from "jwt-decode";
 
 function HobbyReviewGet() {
     const navigate = useNavigate();
@@ -47,7 +48,9 @@ function HobbyReviewGet() {
         const tendency = document.querySelector('input[name="hobbyTendency"]:checked')?.value || null;
         const level = document.querySelector('input[name="hobbyLevel"]:checked')?.value || null;
         const reviewRate = rating; 
-        const writeDate = new Date();; 
+        const writeDate = new Date();
+
+
 
         // JSON 데이터 생성
         const reviewData = {
@@ -56,17 +59,21 @@ function HobbyReviewGet() {
             hobbyReviewHealthStatus: healthStatus,  
             hobbyReviewTendency: tendency,  
             hobbyReviewLevel: level,
-            hobbyReviewWriteDate: writeDate, 
+            hobbyReviewWriteDate: writeDate
         };
 
         try {
-            // 비동기 요청을 보냄
-            await axios.post(`/${hobbyNumber}/hobby-review`, reviewData);
+            const token = localStorage.getItem("token");
+            await axios.post(`/${hobbyNumber}/hobby-review`, reviewData, {
+                headers: {
+                    'Authorization': token // JWT 토큰을 Authorization 헤더에 추가
+                }
+            });
             alert('후기 작성이 완료되었습니다.');
             navigate(`/hobby-detail/${hobbyNumber}`);  // 후기가 제출되면 해당 취미 상세 페이지로 이동
         } catch (error) {
             alert('후기 작성이 완료되지 않았습니다.');
-            // 오류 처리
+            console.error(error); // 오류 처리
         }
     };
 
