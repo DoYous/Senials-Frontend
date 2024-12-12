@@ -51,6 +51,7 @@ const Header = () => {
     //로그아웃처리
     const handleLogout = () => {
         localStorage.removeItem("token"); // 토큰 삭제
+        alert("로그아웃 되었습니다.")
         navigate('/login'); // 로그인 페이지로 리다이렉트
     };
 
