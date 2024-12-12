@@ -8,8 +8,11 @@ import { useSelector, useDispatch } from "react-redux";
 import axios from 'axios';
 import { setHobbyDetail,setHobbyReview} from '../../redux/hobbySlice';
 import { useParams } from 'react-router-dom';
+import {jwtDecode} from 'jwt-decode';
 
-const userNumber=1;
+const token = localStorage.getItem("token");
+const decodedToken = jwtDecode(token); // JWT 디코드
+const userNumber = decodedToken.userNumber;
 
 function HobbyDetailPost() {
 
@@ -23,16 +26,33 @@ function HobbyDetailPost() {
 
     const [sortOption, setSortOption] = useState('newest'); // 정렬 옵션: 'newest', 'highRate', 'lowRate'
 
-      useEffect(()=>{
-        axios.get(`/hobby-detail/${hobbyNumber}`)
-            .then((response) => {
-                //취미 상세 불러오기
-                dispatch(setHobbyDetail(response.data.results.hobby));
-                //취미 후기들 불러오기
-                dispatch(setHobbyReview(response.data.results.hobbyReview));
-            })
-            .catch((error) => console.error(error));
-      },[dispatch, hobbyNumber])
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+            navigate('/login'); // 토큰이 없으면 로그인 페이지로 리다이렉트
+            return;
+        }
+
+        if (hobbyNumber) {
+            axios.get(`/hobby-detail/${hobbyNumber}`)
+                .then((response) => {
+                    if (response.data && response.data.results) {
+                        // 취미 상세 불러오기
+                        dispatch(setHobbyDetail(response.data.results.hobby));
+                        // 취미 후기들 불러오기
+                        dispatch(setHobbyReview(response.data.results.hobbyReview));
+                    } else {
+                        console.error('Invalid response structure:', response.data);
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error fetching hobby detail:', error.response ? error.response.data : error.message);
+                });
+        } else {
+            console.error('Invalid hobbyNumber:', hobbyNumber);
+        }
+    }, [dispatch, hobbyNumber]);
+
 
     //정렬 방식
     const sortedReviews = Array.isArray(hobbyReviewList)
