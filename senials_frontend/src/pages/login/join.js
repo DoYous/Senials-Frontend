@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 // CSS
-import styles from './signup.module.css';
+import styles from './join.module.css';
 
-function Signup() {
+function Join() {
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
@@ -23,13 +23,44 @@ function Signup() {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // 회원가입 처리 로직 (예: API 호출) 추가
-        console.log(formData);
-        // 회원가입 후 페이지 이동 (예: 로그인 페이지)
-        navigate('/');
+
+        const requestData = {
+            userName: formData.username,
+            userPwd: formData.password,
+            userEmail: formData.email,
+            userNickname: formData.nickname,
+            userBirth: formData.birth,
+            userGender: formData.gender
+        };
+
+        try {
+            const response = await fetch('/join', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(requestData), // 변경된 requestData 사용
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.error || '회원가입에 실패했습니다.');
+            }
+
+            const data = await response.json();
+            console.log('회원가입 성공:', data.message);
+            alert('회원가입에 성공했습니다.')
+            navigate('/login');
+        } catch (error) {
+            console.error('회원가입 오류:', error);
+            alert('회원가입에 실패했습니다. 다시 시도해 주세요.');
+        }
     };
+
+
+
 
     return (
         <div className={styles.signupcontainer}>
@@ -105,4 +136,4 @@ function Signup() {
     );
 }
 
-export default Signup;
+export default Join;
