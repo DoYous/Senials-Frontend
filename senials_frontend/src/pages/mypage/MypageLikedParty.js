@@ -110,7 +110,7 @@ function PartyCard({ title, status, party, linkParty }) {
                 className={main.cardImage}
                 style={{backgroundImage: thumbnail}}
             >
-                <img className={main.imgHeart} src='/image/unfilledHeart.svg' alt="heart" />
+             {/*   <img className={main.imgHeart} src='/image/unfilledHeart.svg' alt="heart" />*/}
             </div>
             <div className={`${main.secondFont}`}>{title}</div>
             <div className={main.rateInfo}>
