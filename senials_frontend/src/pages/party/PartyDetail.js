@@ -6,7 +6,12 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 
-import { setMember, setPartyBoardDetail, toggleDetailLike, setMeets, increasePageNumber, setHasMoreMeets, toggleMeetJoined } from "../../redux/partySlice";
+import { setMember, setPartyBoardDetail, toggleDetailLike, 
+    setMeets, increaseMeetPageNumber, setHasMoreMeets, toggleMeetJoined, 
+    setReviews, setHasMoreReviews, setReviewCnt, setAvgReviewRate, increaseReviewPageNumber, 
+    setRecommParties, toggleRecommLike,
+    addReviews,
+    addMeets} from "../../redux/partySlice";
 
 // CSS
 import styles from '../common/MainVer1.module.css';
@@ -14,7 +19,6 @@ import styles from '../common/MainVer1.module.css';
 function PartyDetail() {
 
     const testArray3 = [{number: 1}, {number: 2}, {number: 3}];
-    const testArray4 = [{number: 1}, {number: 2}, {number: 3}, {number: 4}];
 
 
     const { partyNumber } = useParams();
@@ -24,12 +28,27 @@ function PartyDetail() {
     const dispatch = useDispatch();
 
 
-    const {partyBoard, partyMaster, meets, hasMoreMeets} = useSelector(state => ({
+    const {partyBoard, partyMaster} = useSelector(state => ({
         partyBoard: state.partyBoardDetail
         , partyMaster: state.partyBoardDetail.partyMaster
-        , meets: state.partyBoardDetailMeets.meets
-        , hasMoreMeets: state.partyBoardDetailMeets.hasMoreMeets
     }))
+
+    const {meets, hasMoreMeets, meetPageNumber} = useSelector(state => ({
+        meets: state.partyBoardDetailMeets.meets
+        , hasMoreMeets: state.partyBoardDetailMeets.hasMoreMeets
+        , meetPageNumber: state.partyBoardDetailMeets.meetPageNumber
+    }))
+
+    const { reviews, hasMoreReviews, avgReviewRate, reviewCnt, reviewPageNumber } = useSelector(state => ({
+        reviews: state.partyBoardDetailReviews.reviews
+        , hasMoreReviews: state.partyBoardDetailReviews.hasMoreReviews
+        , reviewPageNumber: state.partyBoardDetailReviews.reviewPageNumber
+        , avgReviewRate: state.partyBoardDetailReviews.avgReviewRate
+        , reviewCnt: state.partyBoardDetailReviews.reviewCnt
+    }))
+
+
+    const recommParties = useSelector(state => state.recommParties);
 
 
     useEffect(() => {
@@ -40,13 +59,15 @@ function PartyDetail() {
             
             let partyBoardDetail = results.partyBoard;
             partyBoardDetail.partyMaster = results.partyMaster;
+            partyBoardDetail.myReview = results.myReview;
             partyBoardDetail.isLiked = results.isLiked;
             partyBoardDetail.isMember = results.isMember;
             partyBoardDetail.isMaster = results.isMaster;
+            partyBoardDetail.randMembers = results.randMembers;
 
             dispatch(setPartyBoardDetail(results.partyBoard));
         })
-
+        // 일정 정보
         axios.get(`/partyboards/${partyNumber}/meets`)
         .then(response => {
             let results = response.data.results;
@@ -54,8 +75,26 @@ function PartyDetail() {
             dispatch(setMeets(results.meets));
             dispatch(setHasMoreMeets(results.hasMore));
         })
+        // 후기 정보
+        axios.get(`/partyboards/${partyNumber}/partyreviews`)
+        .then(response => {
+            let results = response.data.results
 
-    }, []);
+            dispatch(setHasMoreReviews(results.hasMoreReviews));
+            dispatch(setReviews(results.partyReviews));
+            dispatch(setAvgReviewRate(results.partyAvgReviewRate));
+            dispatch(setReviewCnt(results.partyReviewCnt));
+
+        })
+
+        // 취미 기반 추천 정보
+        axios.get(`/partyboards/recommended-parties?&partyBoardNumber=${partyNumber}`)
+        .then(result => {
+            let results = result.data.results;
+
+            dispatch(setRecommParties(results.recommendedPartyBoards));
+        })
+    }, [dispatch, navigate]);
 
 
 
@@ -108,13 +147,28 @@ function PartyDetail() {
 
     const loadMoreMeets = () => {
 
-        axios.get(`/partyboards/${partyNumber}/meets`)
+        axios.get(`/partyboards/${partyNumber}/meets?pageNumber=${meetPageNumber + 1}`)
         .then(response => {
             let results = response.data.results;
 
-            dispatch(setMeets(results.meets));
+            dispatch(addMeets(results.meets));
             dispatch(setHasMoreMeets(results.hasMore));
-            dispatch(increasePageNumber());
+            dispatch(increaseMeetPageNumber());
+        })
+    }
+
+
+    const loadMoreReviews = () => {
+
+        axios.get(`/partyboards/${partyNumber}/partyreviews?pageNumber=${reviewPageNumber + 1}`)
+        .then(response => {
+            let results = response.data.results;
+
+            dispatch(addReviews(results.partyReviews));
+            dispatch(setHasMoreReviews(results.hasMoreReviews));
+            dispatch(setReviewCnt(results.partyReviewCnt));
+            dispatch(setAvgReviewRate(results.partyAvgReviewRate));
+            dispatch(increaseReviewPageNumber());
         })
     }
 
@@ -151,9 +205,9 @@ function PartyDetail() {
                 </span>
             </div>
             <div className={styles.separator}>
-                <span className={`${styles.secondFont}`} style={{fontWeight: 'normal'}}>
+                <div className={`${styles.secondFont}`} style={{fontWeight: 'normal', whiteSpace: 'pre-wrap', wordBreak: 'break-word'}}>
                     {partyBoard.partyBoardDetail}
-                </span>
+                </div>
             </div>
             <div className={`${styles.flex}`}>
                 {/* 멤버 수, 모집상태 표시 */}
@@ -191,7 +245,7 @@ function PartyDetail() {
                     모임장
                 </span>
             </div>
-            <Member navigate={navigate} user={partyMaster}/>
+            <Member navigate={navigate} member={partyMaster}/>
             <hr />
 
             {/* 일정 출력 영역 */}
@@ -209,9 +263,14 @@ function PartyDetail() {
                 }
             </div>
             {
+                meets.length != 0 ?
                 meets.map((meet, idx) => {
                     return <Meet key={idx} meet={meet} idx={idx} isMaster={partyBoard.isMaster} navigate={navigate} />
                 })
+                :
+                <div className={`${styles.flexCenter} ${styles.fullWidth} ${styles.marginBottom2}`}>
+                    <span className={`${styles.noSearchResult}`}>진행중인 일정이 없습니다.</span>
+                </div>
             }
             <div className={`${styles.flexCenter} ${styles.marginBottom2}`}>
                 {
@@ -224,67 +283,110 @@ function PartyDetail() {
             <hr />
 
             {/* 본인 후기 출력 영역 */}
-            <div className={`${styles.separator} ${styles.mxAuto}`} style={{width: '85%'}}>
-                <span className={`${styles.secondFont}`}>
-                    내가 작성한 후기
-                </span>
-                <span className={`${styles.commonBtn} ${styles.mlAuto}`} onClick={() => navigate('review-modify')}>수정</span>
-            </div>
-            <Review review={{number: 99}} navigate={navigate}/>
-            <hr />
+            {
+                partyBoard.myReview != null ?
+                <>
+                    <div className={`${styles.separator} ${styles.mxAuto}`} style={{width: '85%'}}>
+                        <span className={`${styles.secondFont}`}>
+                            내가 작성한 후기
+                        </span>
+                        <span className={`${styles.commonBtn} ${styles.mlAuto}`} onClick={() => navigate(`/party/${partyNumber}/partyreviews/${partyBoard.myReview.partyReviewNumber}`)}>수정</span>
+                    </div>
+                    <Review review={partyBoard.myReview} navigate={navigate}/>
+                    <hr />
+                </>
+                :
+                null
+            }
 
             {/* 후기 출력 영역 */}
             <div className={`${styles.separator} ${styles.mxAuto}`} style={{width: '85%'}}>
                 <span className={`${styles.secondFont} ${styles.marginRight}`}>
-                    후기&nbsp;&nbsp;99
+                    후기&nbsp;&nbsp;{reviewCnt}
                 </span>
-                <DetailRateAverage />
-                <span className={`${styles.commonBtn} ${styles.mlAuto}`} onClick={() => navigate('review-write')}>후기 작성</span>
+                <DetailRateAverage avgReviewRate={avgReviewRate} />
+                {
+                    !partyBoard.isMaster && !partyBoard.isMember ?
+                    <span className={`${styles.commonBtn} ${styles.mlAuto}`} onClick={() => navigate('review-write')}>후기 작성</span>
+                    :
+                    null
+                }
             </div>
             {
-                testArray3.map((review, idx) => {
-                    return (
-                        <Review key={`reviewCard${idx}`} review={review} navigate={navigate} />
-                    )
-                })
+                reviews.length != 0 ?
+                    reviews.map((review, idx) => {
+                        return (
+                            <Review key={idx} review={review} navigate={navigate} />
+                        )
+                    })
+                    :
+                    <div className={`${styles.flexCenter} ${styles.fullWidth} ${styles.marginBottom2}`}>
+                        <span className={`${styles.noSearchResult}`}>아직 작성된 후기가 없습니다.</span>
+                    </div>
             }
-            <div className={`${styles.flexCenter} ${styles.marginBottom2}`}>
-                <span className={`${styles.commonBtn} ${styles.thirdFont}`}>더보기</span>
-            </div>
+            {
+                <div className={`${styles.flexCenter} ${styles.marginBottom2}`}>
+                    {
+                        hasMoreReviews ?
+                        <span className={`${styles.commonBtn} ${styles.thirdFont}`} onClick={loadMoreReviews}>더보기</span>
+                        :
+                        null
+                    }
+                </div>
+            }
             <hr />
 
             {/* 멤버 출력 영역 */}
             <div className={`${styles.separator} ${styles.mxAuto}`} style={{width: '85%'}}>
                 <span className={`${styles.secondFont} ${styles.marginRight}`}>
-                    멤버&nbsp;&nbsp;99
+                    멤버&nbsp;&nbsp;{partyBoard.partyMemberCnt}
                 </span>
                 <span className={`${styles.whiteBtn} ${styles.mlAuto}`} onClick={() => navigate('members')}>전체보기</span>
             </div>
             {
-                testArray3.map((member, idx) => {
+                partyBoard.randMembers.length != 0 ?
+                partyBoard.randMembers.map((member, idx) => {
                     return (
-                        <Member key={`memberCard${idx}`} user={member} navigate={navigate} />
+                        <Member key={idx} member={member} navigate={navigate} />
                     )
                 })
+                :
+                <div className={`${styles.flexCenter} ${styles.fullWidth} ${styles.marginBottom2}`}>
+                    <span className={`${styles.noSearchResult} ${styles.marginBottom2}`}>아직 참여중인 멤버가 없습니다.</span>
+                </div>
             }
             <hr />
             
             {/* 모임 추천 영역 */}
-            <div className={`${styles.separator}`}>
-                <span className={`${styles.firstFont}`}>
-                    이런 <span className={`${styles.pointColor}`}>모임</span>도 추천해요!
-                </span>
-                <span className={`${styles.whiteBtn} ${styles.mlAuto}`} onClick={() => navigate('/party/board-overview')}>전체보기</span>
-            </div>
-            <div className={`${styles.separatorContent}`}>
-                {
-                    testArray4.map((party, idx) => {
-                        return (
-                            <PartyCard key={`partyCard${idx}`} party={party} navigate={navigate} />
-                        )
-                    })
-                }
-            </div>
+            {
+                recommParties.length != 0 ?
+                <>
+                <div className={`${styles.separator}`}>
+                    <span className={`${styles.firstFont}`}>
+                        이런 <span className={`${styles.pointColor}`}>모임</span>도 추천해요!
+                    </span>
+                    <span className={`${styles.whiteBtn} ${styles.mlAuto}`} onClick={() => navigate('/party/board-overview')}>전체보기</span>
+                </div>
+                <div className={`${styles.separatorContent}`}>
+                    {
+                        recommParties.map((party, idx) => {
+                            return <RecommendedPartyCard key={idx} party={party} idx={idx} navigate={navigate} />
+                        })   
+                    }
+                    {
+                        recommParties.length % 4 != 0 ?
+                        // 빈 카드 계산
+                        Array.from({length: 4 - (recommParties.length % 4)}).map((_, i) => {
+                            return <div key={i} className={`${styles.emptyCardContainer}`} />
+                        })
+                        :
+                        null
+                    }
+                </div>
+                </>
+                :
+                null
+            }
         </div>
     )
 }
@@ -345,17 +447,17 @@ function Carousel() {
     )
 }
 
-function Member({ navigate, user }) {
+function Member({ navigate, member }) {
 
     const partyBoard = useSelector(state => state.partyBoardDetail);
 
     return (
         <div className={`${styles.memberContainer}`}>
-            <img className={`${styles.masterProfile}`} src='/image/sampleProfile.png' onClick={() => navigate(`/user/${partyBoard.userNumber}/profile`)} />
+            <img className={`${styles.masterProfile}`} src='/image/sampleProfile.png' onClick={() => navigate(`/user/${member.userNumber}/profile`)} />
             <div className={`${styles.memberContent}`}>
-                <span className={`${styles.secondFont}`}>{user.userNickname}</span>
+                <span className={`${styles.secondFont}`}>{member.userNickname}</span>
                 <span className={`${styles.secondFont}`} style={{color: '#999999'}}>
-                    {user.userDetail}
+                    {member.userDetail}
                 </span>
             </div>
         </div>
@@ -384,61 +486,94 @@ function Rate() {
     )
 }
 
-function DetailRate() {
+function DetailRate({ reviewRate }) {
+
+    let filled = parseInt(reviewRate);
+    let halfFilled = reviewRate * 100 % 100;
+    let unfilled = parseInt(5 - reviewRate);
+    
     return (
         <div className={`${styles.detailRateInfo}`}>
-            <div className={`${styles.detailSmallBaseStar}`}>
-                <div className={`${styles.detailFilledStar}`}></div>
-            </div>
-            <div className={`${styles.detailSmallBaseStar}`}>
-                <div className={`${styles.detailFilledStar}`}></div>
-            </div>
-            <div className={`${styles.detailSmallBaseStar}`}>
-                <div className={`${styles.detailFilledStar}`}></div>
-            </div>
-            <div className={`${styles.detailSmallBaseStar}`}>
-                <div className={`${styles.detailFilledStar}`}></div>
-            </div>
-            <div className={`${styles.detailSmallBaseStar}`}>
-                <div className={`${styles.detailHalfStar}`} style={{width: '30%', marginRight: '70%'}}></div>
-            </div>
+            {
+                Array.from({length: filled}).map((_, idx) => {
+                    return (
+                        <div key={idx} className={`${styles.detailSmallBaseStar}`}>
+                            <div className={`${styles.detailFilledStar}`}></div>
+                        </div>
+                    )
+                })
+            }
+            {
+                halfFilled > 0 ?
+                    <div className={`${styles.detailSmallBaseStar}`}>
+                        <div className={`${styles.detailHalfStar}`} style={{width: `${halfFilled}%`, marginRight: `${100 - halfFilled}%`}}></div>
+                    </div>
+                :
+                    null
+            }
+            {
+                Array.from({length: unfilled}).map((_, idx) => {
+                    return (
+                        <div key={idx} className={`${styles.detailSmallBaseStar}`} />
+                    )
+                })
+            }
         </div>
     )
 }
 
-function DetailRateAverage() {
+function DetailRateAverage({ avgReviewRate }) {
+
+    let filled = parseInt(avgReviewRate);
+    let halfFilled = avgReviewRate * 100 % 100;
+    let unfilled = parseInt(5 - avgReviewRate);
+    
     return (
         <div className={`${styles.detailRateInfo}`}>
-            <div className={`${styles.detailBaseStar}`}>
-                <div className={`${styles.detailFilledStar}`}></div>
-            </div>
-            <div className={`${styles.detailBaseStar}`}>
-                <div className={`${styles.detailFilledStar}`}></div>
-            </div>
-            <div className={`${styles.detailBaseStar}`}>
-                <div className={`${styles.detailFilledStar}`}></div>
-            </div>
-            <div className={`${styles.detailBaseStar}`}>
-                <div className={`${styles.detailFilledStar}`}></div>
-            </div>
-            <div className={`${styles.detailBaseStar}`}>
-                <div className={`${styles.detailHalfStar}`} style={{width: '30%', marginRight: '70%'}}></div>
-            </div>
-            <span className={`${styles.detailRateText}`}>4.3</span>
+            {
+                Array.from({length: filled}).map((_, idx) => {
+                    return (
+                        <div key={idx} className={`${styles.detailBaseStar}`}>
+                            <div className={`${styles.detailFilledStar}`}></div>
+                        </div>
+                    )
+                })
+            }
+            {
+                halfFilled > 0 ?
+                    <div className={`${styles.detailBaseStar}`}>
+                        <div className={`${styles.detailHalfStar}`} style={{width: `${halfFilled}%`, marginRight: `${100 - halfFilled}%`}}></div>
+                    </div>
+                :
+                    null
+            }
+            {
+                Array.from({length: unfilled}).map((_, idx) => {
+                    return (
+                        <div key={idx} className={`${styles.detailBaseStar}`} />
+                    )
+                })
+            }
+            <span className={`${styles.detailRateText}`}>{avgReviewRate}</span>
         </div>
     )
 }
 
 function Review({review, navigate}) {
+
+    // 구조분해할당으로 깊은복사 안하면 오류남
+    // 아니면 이런식으로 >> const user = review.user || {}; // user가 undefined일 경우 빈 객체로 대체 
+    let reviewWriter = {...review.user}
+
     return (
         <div className={`${styles.reviewContainer}`}>
-            <img className={`${styles.masterProfile}`} src='/image/sampleProfile.png' onClick={() => navigate(`/user/${review.number}/profile`)}/>
+            <img className={`${styles.masterProfile}`} src='/image/sampleProfile.png' onClick={() => navigate(`/user/${reviewWriter.userNumber}/profile`)}/>
             <div className={`${styles.reviewContent}`}>
                 <div className={`${styles.flex}`}>
-                    <span className={`${styles.secondFont}`}>물개</span>
-                    <DetailRate />
+                    <span className={`${styles.secondFont}`}>{reviewWriter.userName}</span>
+                    <DetailRate reviewRate={review.partyReviewRate} />
                 </div>
-                <span className={`${styles.secondFontNormal}`}>초반엔 사람 없어서 좋았는데 지금은 사람 많아요.</span>
+                <span className={`${styles.secondFontNormal}`}>{review.partyReviewDetail}</span>
             </div>
         </div>
     )
@@ -556,24 +691,59 @@ function Meet({meet, idx, isMaster, navigate}) {
 }
 
 
-// 모임 카드
-function PartyCard({party, navigate}) {
+function RecommendedPartyCard({ party, idx, navigate }) {
+
+    const dispatch = useDispatch();
+
+
+    const clickHeart = (e, partyBoardNumber) => {
+        e.stopPropagation();
+
+        axios.put(`/likes/partyBoards/${partyBoardNumber}`)
+        .then(result => {
+            let results = result.data.results;
+
+            if(results.code === 2) {
+                alert('로그인이 필요합니다.');
+            } else {
+                dispatch(toggleRecommLike(idx));
+            }
+        })
+    }
+
+
+    // let thumbnail = party.firstImage;
+    let thumbnail = party.firstImage != null ? `url(/img/partyboard/${party.partyBoardNumber}/thumbnail/${party.firstImage})` : `url(/img/NoImage.svg)`
+
     return (
-      <div className={styles.cardContainer} onClick={() => navigate(`/party/${party.number}`)}>
-          <div className={styles.cardImage} style={{backgroundImage: 'url(/image/cat.jpg)'}}>
-              <img className={styles.imgHeart} src='/image/unfilledHeart.svg'/>
-          </div>
-          <div className={`${styles.secondFont}`}>농구 같이 할 사람~</div>
-          <div className={styles.rateInfo}>
-              <Rate />
-          </div>
-          <div className={styles.memberInfo}>
-              <img src='/image/people.svg' style={{width: '20px'}}/>&nbsp;
-              <span className={`${styles.fourthFont}`}>10명</span>
-              <span className={`${styles.openedParty} ${styles.thirdFont} ${styles.mlAuto}`}>모집중</span>
-          </div>
-      </div>
+        <div className={styles.cardContainer} onClick={() => navigate(`/party/${party.partyBoardNumber}`)}>
+            {
+                <div className={styles.cardImage} style={{backgroundImage: thumbnail}}>
+                    {
+                        party.liked ? 
+                        <FaHeart className={styles.imgHeart} onClick={(e) => clickHeart(e, party.partyBoardNumber)} />
+                        :
+                        <FaRegHeart className={styles.imgHeart} onClick={(e) => clickHeart(e, party.partyBoardNumber)} />
+                    }
+                </div>
+            }
+            <div className={`${styles.secondFont}`}>{party.partyBoardName}</div>
+            <div className={styles.rateInfo}>
+                <Rate averageRating={party.averageRating} />
+            </div>
+            <div className={styles.memberInfo}>
+                <img src='/image/people.svg' style={{width: '20px'}} alt='participants' />&nbsp;
+                <span className={`${styles.fourthFont}`}>{party.memberCount}</span>
+                {
+                    party.partyBoardStatus == 0 ?
+                    <span className={`${styles.openedParty} ${styles.thirdFont} ${styles.mlAuto}`}>모집중</span>
+                    :
+                    <span className={`${styles.closedParty} ${styles.thirdFont} ${styles.mlAuto}`}>모집완료</span>
+                }
+                
+            </div>
+        </div>
     )
-  }
+}
 
 export default PartyDetail;
