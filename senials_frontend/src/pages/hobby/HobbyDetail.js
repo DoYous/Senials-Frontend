@@ -21,8 +21,6 @@ function HobbyDetailPost() {
     const hobbyDetail=useSelector((state)=>state.hobbyDetail);
     const hobbyReviewList=useSelector((state)=>state.hobbyReview);
 
-
-    const [sortedReviews, setSortedReviews] = useState([]);
     const [sortOption, setSortOption] = useState('newest'); // 정렬 옵션: 'newest', 'highRate', 'lowRate'
 
       useEffect(()=>{
@@ -36,23 +34,13 @@ function HobbyDetailPost() {
             .catch((error) => console.error(error));
       },[dispatch])
 
-      //후기 정렬
-      useEffect(() => {
-        sortReviews(sortOption);
-    }, [sortOption, hobbyReviewList]);
-
     //정렬 방식
-    const sortReviews = (option) => {
-        let sorted = [...hobbyReviewList];
-        if (option === 'newest') {
-            sorted.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-        } else if (option === 'highRate') {
-            sorted.sort((a, b) => b.hobbyReviewRate - a.hobbyReviewRate);
-        } else if (option === 'lowRate') {
-            sorted.sort((a, b) => a.hobbyReviewRate - b.hobbyReviewRate);
-        }
-        setSortedReviews(sorted);
-    };
+    const sortedReviews = [...hobbyReviewList].sort((a, b) => {
+        if (sortOption === 'newest') return new Date(b.createdAt) - new Date(a.createdAt);
+        if (sortOption === 'highRate') return b.hobbyReviewRate - a.hobbyReviewRate;
+        if (sortOption === 'lowRate') return a.hobbyReviewRate - b.hobbyReviewRate;
+        return 0;
+    });
 
     //후기작성페이지 이동 이벤트
     const linkHobbyReview=()=>{
