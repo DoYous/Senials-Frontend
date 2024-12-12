@@ -11,7 +11,7 @@ function HobbyReviewGet() {
 
     // 이전 페이지로 돌아가기 이벤트
     const goBack = () => {
-        navigate(`/hobby-detail/${hobbyNumber}`);
+        navigate(-1);
     }
 
     // 현재 날짜 출력
@@ -47,7 +47,7 @@ function HobbyReviewGet() {
         const tendency = document.querySelector('input[name="hobbyTendency"]:checked')?.value || null;
         const level = document.querySelector('input[name="hobbyLevel"]:checked')?.value || null;
         const reviewRate = rating; 
-        const writeDate = date; 
+        const writeDate = new Date();; 
 
         // JSON 데이터 생성
         const reviewData = {
@@ -61,10 +61,11 @@ function HobbyReviewGet() {
 
         try {
             // 비동기 요청을 보냄
-            const response = await axios.post(`/${hobbyNumber}/hobby-review`, reviewData);
+            await axios.post(`/${hobbyNumber}/hobby-review`, reviewData);
+            alert('후기 작성이 완료되었습니다.');
             navigate(`/hobby-detail/${hobbyNumber}`);  // 후기가 제출되면 해당 취미 상세 페이지로 이동
         } catch (error) {
-            alert('후기 제출 실패');
+            alert('후기 작성이 완료되지 않았습니다.');
             // 오류 처리
         }
     };
