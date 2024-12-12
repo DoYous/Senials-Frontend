@@ -29,13 +29,11 @@ function HobbyReviewGet() {
         .then(response => {
             dispatch(setHobbyReview(response.data.results.hobbyReview));
         })
-        .catch(error => console.error(error));
 }, [dispatch, hobbyNumber, reviewNumber]);
 
  // hobbyReview 조회후 값 가져오기
  useEffect(() => {
     if (hobbyReview) {
-        console.log(hobbyReview);
         setRating(hobbyReview.hobbyReviewRate);
         setReviewDetail(hobbyReview.hobbyReviewDetail);
         setHealthStatus(hobbyReview.hobbyReviewHealthStatus);
@@ -47,16 +45,8 @@ function HobbyReviewGet() {
 
        // 이전 페이지로 돌아가기 이벤트
        const goBack = () => {
-        navigate(`/hobby-detail/${hobbyNumber}`);
+        navigate(-1);
     }
-      
-      useEffect(() => {
-          const now = new Date();
-          const year = now.getFullYear();
-          const month = now.getMonth() + 1;
-          const day = now.getDate();
-          setDate(`${year}-${month}-${day}`);
-      }, []); 
 
      // 별점 클릭 처리 로직
      const handleStarClick = (index) => {
@@ -80,18 +70,20 @@ function HobbyReviewGet() {
  const handleSubmit = async (e) => {
     e.preventDefault();
     const reviewData = {
-        hobbyReviewRate: rating,
         hobbyReviewDetail: reviewDetail,
+        hobbyReviewRate: rating,
         hobbyReviewHealthStatus: healthStatus,
         hobbyReviewTendency: tendency,
         hobbyReviewLevel: level,
+        hobbyReviewWriteDate:date
     };
 
     try {
         await axios.put(`/${hobbyNumber}/hobby-review/${reviewNumber}`, reviewData);
+        alert('후기가 수정되었습니다');
         navigate(`/hobby-detail/${hobbyNumber}`);
     } catch (error) {
-        alert('후기 제출 실패');
+        alert('후기가 수정되지 않았습니다.');
         }
     };
 
@@ -125,19 +117,19 @@ function HobbyReviewGet() {
                     />
                     <div className={styles.selectHobbyAbility}>
                         <div className={styles.text}>몸이 불편하신 곳이 있을까요?</div>
-                        <input type="radio" id="abilityYes" name="hobbyAbility" value="1" checked={healthStatus===1} onChange={(e) => setHealthStatus(e.target.value)}/>
+                        <input type="radio" id="abilityYes" name="hobbyAbility" value="1" checked={healthStatus===1} onChange={(e) => setHealthStatus(parseInt(e.target.value))}/>
                         <label htmlFor="abilityYes">예</label>
-                        <input type="radio" id="abilityNo" name="hobbyAbility" value="0"  checked={healthStatus===0} onChange={(e) => setHealthStatus(e.target.value)}/>
+                        <input type="radio" id="abilityNo" name="hobbyAbility" value="0"  checked={healthStatus===0} onChange={(e) => setHealthStatus(parseInt(e.target.value))}/>
                         <label htmlFor="abilityNo">아니요</label>
                     </div>
                     <div className={styles.selectHobbyTendency}>
                         <div className={styles.text}>당신의 성향은 어떤가요?</div>
-                        <input type="radio" id="tendencyIn" name="hobbyTendency" value="0"  checked={tendency===0} onChange={(e) => setTendency(e.target.value)}/>
+                        <input type="radio" id="tendencyIn" name="hobbyTendency" value="0"  checked={tendency===0} onChange={(e) => setTendency(parseInt(e.target.value))}/>
                         <label htmlFor="tendencyIn">내향적</label>
-                        <input type="radio" id="tendencyOut" name="hobbyTendency" value="1" checked={tendency===1} onChange={(e) => setTendency(e.target.value)}/>
+                        <input type="radio" id="tendencyOut" name="hobbyTendency" value="1" checked={tendency===1} onChange={(e) => setTendency(parseInt(e.target.value))}/>
                         <label htmlFor="tendencyOut">외향적</label>
                     </div>
-                    <div className={styles.selectHobbyBudget}>
+                    {/* <div className={styles.selectHobbyBudget}>
                             <div className={styles.text}>지출범위</div>
                             <input type="radio" id="budget1" name="hobbyBudget" value="1" checked={budget===1}/>
                             <label htmlFor="budget1">0~100,000</label>
@@ -147,7 +139,7 @@ function HobbyReviewGet() {
                             <label htmlFor="budget3">400,000~1,000,000</label>
                             <input type="radio" id="budget4" name="hobbyBudget" value="4" checked={budget===4}/>
                             <label htmlFor="budget4">1,000,000~</label>
-                        </div>
+                        </div> */}
                     <div className={styles.selectHobbyLevel}>
                         <div className={styles.text}>난이도</div>
                         <input type="radio" id="level1" name="hobbyLevel" value="1" checked={level===1}  onChange={(e) => setLevel(parseInt(e.target.value))}/>
@@ -162,8 +154,8 @@ function HobbyReviewGet() {
                         <label htmlFor="level5">어려움</label>
                     </div>
                     <div className={styles.buttonContainer}>
-                        <button className={styles.cancleButton} onClick={()=> linkDeleteReview()}>삭제</button>
-                        <button className={styles.cancleButton} onClick={()=>goBack()}>취소</button>
+                        <button className={styles.cancleButton} type="button" onClick={()=> linkDeleteReview()}>삭제</button>
+                        <button className={styles.cancleButton} type="button" onClick={()=>goBack()}>취소</button>
                         <input className={styles.submitButton}  type="submit" value="제출"/>
                     </div>
                 </form>
