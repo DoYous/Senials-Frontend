@@ -1,27 +1,93 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from "axios";
 // CSS
 import styles from './login.module.css';
 
 function Login() {
     const navigate = useNavigate();
-    const [userId, setUserId] = useState('');
-    const [password, setPassword] = useState('');
+    const [userName, setUserName] = useState('');
+    const [userPwd, setUserPwd] = useState('');
 
     const linkSignup = () => {
-        navigate('/login/signup');
+        navigate('/join');
     };
 
-    const handleKakaoLogin = () => {
-        window.location.href = "/login/oauth2/authorization/kakao"; // 카카오 로그인 URL로 이동
+    const handleKakaoLogin = async () => {
+        try {
+            const response = await axios.get('http://localhost:8080/api/init-kakao-login'); // 백엔드에서 카카오 로그인 초기화
+            const { authUrl } = response.data; // 백엔드에서 전달받은 카카오 인증 URL
+
+            alert("카카오 인증 URL: " + authUrl);
+
+            // 카카오 인증 URL로 리다이렉트
+            window.location.href = authUrl;
+        } catch (error) {
+            console.error('카카오 로그인 초기화 오류:', error);
+        }
     };
 
-    const handleLogin = () => {
-        // 여기에서 로그인 로직을 추가합니다.
-        console.log('아이디:', userId);
-        console.log('비밀번호:', password);
-        // 로그인 요청을 서버에 보내는 로직을 추가할 수 있습니다.
+    const [errorMessage, setErrorMessage] = useState('');
+    const handleLogin = async () => {
+        setErrorMessage('');
+        try {
+            const response = await axios.post('/login', {
+                userName,
+                userPwd
+            });
+
+            // 로그인 성공 시 처리
+            console.log('로그인 성공:', response.data);
+            const token = response.data.token; // 서버에서 받은 JWT
+            localStorage.setItem("token", token); // JWT를 로컬 스토리지에 저장
+
+            navigate('/success'); // 성공 페이지로 리다이렉트
+        } catch (error) {
+            if (error.response) {
+                console.error('서버 응답 실패:', error.response.data);
+            } else if (error.request) {
+                console.error('요청이 이루어졌지만 응답이 없음:', error.request);
+            } else {
+                console.error('설정 중 오류 발생:', error.message);
+            }
+        }
     };
+
+    /*useEffect(() => {
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const code = urlParams.get('code');
+
+        if (code) {
+            // 카카오 인증 코드로 액세스 토큰 요청
+            axios.post('/login', { code })
+                .then(response => {
+                    const token = response.data.token; // 서버에서 받은 JWT
+                    localStorage.setItem("token", token); // JWT를 로컬 스토리지에 저장
+                    navigate('/success'); // 성공 페이지로 리다이렉트
+                })
+                .catch(error => {
+                    console.error('카카오 로그인 오류:', error);
+                    setErrorMessage('카카오 로그인에 실패했습니다.');
+                });
+        } else {
+            console.error('인증 코드가 없습니다.');
+        }
+    }, [navigate]);*/
+
+    useEffect(() => {
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const token = urlParams.get('token'); // URL에서 token 추출
+
+        if (token) {
+            // JWT가 URL 파라미터에 있을 경우
+            localStorage.setItem("token", token); // JWT를 로컬 스토리지에 저장
+            console.log('JWT 저장 완료:', token);
+            navigate('/success'); // 성공 페이지로 리다이렉트
+        }
+    }, [navigate]);
+
 
     return (
         <div className={styles.kakaocontainer}>
@@ -35,15 +101,15 @@ function Login() {
                 <input
                     type="text"
                     placeholder="아이디"
-                    value={userId}
-                    onChange={(e) => setUserId(e.target.value)}
+                    value={userName}
+                    onChange={(e) => setUserName(e.target.value)}
                     className={styles.OrginputField}
                 />
                 <input
                     type="password"
                     placeholder="비밀번호"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    value={userPwd}
+                    onChange={(e) => setUserPwd(e.target.value)}
                     className={styles.OrginputField}
                 />
                 <button className={styles.OrgloginButton} onClick={handleLogin}>
