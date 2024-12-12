@@ -41,7 +41,11 @@ function Login() {
             const token = response.data.token; // 서버에서 받은 JWT
             localStorage.setItem("token", token); // JWT를 로컬 스토리지에 저장
 
-            navigate('/success'); // 성공 페이지로 리다이렉트
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            const redirectPath = urlParams.get('redirect') || '/'; // 쿼리 파라미터에서 redirect 경로를 가져오고, 없으면 '/'로 설정
+
+            navigate(redirectPath); // 이전 페이지로 리다이렉트
         } catch (error) {
             if (error.response) {
                 console.error('서버 응답 실패:', error.response.data);
