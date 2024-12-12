@@ -101,3 +101,117 @@ export let lastestParties = createSlice({
     }
 })
 export let { setLastestParties, toggleLastestLike } = lastestParties.actions;
+
+
+export let partyBoardDetail = createSlice({
+
+    name: 'partyBoardDetail'
+    , initialState: {
+        images:[],
+        partyMaster: {},
+        randMembers: []
+    }
+    , reducers: {
+        setPartyBoardDetail(state, action) {
+            return action.payload;
+        }
+        , toggleDetailLike(state) {
+            state.isLiked = !state.isLiked;
+        }
+        , setMember(state, action) {
+            if(action.payload) {
+                state.partyMemberCnt += 1;
+                state.isMember = action.payload;
+            } else {
+                state.partyMemberCnt -= 1;
+                state.isMember = action.payload;
+            }
+        }
+    }
+});
+export let { setPartyBoardDetail, toggleDetailLike, setMember } = partyBoardDetail.actions;
+
+
+export let partyBoardDetailMeets = createSlice({
+
+    name: 'partyBoardDetailMeets'
+    , initialState: {
+        meetPageNumber: 0
+        , hasMoreMeets: false
+        , meets: []
+    }
+    , reducers: {
+        increaseMeetPageNumber(state) {
+            state.meetPageNumber++;
+        }
+        , setHasMoreMeets(state, action) {
+            state.hasMoreMeets = action.payload;
+        }
+        , setMeets(state, action) {
+            state.meets = action.payload;
+        }
+        , addMeets(state, action) {
+            state.meets = [...state.meets, ...action.payload];
+        }
+        , toggleMeetJoined(state, action) {
+            let { idx, isJoined } = action.payload;
+            state.meets[idx].joined = isJoined
+            if(isJoined){
+                state.meets[idx].meetMemberCnt += 1;
+            } else {
+                state.meets[idx].meetMemberCnt -= 1;
+            }
+        }
+    }
+});
+export let { increaseMeetPageNumber, setHasMoreMeets, setMeets, addMeets, toggleMeetJoined } = partyBoardDetailMeets.actions;
+
+
+export let partyBoardDetailReviews = createSlice({
+
+    name: 'partyBoardDetailReviews'
+    , initialState: {
+        reviewPageNumber: 0
+        , hasMoreReviews: false
+        , reviews: []
+        , avgReviewRate: 0
+        , reviewCnt: 0
+    }
+    , reducers: {
+        increaseReviewPageNumber(state) {
+            state.reviewPageNumber++;
+        }
+        , setHasMoreReviews(state, action) {
+            state.hasMoreReviews = action.payload;
+        }
+        , setReviews(state, action) {
+            state.reviews = action.payload;
+        }
+        , addReviews(state, action) {
+            state.reviews = [...state.reviews, ...action.payload];
+        }
+        , setAvgReviewRate(state, action) {
+            state.avgReviewRate = action.payload;
+        }
+        , setReviewCnt(state, action) {
+            state.reviewCnt = action.payload;
+        }
+    }
+})
+export let { increaseReviewPageNumber, setHasMoreReviews, setReviews, addReviews, setAvgReviewRate, setReviewCnt } = partyBoardDetailReviews.actions;
+
+
+export let recommParties = createSlice({
+
+    name: 'recommParties'
+    , initialState: []
+    , reducers: {
+        setRecommParties(state, action) {
+            return action.payload;
+        }
+        , toggleRecommLike(state, action) {
+            state[action.payload].liked = !state[action.payload].liked;
+        }
+    }
+})
+export let { setRecommParties,  setRecommHobbyNumber, toggleRecommLike } = recommParties.actions;

@@ -24,11 +24,13 @@
 }
 
 .partyFormImage {
+    display: flex;
+
     border-radius: 30px;
     width: 100%;
     height: 100%;
 
-    object-fit: cover;
+    cursor: pointer;
 }
 
 .partyFormInfoContainer {
@@ -57,13 +59,13 @@
     border: none;
     border-radius: 8px;
 
-    width: 80%;
+    width: 100%;
     padding-left: 5px;
     font-size: 16px;
 }
-.inputInner:focus {
+/* .inputInner:focus {
     outline: none;
-}
+} */
 
 .partyFormText {
     border: 1px #adadad solid;
@@ -77,9 +79,9 @@
     font-size: 16px;
     resize: none;
 }
-.partyFormText:focus {
+/* .partyFormText:focus {
     outline: none;
-}
+} */
 
 .statusContainer {
     display: flex;
