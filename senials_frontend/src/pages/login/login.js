@@ -45,6 +45,7 @@ function Login() {
         } catch (error) {
             if (error.response) {
                 console.error('서버 응답 실패:', error.response.data);
+                setErrorMessage(error.response.data.message || '로그인 실패');
             } else if (error.request) {
                 console.error('요청이 이루어졌지만 응답이 없음:', error.request);
             } else {
@@ -52,28 +53,6 @@ function Login() {
             }
         }
     };
-
-    /*useEffect(() => {
-        const queryString = window.location.search;
-        const urlParams = new URLSearchParams(queryString);
-        const code = urlParams.get('code');
-
-        if (code) {
-            // 카카오 인증 코드로 액세스 토큰 요청
-            axios.post('/login', { code })
-                .then(response => {
-                    const token = response.data.token; // 서버에서 받은 JWT
-                    localStorage.setItem("token", token); // JWT를 로컬 스토리지에 저장
-                    navigate('/success'); // 성공 페이지로 리다이렉트
-                })
-                .catch(error => {
-                    console.error('카카오 로그인 오류:', error);
-                    setErrorMessage('카카오 로그인에 실패했습니다.');
-                });
-        } else {
-            console.error('인증 코드가 없습니다.');
-        }
-    }, [navigate]);*/
 
     useEffect(() => {
         const queryString = window.location.search;
@@ -88,15 +67,9 @@ function Login() {
         }
     }, [navigate]);
 
-
     return (
         <div className={styles.kakaocontainer}>
-            <div className={styles.SimpleLogin}>간편로그인</div>
-            <div className={styles.kakaoimageWrapper}>
-                <img className={styles.kakaobt} src={'/image/kakaologinbt.png'} alt="카카오 로그인" onClick={handleKakaoLogin} />
-            </div>
-            <div className={styles.OrgLogin}>일반로그인</div>
-
+            <div className={styles.SimpleLogin}>로그인</div>
             <div className={styles.OrginputContainer}>
                 <input
                     type="text"
@@ -116,7 +89,9 @@ function Login() {
                     확인
                 </button>
             </div>
-
+            <div className={styles.kakaoimageWrapper}>
+                <img className={styles.kakaobt} src={'/image/kakaologinbt.png'} alt="카카오 로그인" onClick={handleKakaoLogin} />
+            </div>
             <div className={styles.buttonContainer}>
                 <button className={styles.simpleSignupButton} onClick={linkSignup}>
                     일반 회원가입
