@@ -1,6 +1,6 @@
 import {configureStore, createSlice} from '@reduxjs/toolkit';
 import {hobbyCard,hobbyDetail,hobbyReview,hobbyTop3Card} from './hobbySlice';
-import { isRemain, cursor, sortMethod, partyKeyword, wholeParties, popularParties, lastestParties, partyBoardDetail } from './partySlice.js'
+import { isRemain, cursor, sortMethod, partyKeyword, wholeParties, popularParties, lastestParties, partyBoardDetail, partyBoardDetailMeets, partyBoardDetailReviews, recommParties } from './partySlice.js'
 import { categories, categoriesWithHobbies, hobbiesForWrite } from './categorySlice.js'
 
 //example state data
@@ -38,5 +38,8 @@ export default configureStore({
         , categoriesWithHobbies: categoriesWithHobbies.reducer
         , hobbiesForWrite: hobbiesForWrite.reducer
         , partyBoardDetail: partyBoardDetail.reducer
+        , partyBoardDetailMeets: partyBoardDetailMeets.reducer
+        , partyBoardDetailReviews: partyBoardDetailReviews.reducer
+        , recommParties: recommParties.reducer
     }
 })
