@@ -21,8 +21,6 @@ function HobbyReviewGet() {
     const [tendency, setTendency] = useState(0);
     const [budget,setBudget]=useState(0)
     const [level, setLevel] = useState(0);
-    const [date, setDate] = useState('');
-
   // 기존 데이터 조회
   useEffect(() => {
     axios.get(`/${hobbyNumber}/hobby-review/${reviewNumber}`)
@@ -30,6 +28,16 @@ function HobbyReviewGet() {
             dispatch(setHobbyReview(response.data.results.hobbyReview));
         })
 }, [dispatch, hobbyNumber, reviewNumber]);
+
+  // 현재 날짜 출력
+  const [date, setDate] = useState('');
+  useEffect(() => {
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = now.getMonth() + 1;
+      const day = now.getDate();
+      setDate(`${year}-${month}-${day}`);
+  }, []); 
 
  // hobbyReview 조회후 값 가져오기
  useEffect(() => {
@@ -39,7 +47,6 @@ function HobbyReviewGet() {
         setHealthStatus(hobbyReview.hobbyReviewHealthStatus);
         setTendency(hobbyReview.hobbyReviewTendency);
         setLevel(hobbyReview.hobbyReviewLevel);
-        setDate(hobbyReview.hobbyReviewWriteDate);
     }
 }, [hobbyReview]);
 
@@ -75,7 +82,7 @@ function HobbyReviewGet() {
         hobbyReviewHealthStatus: healthStatus,
         hobbyReviewTendency: tendency,
         hobbyReviewLevel: level,
-        hobbyReviewWriteDate:date
+        hobbyReviewWriteDate: hobbyReview.hobbyReviewWriteDate
     };
 
     try {

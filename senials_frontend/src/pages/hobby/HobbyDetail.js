@@ -37,12 +37,12 @@ function HobbyDetailPost() {
     //정렬 방식
     const sortedReviews = Array.isArray(hobbyReviewList)
     ? [...hobbyReviewList].sort((a, b) => {
-        if (sortOption === 'newest') return new Date(b.createdAt) - new Date(a.createdAt);
+        if (sortOption === 'newest') return new Date(b.hobbyReviewWriteDate) - new Date(a.hobbyReviewWriteDate);
         if (sortOption === 'highRate') return b.hobbyReviewRate - a.hobbyReviewRate;
         if (sortOption === 'lowRate') return a.hobbyReviewRate - b.hobbyReviewRate;
         return 0;
     })
-    : hobbyReviewList;
+    : [];
 
     //후기작성페이지 이동 이벤트
     const linkHobbyReview=()=>{
