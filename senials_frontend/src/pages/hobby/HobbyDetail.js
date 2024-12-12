@@ -45,9 +45,14 @@ function HobbyDetailPost() {
     : [];
 
     //후기작성페이지 이동 이벤트
-    const linkHobbyReview=()=>{
-        navigate(`/hobby-review?hobbyNumber=${hobbyNumber}`);
-    }
+    const linkHobbyReview = () => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+            navigate('/login'); // 토큰이 없으면 로그인 페이지로 리다이렉트
+        } else {
+            navigate(`/hobby-review?hobbyNumber=${hobbyNumber}`);
+        }
+    };
 
     //작성된 후기 수정 페이지 이동 이벤트
     const linkHobbyReviewModify=(reviewNumber,hobbyNumber)=>{
