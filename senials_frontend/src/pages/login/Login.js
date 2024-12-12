@@ -69,7 +69,7 @@ function Login() {
 
     return (
         <div className={styles.kakaocontainer}>
-            <div className={styles.SimpleLogin}>로그인</div>
+            <h1 className={styles.SimpleLogin}>로그인</h1>
             <div className={styles.OrginputContainer}>
                 <input
                     type="text"
