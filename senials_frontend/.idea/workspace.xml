@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="d06ee4e3-557d-4f20-81b2-c399b6055f37" name="Changes" comment="모임 일정 추가">
+      <change beforePath="$PROJECT_DIR$/src/pages/party/PartyMeetModify.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/party/PartyMeetModify.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/party/PartyReview.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/party/PartyReview.js" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="feature/frontend-89/mypage/request-api" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 7
+}]]></component>
+  <component name="ProjectId" id="2ptNysetEhMQ1I1c5EJRsC87PKT" />
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Node.js.MypageLike.js.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "feature/frontend-108/party/request-api",
+    "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\IntelliJ IDEA 2023.3.4\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d06ee4e3-557d-4f20-81b2-c399b6055f37" name="Changes" comment="" />
+      <created>1733581676778</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1733581676778</updated>
+      <workItem from="1733581686527" duration="54097000" />
+    </task>
+    <task id="LOCAL-00001" summary="좋아요 한 모임, 참여한 모임, 만든 모임 redux 기능 추가 (이미지 출력 및 링크 연결 한번 더 확인 필요, 유저 사용자값 받아오기)">
+      <option name="closed" value="true" />
+      <created>1733587946575</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1733587946575</updated>
+    </task>
+    <task id="LOCAL-00002" summary="사용자 프로필 이미지 변경 수정중">
+      <option name="closed" value="true" />
+      <created>1733725886672</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1733725886672</updated>
+    </task>
+    <task id="LOCAL-00003" summary="관심사 설정 hobby 그룹화해서 출력">
+      <option name="closed" value="true" />
+      <created>1733727765771</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1733727765771</updated>
+    </task>
+    <task id="LOCAL-00004" summary="카드 클릭시 링크 겹치는거 해결">
+      <option name="closed" value="true" />
+      <created>1733728011987</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1733728011987</updated>
+    </task>
+    <task id="LOCAL-00005" summary="회원 탈퇴 기능 추가, css 수정">
+      <option name="closed" value="true" />
+      <created>1733730131943</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1733730131944</updated>
+    </task>
+    <task id="LOCAL-00006" summary="좋아요 한 모임 개수 출력">
+      <option name="closed" value="true" />
+      <created>1733731627009</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1733731627010</updated>
+    </task>
+    <task id="LOCAL-00007" summary="기타 파일">
+      <option name="closed" value="true" />
+      <created>1733751106665</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1733751106666</updated>
+    </task>
+    <task id="LOCAL-00008" summary="마이페이지 캘린더 일정 출력">
+      <option name="closed" value="true" />
+      <created>1733765580848</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1733765580848</updated>
+    </task>
+    <task id="LOCAL-00009" summary="마이페이지 캘린더 일정 출력">
+      <option name="closed" value="true" />
+      <created>1733810985351</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1733810985351</updated>
+    </task>
+    <task id="LOCAL-00010" summary="사용자 프로필 출력">
+      <option name="closed" value="true" />
+      <created>1733817526143</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1733817526143</updated>
+    </task>
+    <task id="LOCAL-00011" summary="모임 대표 사진 출력">
+      <option name="closed" value="true" />
+      <created>1733820728327</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1733820728327</updated>
+    </task>
+    <task id="LOCAL-00012" summary="프로필 사진 수정 진행중">
+      <option name="closed" value="true" />
+      <created>1733822237949</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1733822237949</updated>
+    </task>
+    <task id="LOCAL-00013" summary="모임 일정 추가">
+      <option name="closed" value="true" />
+      <created>1733993024116</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1733993024116</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="좋아요 한 모임, 참여한 모임, 만든 모임 redux 기능 추가 (이미지 출력 및 링크 연결 한번 더 확인 필요, 유저 사용자값 받아오기)" />
+    <MESSAGE value="사용자 프로필 이미지 변경 수정중" />
+    <MESSAGE value="관심사 설정 hobby 그룹화해서 출력" />
+    <MESSAGE value="카드 클릭시 링크 겹치는거 해결" />
+    <MESSAGE value="회원 탈퇴 기능 추가, css 수정" />
+    <MESSAGE value="좋아요 한 모임 개수 출력" />
+    <MESSAGE value="기타 파일" />
+    <MESSAGE value="마이페이지 캘린더 일정 출력" />
+    <MESSAGE value="사용자 프로필 출력" />
+    <MESSAGE value="모임 대표 사진 출력" />
+    <MESSAGE value="프로필 사진 수정 진행중" />
+    <MESSAGE value="모임 일정 추가" />
+    <option name="LAST_COMMIT_MESSAGE" value="모임 일정 추가" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/pages/party/PartyBoard.js</url>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
