@@ -20,19 +20,24 @@ function PartyBoardOverview() {
 
     const dispatch = useDispatch();
 
-    const { isRemain, cursor, partyKeyword, sortMethod } = useSelector((state) => state);
+    const { isRemain, cursor, sortMethod, partyKeyword, wholeParties } = useSelector((state) => state);
     
     
     useEffect(() => {
 
-        axios.get('/partyboards/search')
-        .then(result => {
-            let results = result.data.results;
+        if(wholeParties.length === 0) {
 
-            dispatch(setRemain(results.isRemain));
-            dispatch(setCursor(results.cursor));
-            dispatch(setWholeParties(results.partyBoards));
-        });
+            axios.get('/partyboards/search')
+            .then(result => {
+                let results = result.data.results;
+    
+                dispatch(setRemain(results.isRemain));
+                dispatch(setCursor(results.cursor));
+                dispatch(setPartyKeyword(''));
+                dispatch(setWholeParties(results.partyBoards));
+            });
+
+        }
 
     }, [dispatch])
 
@@ -59,8 +64,6 @@ function PartyBoardOverview() {
                     전체 모임
                 </span>
                 <PartySearchBar />
-                &nbsp;
-                <span className={`${styles.commonBtn}`}>정렬</span>
             </div>
             <div className={`${styles.separatorContent}`}>
                 <PartyCard navigate={navigate} />
@@ -87,6 +90,11 @@ function PartySearchBar() {
     const dispatch = useDispatch();
 
     const { sortMethod, partyKeyword } = useSelector((state) => state);
+
+
+    useEffect(() => {
+
+    })
 
 
     /* 정렬 방식 번경 후 자동 검색*/
@@ -138,7 +146,7 @@ function PartySearchBar() {
 
     return (
         <>
-            <select className={styles.partySearchSort} onChange={changeSortMethod}>
+            <select value={sortMethod} className={styles.partySearchSort} onChange={changeSortMethod}>
                 <option value={'lastest'}>최신순</option>
                 <option value={'oldest'}>오래된순</option>
                 <option value={'mostLiked'}>좋아요순</option>
