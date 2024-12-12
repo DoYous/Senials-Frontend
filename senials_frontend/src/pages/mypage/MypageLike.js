@@ -6,6 +6,7 @@ import styles from './MypageLike.module.css';
 import common from '../common/Common.module.css';
 
 function MypageLike() {
+    const [userNumber] = useState(10);
     const navigate = useNavigate();
     const [favoritesData, setFavoritesData] = useState([]);
     const [groupedData, setGroupedData] = useState({});
@@ -14,7 +15,6 @@ function MypageLike() {
     useEffect(() => {
         const fetchFavoriteData = async () => {
             try {
-                const userNumber = 1; // 사용자 아이디
                 const response = await axios.get(`/users/${userNumber}/favoritesAll`);
                 const data = response.data;
 
@@ -37,7 +37,6 @@ function MypageLike() {
     /* 관심사 저장 */
     const handleSave = async () => {
         try {
-            const userNumber = 1; // 사용자 아이디
             const updatedFavorites = Object.values(groupedData)
                 .flat()
                 .filter(item => item.favorite) // 선택된 관심사만 필터링

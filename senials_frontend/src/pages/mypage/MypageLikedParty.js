@@ -96,19 +96,19 @@ function MypageLikedParty({ userNumber }) {
     );
 }
 
+
 function PartyCard({ title, status, party, linkParty }) {
     // 모집 상태에 따라 클래스 설정
     const cardClass = party.partyBoardStatus === 1
         ? `${main.thirdFont} ${main.closedParty}`
         : `${main.thirdFont} ${main.openedParty}`;
+    let thumbnail = party.firstImage != null ? `url(/img/partyboard/${party.partyBoardNumber}/thumbnail/${party.firstImage})` : `url(/img/NoImage.svg)`
 
     return (
         <div className={main.cardContainer} onClick={() => linkParty(party.partyBoardNumber)}>
             <div
                 className={main.cardImage}
-                style={{
-                    backgroundImage: `url(${party.firstImage || '/image/default.jpg'})`,
-                }}
+                style={{backgroundImage: thumbnail}}
             >
                 <img className={main.imgHeart} src='/image/unfilledHeart.svg' alt="heart" />
             </div>
