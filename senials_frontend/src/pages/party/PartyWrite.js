@@ -29,7 +29,7 @@ function PartyWrite() {
     /* 페이지 마운트 시 카테고리 정보 로드 */
     useEffect(() => {
 
-        axios.get('/categories?includeHobby=1')
+        axios.get('/categories?includeHobby=true')
         .then(result => {
             let results = result.data.results;
 
