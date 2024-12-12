@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 // CSS
-import styles from './join.module.css';
+import styles from './Join.module.css';
 
 function Join() {
     const navigate = useNavigate();

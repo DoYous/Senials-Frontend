@@ -34,10 +34,10 @@ import MypageParticipate from "./pages/mypage/MypageParticipate";
 import PartyMeetModify from "./pages/party/PartyMeetModify";
 import PartyReviewModify from "./pages/party/PartyReviewModify";
 import ManageUser from "./pages/admin/ManageUser";
-import Login from "./pages/login/login";
-import Join from "./pages/login/join";
-import Success from "./pages/login/success";
-import KakaoCallback from "./pages/login/kakaocallback";
+import Login from "./pages/login/Login";
+import Join from "./pages/login/Join";
+import Success from "./pages/login/Success";
+import KakaoCallBack from "./pages/login/KakaoCallBack";
 
 function App() {
     return (
@@ -48,7 +48,7 @@ function App() {
 
                     {/* 로그인 페이지 */}
                     <Route path="login" element={<Login />} />
-                    <Route path="/login/oauth2/code/kakao" element={<KakaoCallback />} />
+                    <Route path="/login/oauth2/code/kakao" element={<KakaoCallBack />} />
 
                     {/* 회원가입 페이지 */}
                     <Route path="join" element={<Join />} />

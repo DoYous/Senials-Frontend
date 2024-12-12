@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const KakaoCallback = () => {
+const KakaoCallBack = () => {
     const navigate = useNavigate();
     const code = new URL(window.location.href).searchParams.get("code"); // 카카오에서 전달된 인증 코드
 
@@ -52,4 +52,4 @@ const KakaoCallback = () => {
     );
 };
 
-export default KakaoCallback;
+export default KakaoCallBack;

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 // CSS
-import styles from './login.module.css';
+import styles from './Login.module.css';
 
 function Login() {
     const navigate = useNavigate();
