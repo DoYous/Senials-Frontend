@@ -306,7 +306,7 @@ function PartyDetail() {
                 </span>
                 <DetailRateAverage avgReviewRate={avgReviewRate} />
                 {
-                    !partyBoard.isMaster && !partyBoard.isMember ?
+                    !partyBoard.isMaster && partyBoard.isMember && partyBoard.myReview == null ?
                     <span className={`${styles.commonBtn} ${styles.mlAuto}`} onClick={() => navigate('review-write')}>후기 작성</span>
                     :
                     null
