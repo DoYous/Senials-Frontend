@@ -91,9 +91,9 @@ function App() {
                         <Route path=':partyNumber'>
                             <Route index element={<PartyDetail />} />
                             {/* 모임후기 작성 */}
-                            <Route path="review-write" element={<PartyReview />} />
+                            <Route path="partyreviews" element={<PartyReview />} />
                             {/* 모임후기 수정 */}
-                            <Route path="review-modify" element={<PartyReviewModify />} />
+                            <Route path="partyreviews/:partyReviewNumber" element={<PartyReviewModify />} />
                             {/* 모임 멤버 전체보기*/}
                             <Route path="members" element={<MypageMember />} />
                             {/* 모임 수정 */}
