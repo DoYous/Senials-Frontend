@@ -24,7 +24,7 @@ function MainPage() {
 
             {/* 모임 이미지 출력 영역 */}
             <MainCarousel linkHobby={linkHobby} />
-            
+
             {/* 이달의 인기 취미 출력 영역 */}
             <div className={`${styles.separator}`}>
                 <span className={`${styles.firstFont}`}>
