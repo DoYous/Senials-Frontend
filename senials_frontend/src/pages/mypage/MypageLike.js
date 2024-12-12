@@ -1,77 +1,123 @@
+import React, { useEffect, useState } from "react";
+import { FaAngleLeft, FaAngleUp, FaAngleDown } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import styles from './MypageLike.module.css';
 import common from '../common/Common.module.css';
-import React, { useState } from "react";
-/*아이콘*/
-import { FaAngleLeft, FaAngleUp, FaAngleDown } from "react-icons/fa6";
-import {useNavigate} from "react-router-dom";
 
 function MypageLike() {
+    const [userNumber] = useState(10);
     const navigate = useNavigate();
+    const [favoritesData, setFavoritesData] = useState([]);
+    const [groupedData, setGroupedData] = useState({});
 
-    /* 마이페이지(캘린더)로 이동 */
-    const handleCalender = (userNumber) => {
-        navigate(`/user/${userNumber}/meet`);
-    }
+    /* 관심사 가져오기 */
+    useEffect(() => {
+        const fetchFavoriteData = async () => {
+            try {
+                const response = await axios.get(`/users/${userNumber}/favoritesAll`);
+                const data = response.data;
+
+                // 데이터 가공: 카테고리별로 그룹화
+                const grouped = data.reduce((acc, item) => {
+                    if (!acc[item.categoryName]) {
+                        acc[item.categoryName] = [];
+                    }
+                    acc[item.categoryName].push(item);
+                    return acc;
+                }, {});
+                setGroupedData(grouped);
+            } catch (error) {
+                console.error("에러:", error.response ? error.response.data : error.message);
+            }
+        };
+        fetchFavoriteData();
+    }, []);
+
+    /* 관심사 저장 */
+    const handleSave = async () => {
+        try {
+            const updatedFavorites = Object.values(groupedData)
+                .flat()
+                .filter(item => item.favorite) // 선택된 관심사만 필터링
+                .map(item => item.hobbyNumber); // 관심사 번호 추출
+            await axios.put(`/users/${userNumber}/favorites`, updatedFavorites);
+            alert("저장 성공");
+        } catch (error) {
+            console.error("에러:", error);
+            alert("저장 실패");
+        }
+    };
 
     return (
         <div className={styles.bigDiv}>
             <div className={styles.smallDiv}>
                 <div className={styles.bigName}>
                     <div className={styles.bigNameFlex}>
-                        <FaAngleLeft size={20} onClick={handleCalender} style={{ cursor: 'pointer' }}/>
+                        <FaAngleLeft size={20} onClick={() => navigate(`/user/1/meet`)} style={{ cursor: 'pointer' }} />
                         <h1 className={`${styles.nameflexDiv} ${common.firstFont}`}>
-                            <div className={`${styles.pink} ${styles.marginName}`}>관심사</div>
-                            설정
+                            <div className={`${styles.pink} ${styles.marginName}`}>관심사</div> 설정
                         </h1>
                     </div>
-                    {/* 저장되게 설정 */}
-                    <button className={`${common.commonBtn} ${styles.saveMargin}`} >저장</button>
+                    <button className={`${common.commonBtn} ${styles.saveMargin}`} onClick={handleSave}>저장</button>
                 </div>
-                <Hash title="운동" />
-                <Hash title="독서" />
-                <Hash title="여행" />
-                <Hash title="음악" />
-                <Hash title="게임" />
+                <div className={styles.maxScroll}>
+                    {Object.entries(groupedData).map(([categoryName, hobbies]) => (
+                        <CategoryGroup
+                            key={categoryName}
+                            categoryName={categoryName}
+                            hobbies={hobbies}
+                            setGroupedData={setGroupedData}
+                        />
+                    ))}
+                </div>
             </div>
         </div>
     );
 }
 
-function Hash({ title }) {
+function CategoryGroup({ categoryName, hobbies, setGroupedData }) {
     const [isOpen, setIsOpen] = useState(false);
 
-    /* 접고 펼치기 */
-    const toggleOpen = () => {
-        setIsOpen(!isOpen);
+    /*관심사 바꾸기*/
+    const handleCheckboxChange = (hobbyNumber, isChecked) => {
+        setGroupedData(prevData => {
+            const updatedData = { ...prevData };
+            const updatedHobbies = updatedData[categoryName].map(hobby =>
+                hobby.hobbyNumber === hobbyNumber ? { ...hobby, favorite: isChecked } : hobby
+            );
+            updatedData[categoryName] = updatedHobbies;
+            return updatedData;
+        });
     };
 
     return (
         <div className={styles.hash}>
-            <button
-                className={styles.contentName}
-                onClick={toggleOpen}
-            >
-                <div className={`${common.secondFont} ${common.marginRight}`}>{title}</div>
-                {isOpen ? <FaAngleUp size={20} style={{ cursor: 'pointer' }}/> : <FaAngleDown size={20} style={{ cursor: 'pointer' }}/>}
+            <button className={styles.contentName} onClick={() => setIsOpen(!isOpen)}>
+                <div className={`${common.secondFont} ${common.marginRight}`}>{categoryName}</div>
+                {isOpen ? <FaAngleUp size={20} style={{ cursor: 'pointer' }} /> : <FaAngleDown size={20} style={{ cursor: 'pointer' }} />}
             </button>
             {isOpen && (
                 <div className={styles.select_hobby_tendency}>
-                    <input type="checkbox" id={`${title}_1`} name={`${title}_hobby`} value="1" />
-                    <label htmlFor={`${title}_1`} className={common.thirdFont2}>옵션 1</label>
-                    <input type="checkbox" id={`${title}_2`} name={`${title}_hobby`} value="2" />
-                    <label htmlFor={`${title}_2`} className={common.thirdFont2}>옵션 2</label>
-                    <input type="checkbox" id={`${title}_3`} name={`${title}_hobby`} value="3" />
-                    <label htmlFor={`${title}_3`} className={common.thirdFont2}>옵션 3</label>
-                    <input type="checkbox" id={`${title}_4`} name={`${title}_hobby`} value="4" />
-                    <label htmlFor={`${title}_4`} className={common.thirdFont2}>옵션 4</label>
-                    <input type="checkbox" id={`${title}_5`} name={`${title}_hobby`} value="5" />
-                    <label htmlFor={`${title}_5`} className={common.thirdFont2}>옵션 5</label>
-                    <input type="checkbox" id={`${title}_6`} name={`${title}_hobby`} value="6" />
-                    <label htmlFor={`${title}_6`} className={common.thirdFont2}>옵션 6</label>
+                    {/* 같은 카테고리끼리 취미 묶기*/}
+                    {hobbies.map(hobby => (
+                        <div key={hobby.hobbyNumber}>
+                            <input
+                                type="checkbox"
+                                id={`hobby-${hobby.hobbyNumber}`} // 고유한 id 설정
+                                checked={hobby.favorite}
+                                onChange={(e) => handleCheckboxChange(hobby.hobbyNumber, e.target.checked)} // hobbyNumber로 구분
+                            />
+                            <label htmlFor={`hobby-${hobby.hobbyNumber}`} className={common.thirdFont2}>
+                                {hobby.hobbyName}
+                            </label>
+                        </div>
+                    ))}
                 </div>
             )}
         </div>
     );
+
 }
 
 export default MypageLike;

@@ -124,4 +124,5 @@ margin-bottom: 0px;}
     border-radius: 50%;
     height: 60px;
     margin-right: 20px;
-    background: lightgray;}
+    object-fit: cover;
+    }
