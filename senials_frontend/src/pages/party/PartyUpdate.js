@@ -154,6 +154,47 @@ function PartyUpdate() {
         }
         
     }
+    
+
+    // 이미지 마지막 인덱스
+    const prev = () => {
+        if(imagePreviews.length != 0) {
+            if (current == 0) {
+                setCurrent(imagePreviews.length - 1);
+            } else {
+                setCurrent(current - 1);
+            }
+        }
+    }
+    const next = () => {
+
+        if(imagePreviews.length != 0) {
+            if (current == imagePreviews.length - 1) {
+                setCurrent(0);
+            } else {
+                setCurrent(current + 1);
+            }
+        }
+    }
+
+
+    /* 선택 카테고리에 따라 취미 option 태그 변경 */
+    const selectCategory = (e) => {
+        hobbyNumberInput.current.value = -1;
+
+        setHobbies(categories.find(category => {
+            if(category.categoryNumber == e.target.value) {
+                return true;
+            } else {
+                return false;
+            }
+        }).hobbies)
+    }
+
+    /* 모집 상태 변경 시 색상 변경 */
+    const selectStatus = (e) => {
+        partyBoardStatusInput.current.style.color = e.target.value == 0 ? '#569aff' : 'black';
+    }
 
 
     const submitPartyForm = (e) => {
@@ -201,46 +242,19 @@ function PartyUpdate() {
         })
 
     }
-    
 
-    // 이미지 마지막 인덱스
-    const prev = () => {
-        if(imagePreviews.length != 0) {
-            if (current == 0) {
-                setCurrent(imagePreviews.length - 1);
-            } else {
-                setCurrent(current - 1);
-            }
+
+    const deleteParty = () => {
+        if(window.confirm('정말 삭제하시겠습니까?')){
+            axios.delete(`/partyboards/${partyNumber}`)
+            .then(response => {
+                navigate(`/party/board-overview`);
+            })
+            .catch(err => {
+                alert('글 삭제 실패');
+                navigate(-1);
+            })
         }
-    }
-    const next = () => {
-
-        if(imagePreviews.length != 0) {
-            if (current == imagePreviews.length - 1) {
-                setCurrent(0);
-            } else {
-                setCurrent(current + 1);
-            }
-        }
-    }
-
-
-    /* 선택 카테고리에 따라 취미 option 태그 변경 */
-    const selectCategory = (e) => {
-        hobbyNumberInput.current.value = -1;
-
-        setHobbies(categories.find(category => {
-            if(category.categoryNumber == e.target.value) {
-                return true;
-            } else {
-                return false;
-            }
-        }).hobbies)
-    }
-
-    /* 모집 상태 변경 시 색상 변경 */
-    const selectStatus = (e) => {
-        partyBoardStatusInput.current.style.color = e.target.value == 0 ? '#569aff' : 'black';
     }
 
 
@@ -326,7 +340,7 @@ function PartyUpdate() {
                 </div>
 
                 <div className={`${common.separator}`}>
-                    <span className={`${common.uniqueBtn}`}>삭제</span>
+                    <span className={`${common.uniqueBtn}`} onClick={deleteParty}>삭제</span>
                     <span className={`${common.commonBtn} ${common.mlAuto}`} onClick={() => navigate(-1)}>취소</span>
                     <span className={`${common.importantBtn} ${common.marginLeft}`} onClick={submitPartyForm}>제출</span>
                 </div>
