@@ -19,7 +19,7 @@ const Header = () => {
 
     //취미 목록 페이지 이동 이벤트
     const linkHobby=()=>{
-        navigate('/hobby-board');
+        navigate('/hobby-tag');
     }
 
     // 마이페이지 이동 이벤트
