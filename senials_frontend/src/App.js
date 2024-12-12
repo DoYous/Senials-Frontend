@@ -99,6 +99,8 @@ function App() {
                             {/* 모임 수정 */}
                             <Route path='update' element={<PartyUpdate />} />
                         </Route>
+                       
+
                         {/* 모임 작성 */}
                         <Route path='write' element={<PartyWrite />} />
                     </Route>
