@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import styles from './HobbyDetail.module.css';
 import starRate from '../common/MainVer1.module.css';
 import common from '../common/Common.module.css';
-import {FaAngleLeft, FaBell, FaSearch} from "react-icons/fa";
+import {FaBell} from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
 import axios from 'axios';
@@ -32,15 +32,17 @@ function HobbyDetailPost() {
                 dispatch(setHobbyReview(response.data.results.hobbyReview));
             })
             .catch((error) => console.error(error));
-      },[dispatch])
+      },[dispatch, hobbyNumber])
 
     //정렬 방식
-    const sortedReviews = [...hobbyReviewList].sort((a, b) => {
+    const sortedReviews = Array.isArray(hobbyReviewList)
+    ? [...hobbyReviewList].sort((a, b) => {
         if (sortOption === 'newest') return new Date(b.createdAt) - new Date(a.createdAt);
         if (sortOption === 'highRate') return b.hobbyReviewRate - a.hobbyReviewRate;
         if (sortOption === 'lowRate') return a.hobbyReviewRate - b.hobbyReviewRate;
         return 0;
-    });
+    })
+    : hobbyReviewList;
 
     //후기작성페이지 이동 이벤트
     const linkHobbyReview=()=>{
@@ -149,7 +151,7 @@ function HobbyDetailPost() {
                         <option value="lowRate">낮은별점순</option>
                     </select>
                 </div>  
-            </div>         
+            </div>       
             {sortedReviews.map((item, index) => (
                 <HobbyReview key={index} review={item} linkHobbyReviewModify={linkHobbyReviewModify} />
             ))}
