@@ -656,13 +656,16 @@ function Meet({meet, idx, isMaster, navigate}) {
             <div className={`${styles.meetButtons}`}>
             {
                 isMaster ?
-                    <span className={`${styles.commonBtn}`}>수정</span>
+                    <>
+                    <span className={`${styles.importantBtn}`}>수정</span>
+                    <span className={`${styles.commonBtn}`} onClick={() => navigate(`/meet/${meet.meetNumber}/members`)}>참여 멤버</span>
+                    </>
                 : 
                 (
                     meet.joined ?
                     (
                         <>
-                        <span className={`${styles.commonBtn}`} onClick={() => navigate(`/meet/${meet.number}/members`)}>참여 멤버</span>
+                        <span className={`${styles.commonBtn}`} onClick={() => navigate(`/meet/${meet.meetNumber}/members`)}>참여 멤버</span>
                         {
                             new Date(openDate.getFullYear(), openDate.getMonth(), openDate.getDate() - 2) > presentDate ? 
                             <span className={`${styles.importantBtn}`} onClick={quitMeet}>신청 취소</span>
