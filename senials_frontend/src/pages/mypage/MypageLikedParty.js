@@ -27,13 +27,6 @@ function MypageLikedParty({ userNumber }) {
         const decodedToken = jwtDecode(token); // JWT 디코드
         const userNumber = decodedToken.userNumber; // userNumber 추출
 
-        // const userNumber = 1; //임시용
-            /* 테스트용 */
-            axios.get(`/users/${userNumber}/likes`, {
-                headers: {
-                    'Authorization': token // JWT 토큰을 Authorization 헤더에 추가
-                }
-            }).then((data)=>{console.log(data)});
         const fetchLikedParties = async () => {
 
             try {
@@ -42,6 +35,9 @@ function MypageLikedParty({ userNumber }) {
                         page: 1,
                         size: 9,
                     },
+                    headers: {
+                        'Authorization': `Bearer ${token}` // Authorization 헤더 추가
+                    }
                 });
                 setLikedParties(response.data.results.likesParties);
             } catch (err) {

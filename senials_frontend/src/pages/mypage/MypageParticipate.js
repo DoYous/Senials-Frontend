@@ -33,6 +33,9 @@ function MypageParticipate({userNumber}) {
                         page: 1,
                         size: 9,
                     },
+                    headers: {
+                        'Authorization': `Bearer ${token}` // Authorization 헤더 추가
+                    }
                 });
                 setParticipateParties(response.data.results.joinedParties);
             } catch (err) {
