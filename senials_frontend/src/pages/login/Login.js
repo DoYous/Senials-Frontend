@@ -50,6 +50,7 @@ function Login() {
             navigate(redirectPath); // 이전 페이지로 리다이렉트
         } catch (error) {
             if (error.response) {
+                alert("없는 사용자이거나 아이디나 비밀번호가 틀렸습니다.")
                 console.error('서버 응답 실패:', error.response.data);
                 setErrorMessage(error.response.data.message || '로그인 실패');
             } else if (error.request) {
@@ -100,7 +101,7 @@ function Login() {
                 >
                     {isLoading ? '로그인 중...' : '확인'} {/* 로딩 중일 때 텍스트 변경 */}
                 </button>
-                {errorMessage && <div className={styles.errorMessage}>{errorMessage}</div>} {/* 에러 메시지 표시 */}
+                {/*{errorMessage && <div className={styles.errorMessage}>{errorMessage}</div>} /!* 에러 메시지 표시 *!/*/}
             </div>
             <div className={styles.kakaoimageWrapper}>
                 <img className={styles.kakaobt} src={'/image/kakaologinbt.png'} alt="카카오 로그인" onClick={handleKakaoLogin} />

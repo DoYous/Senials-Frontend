@@ -5,6 +5,7 @@ import main from '../common/MainVer1.module.css';
 import {FaAngleLeft} from "react-icons/fa";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
+import {jwtDecode} from "jwt-decode";
 
 function MypageMade({userNumber}) {
     const [madeParties, setMadeParties] = useState([]);
@@ -16,29 +17,43 @@ function MypageMade({userNumber}) {
 
     // 만든 모임 데이터 가져오기
     useEffect(() => {
-        const userNumber = 1; //임시용
-        /* 테스트용 */
-        axios.get(`/users/${userNumber}/made`).then((data)=>{console.log(data)});
-        const fetchMadeParties = async () => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+            // 토큰이 없을 경우 처리
+            console.error("토큰이 없습니다.");
+            return;
+        }
 
+        const decodedToken = jwtDecode(token); // JWT 디코드
+        const userNumber = decodedToken.userNumber; // userNumber 추출
+
+        const fetchMadeParties = async () => {
             try {
                 const response = await axios.get(`/users/${userNumber}/made`, {
                     params: {
                         page: 1,
                         size: 9,
                     },
+                    headers: {
+                        'Authorization': `Bearer ${token}` // Authorization 헤더 추가
+                    }
                 });
                 setMadeParties(response.data.results.madeParties);
             } catch (err) {
-                setError("데이터를 가져오는 데 실패했습니다.");
-                console.error(err);
+                if (err.response) {
+                    console.error("서버 응답 에러:", err.response.data);
+                    setError("데이터를 가져오는 데 실패했습니다.");
+                } else {
+                    console.error("요청 에러:", err.message);
+                    setError("데이터를 가져오는 데 실패했습니다.");
+                }
             } finally {
                 setLoading(false);
             }
         };
 
         fetchMadeParties();
-    }, [userNumber]);
+    }, []);
 
     // 상태 변환 함수: 0이면 '모집중', 1이면 '모집완료'
     const getStatusText = (status) => {

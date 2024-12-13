@@ -5,6 +5,7 @@ import styles from './Join.module.css';
 
 function Join() {
     const navigate = useNavigate();
+    const [isLoading, setIsLoading] = useState(false);
 
     const [formData, setFormData] = useState({
         username: '',
@@ -25,6 +26,7 @@ function Join() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setIsLoading(true);
 
         const requestData = {
             userName: formData.username,
@@ -56,6 +58,8 @@ function Join() {
         } catch (error) {
             console.error('회원가입 오류:', error);
             alert('회원가입에 실패했습니다. 다시 시도해 주세요.');
+        }finally {
+            setIsLoading(false)
         }
     };
 
@@ -75,6 +79,7 @@ function Join() {
                     value={formData.username}
                     onChange={handleChange}
                     required
+                    disabled={isLoading}
                 />
                 <input
                     className={styles.signupinput}
@@ -84,6 +89,7 @@ function Join() {
                     value={formData.password}
                     onChange={handleChange}
                     required
+                    disabled={isLoading}
                 />
                 <input
                     className={styles.signupinput}
@@ -93,6 +99,7 @@ function Join() {
                     value={formData.email}
                     onChange={handleChange}
                     required
+                    disabled={isLoading}
                 />
                 <label htmlFor="nickname">닉네임:</label>
                 <input
@@ -103,6 +110,7 @@ function Join() {
                     value={formData.nickname}
                     onChange={handleChange}
                     required
+                    disabled={isLoading}
                 />
                 <label htmlFor="birth">생년월일:</label>
                 <input
@@ -113,6 +121,7 @@ function Join() {
                     value={formData.birth}
                     onChange={handleChange}
                     required
+                    disabled={isLoading}
                 />
                 <label htmlFor="gender">성별:</label>
                 <select
@@ -122,14 +131,18 @@ function Join() {
                     value={formData.gender}
                     onChange={handleChange}
                     required
+                    disabled={isLoading}
                 >
                     <option value="">선택하세요</option>
                     <option value="0">남성</option>
                     <option value="1">여성</option>
                     <option value="2">기타</option>
                 </select>
-                <button className={styles.signupbutton} type="submit">
-                    회원가입
+                <button
+                    className={styles.signupbutton} type="submit"
+                    disabled={isLoading} // 로딩 중에는 클릭 비활성화
+                >
+                    {isLoading ? '회원가입 중...' : '회원가입'}
                 </button>
             </form>
         </div>

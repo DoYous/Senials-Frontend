@@ -5,13 +5,15 @@ import React, { useState, useEffect } from "react";
 import { FaAngleLeft, FaArrowUpRightFromSquare } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import {jwtDecode} from "jwt-decode";
 
 function MypageModify() {
-    const [userNumber] = useState(10); //유저 넘버
+    // const [userNumber] = useState(10); //유저 넘버
     const navigate = useNavigate();
     const [nickname, setNickname] = useState(""); // 닉네임
     const [detail, setDetail] = useState(""); // 한줄 소개
     const [profileImg, setProfileImg] = useState(""); // 프로필 이미지
+    const [imgSrc, setImgSrc] = useState('/img/defaultProfile.png');
 
     /* 테스트용 */
     axios.get('/users').then((data) => { console.log(data) });
@@ -24,9 +26,23 @@ function MypageModify() {
 
     // 사용자 정보 가져오기
     useEffect(() => {
+
+        const token = localStorage.getItem("token");
+        if (!token) {
+            alert("로그인이 필요합니다!")
+            navigate('/login'); // 토큰이 없으면 로그인 페이지로 리다이렉트
+            return;
+        }
+        const decodedToken = jwtDecode(token); // JWT 디코드
+        const userNumber = decodedToken.userNumber; // userNumber 추출
+
         const fetchUserData = async () => {
             try {
-                const response = await axios.get(`/users/${userNumber}`);
+                const response = await axios.get(`/users/${userNumber}`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}` // Authorization 헤더 추가
+                    }
+                });
                 const userData = response.data.results.user;
                 setNickname(userData.userNickname);
                 setDetail(userData.userDetail);
@@ -46,6 +62,14 @@ function MypageModify() {
             formData.append("profileImage", file);
 
             try {
+                const token = localStorage.getItem("token");
+                if (!token) {
+                    alert("로그인이 필요합니다!")
+                    navigate('/login'); // 토큰이 없으면 로그인 페이지로 리다이렉트
+                    return;
+                }
+                const decodedToken = jwtDecode(token); // JWT 디코드
+                const userNumber = decodedToken.userNumber; // userNumber 추출
                 // 이미지 업로드 API 호출
                 const response = await axios.post(`/users/${userNumber}/profile/upload`, formData, {
                     headers: {
@@ -72,21 +96,63 @@ function MypageModify() {
     // 데이터 저장 요청
     const handleSave = async () => {
         try {
+            const token = localStorage.getItem("token");
+            if (!token) {
+                alert("로그인이 필요합니다!")
+                navigate('/login'); // 토큰이 없으면 로그인 페이지로 리다이렉트
+                return;
+            }
+            const decodedToken = jwtDecode(token); // JWT 디코드
+            const userNumber = decodedToken.userNumber; // userNumber 추출
+
             const response = await axios.put(`/users/${userNumber}/modify`, {
                 userNickname: nickname,
                 userDetail: detail,
                 userProfileImg: profileImg
+            }, {
+                headers: {
+                    'Authorization': `Bearer ${token}` // JWT 토큰을 Authorization 헤더에 추가
+                }
             });
             alert("저장 성공");
         } catch (error) {
-            console.error("에러:", error);
+            console.error("에러:", error.response ? error.response.data : error.message);
             alert("저장 실패");
         }
     };
 
     //프로필 사진
   /*  const imgSrc = `/img/userProfile/${userNumber}`;*/
-    const imgSrc = `/img/userProfile/${userNumber}?t=${new Date().getTime()}`;
+    // const imgSrc = `/img/userProfile/${userNumber}?t=${new Date().getTime()}`;
+    const fetchUserProfileImage = async () => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+            alert("로그인이 필요합니다!")
+            navigate('/login'); // 토큰이 없으면 로그인 페이지로 리다이렉트
+            return;
+        }
+        try {
+            const decodedToken = jwtDecode(token);
+            const userNumber = decodedToken.userNumber;
+
+            // 프로필 이미지 URL 설정
+            const imageUrl = userNumber ? `/img/userProfile/${userNumber}?t=${new Date().getTime()}` : '/img/defaultProfile.png';
+            const response = await axios.get(imageUrl, {
+                headers: {
+                    'Authorization': `Bearer ${token}` // JWT 토큰을 Authorization 헤더에 추가
+                }
+            });
+            return response.data;
+        } catch (error) {
+            console.error("프로필 이미지 가져오기 오류:", error.response ? error.response.data : error.message);
+            return '/img/defaultProfile.png'; // 오류가 발생하면 기본 이미지로 설정
+        }
+    }
+
+    useEffect(() => {
+        const imgSrc = fetchUserProfileImage();
+        // imgSrc를 상태로 설정하거나 다른 방식으로 사용
+    }, []);
 
     return (
         <div>
@@ -135,7 +201,7 @@ function MypageModify() {
                         <p className={`${common.secondFont} ${styles.margin0}`}>한줄 소개</p>
                         <textarea
                             className={styles.contentDiv}
-                            value={detail}
+                            value={detail || ""}
                             onChange={(e) => setDetail(e.target.value)}
                         />
                         <div className={styles.saveDiv}>
