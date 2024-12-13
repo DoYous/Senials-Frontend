@@ -1,11 +1,27 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import styles from './SuggestHobbyResult.module.css';
-import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { useNavigate,useLocation } from 'react-router-dom';
+import { setHobbyDetail,setHobbyTop3Card } from '../../redux/hobbySlice';
+import { useSelector,useDispatch } from 'react-redux';
 
 function SuggestHobbyPost() {
 
+    const dispatch=useDispatch();
+    
     const navigate=useNavigate();
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
 
+    const hobbyAbility = queryParams.get('hobbyAbility');
+    const hobbyBudget = queryParams.get('hobbyBudget');
+    const hobbyLevel = queryParams.get('hobbyLevel');
+    const hobbyTendency = queryParams.get('hobbyTendency');
+
+
+    const hobbyDetail=useSelector((state)=>state.hobbyDetail);
+    const top3List=useSelector((state=>state.hobbyTop3List));
+    
     //이전 페이지로 돌아가기 (취소) 이벤트
     const goBack=()=>{
         navigate(-1);
@@ -21,8 +37,27 @@ function SuggestHobbyPost() {
         navigate('/party/board');
     }
 
+    //취미 상세 후기 페이지 이동 이벤트
+    const linkHobby = (hobbyNumber) => {
+        navigate(`/hobby-detail/${hobbyNumber}`);
+    }
+
+
+    useEffect(() => {
+        axios.get(`/suggest-hobby-result?hobbyAbility=${hobbyAbility}&hobbyBudget=${hobbyBudget}&hobbyLevel=${hobbyLevel}&hobbyTendency=${hobbyTendency}`)
+            .then(response => {
+                dispatch(setHobbyDetail(response.data.results.hobby));
+            })
+
+        axios.get('/hobby-board/top3')
+        .then((response) => {
+            dispatch(setHobbyTop3Card(response.data.results.hobby));
+        })
+    }, [dispatch]);
+
     return (
         <>
+        {console.log(hobbyDetail)}
             <div className={styles.page}>
             <div className={styles.title}>
                 이런 <span style={{color:'#FF5391'}}>취미</span> 어떠세요?
@@ -30,25 +65,21 @@ function SuggestHobbyPost() {
 
             <div className={styles.hobby}>
                 <div className={styles.resultHobby}>
-                    <img src="/img/sampleImg.png" className={styles.resultHobbyImg} alt="추천 취미" />
+                    <img src={`/img/hobbyboard/${hobbyDetail.hobbyNumber}`} className={styles.resultHobbyImg} alt="추천 취미" />
                     <div className={styles.resultHobbyName}>
-                        <span className={styles.label}>추천 취미:</span> 낚시
+                        <span className={styles.label}>추천 취미:</span> {hobbyDetail.hobbyName}
                     </div>
                     <div className={styles.resultHobbyDetail}>
-                        낚시는 물고기를 잡기 위해 낚싯대, 낚싯줄, 미끼 등을 사용하는 활동입니다. 오랜 역사를 가진 낚시는 과거에는 생계를 위한 수단이었으나,
-                        오늘날에는 스포츠, 레저, 취미 활동으로도 널리 즐겨집니다.
+                        {hobbyDetail.hobbyExplain}
                     </div>
                 </div>
 
                 <div className={styles.otherHobby}>
-                    <div className={styles.subtitle}>비슷한 취미들</div>         
+                    <div className={styles.subtitle}>지금  <span style={{color:'#FF5391'}}>핫한</span> 취미들</div>         
                         <div className={styles.otherHobbyDetail}>
-                            <img src="/img/sampleImg2.png" className={styles.otherHobbyImg} alt="다른 취미" />
-                            <div className={styles.otherHobbyName}>명상하기</div>
-                            <img src="/img/sampleImg2.png" className={styles.otherHobbyImg} alt="다른 취미" />
-                            <div className={styles.otherHobbyName}>명상하기</div>
-                            <img src="/img/sampleImg2.png" className={styles.otherHobbyImg} alt="다른 취미" />
-                            <div className={styles.otherHobbyName}>명상하기</div>
+                            {top3List.map((item,index) => {
+                                 return <OtherHobby key={index} hobby={item} linkHobby={linkHobby}/>
+                            })}
                         </div>
                 </div>
             </div>
@@ -61,6 +92,15 @@ function SuggestHobbyPost() {
             </div>
     
         </>
+    );
+}
+
+function OtherHobby({ hobby,linkHobby }){
+    return(
+        <div onClick={()=>linkHobby(hobby.hobbyNumber)}>
+            <img src={`/img/hobbyboard/${hobby.hobbyNumber}`} className={styles.otherHobbyImg} alt="다른 취미" />
+            <div className={styles.otherHobbyName}>{hobby.hobbyName}</div>
+        </div>
     );
 }
 

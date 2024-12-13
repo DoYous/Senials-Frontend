@@ -18,8 +18,6 @@ import styles from '../common/MainVer1.module.css';
 
 function PartyDetail() {
 
-    const testArray3 = [{number: 1}, {number: 2}, {number: 3}];
-
 
     const { partyNumber } = useParams();
 
@@ -222,7 +220,7 @@ function PartyDetail() {
                         partyBoard.partyBoardStatus === 0 ?
                         <span className={`${styles.openedParty} ${styles.thirdFont}`}>모집중</span>
                         :
-                        <span className={`${styles.closedParty} ${styles.thirdFont}`}>모집중</span>
+                        <span className={`${styles.closedParty} ${styles.thirdFont}`}>모집완료</span>
                     }
                     &nbsp;
                     {
@@ -403,7 +401,7 @@ function Carousel() {
 
     const prev = () => {
         if (current == 0) {
-            setCurrent(2);
+            setCurrent(lastIndex);
         } else {
             setCurrent(current - 1);
         }
@@ -448,8 +446,6 @@ function Carousel() {
 }
 
 function Member({ navigate, member }) {
-
-    const partyBoard = useSelector(state => state.partyBoardDetail);
 
     return (
         <div className={`${styles.memberContainer}`}>
