@@ -29,6 +29,7 @@ function HobbyReviewGet() {
     const hobbyReviewHealthStatus = useRef();
     const hobbyReviewTendency = useRef();
     const hobbyReviewLevel = useRef();
+    const hobbyReviewBudget= useRef();
 
      // 별점 상태 관리
      const [rating, setRating] = useState(0);
@@ -47,6 +48,7 @@ function HobbyReviewGet() {
         const healthStatus = document.querySelector('input[name="hobbyAbility"]:checked')?.value || null;
         const tendency = document.querySelector('input[name="hobbyTendency"]:checked')?.value || null;
         const level = document.querySelector('input[name="hobbyLevel"]:checked')?.value || null;
+        const budget = document.querySelector('input[name="hobbyBudget"]:checked')?.value || null;
         const reviewRate = rating; 
         const writeDate = new Date();
 
@@ -59,7 +61,8 @@ function HobbyReviewGet() {
             hobbyReviewHealthStatus: healthStatus,  
             hobbyReviewTendency: tendency,  
             hobbyReviewLevel: level,
-            hobbyReviewWriteDate: writeDate
+            hobbyReviewBudget:budget,
+            hobbyReviewWriteDate: writeDate, 
         };
 
         try {

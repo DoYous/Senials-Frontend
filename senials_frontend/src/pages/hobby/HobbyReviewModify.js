@@ -54,6 +54,7 @@ function HobbyReviewGet() {
         setHealthStatus(hobbyReview.hobbyReviewHealthStatus);
         setTendency(hobbyReview.hobbyReviewTendency);
         setLevel(hobbyReview.hobbyReviewLevel);
+        setBudget(hobbyReview.hobbyReviewBudget);
     }
 }, [hobbyReview]);
 
@@ -94,6 +95,7 @@ function HobbyReviewGet() {
         hobbyReviewHealthStatus: healthStatus,
         hobbyReviewTendency: tendency,
         hobbyReviewLevel: level,
+        hobbyReviewBudget: budget,
         hobbyReviewWriteDate: hobbyReview.hobbyReviewWriteDate
     };
 
@@ -148,28 +150,28 @@ function HobbyReviewGet() {
                         <input type="radio" id="tendencyOut" name="hobbyTendency" value="1" checked={tendency===1} onChange={(e) => setTendency(parseInt(e.target.value))}/>
                         <label htmlFor="tendencyOut">외향적</label>
                     </div>
-                    {/* <div className={styles.selectHobbyBudget}>
+                    <div className={styles.selectHobbyBudget}>
                             <div className={styles.text}>지출범위</div>
-                            <input type="radio" id="budget1" name="hobbyBudget" value="1" checked={budget===1}/>
+                            <input type="radio" id="budget1" name="hobbyBudget" value="0" checked={budget===0} onChange={(e) => setBudget(parseInt(e.target.value))}/>
                             <label htmlFor="budget1">0~100,000</label>
-                            <input type="radio" id="budget2" name="hobbyBudget" value="2" checked={budget===2}/>
+                            <input type="radio" id="budget2" name="hobbyBudget" value="1" checked={budget===1} onChange={(e) => setBudget(parseInt(e.target.value))}/>
                             <label htmlFor="budget2">100,000~400,000</label>
-                            <input type="radio" id="budget3" name="hobbyBudget" value="3" checked={budget===3}/>
+                            <input type="radio" id="budget3" name="hobbyBudget" value="2" checked={budget===2} onChange={(e) => setBudget(parseInt(e.target.value))}/>
                             <label htmlFor="budget3">400,000~1,000,000</label>
-                            <input type="radio" id="budget4" name="hobbyBudget" value="4" checked={budget===4}/>
+                            <input type="radio" id="budget4" name="hobbyBudget" value="3" checked={budget===3} onChange={(e) => setBudget(parseInt(e.target.value))}/>
                             <label htmlFor="budget4">1,000,000~</label>
-                        </div> */}
+                        </div>
                     <div className={styles.selectHobbyLevel}>
                         <div className={styles.text}>난이도</div>
-                        <input type="radio" id="level1" name="hobbyLevel" value="1" checked={level===1}  onChange={(e) => setLevel(parseInt(e.target.value))}/>
+                        <input type="radio" id="level1" name="hobbyLevel" value="0" checked={level===0}  onChange={(e) => setLevel(parseInt(e.target.value))}/>
                         <label htmlFor="level1">쉬움</label>
-                        <input type="radio" id="level2" name="hobbyLevel" value="2" checked={level===2}  onChange={(e) => setLevel(parseInt(e.target.value))}/>
+                        <input type="radio" id="level2" name="hobbyLevel" value="1" checked={level===1}  onChange={(e) => setLevel(parseInt(e.target.value))}/>
                         <label htmlFor="level2">좀 쉬움</label>
-                        <input type="radio" id="level3" name="hobbyLevel" value="3" checked={level===3}  onChange={(e) => setLevel(parseInt(e.target.value))}/>
+                        <input type="radio" id="level3" name="hobbyLevel" value="2" checked={level===2}  onChange={(e) => setLevel(parseInt(e.target.value))}/>
                         <label htmlFor="level3">평범</label>
-                        <input type="radio" id="level4" name="hobbyLevel" value="4" checked={level===4}  onChange={(e) => setLevel(parseInt(e.target.value))}/>
+                        <input type="radio" id="level4" name="hobbyLevel" value="3" checked={level===3}  onChange={(e) => setLevel(parseInt(e.target.value))}/>
                         <label htmlFor="level4">좀 어려움</label>
-                        <input type="radio" id="level5" name="hobbyLevel" value="5" checked={level===5}  onChange={(e) => setLevel(parseInt(e.target.value))}/>
+                        <input type="radio" id="level5" name="hobbyLevel" value="4" checked={level===4}  onChange={(e) => setLevel(parseInt(e.target.value))}/>
                         <label htmlFor="level5">어려움</label>
                     </div>
                     <div className={styles.buttonContainer}>
