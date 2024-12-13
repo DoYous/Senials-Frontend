@@ -720,8 +720,9 @@ function Meet({meet, idx, isMaster, navigate}) {
                                         <span className={`${styles.uniqueBtn}`} onClick={joinMeet}>신청</span>
                                 )
                         )
-                }
-
+                    )
+                )
+            }
             </div>
         </div>
     )
