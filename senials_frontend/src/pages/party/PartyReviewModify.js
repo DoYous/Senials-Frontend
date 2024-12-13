@@ -83,7 +83,7 @@ function PartyReviewModify() {
                 <form className={styles.formDiv} onSubmit={handleSubmit}> {/* 폼 제출용 */}
                     <h1 className={`${styles.nameflexDiv} ${common.firstFont}`}>
                         <div className={styles.pink}>후기</div>
-                        를 작성해주세요!
+                        를 수정해주세요!
                     </h1>
                     <div className={styles.bigSelectDiv}>
                         <div className={styles.selectDiv}>

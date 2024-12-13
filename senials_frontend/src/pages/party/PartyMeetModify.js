@@ -93,7 +93,7 @@ function PartyMeetModify() {
         <div className={styles.bigDiv}>
             <div className={styles.smallDiv}>
                 <form className={styles.formDiv} onSubmit={handleSubmit}>
-                    <h1 className={`${styles.nameflexDiv} ${common.firstFont}`}><div className={styles.pink}>일정</div>을 추가해주세요!</h1>
+                    <h1 className={`${styles.nameflexDiv} ${common.firstFont}`}><div className={styles.pink}>일정</div>을 수정해주세요!</h1>
                     <div className={styles.bigSelectDiv}>
 
                         <div className={styles.selectDiv}>
