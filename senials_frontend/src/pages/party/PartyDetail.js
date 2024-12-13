@@ -566,7 +566,7 @@ function Review({review, navigate}) {
             <img className={`${styles.masterProfile}`} src='/image/sampleProfile.png' onClick={() => navigate(`/user/${reviewWriter.userNumber}/profile`)}/>
             <div className={`${styles.reviewContent}`}>
                 <div className={`${styles.flex}`}>
-                    <span className={`${styles.secondFont}`}>{reviewWriter.userName}</span>
+                    <span className={`${styles.secondFont}`}>{reviewWriter.userNickname}</span>
                     <DetailRate reviewRate={review.partyReviewRate} />
                 </div>
                 <span className={`${styles.secondFontNormal}`}>{review.partyReviewDetail}</span>
