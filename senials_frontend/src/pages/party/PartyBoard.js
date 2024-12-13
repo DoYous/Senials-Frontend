@@ -35,15 +35,6 @@ function PartyBoard() {
     }, [dispatch])
 
 
-    const linkParty = (partyNumber) => {
-        navigate(`/party/${partyNumber}`);
-    }
-
-    const linkCtgr = (ctgrNumber) => {
-        navigate(`/hobby/board?category=${ctgrNumber}`)
-    }
-
-
     return (
         <div className={styles.centerContainer}>
             <PopularPartyBoards />

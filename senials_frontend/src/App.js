@@ -3,6 +3,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 // 컴포넌트
 import Layout from './layouts/Layout.js';
 
+import ScrollToTop from './pages/common/ScrollToTop.js'
+
 import MainPage from './pages/mainpage/MainPage.js';
 
 import PartyDetail from './pages/party/PartyDetail.js';
@@ -39,6 +41,7 @@ import ManageUser from "./pages/admin/ManageUser";
 function App() {
     return (
         <BrowserRouter>
+            <ScrollToTop />
             <Routes>
                 <Route path='/' element={<Layout />}>
                     <Route index element={<MainPage />} />

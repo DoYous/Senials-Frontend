@@ -1,70 +1,128 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import axios from 'axios';
+
+import { setPopularParties } from '../../redux/partySlice';
 
 // CSS
 import styles from '../common/MainVer1.module.css';
+import PopularPartyBoards from '../party/PartyBoardComponent/PopularPartyBoards';
 
-const testArray4 = [{number: 1}, {number: 2}, {number: 3}, {number: 4}];
-const testArray5 = [{number: 1}, {number: 2}, {number: 3}, {number: 4}, {number: 5}]
 
 function MainPage() {
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
-    const linkHobby = (hobbyNumber) => {
-        navigate(`/hobby/${hobbyNumber}`);
-    }
+    const [hobbies, setHobbies] = useState([]);
+    const popularParties = useSelector(state => state.popularParties);
 
-    const linkParty = (partyNumber) => {
-        navigate(`/party/${partyNumber}`);
-    }
+    useEffect(() => {
+        if(hobbies.length == 0) {
+            axios.get('hobby-board/top3?size=4&minReviewCnt=0')
+            .then(response => {
+                let results = response.data.results;
+    
+                let hobbyList = [];
+                for(let i = 0; i < results.hobby.length || i < 4; i++) {
+                    hobbyList.push(results.hobby[i]);
+                }
+    
+                setHobbies(results.hobby);
+            })
+        }
+
+        if(popularParties.length == 0) {
+            axios.get('/partyboards/popular-parties?size=4')
+            .then(result => {
+                dispatch(setPopularParties(result.data.results.popularPartyBoards));
+            });
+        }
+
+    }, []);
 
     return (
         <div className={styles.centerContainer}>
 
             {/* 모임 이미지 출력 영역 */}
-            <MainCarousel linkHobby={linkHobby} />
+            <MainCarousel navigate={navigate} />
             
             {/* 이달의 인기 취미 출력 영역 */}
             <div className={`${styles.separator}`}>
                 <span className={`${styles.firstFont}`}>
-                    이달의&nbsp;<span className={`${styles.pointColor}`}>인기</span>&nbsp;취미
+                    ⭐이달의&nbsp;<span className={`${styles.pointColor}`}>인기</span>&nbsp;취미
                 </span>
                 <span className={`${styles.whiteBtn} ${styles.mlAuto}`} onClick={() => navigate('/hobby/board')}>전체보기</span>
             </div>
             <div className={`${styles.separatorContent}`}>
-                {testArray4.map((hobby, idx) => {
-                    return <HobbyCard key={`hobbyCard${idx}`} hobby={hobby} linkHobby={linkHobby}/>
-                })}
+                {
+                    hobbies.map((hobby, idx) => {
+                        return <HobbyCard key={`hobbyCard${idx}`} hobby={hobby} navigate={navigate}/>
+                    })
+                }
+                {
+                    hobbies.length % 4 != 0 ?
+                    // 빈 카드 계산
+                    Array.from({length: 4 - (hobbies.length % 4)}).map((_, i) => {
+                        return <div key={i} className={`${styles.emptyCardContainer}`} />
+                    })
+                    :
+                    null
+                }
             </div>
             
             {/* 핫 매칭 게시글 출력 영역 */}
-            <div className={`${styles.separator}`}>
+            <PopularPartyBoards printAllBtn={true} />
+            {/* <div className={`${styles.separator}`}>
                 <span className={`${styles.firstFont}`}>
                     <span className={`${styles.pointColor}`}>핫</span>&nbsp;매칭&nbsp;게시글
                 </span>
                 <span className={`${styles.whiteBtn} ${styles.mlAuto}`} onClick={() => navigate('/party/board')}>전체보기</span>
             </div>
             <div className={`${styles.separatorContent}`}>
-                {testArray4.map((party, idx) => {
-                    return <PartyCard key={`partyCard${idx}`} party={party} linkParty={linkParty} />
-                })}
-            </div>
+                {
+                    popularParties.map((party, idx) => {
+                        return <PartyCard key={idx} party={party} navigate={navigate} />
+                    })
+                }
+                {
+                    popularParties.length % 4 != 0 ?
+                    // 빈 카드 계산
+                    Array.from({length: 4 - (popularParties.length % 4)}).map((_, i) => {
+                        return <div key={i} className={`${styles.emptyCardContainer}`} />
+                    })
+                    :
+                    null
+                }
+            </div> */}
         </div>
     )
 }
 
 // 메인페이지 전용 캐러셀
-function MainCarousel({linkHobby}) {
+function MainCarousel({navigate}) {
+
+    const [categories, setCategories] = useState([]);
     
-    const total = 5;
-    // 이미지 총 개수 - 1
+    const total = categories.length;
     const lastIndex = total - 1;
 
     // 반 만큼 우측 이동(가운데 정렬) csvContainer 반 만큼 좌측 이동
     const initPos = '50% - 605px';
     const [current, setCurrent] = useState(0);
     const [posx, setPosx] = useState('');
+
+
+    useEffect(() => {
+        axios.get('/categories?asRandom=true')
+        .then(response => {
+            let results = response.data.results;
+
+            setCategories(results.categories);
+        })
+    }, [])
+
 
     useEffect(() => {
         if (current === 0) {
@@ -101,8 +159,8 @@ function MainCarousel({linkHobby}) {
             {/* width = 1210px = 1280-(버튼 * 2) */}
             <div className={`${styles.mcsContainer}`} style={{width: '100%'}}>
                 <div className={`${styles.mcsInner}`} style={{width: `calc(${550 * total})px`, transform: `translateX(${posx})`}}>
-                    {testArray5.map((hobby, idx) => {
-                        return <div className={`${styles.mcsItem}`} key={`mcsItem${idx}`} style={{backgroundImage: 'url(/image/3.jpg)'}} onClick={ () => linkHobby(hobby.number) } />
+                    {categories.map((category, idx) => {
+                        return <div className={`${styles.mcsItem}`} key={`mcsItem${idx}`} style={{backgroundImage: `url(/img/category/${category.categoryNumber})`}} onClick={ () => {} } />
                     })}
                 </div>
             </div>
@@ -135,37 +193,18 @@ function Rate() {
     )
 }
 
-// 모임 카드
-function PartyCard({party, linkParty}) {
-  return (
-    <div className={styles.cardContainer} onClick={() => linkParty(party.number)}>
-        <div className={styles.cardImage} style={{backgroundImage: 'url(/image/cat.jpg)'}}>
-            <img className={styles.imgHeart} src='/image/unfilledHeart.svg'/>
-        </div>
-        <div className={`${styles.secondFont}`}>농구 같이 할 사람~</div>
-        <div className={styles.rateInfo}>
-            <Rate />
-        </div>
-        <div className={styles.memberInfo}>
-            <img src='/image/people.svg' style={{width: '20px'}}/>&nbsp;
-            <span className={`${styles.fourthFont}`}>10명</span>
-            <span className={`${styles.openedParty} ${styles.thirdFont} ${styles.mlAuto}`}>모집중</span>
-        </div>
-    </div>
-  )
-}
 
 // 취미 카드
-function HobbyCard({hobby, linkHobby}) {
+function HobbyCard({hobby, navigate}) {
     return (
-      <div className={styles.cardContainer} onClick={() => linkHobby(hobby.number)}>
-          <div className={styles.cardImage} style={{backgroundImage: 'url(/image/1.jpg)'}} />
+      <div className={styles.cardContainer} onClick={() => navigate(`/hobby/${hobby.hobbyNumber}`)}>
+          <div className={styles.cardImage} style={{backgroundImage: `url(/img/hobbyboard/${hobby.hobbyNumber})`}} />
           <div className={`${styles.secondFont} ${styles.flex}`}>
-            아웃도어
+            {hobby.categoryName}
             <span className={`${styles.separatorV}`}>
                 &nbsp;|&nbsp;
             </span>
-            등산
+            {hobby.hobbyName}
         </div>
       </div>
     )
