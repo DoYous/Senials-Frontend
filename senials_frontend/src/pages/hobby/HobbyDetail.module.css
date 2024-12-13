@@ -26,6 +26,7 @@
     width: 300px;
     height: 300px;
     margin-right: 20px;
+    border:1px solid #c2c2c2;
     border-radius: 10px;
 }
 
@@ -204,13 +205,13 @@ hr {
     margin-left: 20px;
 }
 
-.reviewTitle {
-    margin-top: 20px;
-    font-weight: bold;
+.reviewSummation {
+   font-size: 1.2em;
+   font-weight: bold;
 }
 
-.reviewTitle,
 .reviewDetail {
+    margin-top: 10px;
     text-align: left;
     font-size: 1.2em;
 }
