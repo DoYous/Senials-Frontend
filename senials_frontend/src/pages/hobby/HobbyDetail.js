@@ -11,6 +11,52 @@ import { useParams } from 'react-router-dom';
 
 const userNumber=1;
 
+   //성향 출력
+   const getTendency = (tendency) => {
+    switch (tendency) {
+        case 1:
+            return "외향적";
+        case 0:
+            return "내향적";
+        default:
+            return "정보 없음";
+    }
+};
+
+//난이도 출력
+const getLevel = (level) => {
+    switch (level) {
+        case 0:
+            return "쉬움";
+        case 1:
+            return "좀 쉬움";
+        case 2:
+            return "평범";
+        case 3:
+            return "좀 어려움";
+        case 4:
+            return "어려움";
+        default:
+            return "정보 없음";
+    }
+};
+
+//비용 출력
+const getBudget = (Budget) => {
+    switch (Budget) {
+        case 0:
+            return "0~100,000";
+        case 1:
+            return "100,000~400,000";
+        case 2:
+            return "400,000~1,000,000";
+        case 3:
+            return "1,000,000~";
+        default:
+            return "정보 없음";
+    }
+};
+
 function HobbyDetailPost() {
 
     const { hobbyNumber } = useParams();
@@ -37,7 +83,7 @@ function HobbyDetailPost() {
     //정렬 방식
     const sortedReviews = Array.isArray(hobbyReviewList)
     ? [...hobbyReviewList].sort((a, b) => {
-        if (sortOption === 'newest') return new Date(b.hobbyReviewWriteDate) - new Date(a.hobbyReviewWriteDate);
+        if (sortOption === 'newest') return new Date(a.hobbyReviewWriteDate) - new Date(b.hobbyReviewWriteDate);
         if (sortOption === 'highRate') return b.hobbyReviewRate - a.hobbyReviewRate;
         if (sortOption === 'lowRate') return a.hobbyReviewRate - b.hobbyReviewRate;
         return 0;
@@ -54,51 +100,7 @@ function HobbyDetailPost() {
         navigate(`/hobby-review-modify?review=${reviewNumber}&hobbyNumber=${hobbyNumber}`);
     }
 
-    //성향 출력
-    const getTendency = (tendency) => {
-        switch (tendency) {
-            case 0:
-                return "외향적";
-            case 1:
-                return "내향적";
-            default:
-                return "정보 없음";
-        }
-    };
-
-    //난이도 출력
-    const getLevel = (level) => {
-        switch (level) {
-            case 1:
-                return "쉬움";
-            case 2:
-                return "좀 쉬움";
-            case 3:
-                return "평범";
-            case 4:
-                return "좀 어려움";
-            case 5:
-                return "어려움";
-            default:
-                return "정보 없음";
-        }
-    };
-
-    //비용 출력
-    const getBudget = (Budget) => {
-        switch (Budget) {
-            case 1:
-                return "0~100,000";
-            case 2:
-                return "100,000~400,000";
-            case 3:
-                return "400,000~1,000,000";
-            case 4:
-                return "1,000,000~";
-            default:
-                return "정보 없음";
-        }
-    };
+ 
 
     return (
         <>
@@ -174,7 +176,9 @@ function HobbyReview({ review, linkHobbyReviewModify }) {
                         <FaBell/> 신고
                     </button>
                 </div>
-                <div className={styles.reviewTitle}>취미 후기</div>
+                <span className={styles.reviewSummation}>성향: {getTendency(review.hobbyReviewTendency)}</span>
+                <div className={styles.reviewSummation}>난이도: {getLevel(review.hobbyReviewLevel)}</div>
+                <div className={styles.reviewSummation}>이용비용: {getBudget(review.hobbyReviewBudget)}</div>
                 <div className={styles.reviewDetail}>{review.hobbyReviewDetail}</div>
                 <div className={styles.reviewImgContainer}>
                     <img src='/img/sampleImg4.png' className={styles.reviewImg} alt="후기" />
