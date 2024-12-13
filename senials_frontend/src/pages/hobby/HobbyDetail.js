@@ -2,12 +2,14 @@ import React, {useEffect, useState} from 'react';
 import styles from './HobbyDetail.module.css';
 import starRate from '../common/MainVer1.module.css';
 import common from '../common/Common.module.css';
-import {FaAngleLeft, FaBell, FaSearch} from "react-icons/fa";
+import {FaBell} from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
 import axios from 'axios';
 import { setHobbyDetail,setHobbyReview} from '../../redux/hobbySlice';
 import { useParams } from 'react-router-dom';
+
+const userNumber=1;
 
 function HobbyDetailPost() {
 
@@ -19,8 +21,6 @@ function HobbyDetailPost() {
     const hobbyDetail=useSelector((state)=>state.hobbyDetail);
     const hobbyReviewList=useSelector((state)=>state.hobbyReview);
 
-
-    const [sortedReviews, setSortedReviews] = useState([]);
     const [sortOption, setSortOption] = useState('newest'); // 정렬 옵션: 'newest', 'highRate', 'lowRate'
 
       useEffect(()=>{
@@ -32,25 +32,17 @@ function HobbyDetailPost() {
                 dispatch(setHobbyReview(response.data.results.hobbyReview));
             })
             .catch((error) => console.error(error));
-      },[dispatch])
-
-      //후기 정렬
-      useEffect(() => {
-        sortReviews(sortOption);
-    }, [sortOption, hobbyReviewList]);
+      },[dispatch, hobbyNumber])
 
     //정렬 방식
-    const sortReviews = (option) => {
-        let sorted = [...hobbyReviewList];
-        if (option === 'newest') {
-            sorted.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-        } else if (option === 'highRate') {
-            sorted.sort((a, b) => b.hobbyReviewRate - a.hobbyReviewRate);
-        } else if (option === 'lowRate') {
-            sorted.sort((a, b) => a.hobbyReviewRate - b.hobbyReviewRate);
-        }
-        setSortedReviews(sorted);
-    };
+    const sortedReviews = Array.isArray(hobbyReviewList)
+    ? [...hobbyReviewList].sort((a, b) => {
+        if (sortOption === 'newest') return new Date(b.hobbyReviewWriteDate) - new Date(a.hobbyReviewWriteDate);
+        if (sortOption === 'highRate') return b.hobbyReviewRate - a.hobbyReviewRate;
+        if (sortOption === 'lowRate') return a.hobbyReviewRate - b.hobbyReviewRate;
+        return 0;
+    })
+    : [];
 
     //후기작성페이지 이동 이벤트
     const linkHobbyReview=()=>{
@@ -58,8 +50,8 @@ function HobbyDetailPost() {
     }
 
     //작성된 후기 수정 페이지 이동 이벤트
-    const linkHobbyReviewModify=(reviewNumber)=>{
-        navigate(`/hobby-review-modify?review=${reviewNumber}`);
+    const linkHobbyReviewModify=(reviewNumber,hobbyNumber)=>{
+        navigate(`/hobby-review-modify?review=${reviewNumber}&hobbyNumber=${hobbyNumber}`);
     }
 
     //성향 출력
@@ -77,15 +69,15 @@ function HobbyDetailPost() {
     //난이도 출력
     const getLevel = (level) => {
         switch (level) {
-            case 0:
-                return "쉬움";
             case 1:
-                return "좀 쉬움";
+                return "쉬움";
             case 2:
-                return "평범";
+                return "좀 쉬움";
             case 3:
-                return "좀 어려움";
+                return "평범";
             case 4:
+                return "좀 어려움";
+            case 5:
                 return "어려움";
             default:
                 return "정보 없음";
@@ -95,13 +87,13 @@ function HobbyDetailPost() {
     //비용 출력
     const getBudget = (Budget) => {
         switch (Budget) {
-            case 0:
-                return "0~100,000";
             case 1:
-                return "100,000~400,000";
+                return "0~100,000";
             case 2:
-                return "400,000~1,000,000";
+                return "100,000~400,000";
             case 3:
+                return "400,000~1,000,000";
+            case 4:
                 return "1,000,000~";
             default:
                 return "정보 없음";
@@ -159,7 +151,7 @@ function HobbyDetailPost() {
                         <option value="lowRate">낮은별점순</option>
                     </select>
                 </div>  
-            </div>         
+            </div>       
             {sortedReviews.map((item, index) => (
                 <HobbyReview key={index} review={item} linkHobbyReviewModify={linkHobbyReviewModify} />
             ))}
@@ -188,9 +180,11 @@ function HobbyReview({ review, linkHobbyReviewModify }) {
                     <img src='/img/sampleImg4.png' className={styles.reviewImg} alt="후기" />
                     <img src='/img/sampleImg4.png' className={styles.reviewImg} alt="후기" />
                 </div>
-                <button className={styles.updateReviewButton} onClick={() => linkHobbyReviewModify(review.hobbyReviewNumber)}>
+                {userNumber===review.userNumber&&(
+                <button className={styles.updateReviewButton} onClick={() => linkHobbyReviewModify(review.hobbyReviewNumber,review.hobbyNumber)}>
                     수정
                 </button>
+                )}
             </div>
         </div>
     );

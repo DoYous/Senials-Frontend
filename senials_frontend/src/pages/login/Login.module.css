@@ -1,0 +1,90 @@
+.kakaocontainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 수평 중앙 정렬 */
+    padding-top : 10%;
+    padding-bottom: 10%;
+}
+
+.kakaoimageWrapper {
+    display: flex;
+    justify-content: center; /* 이미지 수평 중앙 정렬 */
+    margin-top: 1%;
+}
+
+.SimpleLogin {
+    color: #569AFF;
+    font-size: 200%;
+}
+
+.OrgLogin {
+    margin-top: 1%;
+    color: #569AFF;
+    font-size: 200%;
+}
+
+.kakaobt {
+    width: auto; /* 너비 조정 */
+    height: auto; /* 비율 유지 */
+    cursor: pointer;
+    transition: filter 0.3s ease;
+}
+
+.kakaobt:hover {
+    filter: brightness(0.9);
+}
+
+.simpleSignupButton {
+    margin-top: 5%;
+    padding: 11px 50px;
+    background-color: #6CB7DA;
+    border: none;
+    border-radius: 5px; /* 라운드 모서리 */
+    cursor: pointer; /* 마우스 커서 변경 */
+    font-size: 14px; /* 글자 크기 */
+    transition: filter 0.3s ease;
+    color: white;
+}
+
+.simpleSignupButton:hover {
+    filter: brightness(0.9); /* 호버 시 색상 변경 */
+}
+
+.OrginputContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 중앙 정렬 */
+    margin-top: 20px; /* 위쪽 여백 추가 */
+    width: 380px; /* 전체 너비 사용 */
+}
+
+.OrginputField {
+    width: 80%; /* 너비 조정 */
+    padding: 12px; /* 패딩 추가 */
+    margin-bottom: 15px; /* 아래쪽 여백 추가 */
+    border: 1px solid #ccc; /* 테두리 색상 */
+    border-radius: 5px; /* 모서리 둥글게 */
+    font-size: 16px; /* 글자 크기 */
+    transition: border 0.3s ease; /* 테두리 효과 */
+}
+
+.OrginputField:focus {
+    border: 1px solid #569AFF; /* 포커스 시 테두리 색상 변경 */
+    outline: none; /* 외곽선 제거 */
+}
+
+.OrgloginButton {
+    width: 87%; /* 버튼 너비 조정 */
+    padding: 12px; /* 패딩 추가 */
+    background-color: #569AFF; /* 버튼 색상 */
+    border: none;
+    border-radius: 5px; /* 모서리 둥글게 */
+    cursor: pointer; /* 마우스 커서 변경 */
+    font-size: 16px; /* 글자 크기 */
+    color: white; /* 글자 색상 */
+    transition: background-color 0.3s ease; /* 배경색 변화 */
+}
+
+.OrgloginButton:hover {
+    background-color: #007bff; /* 호버 시 색상 변경 */
+}

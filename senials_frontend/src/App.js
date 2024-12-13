@@ -37,6 +37,10 @@ import MypageParticipate from "./pages/mypage/MypageParticipate";
 import PartyMeetModify from "./pages/party/PartyMeetModify";
 import PartyReviewModify from "./pages/party/PartyReviewModify";
 import ManageUser from "./pages/admin/ManageUser";
+import Login from "./pages/login/Login";
+import Join from "./pages/login/Join";
+import Success from "./pages/login/Success";
+import KakaoCallBack from "./pages/login/KakaoCallBack";
 
 function App() {
     return (
@@ -45,6 +49,16 @@ function App() {
             <Routes>
                 <Route path='/' element={<Layout />}>
                     <Route index element={<MainPage />} />
+
+                    {/* 로그인 페이지 */}
+                    <Route path="login" element={<Login />} />
+                    <Route path="/login/oauth2/code/kakao" element={<KakaoCallBack />} />
+
+                    {/* 회원가입 페이지 */}
+                    <Route path="join" element={<Join />} />
+                    {/*test 성공페이지*/}
+                    <Route path="success" element={<Success />} />
+
 
                     {/*마이페이지*/}
                     <Route path="user" >
