@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import styles from './Header.module.css'
 import {FaAngleLeft, FaBell, FaSearch} from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
@@ -37,15 +37,33 @@ const Header = () => {
         navigate('/login');
     }
 
+    //키워드 입력 후 페이지 이동
+    const [keyword, setKeyword] = useState('');
+
+    //키워드 읽기
+    const handleInputChange = (e) => {
+        setKeyword(e.target.value);
+    };
+
+    const linkSearch = (e) => {
+        e.preventDefault();  
+        if (keyword.trim()) {
+            navigate(`/search-whole?keyword=${encodeURIComponent(keyword)}`);
+        }else{
+            alert("빈 상태로 검색을 진행할 순 없습니다.")
+        }
+    };
+   
+
     return (
         <>
         <div className={styles.line}></div>
         <div className={styles.header}>
-            <img src='/img/Logo.png' alt='Logo' onClick={()=>linkMain()} />
+            <img src='/img/Logo.png' alt='Logo'/>
             <img src='/img/LogoText.png' alt='Logo Text' onClick={()=>linkMain()}/>
 
-            <form className={styles.searchBox}>
-                <input type="text" placeholder='찾고싶은 모임이나 취미를 검색해보세요!'/>
+            <form className={styles.searchBox} onSubmit={linkSearch}>
+                <input type="text" placeholder='찾고싶은 모임이나 취미를 검색해보세요!' value={keyword}  onChange={handleInputChange}/>
                 <button type="submit" className={styles.searchButton}><FaSearch size={20}/></button>
             </form>
 
