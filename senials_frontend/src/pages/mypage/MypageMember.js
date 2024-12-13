@@ -1,12 +1,20 @@
 import styles from './MypageMember.module.css';
 import common from '../common/Common.module.css';
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {FaAngleLeft, FaBell, FaSearch} from "react-icons/fa";
 import { MdOutlineCheckBoxOutlineBlank, MdCheckBox, MdCheckBoxOutlineBlank } from "react-icons/md";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
+import { partyBoardDetail, setPartyBoardDetail } from '../../redux/partySlice';
+import axios from 'axios';
+
 /*모임 멤버 전체 보기*/
 function MypageMember() {
+
+    const { partyNumber } = useParams();
+
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     /* 이전 페이지로 이동 */
     const handleBack = (event) => {
@@ -14,25 +22,127 @@ function MypageMember() {
         navigate(-1); // 지정된 경로로 이동
     };
 
-    /* 전체 선택 */
-    const [selectAll, setSelectAll] = useState(false); /*전체 선택 상태*/
-    const [checkedItems, setCheckedItems] = useState(new Array(3).fill(false)); /*각 멤버 선택 상태 근데 데이터양에 따라 달라질게 해야함*/
+    const [pageNumber, setPageNumber] = useState(0);
+    const [members, setMembers] = useState([]);
+    const [checked, setChecked] = useState(new Set());
+    const [hasMoreMembers, setHasMoreMembers] = useState(true);
 
-    const handleSelectAll = () => {
-        const newState = !selectAll;
-        setSelectAll(newState);
-        setCheckedItems(checkedItems.map(() => newState));
-    };
+    const partyBoard = useSelector(state => state.partyBoardDetail);
+
+    /* 추방 버튼 클릭 이벤트 */
+
+    useEffect(() => {
+        
+        if(!partyBoard.hasOwnProperty('partyBoardNumber') || partyBoard.partyBoardNumber != partyNumber){
+            axios.get(`/partyboards/${partyNumber}`)
+            .then(response => {
+                let results = response.data.results;
+                
+                let partyBoardDetail = results.partyBoard;
+                partyBoardDetail.partyMaster = results.partyMaster;
+                partyBoardDetail.myReview = results.myReview;
+                partyBoardDetail.isLiked = results.isLiked;
+                partyBoardDetail.isMember = results.isMember;
+                partyBoardDetail.isMaster = results.isMaster;
+                partyBoardDetail.randMembers = results.randMembers;
+    
+                dispatch(setPartyBoardDetail(results.partyBoard));
+            })
+        }
+
+        axios.get(`/partyboards/${partyNumber}/partymembers-page?pageNumber=${pageNumber}`)
+        .then(response => {
+            let results = response.data.results;
+            
+            setMembers(results.partyMembers.map(partyMember => {
+                return {
+                    partyMemberNumber: partyMember.partyMemberNumber
+                    ,meetJoinedCnt: partyMember.meetJoinedCnt
+                    , info: partyMember.user
+                    , isChecked: false
+                }
+            }));
+
+            if(results.partyMembers.length === 0) {
+                setHasMoreMembers(false);
+            }
+        })
+
+    }, [])
+
+
+    const loadMoreMembers = () => {
+
+        axios.get(`/partyboards/${partyNumber}/partymembers-page?pageNumber=${pageNumber + 1}`)
+        .then(response => {
+            let results = response.data.results;
+            
+            setMembers(state => {
+                let added = results.partyMembers.map(partyMember => {
+                    return {
+                        partyMemberNumber: partyMember.partyMemberNumber
+                        ,meetJoinedCnt: partyMember.meetJoinedCnt
+                        , info: partyMember.user
+                        , isChecked: false
+                    }
+                })
+                
+                return [...state, ...added];
+            });
+            
+            setPageNumber(state => state + 1);
+            if(results.partyMembers.length === 0) {
+                setHasMoreMembers(false);
+            }
+        })
+    }
+
+    
     /* 체크 박스 설정 */
     const handleItemClick = (index) => {
-        const newCheckedItems = [...checkedItems];
-        newCheckedItems[index] = !newCheckedItems[index];
-        setCheckedItems(newCheckedItems);
+        setMembers(members => {
+            let copy = [...members];
+            copy[index] = {...copy[index], isChecked: !copy[index].isChecked};
 
-        /*전체선택 새로고침*/
-        const allSelected = newCheckedItems.every(item => item);
-        setSelectAll(allSelected);
+            return copy;
+        });
+
+        setChecked(checked => {
+            let checkedCopy = new Set(checked);
+
+            if(members[index].isChecked) {
+                checkedCopy.delete(members[index].partyMemberNumber);
+            }else {
+                checkedCopy.add(members[index].partyMemberNumber);
+            }
+            
+            return checkedCopy;
+        })
     };
+
+    const kickMember = () => {
+        let jsonData = JSON.stringify([...checked]);
+        
+        axios.put(`/partyboards/${partyNumber}/partymembers`, jsonData, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => {
+            let results = response.data.results;
+
+            setMembers(members => {
+                return members.filter(member => {
+                    return ![...checked].includes(member.partyMemberNumber);
+                });
+            })
+
+            alert(response.data.message);
+        })
+        .catch(err => {
+            alert(err);
+        })
+    }
 
     return (
         <div>
@@ -50,13 +160,13 @@ function MypageMember() {
                 <div className={styles.smallDiv}>
                 <div className={styles.mainDiv}>
                         <div className={styles.bigSearchDiv}>
-                            <div className={styles.flex}>
+                            {/* <div className={styles.flex}>
                                 <div onClick={handleSelectAll} style={{ cursor: "pointer" , margin: "0px"}}>
                                     {selectAll ? <MdCheckBox  size={25}/> : <MdCheckBoxOutlineBlank  size={25}/>}
                                 </div>
                                 <div className={common.secondFont}>전체 선택</div>
-                            </div>
-                            <div className={styles.smallSearchDiv}>
+                            </div> */}
+                            {/* <div className={styles.smallSearchDiv} style={{marginLeft: 'auto'}}>
                                 <div className={`${styles.flexDiv} ${styles.searchDiv}`}>
                                     <select className={styles.selectSort}>
                                         <option value="name">이름순</option>
@@ -69,49 +179,73 @@ function MypageMember() {
                                     <input type="text" placeholder="닉네임 검색" />
                                     <button className={styles.iconDiv}><FaSearch size={20}/></button>
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                     {/* 사용자 프로필 이동 */}
-                    {checkedItems.map((isChecked, index) => (
-                        <Profile
-                            key={index}
-                            isChecked={isChecked}
-                            onClick={() => handleItemClick(index)}
-                        />
-                    ))}
+                    {
+                        members.length !== 0 ?
+                        <>
+                            {
+                                members.map((member, index) => (
+                                    <Profile
+                                        key={index}
+                                        member={member}
+                                        clickEvent={() => {handleItemClick(index)}}
+                                    />
+                                ))
+                            }
+                            <div className={`${styles.flexCenter} ${styles.marginBottom2}`}>
+                                {
+                                    hasMoreMembers ?
+                                        <span className={`${styles.commonBtn}`} onClick={loadMoreMembers}>더보기</span>
+                                    :
+                                    null
+                                }
+                            </div>
+                        </>
+                        :
+                        <div className={`${styles.flexCenter} ${styles.fullWidth} ${styles.marginBottom2}`}>
+                            <span className={`${common.firstFont}`}>참여중인 멤버가 없습니다.</span>
+                        </div>
+                    }
                 </div>
                 {/*본인이 만든 모임일시에만 추방버튼 보이게*/}
                 <div className={styles.lastBtn}>
-                    <button type="submit" className={`${styles.flexDiv} ${common.reportDiv}`}>
-                        추방
-                    </button>
+                    {
+                        partyBoard.isMaster ?
+                        <button className={`${styles.flexDiv} ${common.reportDiv}`} onClick={kickMember}>
+                            추방
+                        </button>
+                        :
+                        null
+                    }
                 </div>
             </div>
         </div>
     );
 }
 
-function Profile({ isChecked, onClick }) {
+function Profile({ member, clickEvent }) {
     return (
         <div className={styles.mainContentsDiv}>
             <div className={styles.smallMainContentsDiv}>
                 <div className={styles.smallMainContentDiv}>
-                    <div onClick={onClick} style={{ cursor: "pointer" }}>
-                        {isChecked ? <MdCheckBox size={25}/> : <MdCheckBoxOutlineBlank size={25}/>}
+                    <div onClick={clickEvent} style={{ cursor: "pointer" }}>
+                        {member.isChecked ? <MdCheckBox size={25}/> : <MdCheckBoxOutlineBlank size={25}/>}
                     </div>
                     <div className={styles.smallContentDiv}>
                         <p className={styles.userProfileDiv}>프로필</p>
                         <div className={styles.bigProfileDiv}>
-                            <h3 className={common.secondFont}>멤버 이름</h3>
+                            <h3 className={common.secondFont}>{member.info.userNickname}</h3>
                             <div className={styles.smallProfileDiv}>
                                 <div className={styles.mainContentDiv}>
                                     <div className={`${common.thirdFont} ${styles.gray}`}>가입일</div>
                                     <div className={`${common.thirdFont} ${styles.gray}`}>일정 참여 횟수</div>
                                 </div>
                                 <div className={styles.mainContentDiv}>
-                                    <div className={`${common.thirdFont} ${styles.gray}`}>YY.MM.DD</div>
-                                    <div className={`${common.thirdFont} ${styles.gray}`}>n회</div>
+                                    <div className={`${common.thirdFont} ${styles.gray}`}>{member.info.userSignupDate}</div>
+                                    <div className={`${common.thirdFont} ${styles.gray}`}>{member.meetJoinedCnt}회</div>
                                 </div>
                             </div>
                         </div>

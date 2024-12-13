@@ -2,6 +2,7 @@ import {configureStore, createSlice} from '@reduxjs/toolkit';
 import {hobbyCard,hobbyDetail,hobbyReview,hobbyTop3Card} from './hobbySlice';
 import { isRemain, cursor, sortMethod, partyKeyword, wholeParties, popularParties, lastestParties, partyBoardDetail, partyBoardDetailMeets, partyBoardDetailReviews, recommParties } from './partySlice.js'
 import { categories, categoriesWithHobbies, hobbiesForWrite } from './categorySlice.js'
+import { partyBoardDetailMembers } from './partyDetailSlice.js';
 
 //example state data
 let user = createSlice({
@@ -41,5 +42,7 @@ export default configureStore({
         , partyBoardDetailMeets: partyBoardDetailMeets.reducer
         , partyBoardDetailReviews: partyBoardDetailReviews.reducer
         , recommParties: recommParties.reducer
+        // 모임 멤버 전체보기
+        , partyBoardDetailMembers: partyBoardDetailMembers.reducer
     }
 })

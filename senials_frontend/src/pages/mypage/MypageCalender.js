@@ -8,7 +8,6 @@ import "react-calendar/dist/Calendar.css"; // 기본 스타일
 import {jwtDecode} from "jwt-decode";
 
 function MypageCalender() {
-    // const [userNumber] = useState(10);
     const [events, setEvents] = useState([]); // 사용자 모임 일정
     const [selectedDate, setSelectedDate] = useState(new Date()); // 선택된 날짜
     /* 사용자 프로필 */

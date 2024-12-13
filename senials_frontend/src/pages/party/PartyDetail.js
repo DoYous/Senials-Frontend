@@ -586,7 +586,7 @@ function Review({review, navigate}) {
             <img className={`${styles.masterProfile}`} src='/image/sampleProfile.png' onClick={() => navigate(`/user/${reviewWriter.userNumber}/profile`)}/>
             <div className={`${styles.reviewContent}`}>
                 <div className={`${styles.flex}`}>
-                    <span className={`${styles.secondFont}`}>{reviewWriter.userName}</span>
+                    <span className={`${styles.secondFont}`}>{reviewWriter.userNickname}</span>
                     <DetailRate reviewRate={review.partyReviewRate} />
                 </div>
                 <span className={`${styles.secondFontNormal}`}>{review.partyReviewDetail}</span>
@@ -674,9 +674,30 @@ function Meet({meet, idx, isMaster, navigate}) {
             </div>
             {/* 일정 버튼 영역 */}
             <div className={`${styles.meetButtons}`}>
-                {
-                    isMaster ?
-                        <span className={`${styles.commonBtn}`}>수정</span>
+            {
+                isMaster ?
+                    <>
+                    <span className={`${styles.importantBtn}`}>수정</span>
+                    <span className={`${styles.commonBtn}`} onClick={() => navigate(`/meet/${meet.meetNumber}/members`)}>참여 멤버</span>
+                    </>
+                : 
+                (
+                    meet.joined ?
+                    (
+                        <>
+                        <span className={`${styles.commonBtn}`} onClick={() => navigate(`/meet/${meet.meetNumber}/members`)}>참여 멤버</span>
+                        {
+                            new Date(openDate.getFullYear(), openDate.getMonth(), openDate.getDate() - 2) > presentDate ? 
+                            <span className={`${styles.importantBtn}`} onClick={quitMeet}>신청 취소</span>
+                            :
+                            <span className={`${styles.uniqueBtn}`} onClick={quitMeet}>신청 취소</span>
+                        }
+                        </>
+                    ) 
+                    : 
+                    (
+                        openDate > presentDate ? 
+                        <span className={`${styles.commonBtn}`} onClick={joinMeet}>신청</span>
                         :
                         (
                             meet.joined ?

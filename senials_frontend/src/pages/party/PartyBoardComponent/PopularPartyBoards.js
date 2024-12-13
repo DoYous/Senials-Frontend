@@ -7,7 +7,7 @@ import { setPopularParties } from "../../../redux/partySlice";
 
 import styles from '../../common/MainVer1.module.css';
 
-function PopularPartyBoards() {
+function PopularPartyBoards({ printAllBtn = false }) {
 
     const navigate = useNavigate();
 
@@ -28,8 +28,14 @@ function PopularPartyBoards() {
         <>
             <div className={styles.separator}>
                 <span className={`${styles.firstFont}`}>
-                    👑&nbsp;<span className={styles.pointColor}>인기</span>&nbsp;추천&nbsp;모임
+                    👑<span className={styles.pointColor}>인기</span>&nbsp;추천&nbsp;모임
                 </span>
+                {
+                    printAllBtn ? 
+                    <span className={`${styles.whiteBtn} ${styles.mlAuto}`} onClick={() => navigate('/party/board')}>전체보기</span>
+                    :
+                    null
+                }
             </div>
             <div className={`${styles.separatorContent}`}>
                 <PopularPartyCard navigate={navigate} />

@@ -3,6 +3,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 // 컴포넌트
 import Layout from './layouts/Layout.js';
 
+import ScrollToTop from './pages/common/ScrollToTop.js'
+
 import MainPage from './pages/mainpage/MainPage.js';
 
 import PartyDetail from './pages/party/PartyDetail.js';
@@ -43,6 +45,7 @@ import KakaoCallBack from "./pages/login/KakaoCallBack";
 function App() {
     return (
         <BrowserRouter>
+            <ScrollToTop />
             <Routes>
                 <Route path='/' element={<Layout />}>
                     <Route index element={<MainPage />} />
@@ -113,20 +116,28 @@ function App() {
                             {/* 모임 수정 */}
                             <Route path='update' element={<PartyUpdate />} />
                         </Route>
+                       
+
                         {/* 모임 작성 */}
                         <Route path='write' element={<PartyWrite />} />
                     </Route>
-
-                    <Route path="meet">
-                        {/*매칭게시판 상세 일정 추가*/}
-                        <Route path="write" element={<PartyMeet />} />
-                        <Route path=":meetNumber">
-                            {/* 모임 일정 수정 */}
-                            <Route path="modify" element={<PartyMeetModify />} />
-                            {/* 모임 일정 멤버 목록 */}
-                            <Route path="members" element={<PartyMember />} />
+                    <Route path="partyboard">
+                    {/*매칭게시판 상세 일정 추가*/}
+                        <Route path=':partyNumber'>
+                            <Route path="write" element={<PartyMeet />} />
+                            <Route path="meets">
+                                <Route path=":meetNumber">
+                                    {/* 모임 일정 수정 */}
+                                    <Route path="modify" element={<PartyMeetModify />} />
+                                    {/* 모임 일정 멤버 목록 */}
+                                    <Route path="members" element={<PartyMember />} />
+                                </Route>
+                            </Route>
                         </Route>
                     </Route>
+
+
+
                 </Route>
                 <Route path="admin">
                     {/*관리자페이지-사용자 관리*/}

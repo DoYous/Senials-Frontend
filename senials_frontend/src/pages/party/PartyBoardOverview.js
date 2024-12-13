@@ -226,7 +226,6 @@ function PartyCard({ navigate }) {
             }
         });
 
-
     }
 
 
