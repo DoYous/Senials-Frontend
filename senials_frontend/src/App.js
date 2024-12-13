@@ -116,20 +116,28 @@ function App() {
                             {/* 모임 수정 */}
                             <Route path='update' element={<PartyUpdate />} />
                         </Route>
+                       
+
                         {/* 모임 작성 */}
                         <Route path='write' element={<PartyWrite />} />
                     </Route>
-
-                    <Route path="meet">
-                        {/*매칭게시판 상세 일정 추가*/}
-                        <Route path="write" element={<PartyMeet />} />
-                        <Route path=":meetNumber">
-                            {/* 모임 일정 수정 */}
-                            <Route path="modify" element={<PartyMeetModify />} />
-                            {/* 모임 일정 멤버 목록 */}
-                            <Route path="members" element={<PartyMember />} />
+                    <Route path="partyboard">
+                    {/*매칭게시판 상세 일정 추가*/}
+                        <Route path=':partyNumber'>
+                            <Route path="write" element={<PartyMeet />} />
+                            <Route path="meets">
+                                <Route path=":meetNumber">
+                                    {/* 모임 일정 수정 */}
+                                    <Route path="modify" element={<PartyMeetModify />} />
+                                    {/* 모임 일정 멤버 목록 */}
+                                    <Route path="members" element={<PartyMember />} />
+                                </Route>
+                            </Route>
                         </Route>
                     </Route>
+
+
+
                 </Route>
                 <Route path="admin">
                     {/*관리자페이지-사용자 관리*/}
