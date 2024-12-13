@@ -4,6 +4,7 @@ import { useNavigate,useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { setHobbyReview } from '../../redux/hobbySlice';
 import { useSelector,useDispatch } from 'react-redux';
+import {jwtDecode} from "jwt-decode";
 
 function HobbyReviewGet() {
     const dispatch=useDispatch();
@@ -21,9 +22,15 @@ function HobbyReviewGet() {
     const [tendency, setTendency] = useState(0);
     const [budget,setBudget]=useState(0)
     const [level, setLevel] = useState(0);
+
   // 기존 데이터 조회
   useEffect(() => {
-    axios.get(`/${hobbyNumber}/hobby-review/${reviewNumber}`)
+      const token = localStorage.getItem("token");
+      axios.get(`/${hobbyNumber}/hobby-review/${reviewNumber}`,{
+          headers: {
+              'Authorization': token // JWT 토큰을 Authorization 헤더에 추가
+          }
+      })
         .then(response => {
             dispatch(setHobbyReview(response.data.results.hobbyReview));
         })
@@ -64,7 +71,12 @@ function HobbyReviewGet() {
     //해당 리뷰 삭제 이벤트
     const linkDeleteReview = async () => {
         try {
-            await axios.delete(`/${hobbyNumber}/hobby-review/${reviewNumber}`);
+            const token = localStorage.getItem("token");
+            await axios.delete(`/${hobbyNumber}/hobby-review/${reviewNumber}`,{
+                headers: {
+                    'Authorization': token // JWT 토큰을 Authorization 헤더에 추가
+                }
+            });
             alert("후기가 삭제되었습니다.");
             navigate(`/hobby-detail/${hobbyNumber}`); // 삭제 후 해당 취미 상세 페이지로 이동
         } catch (error) {

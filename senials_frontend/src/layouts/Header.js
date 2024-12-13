@@ -2,6 +2,7 @@ import React,{useState} from 'react';
 import styles from './Header.module.css'
 import {FaAngleLeft, FaBell, FaSearch} from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
+import {jwtDecode} from "jwt-decode";
 
 const Header = () => {
 
@@ -23,9 +24,19 @@ const Header = () => {
     }
 
     // 마이페이지 이동 이벤트
-    const linkMyPage=(userNumber)=>{
-        navigate(`/user/${userNumber}/meet`);
-    }
+    const linkMyPage = () => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+            alert("로그인이 필요합니다!")
+            navigate('/login'); // 토큰이 없으면 로그인 페이지로 리다이렉트
+            return;
+        }
+
+        const decodedToken = jwtDecode(token); // JWT 디코드
+        const userNumber = decodedToken.userNumber; // userNumber 추출
+
+        navigate(`/user/${userNumber}/meet`); // 마이페이지로 이동
+    };
 
     //모임 목록 페이지 이동 이벤트
     const linkParty=()=>{
@@ -36,6 +47,18 @@ const Header = () => {
     const linkLogin=()=>{
         navigate('/login');
     }
+
+
+    //로그아웃처리
+    const handleLogout = () => {
+        localStorage.removeItem("token"); // 토큰 삭제
+        alert("로그아웃 되었습니다.")
+        navigate('/login'); // 로그인 페이지로 리다이렉트
+    };
+
+    // 토큰 존재 여부 확인
+    const token = localStorage.getItem("token");
+    const isLoggedIn = !!token; // 토큰이 존재하면 true, 아니면 false
 
     //키워드 입력 후 페이지 이동
     const [keyword, setKeyword] = useState('');
@@ -71,7 +94,11 @@ const Header = () => {
             <img src='/img/partyIcon.png' alt='Party Icon' style={{ marginTop: '-5px',marginLeft:'5px', marginRight:'10px'}} onClick={()=>linkParty()}/>
             <img src='/img/hobbyIcon.png' alt='Hobby Icon' style={{ margin: '0 10px'}}  onClick={()=>linkHobby()}/>
             <img src='/img/mypageIcon.png' alt='My Page Icon' style={{ margin: '0 10px',marginRight:'20px'}}  onClick={()=>linkMyPage()}/>
-            <button className={styles.loginButton} onClick={()=>linkLogin()}>로그인</button>
+            {isLoggedIn ? (
+                <button className={styles.loginButton} onClick={handleLogout}>로그아웃</button>
+            ) : (
+                <button className={styles.loginButton} onClick={linkLogin}>로그인</button>
+            )}
         </div>
         </>
     );

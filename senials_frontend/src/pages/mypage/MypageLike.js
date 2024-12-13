@@ -4,9 +4,10 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import styles from './MypageLike.module.css';
 import common from '../common/Common.module.css';
+import {jwtDecode} from "jwt-decode";
 
 function MypageLike() {
-    const [userNumber] = useState(10);
+    // const [userNumber] = useState(10);
     const navigate = useNavigate();
     const [favoritesData, setFavoritesData] = useState([]);
     const [groupedData, setGroupedData] = useState({});
@@ -14,8 +15,17 @@ function MypageLike() {
     /* 관심사 가져오기 */
     useEffect(() => {
         const fetchFavoriteData = async () => {
+
+            const token = localStorage.getItem("token");
+            const decodedToken = jwtDecode(token); // JWT 디코드
+            const userNumber = decodedToken.userNumber; // userNumber 추출
+
             try {
-                const response = await axios.get(`/users/${userNumber}/favoritesAll`);
+                const response = await axios.get(`/users/${userNumber}/favoritesAll`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}` // Authorization 헤더 추가
+                    }
+                });
                 const data = response.data;
 
                 // 데이터 가공: 카테고리별로 그룹화
@@ -36,12 +46,19 @@ function MypageLike() {
 
     /* 관심사 저장 */
     const handleSave = async () => {
+        const token = localStorage.getItem("token");
+        const decodedToken = jwtDecode(token); // JWT 디코드
+        const userNumber = decodedToken.userNumber; // userNumber 추출
         try {
             const updatedFavorites = Object.values(groupedData)
                 .flat()
                 .filter(item => item.favorite) // 선택된 관심사만 필터링
                 .map(item => item.hobbyNumber); // 관심사 번호 추출
-            await axios.put(`/users/${userNumber}/favorites`, updatedFavorites);
+            await axios.put(`/users/${userNumber}/favorites`, updatedFavorites, {
+                headers: {
+                    'Authorization': `Bearer ${token}` // Authorization 헤더 추가
+                }
+            });
             alert("저장 성공");
         } catch (error) {
             console.error("에러:", error);

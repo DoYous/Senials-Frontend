@@ -5,6 +5,7 @@ import main from '../common/MainVer1.module.css';
 import { FaAngleLeft } from "react-icons/fa";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
+import {jwtDecode} from "jwt-decode";
 
 function MypageLikedParty({ userNumber }) {
     const [likedParties, setLikedParties] = useState([]);
@@ -16,9 +17,16 @@ function MypageLikedParty({ userNumber }) {
 
     // 좋아요한 모임 데이터 가져오기
     useEffect(() => {
-        const userNumber = 1; //임시용
-            /* 테스트용 */
-            axios.get(`/users/${userNumber}/likes`).then((data)=>{console.log(data)});
+        const token = localStorage.getItem("token");
+        if (!token) {
+            alert("로그인이 필요합니다!")
+            navigate('/login'); // 토큰이 없으면 로그인 페이지로 리다이렉트
+            return;
+        }
+
+        const decodedToken = jwtDecode(token); // JWT 디코드
+        const userNumber = decodedToken.userNumber; // userNumber 추출
+
         const fetchLikedParties = async () => {
 
             try {
@@ -27,6 +35,9 @@ function MypageLikedParty({ userNumber }) {
                         page: 1,
                         size: 9,
                     },
+                    headers: {
+                        'Authorization': `Bearer ${token}` // Authorization 헤더 추가
+                    }
                 });
                 setLikedParties(response.data.results.likesParties);
             } catch (err) {

@@ -8,6 +8,8 @@ function Login() {
     const navigate = useNavigate();
     const [userName, setUserName] = useState('');
     const [userPwd, setUserPwd] = useState('');
+    const [isLoading, setIsLoading] = useState(false); // 로딩 상태 추가
+    const [errorMessage, setErrorMessage] = useState('');
 
     const linkSignup = () => {
         navigate('/join');
@@ -27,9 +29,9 @@ function Login() {
         }
     };
 
-    const [errorMessage, setErrorMessage] = useState('');
     const handleLogin = async () => {
         setErrorMessage('');
+        setIsLoading(true); // 로딩 시작
         try {
             const response = await axios.post('/login', {
                 userName,
@@ -41,9 +43,14 @@ function Login() {
             const token = response.data.token; // 서버에서 받은 JWT
             localStorage.setItem("token", token); // JWT를 로컬 스토리지에 저장
 
-            navigate('/success'); // 성공 페이지로 리다이렉트
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            const redirectPath = urlParams.get('redirect') || '/'; // 쿼리 파라미터에서 redirect 경로를 가져오고, 없으면 '/'로 설정
+
+            navigate(redirectPath); // 이전 페이지로 리다이렉트
         } catch (error) {
             if (error.response) {
+                alert("없는 사용자이거나 아이디나 비밀번호가 틀렸습니다.")
                 console.error('서버 응답 실패:', error.response.data);
                 setErrorMessage(error.response.data.message || '로그인 실패');
             } else if (error.request) {
@@ -51,6 +58,8 @@ function Login() {
             } else {
                 console.error('설정 중 오류 발생:', error.message);
             }
+        } finally {
+            setIsLoading(false); // 로딩 종료
         }
     };
 
@@ -85,9 +94,14 @@ function Login() {
                     onChange={(e) => setUserPwd(e.target.value)}
                     className={styles.OrginputField}
                 />
-                <button className={styles.OrgloginButton} onClick={handleLogin}>
-                    확인
+                <button
+                    className={styles.OrgloginButton}
+                    onClick={handleLogin}
+                    disabled={isLoading} // 로딩 중에는 클릭 비활성화
+                >
+                    {isLoading ? '로그인 중...' : '확인'} {/* 로딩 중일 때 텍스트 변경 */}
                 </button>
+                {/*{errorMessage && <div className={styles.errorMessage}>{errorMessage}</div>} /!* 에러 메시지 표시 *!/*/}
             </div>
             <div className={styles.kakaoimageWrapper}>
                 <img className={styles.kakaobt} src={'/image/kakaologinbt.png'} alt="카카오 로그인" onClick={handleKakaoLogin} />

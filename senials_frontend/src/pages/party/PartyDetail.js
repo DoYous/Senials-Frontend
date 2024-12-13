@@ -50,8 +50,12 @@ function PartyDetail() {
 
 
     useEffect(() => {
-        
-        axios.get(`/partyboards/${partyNumber}`)
+        const token = localStorage.getItem("token");
+        axios.get(`/partyboards/${partyNumber}`, {
+            headers: {
+                'Authorization': token // JWT 토큰을 Authorization 헤더에 추가
+            }
+        })
         .then(response => {
             let results = response.data.results;
             
@@ -66,15 +70,27 @@ function PartyDetail() {
             dispatch(setPartyBoardDetail(results.partyBoard));
         })
         // 일정 정보
-        axios.get(`/partyboards/${partyNumber}/meets`)
+
+        axios.get(`/partyboards/${partyNumber}/meets`, {
+            headers: {
+                'Authorization': token // JWT 토큰을 Authorization 헤더에 추가
+            }
+        })
         .then(response => {
             let results = response.data.results;
 
             dispatch(setMeets(results.meets));
             dispatch(setHasMoreMeets(results.hasMore));
         })
+        .catch(error => {
+            console.error("74줄 오류:", error.response ? error.response.data : error.message);
+        })
         // 후기 정보
-        axios.get(`/partyboards/${partyNumber}/partyreviews`)
+        axios.get(`/partyboards/${partyNumber}/partyreviews`,{
+            headers: {
+                'Authorization': token // JWT 토큰을 Authorization 헤더에 추가
+            }
+        })
         .then(response => {
             let results = response.data.results
 
@@ -86,7 +102,11 @@ function PartyDetail() {
         })
 
         // 취미 기반 추천 정보
-        axios.get(`/partyboards/recommended-parties?&partyBoardNumber=${partyNumber}`)
+        axios.get(`/partyboards/recommended-parties?&partyBoardNumber=${partyNumber}`, {
+            headers: {
+                'Authorization': token // JWT 토큰을 Authorization 헤더에 추가
+            }
+        })
         .then(result => {
             let results = result.data.results;
 
@@ -584,29 +604,29 @@ function Meet({meet, idx, isMaster, navigate}) {
     let presentDate = new Date(tempPresent.getFullYear(), tempPresent.getMonth(), tempPresent.getDate());
     let openDate = new Date(tempOpen.getFullYear(), tempOpen.getMonth(), tempOpen.getDate());
 
-    
+
     let openDateArr = meet.meetStartDate.split('-');
     let startTime = meet.meetStartTime.substring(0, meet.meetStartTime.lastIndexOf(':'));
     let finishTime = meet.meetFinishTime.substring(0, meet.meetFinishTime.lastIndexOf(':'));
 
     const joinMeet = () => {
         axios.post(`/meets/${meet.meetNumber}/meetmembers`)
-        .then(response => {
-            dispatch(toggleMeetJoined({"idx" : idx, "isJoined" : true}))
-        })
-        .catch(err => {
-            alert(err.response.data.message);
-        })
+            .then(response => {
+                dispatch(toggleMeetJoined({"idx" : idx, "isJoined" : true}))
+            })
+            .catch(err => {
+                alert(err.response.data.message);
+            })
     }
 
     const quitMeet = () => {
         axios.delete(`/meets/${meet.meetNumber}/meetmembers`)
-        .then(() => {
-            dispatch(toggleMeetJoined({"idx" : idx, "isJoined" : false}));
-        })
-        .catch(err => {
-            alert(err.response.data.message);
-        })
+            .then(() => {
+                dispatch(toggleMeetJoined({"idx" : idx, "isJoined" : false}));
+            })
+            .catch(err => {
+                alert(err.response.data.message);
+            })
     }
 
 
@@ -679,10 +699,28 @@ function Meet({meet, idx, isMaster, navigate}) {
                         openDate > presentDate ? 
                         <span className={`${styles.commonBtn}`} onClick={joinMeet}>신청</span>
                         :
-                        <span className={`${styles.uniqueBtn}`} onClick={joinMeet}>신청</span>
-                    )
-                )
-            }
+                        (
+                            meet.joined ?
+                                (
+                                    <>
+                                        <span className={`${styles.commonBtn}`} onClick={() => navigate(`/meet/${meet.number}/members`)}>참여 멤버</span>
+                                        {
+                                            new Date(openDate.getFullYear(), openDate.getMonth(), openDate.getDate() - 2) > presentDate ?
+                                                <span className={`${styles.importantBtn}`} onClick={quitMeet}>신청 취소</span>
+                                                :
+                                                <span className={`${styles.uniqueBtn}`} onClick={quitMeet}>신청 취소</span>
+                                        }
+                                    </>
+                                )
+                                :
+                                (
+                                    openDate > presentDate ?
+                                        <span className={`${styles.commonBtn}`} onClick={joinMeet}>신청</span>
+                                        :
+                                        <span className={`${styles.uniqueBtn}`} onClick={joinMeet}>신청</span>
+                                )
+                        )
+                }
 
             </div>
         </div>
