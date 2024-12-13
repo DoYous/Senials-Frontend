@@ -10,9 +10,6 @@ import { setHobbyDetail,setHobbyReview} from '../../redux/hobbySlice';
 import { useParams } from 'react-router-dom';
 import {jwtDecode} from 'jwt-decode';
 
-const token = localStorage.getItem("token");
-const decodedToken = jwtDecode(token); // JWT 디코드
-const userNumber = decodedToken.userNumber;
 
 function HobbyDetailPost() {
 
@@ -25,11 +22,22 @@ function HobbyDetailPost() {
     const hobbyReviewList=useSelector((state)=>state.hobbyReview);
 
     const [sortOption, setSortOption] = useState('newest'); // 정렬 옵션: 'newest', 'highRate', 'lowRate'
+    const [userNumber, setUserNumber] = useState(null);
 
     useEffect(() => {
         const token = localStorage.getItem("token");
+
         if (!token) {
             navigate('/login'); // 토큰이 없으면 로그인 페이지로 리다이렉트
+            return;
+        }
+
+        try {
+            const decodedToken = jwtDecode(token); // JWT 디코드
+            setUserNumber(decodedToken.userNumber); // userNumber 설정
+        } catch (error) {
+            console.error('Invalid token:', error);
+            navigate('/login'); // 잘못된 토큰이면 로그인 페이지로 리다이렉트
             return;
         }
 
@@ -37,21 +45,31 @@ function HobbyDetailPost() {
             axios.get(`/hobby-detail/${hobbyNumber}`)
                 .then((response) => {
                     if (response.data && response.data.results) {
-                        // 취미 상세 불러오기
                         dispatch(setHobbyDetail(response.data.results.hobby));
-                        // 취미 후기들 불러오기
                         dispatch(setHobbyReview(response.data.results.hobbyReview));
                     } else {
                         console.error('Invalid response structure:', response.data);
                     }
                 })
                 .catch((error) => {
-                    console.error('Error fetching hobby detail:', error.response ? error.response.data : error.message);
+                    // 오류 처리 부분
+                    if (error.response) {
+                        // 서버가 응답했지만 상태 코드가 2xx가 아닌 경우
+                        console.error('Error response data:', error.response.data);
+                        console.error('Error response status:', error.response.status);
+                    } else if (error.request) {
+                        // 요청이 이루어졌지만 응답을 받지 못한 경우
+                        console.error('Error request:', error.request);
+                    } else {
+                        // 오류를 발생시킨 요청 설정 중에 문제가 발생한 경우
+                        console.error('Error message:', error.message);
+                    }
                 });
         } else {
             console.error('Invalid hobbyNumber:', hobbyNumber);
         }
-    }, [dispatch, hobbyNumber]);
+    }, [dispatch, hobbyNumber, navigate]);
+
 
 
     //정렬 방식
@@ -76,6 +94,7 @@ function HobbyDetailPost() {
 
     //작성된 후기 수정 페이지 이동 이벤트
     const linkHobbyReviewModify=(reviewNumber,hobbyNumber)=>{
+        // alert("userNumber는 : " + userNumber)
         navigate(`/hobby-review-modify?review=${reviewNumber}&hobbyNumber=${hobbyNumber}`);
     }
 
@@ -176,16 +195,16 @@ function HobbyDetailPost() {
                         <option value="lowRate">낮은별점순</option>
                     </select>
                 </div>  
-            </div>       
+            </div>
             {sortedReviews.map((item, index) => (
-                <HobbyReview key={index} review={item} linkHobbyReviewModify={linkHobbyReviewModify} />
+                <HobbyReview key={index} review={item} linkHobbyReviewModify={linkHobbyReviewModify} userNumber={userNumber} />
             ))}
             </div>
         </>
     );
 }
 
-function HobbyReview({ review, linkHobbyReviewModify }) {
+function HobbyReview({ review, linkHobbyReviewModify, userNumber }) {
     return (
         <div className={styles.hobbyReview}>
             <div className={styles.hobbyReviewDetail}>
@@ -205,10 +224,10 @@ function HobbyReview({ review, linkHobbyReviewModify }) {
                     <img src='/img/sampleImg4.png' className={styles.reviewImg} alt="후기" />
                     <img src='/img/sampleImg4.png' className={styles.reviewImg} alt="후기" />
                 </div>
-                {userNumber===review.userNumber&&(
-                <button className={styles.updateReviewButton} onClick={() => linkHobbyReviewModify(review.hobbyReviewNumber,review.hobbyNumber)}>
-                    수정
-                </button>
+                {userNumber === review.userNumber && (
+                    <button className={styles.updateReviewButton} onClick={() => linkHobbyReviewModify(review.hobbyReviewNumber, review.hobbyNumber)}>
+                        수정
+                    </button>
                 )}
             </div>
         </div>
