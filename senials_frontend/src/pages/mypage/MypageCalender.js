@@ -1,13 +1,17 @@
 import styles from './MypageCalender.module.css';
 import common from '../common/Common.module.css';
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import Calendar from "react-calendar"; // 캘린더 컴포넌트
 import "react-calendar/dist/Calendar.css"; // 기본 스타일
 import {jwtDecode} from "jwt-decode";
+import api from '../common/tokenApi';
 
 function MypageCalender() {
+
+    const { userNumber } = useParams();
+
     const [events, setEvents] = useState([]); // 사용자 모임 일정
     const [selectedDate, setSelectedDate] = useState(new Date()); // 선택된 날짜
     /* 사용자 프로필 */
@@ -117,6 +121,7 @@ function MypageCalender() {
         fetchUserData();
     }, []);
 
+
     // 좋아한 모임 개수 가져오기
     const fetchLikedPartyCount = async () => {
         try {
@@ -130,7 +135,7 @@ function MypageCalender() {
             const userNumber = decodedToken.userNumber; // userNumber 추출
             console.log("fetchLikedPartyCount 유저 확인", userNumber)
 
-            const likedCountResponse = await axios.get(`/users/${userNumber}/like/count`);
+            const likedCountResponse = await api.get(`/users/${userNumber}/like/count`);
             if (likedCountResponse.data && likedCountResponse.data.results) {
                 setLikedPartyCount(likedCountResponse.data.results.likesPartyCount);
             } else {
@@ -140,6 +145,7 @@ function MypageCalender() {
             console.error("좋아한 모임 개수 가져오기 에러:", error.response ? error.response.data : error.message);
         }
     };
+
 
     // 사용자 모임 일정 가져오기
     useEffect(() => {
@@ -288,8 +294,10 @@ function MypageCalender() {
             alert("회원 탈퇴 중 문제가 발생했습니다. 다시 시도해주세요.");
         }
     };
+    
+
     // 프로필 사진
-    const fetchUserProfileImage = async () => {
+/*     const fetchUserProfileImage = async () => {
         const token = localStorage.getItem("token");
         if (!token) {
             alert("로그인이 필요합니다!");
@@ -315,12 +323,13 @@ function MypageCalender() {
             return '/img/defaultProfile.png'; // 오류가 발생하면 기본 이미지로 설정
         }
     };
+ */
 
 // 컴포넌트 내에서 호출
-    useEffect(() => {
+    /* useEffect(() => {
         const imgSrc = fetchUserProfileImage();
         // imgSrc를 상태로 설정하거나 다른 방식으로 사용
-    }, []);
+    }, []); */
 
     const handleFavoritesClick = () => {
         const token = localStorage.getItem("token");
@@ -417,19 +426,11 @@ function MypageCalender() {
     return (
         <div className={styles.bigDiv}>
             {/* 프로필 사진 */}
-            <img src={imgSrc} className={styles.profile} alt="User Profile" />
+            <img src={`/img/userProfile/${userNumber}`} className={styles.profile} alt="User Profile" />
             <div className={styles.smallDiv}>
                 <div className={styles.mainDiv}>
-                    <input
-                        className={common.firstFont}
-                        value={nickname}
-                        onChange={(e) => setNickname(e.target.value)}
-                    />
-                    <textarea
-                        className={`${styles.oneLine} ${common.secondFont}`}
-                        value={detail || ""}
-                        onChange={(e) => setDetail(e.target.value)}
-                    />
+                    <span className={common.firstFont}>{nickname}</span>
+                    <span className={`${styles.oneLine} ${common.secondFont}`}>{detail}</span>
                 </div>
                 <div className={styles.hashDiv}>
                     <div className={styles.hash}>

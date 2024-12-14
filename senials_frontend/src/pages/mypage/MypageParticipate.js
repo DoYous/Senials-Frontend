@@ -6,6 +6,7 @@ import main from "../common/MainVer1.module.css";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import {jwtDecode} from "jwt-decode";
+import api from '../common/tokenApi';
 
 function MypageParticipate({userNumber}) {
     /* 예비 데이터 */
@@ -65,7 +66,7 @@ function MypageParticipate({userNumber}) {
 
     /* 후기 페이지 이동 */
     const handleReview = (partyNumber) => {
-        navigate(`/party/${partyNumber}/review-write`);
+        navigate(`/party/${partyNumber}/partyreviews`);
     };
 
     if (loading) {
@@ -74,6 +75,24 @@ function MypageParticipate({userNumber}) {
 
     if (error) {
         return <div className={common.error}>{error}</div>;
+    }
+
+    const quitParty = (partyNumber, idx) => {
+
+        api.delete(`/partyboards/${partyNumber}/partymembers`)
+        .then(result => {
+            let results = result.data.results;
+
+            setParticipateParties(state => {
+                let copy = [...state];
+                copy.splice(idx, 1);
+                return copy;
+            })
+
+        })
+        .catch(err => {
+            alert(err.response.data.message);
+        })
     }
 
     return (
@@ -93,7 +112,7 @@ function MypageParticipate({userNumber}) {
 
                     <div className={styles.mainDiv}>
                         <div className={styles.cardGrid}>
-                            {participateParties.map((party) => (
+                            {participateParties.map((party, idx) => (
                                 <PartyCard
                                     key={party.partyBoardNumber}
                                     title={party.partyBoardName}
@@ -101,9 +120,19 @@ function MypageParticipate({userNumber}) {
                                     party={party}
                                     linkParty={linkParty}
                                     handleReview={handleReview}
+                                    quitParty={quitParty}
+                                    idx={idx}
                                 />
                             ))}
                         </div>
+                        {
+                            participateParties.length == 0 ?
+                            <div className={`${common.firstFont}`} style={{display: 'flex', justifyContent: 'center', color: '#999999'}}>
+                                <span className={`${common.noSearchResult}`}>참여 중인 모임이 없습니다.</span>
+                            </div>
+                            :
+                            null
+                        }
                     </div>
                 </div>
                 </div>
@@ -112,7 +141,7 @@ function MypageParticipate({userNumber}) {
     );
 }
 
-function PartyCard({ title, status, party, linkParty,handleReview }) {
+function PartyCard({ title, status, party, linkParty, handleReview, quitParty, idx }) {
     // 모집 상태에 따라 클래스 설정
     const cardClass = party.partyBoardStatus === 1
         ? `${main.thirdFont} ${main.closedParty}`
@@ -143,7 +172,7 @@ function PartyCard({ title, status, party, linkParty,handleReview }) {
                 <span className={cardClass}>{status}</span>
             </div>
             <div className={styles.btnDiv}>
-                <button className={`${styles.outBtn} ${main.thirdFont}`}>탈퇴</button>
+                <button className={`${styles.outBtn} ${main.thirdFont}`} onClick={() => quitParty(party.partyBoardNumber, idx)}>탈퇴</button>
             <button className={styles.commonBtn2} onClick={() => handleReview(party.partyBoardNumber)}>후기 작성</button>
         </div>
 </div>

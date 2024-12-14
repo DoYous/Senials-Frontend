@@ -2,10 +2,12 @@ import styles from './MypageCalender.module.css';
 import React, { useState, useEffect } from "react";
 import common from "../common/Common.module.css";
 import axios from "axios";
+import api from '../common/tokenApi';
+import { useParams } from 'react-router-dom';
 {/*사용자 프로필(남보기용)*/}
 
 function Mypage() {
-    const [userNumber] = useState(10);
+    const { userNumber } = useParams();
 
     /* 사용자 프로필 */
     const [nickname, setNickname] = useState("");

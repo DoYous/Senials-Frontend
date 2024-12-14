@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import styles from "./PartyReview.module.css";
 import common from "../common/Common.module.css";
+import api from "../common/tokenApi";
 
 function PartyReview() {
   const navigate = useNavigate();
@@ -38,9 +39,15 @@ function PartyReview() {
     };
 
     try {
-      const response = await axios.post(
+      let jsonData = JSON.stringify(partyReviewData);
+      const response = await api.post(
         `/partyboards/${partyNumber}/partyreviews`,
-        partyReviewData
+        jsonData,
+        {
+          headers: {
+            "Content-Type": 'application/json'
+          }
+        }
       );
       if (response.status === 200) {
         alert("제출되었습니다!");
@@ -55,7 +62,7 @@ function PartyReview() {
   return (
     <div className={styles.bigDiv}>
       <div className={styles.smallDiv}>
-        <form className={styles.formDiv} onSubmit={handleSubmit}>
+        <div className={styles.formDiv}>
           <h1 className={`${styles.nameflexDiv} ${common.firstFont}`}>
             <div className={styles.pink}>후기</div>를 작성해주세요!
           </h1>
@@ -123,7 +130,8 @@ function PartyReview() {
                   취소
                 </button>
                 <button
-                  type="submit"
+                  type="button"
+                  onClick={handleSubmit}
                   className={`${styles.importantBtn} ${styles.marginLeft}`}
                 >
                   제출
@@ -131,7 +139,7 @@ function PartyReview() {
               </div>
             </div>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   );

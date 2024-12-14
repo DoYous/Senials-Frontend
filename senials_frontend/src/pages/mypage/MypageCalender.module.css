@@ -61,13 +61,14 @@ font-family: 'Pretendard', sans-serif;}
 
 .profile {
     object-fit: cover;
-    border: 1px solid;
+    border: 1px solid #999999;
     border-radius: 50%;
     width: 200px;
     height: 200px;
     position: relative; /* 위치를 상대적으로 변경 */
     top: +80px; /* smallDiv 상단에 반만 걸치도록 설정 */
     z-index: 1; /* 다른 요소 위로 표시되도록 설정 */
+    background-color: white;
 }
 
 /*해시태그*/

@@ -134,7 +134,8 @@ font-size: 18px;}
 .mainContentDiv{display: flex;
     flex-direction: column;
     margin-left: 60px;}
-.userProfileDiv{    border: 1px solid;
+.userProfileDiv{    
+    border: 1px solid #999999;
     border-radius: 50%;
     width: 90px;
     height: 90px;

@@ -120,7 +120,7 @@ margin-bottom: 0px;}
     flex-direction: row;
     align-items: center;}
 .profile{    width: 60px;
-    border: 1px solid;
+    border: 1px solid #999999;
     border-radius: 50%;
     height: 60px;
     margin-right: 20px;

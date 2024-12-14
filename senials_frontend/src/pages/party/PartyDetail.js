@@ -105,7 +105,7 @@ function PartyDetail() {
 
     const clickLike = () => {
 
-        axios.put(`/likes/partyBoards/${partyNumber}`)
+        api.put(`/likes/partyBoards/${partyNumber}`)
         .then(result => {
             let results = result.data.results;
 
@@ -121,7 +121,7 @@ function PartyDetail() {
 
     const joinParty = () => {
 
-        axios.post(`/partyboards/${partyNumber}/partymembers`)
+        api.post(`/partyboards/${partyNumber}/partymembers`)
         .then(result => {
             let results = result.data.results;
 
@@ -133,6 +133,10 @@ function PartyDetail() {
                 alert(result.message);
             }
         })
+        .catch(err => {
+            alert(err.response.data.message);
+        })
+
     }
 
     const quitParty = () => {
@@ -301,7 +305,12 @@ function PartyDetail() {
                         <span className={`${styles.secondFont}`}>
                             내가 작성한 후기
                         </span>
-                        <span className={`${styles.commonBtn} ${styles.mlAuto}`} onClick={() => navigate(`/party/${partyNumber}/partyreviews/${partyBoard.myReview.partyReviewNumber}`)}>수정</span>
+                        {
+                            partyBoard.isMember ?
+                            <span className={`${styles.commonBtn} ${styles.mlAuto}`} onClick={() => navigate(`/party/${partyNumber}/partyreviews/${partyBoard.myReview.partyReviewNumber}`)}>수정</span>
+                            :
+                            null
+                        }
                     </div>
                     <Review review={partyBoard.myReview} navigate={navigate}/>
                     <hr />
@@ -352,7 +361,12 @@ function PartyDetail() {
                 <span className={`${styles.secondFont} ${styles.marginRight}`}>
                     멤버&nbsp;&nbsp;{partyBoard.partyMemberCnt}
                 </span>
-                <span className={`${styles.whiteBtn} ${styles.mlAuto}`} onClick={() => navigate('members')}>전체보기</span>
+                {
+                    partyBoard.isMember || partyBoard.isMaster ?
+                    <span className={`${styles.whiteBtn} ${styles.mlAuto}`} onClick={() => navigate('members')}>전체보기</span>
+                    :
+                    null
+                }
             </div>
             {
                 partyBoard.randMembers.length != 0 ?
@@ -462,7 +476,7 @@ function Member({ navigate, member }) {
 
     return (
         <div className={`${styles.memberContainer}`}>
-            <img className={`${styles.masterProfile}`} src='/image/sampleProfile.png' onClick={() => navigate(`/user/${member.userNumber}/profile`)} />
+            <img className={`${styles.masterProfile}`} src={`/img/userProfile/${member.userNumber}`} onClick={() => navigate(`/user/${member.userNumber}/profile`)} />
             <div className={`${styles.memberContent}`}>
                 <span className={`${styles.secondFont}`}>{member.userNickname}</span>
                 <span className={`${styles.secondFont}`} style={{color: '#999999'}}>
@@ -576,7 +590,7 @@ function Review({review, navigate}) {
 
     return (
         <div className={`${styles.reviewContainer}`}>
-            <img className={`${styles.masterProfile}`} src='/image/sampleProfile.png' onClick={() => navigate(`/user/${reviewWriter.userNumber}/profile`)}/>
+            <img className={`${styles.masterProfile}`} src={`/img/userProfile/${reviewWriter.userNumber}`} onClick={() => navigate(`/user/${reviewWriter.userNumber}/profile`)}/>
             <div className={`${styles.reviewContent}`}>
                 <div className={`${styles.flex}`}>
                     <span className={`${styles.secondFont}`}>{reviewWriter.userNickname}</span>
@@ -603,7 +617,7 @@ function Meet({meet, idx, isMaster, navigate}) {
     let finishTime = meet.meetFinishTime.substring(0, meet.meetFinishTime.lastIndexOf(':'));
 
     const joinMeet = () => {
-        axios.post(`/meets/${meet.meetNumber}/meetmembers`)
+        api.post(`/meets/${meet.meetNumber}/meetmembers`)
             .then(response => {
                 dispatch(toggleMeetJoined({"idx" : idx, "isJoined" : true}))
             })
@@ -613,7 +627,7 @@ function Meet({meet, idx, isMaster, navigate}) {
     }
 
     const quitMeet = () => {
-        axios.delete(`/meets/${meet.meetNumber}/meetmembers`)
+        api.delete(`/meets/${meet.meetNumber}/meetmembers`)
             .then(() => {
                 dispatch(toggleMeetJoined({"idx" : idx, "isJoined" : false}));
             })
