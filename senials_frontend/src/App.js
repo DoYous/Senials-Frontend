@@ -42,6 +42,9 @@ import Join from "./pages/login/Join";
 import Success from "./pages/login/Success";
 import KakaoCallBack from "./pages/login/KakaoCallBack";
 
+import Suggestion from './pages/admin/Suggestion.js';
+import Report from './pages/admin/Report.js';
+
 function App() {
     return (
         <BrowserRouter>
@@ -58,6 +61,9 @@ function App() {
                     <Route path="join" element={<Join />} />
                     {/*test 성공페이지*/}
                     <Route path="success" element={<Success />} />
+
+                    {/* 신고하기 */}
+                    <Route path="report" element={<Report />} />
 
 
                     {/*마이페이지*/}
@@ -98,7 +104,9 @@ function App() {
                     <Route path="/hobby-review" element={<HobbyReview/>}/>
                     {/*취미 게시판 후기 수정 */}
                     <Route path="/hobby-review-modify" element={<HobbyReviewModify/>}/>
-                      
+                    {/* 취미 게시판 건의의 */}
+                    <Route path="suggestion" element={<Suggestion/>}/>
+
                     <Route path='party'>
                         {/* 모임목록 */}
                         <Route path='board' element={<PartyBoard />} />
