@@ -1,7 +1,7 @@
 import React,{useState, useEffect} from 'react';
 import styles from './HobbyBoard.module.css';
 import {FaAngleLeft, FaBell, FaSearch} from "react-icons/fa";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
 import axios from 'axios';
 import { setHobbyCard,setHobbyTop3Card } from '../../redux/hobbySlice';
@@ -10,6 +10,10 @@ function HobbyBoardPost() {
 
     const dispatch=useDispatch();
     const navigate = useNavigate();
+    const location = useLocation();
+
+    const queryParams = new URLSearchParams(location.search);
+    const category = queryParams.get('category');
 
     const hobbyList=useSelector((state)=>state.hobbyList);
     const top3List=useSelector((state=>state.hobbyTop3List));
@@ -20,12 +24,22 @@ function HobbyBoardPost() {
 
     useEffect(() => {
         //취미 전체 조회
-        axios.get('/hobby-board')
-            .then((response) => {
-                dispatch(setHobbyCard(response.data.results.hobby));
-            })
-            .catch((error) => console.error(error));
+        if(category!=null){
+            axios.get(`/hobby-board/${category}`)
+                .then((response) => {
+                    
+                    dispatch(setHobbyCard(response.data.results.hobby));
+                })
+                .catch((error) => console.error(error));
+        }else{
+            axios.get('/hobby-board')
+                .then((response) => {
+                    
+                    dispatch(setHobbyCard(response.data.results.hobby));
+                })
+                .catch((error) => console.error(error));
 
+        }
         //취미 top3 조회
         axios.get('/hobby-board/top3')
         .then((response) => {
