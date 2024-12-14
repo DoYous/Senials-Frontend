@@ -43,7 +43,7 @@ import Success from "./pages/login/Success";
 import KakaoCallBack from "./pages/login/KakaoCallBack";
 
 import Suggestion from './pages/admin/Suggestion.js';
-import Report from './pages/admin/Report.js';
+// import Report from './pages/admin/Report.js';
 
 function App() {
     return (
@@ -63,7 +63,7 @@ function App() {
                     <Route path="success" element={<Success />} />
 
                     {/* 신고하기 */}
-                    <Route path="report" element={<Report />} />
+                    {/* <Route path="report" element={<Report />} /> */}
 
 
                     {/*마이페이지*/}
