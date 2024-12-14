@@ -100,6 +100,8 @@ function App() {
                     <Route path="/hobby-review-modify" element={<HobbyReviewModify/>}/>
                       
                     <Route path='party'>
+                        {/* 모임 작성 */}
+                        <Route index element={<PartyWrite />} />
                         {/* 모임목록 */}
                         <Route path='board' element={<PartyBoard />} />
                         {/* 모임목록 전체보기 */}
@@ -111,29 +113,23 @@ function App() {
                             <Route path="partyreviews" element={<PartyReview />} />
                             {/* 모임후기 수정 */}
                             <Route path="partyreviews/:partyReviewNumber" element={<PartyReviewModify />} />
-                            {/* 모임 멤버 전체보기*/}
-                            <Route path="members" element={<MypageMember />} />
-                            {/* 모임 수정 */}
-                            <Route path='update' element={<PartyUpdate />} />
-                        </Route>
-                       
 
-                        {/* 모임 작성 */}
-                        <Route path='write' element={<PartyWrite />} />
-                    </Route>
-                    <Route path="partyboard">
-                    {/*매칭게시판 상세 일정 추가*/}
-                        <Route path=':partyNumber'>
-                            <Route path="write" element={<PartyMeet />} />
                             <Route path="meets">
+                                <Route index element={<PartyMeet />} />
                                 <Route path=":meetNumber">
                                     {/* 모임 일정 수정 */}
-                                    <Route path="modify" element={<PartyMeetModify />} />
+                                    <Route index element={<PartyMeetModify />} />
                                     {/* 모임 일정 멤버 목록 */}
                                     <Route path="members" element={<PartyMember />} />
                                 </Route>
                             </Route>
+                            {/* 모임 수정 */}
+                            <Route path='update' element={<PartyUpdate />} />
+                            {/* 모임 멤버 전체보기*/}
+                            <Route path="members" element={<MypageMember />} />
                         </Route>
+                       
+
                     </Route>
 
 

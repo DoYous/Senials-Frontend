@@ -273,7 +273,7 @@ function PartyDetail() {
                 </span>
                 {
                     partyBoard.isMaster ?
-                    <span className={`${styles.commonBtn} ${styles.mlAuto}`} onClick={() => navigate(`/meet/write?partyNumber=${partyNumber}`)}>
+                    <span className={`${styles.commonBtn} ${styles.mlAuto}`} onClick={() => navigate(`meets`)}>
                         일정 추가
                     </span>
                     :
@@ -325,7 +325,7 @@ function PartyDetail() {
                 <DetailRateAverage avgReviewRate={avgReviewRate} />
                 {
                     !partyBoard.isMaster && partyBoard.isMember && partyBoard.myReview == null ?
-                    <span className={`${styles.commonBtn} ${styles.mlAuto}`} onClick={() => navigate('review-write')}>후기 작성</span>
+                    <span className={`${styles.commonBtn} ${styles.mlAuto}`} onClick={() => navigate('partyreviews')}>후기 작성</span>
                     :
                     null
                 }
@@ -677,15 +677,15 @@ function Meet({meet, idx, isMaster, navigate}) {
             {
                 isMaster ?
                     <>
-                    <span className={`${styles.importantBtn}`}>수정</span>
-                    <span className={`${styles.commonBtn}`} onClick={() => navigate(`/meet/${meet.meetNumber}/members`)}>참여 멤버</span>
+                    <span className={`${styles.importantBtn}`} onClick={() => navigate(`meets/${meet.meetNumber}`)}>수정</span>
+                    <span className={`${styles.commonBtn}`} onClick={() => navigate(`meets/${meet.meetNumber}/members`)}>참여 멤버</span>
                     </>
                 : 
                 (
                     meet.joined ?
                     (
                         <>
-                        <span className={`${styles.commonBtn}`} onClick={() => navigate(`/meet/${meet.meetNumber}/members`)}>참여 멤버</span>
+                        <span className={`${styles.commonBtn}`} onClick={() => navigate(`meets/${meet.meetNumber}/members`)}>참여 멤버</span>
                         {
                             new Date(openDate.getFullYear(), openDate.getMonth(), openDate.getDate() - 2) > presentDate ? 
                             <span className={`${styles.importantBtn}`} onClick={quitMeet}>신청 취소</span>
@@ -703,7 +703,7 @@ function Meet({meet, idx, isMaster, navigate}) {
                             meet.joined ?
                                 (
                                     <>
-                                        <span className={`${styles.commonBtn}`} onClick={() => navigate(`/meet/${meet.number}/members`)}>참여 멤버</span>
+                                        <span className={`${styles.commonBtn}`} onClick={() => navigate(`meets/${meet.number}/members`)}>참여 멤버</span>
                                         {
                                             new Date(openDate.getFullYear(), openDate.getMonth(), openDate.getDate() - 2) > presentDate ?
                                                 <span className={`${styles.importantBtn}`} onClick={quitMeet}>신청 취소</span>
