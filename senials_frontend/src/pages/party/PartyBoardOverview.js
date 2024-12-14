@@ -69,7 +69,7 @@ function PartyBoardOverview() {
                 <PartyCard navigate={navigate} />
             </div>
             <div className={styles.separator}>
-                <span className={`${styles.commonBtn} ${styles.mlAuto}`} onClick={() => navigate('/party/write')}>게시글 작성</span>
+                <span className={`${styles.commonBtn} ${styles.mlAuto}`} onClick={() => navigate('/party')}>게시글 작성</span>
             </div>
             {
                 isRemain ? 
