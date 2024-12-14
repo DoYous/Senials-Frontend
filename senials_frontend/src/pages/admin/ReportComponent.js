@@ -18,8 +18,8 @@ function ReportComponent(){
                 <span className={styles2.secondFont}>분류</span>
                 <select className={styles1.selectLine}>
                     <option value="" disabled selected>신고 분류 선택</option>
-                    <option value={0}>취미 추가 요청</option>
-                    <option value={1}>버그 제보</option>
+                    <option value={0}>사용자 신고</option>
+                    <option value={1}>게시글 신고고</option>
                 </select>
             </div>
 
