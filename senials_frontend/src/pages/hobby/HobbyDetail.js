@@ -72,12 +72,6 @@ function HobbyDetailPost() {
 
     useEffect(() => {
         const token = localStorage.getItem("token");
-
-        if (!token) {
-            navigate('/login'); // 토큰이 없으면 로그인 페이지로 리다이렉트
-            return;
-        }
-
         try {
             const decodedToken = jwtDecode(token); // JWT 디코드
             setUserNumber(decodedToken.userNumber); // userNumber 설정
@@ -121,7 +115,7 @@ function HobbyDetailPost() {
     //정렬 방식
     const sortedReviews = Array.isArray(hobbyReviewList)
     ? [...hobbyReviewList].sort((a, b) => {
-        if (sortOption === 'newest') return new Date(a.hobbyReviewWriteDate) - new Date(b.hobbyReviewWriteDate);
+        if (sortOption === 'newest') return new Date(b.hobbyReviewWriteDate) - new Date(a.hobbyReviewWriteDate);
         if (sortOption === 'highRate') return b.hobbyReviewRate - a.hobbyReviewRate;
         if (sortOption === 'lowRate') return a.hobbyReviewRate - b.hobbyReviewRate;
         return 0;
@@ -211,8 +205,9 @@ function HobbyReview({ review, linkHobbyReviewModify, userNumber }) {
         <div className={styles.hobbyReview}>
             <div className={styles.hobbyReviewDetail}>
                 <div className={styles.userInfo}>
-                    <img src='/img/sampleImg5.png' className={styles.userImg} alt="사용자" />
+                    <img src={`/img/userProfile/${userNumber}`} onError={(e) => e.target.src = '/img/defaultUser.png'}  className={styles.userImg} alt="사용자" />
                     <div className={styles.userName}>{review.userName}</div>
+                    <div className={styles.date}>{convertDate(review.hobbyReviewWriteDate)}</div>
                     <div className={styles.reviewPoint}><span className={styles.star}>별점</span>
                         <Rate averageRating={review.hobbyReviewRate} />
                     </div>
@@ -220,13 +215,14 @@ function HobbyReview({ review, linkHobbyReviewModify, userNumber }) {
                         <FaBell/> 신고
                     </button>
                 </div>
-                <span className={styles.reviewSummation}>성향: {getTendency(review.hobbyReviewTendency)}</span>
-                <div className={styles.reviewSummation}>난이도: {getLevel(review.hobbyReviewLevel)}</div>
-                <div className={styles.reviewSummation}>이용비용: {getBudget(review.hobbyReviewBudget)}</div>
-                <div className={styles.reviewDetail}>{review.hobbyReviewDetail}</div>
-                <div className={styles.reviewImgContainer}>
-                    <img src='/img/sampleImg4.png' className={styles.reviewImg} alt="후기" />
-                    <img src='/img/sampleImg4.png' className={styles.reviewImg} alt="후기" />
+                    
+                    <div className={styles.reviewSummation}>성향: {getTendency(review.hobbyReviewTendency)}</div>
+                    <div className={styles.reviewSummation}>난이도: {getLevel(review.hobbyReviewLevel)}</div>
+                    <div className={styles.reviewSummation}>이용비용: {getBudget(review.hobbyReviewBudget)}</div>
+                    <div className={styles.reviewDetail}>{review.hobbyReviewDetail}</div>
+                    <div className={styles.reviewImgContainer}>
+                    {/* <img src='/img/sampleImg4.png' className={styles.reviewImg} alt="후기" /> */}
+                    {/* <img src='/img/sampleImg4.png' className={styles.reviewImg} alt="후기" /> */}
                 </div>
                 {userNumber === review.userNumber && (
                     <button className={styles.updateReviewButton} onClick={() => linkHobbyReviewModify(review.hobbyReviewNumber, review.hobbyNumber)}>
@@ -278,6 +274,15 @@ function Rate({averageRating}) {
 function setPercentage(rating){
     
     return Math.ceil(rating*20);
+}
+
+function convertDate(datetime){
+        const now = new Date(datetime);
+        const year = now.getFullYear();
+        const month = now.getMonth() + 1;
+        const day = now.getDate();
+
+       return(`${year}-${month}-${day}`);
 }
 
 export default HobbyDetailPost;
