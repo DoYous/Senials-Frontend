@@ -43,6 +43,7 @@ function ManageReport(){
                             <span>신고대상</span>
                             <span>분류</span>
                             <span>사유</span>
+                            <span>날짜</span>
                         </div>
                         <hr/>
                         <div className={styles.mainBox}>
@@ -60,6 +61,7 @@ function ManageReport(){
                             <span>신고대상</span>
                             <span>분류</span>
                             <span>사유</span>
+                            <span>날짜</span>
                         </div>
                         <hr/>
                         <div className={styles.mainBox}>
@@ -77,6 +79,7 @@ function ManageReport(){
                             <span>신고대상</span>
                             <span>분류</span>
                             <span>사유</span>
+                            <span>날짜</span>
                         </div>
                         <hr/>
                         <div className={styles.mainBox}>
