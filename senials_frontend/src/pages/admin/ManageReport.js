@@ -1,11 +1,10 @@
 import React,{useEffect, useState} from 'react';
 import styles from './Admin.module.css';
+import AdminNav from './AdminNav.js';
 
-let userData={name:'김상익',path:'http://localhost:3000/admin/manage-report', kind:'재물손괴',reason:'횡령'}
-
+let userData={name:'김상익',path:'http://localhost:3000/admin/manage-report', kind:'재물손괴',reason:'횡령',date:'2024-01-20'}
 
 function ManageReport(){
-
     return(
         <div>
             <div className={styles.adminHeader}>
@@ -13,15 +12,7 @@ function ManageReport(){
             </div>
 
             <div className={styles.adminBody}>
-                <div className={styles.nav}>
-                    <div className={styles.navButton}><img src='/img/User.png'/>사용자 관리</div>
-                    <div className={styles.navButton}><img src='/img/Bell.png'/>신고 관리</div>
-                    <div className={styles.navButton}><img src='/img/BookOpen.png'/>게시글 관리</div>
-                    <div className={styles.navButton}><img src='/img/Bookmark.png'/>카테고리 관리</div>
-                    <div className={styles.navButton}><img src='/img/checkSquare.png'/>후기 관리</div>
-                    <div className={styles.navButton}><img src='/img/GitCommit.png'/>트래픽관리 관리</div>
-                    <div className={styles.navButton}><img src='/img/Users.png'/>건의 내역관리 관리</div>
-                </div>
+                <AdminNav/>
                 <div className={styles.mainBody}>
                     <div className={styles.mainTitle}>
                         신고 관리
@@ -34,6 +25,7 @@ function ManageReport(){
                             <span>신고대상</span>
                             <span>분류</span>
                             <span>사유</span>
+                            <span>날짜</span>
                         </div>
                         <hr/>
                         <div className={styles.mainBox}>
@@ -106,6 +98,7 @@ function UserData(){
                 <span>{userData.path}</span>
                 <span>{userData.kind}</span>
                 <span>{userData.reason}</span>
+                <span>{userData.date}</span>
         </div>
     );
 }
