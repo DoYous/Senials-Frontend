@@ -197,6 +197,11 @@ hr {
 
 }
 
+.date{
+    margin-left: 20px;
+    font-size: 20px;
+}
+
 .star {
     margin-right: 15px;
 }
