@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { FaHeart, FaRegHeart, FaSearch } from "react-icons/fa";
 import axios from 'axios';
+import api from '../common/tokenApi';
 
 // CSS
 import styles from '../common/MainVer1.module.css';
@@ -27,7 +28,7 @@ function PartyBoardOverview() {
 
         if(wholeParties.length === 0) {
 
-            axios.get('/partyboards/search')
+            api.get('/partyboards/search')
             .then(result => {
                 let results = result.data.results;
     
@@ -104,7 +105,7 @@ function PartySearchBar() {
         dispatch(setCursor(null));
         dispatch(setSortMethod(e.target.value));
 
-        axios.get(`/partyboards/search?sortMethod=${e.target.value}`)
+        api.get(`/partyboards/search?sortMethod=${e.target.value}`)
         .then(result => {
             let results = result.data.results;
 
@@ -120,7 +121,7 @@ function PartySearchBar() {
         dispatch(setPartyKeyword(e.target.value));
     }
 
-    /* Enter 키 입력 시 submit */
+    /* input 태그 onKeyDown 이벤트 - Enter 누르면면 submit */
     const submitEnter = (e) => {
         if (e.key == 'Enter') {
             submit();
@@ -132,7 +133,7 @@ function PartySearchBar() {
 
         dispatch(setCursor(null));
 
-        axios.get(`/partyboards/search?sortMethod=${sortMethod}&keyword=${partyKeyword}`)
+        api.get(`/partyboards/search?sortMethod=${sortMethod}&keyword=${partyKeyword}`)
         .then(result => {
             let results = result.data.results;
 
@@ -212,7 +213,7 @@ function PartyCard({ navigate }) {
     const clickHeart = (e, partyBoardNumber) => {
         e.stopPropagation();
 
-        axios.put(`/likes/partyBoards/${partyBoardNumber}`)
+        api.put(`/likes/partyBoards/${partyBoardNumber}`)
         .then(result => {
             let results = result.data.results;
 

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { FaHeart, FaRegHeart } from 'react-icons/fa';
 import axios from 'axios';
+import api from '../common/tokenApi.js';
 
 // actions
 import { setCategories } from '../../redux/categorySlice.js';
@@ -22,7 +23,7 @@ function PartyBoard() {
     
     
     useEffect(() => {
-        axios.get('/partyboards/search?size=4')
+        api.get('/partyboards/search?size=4')
         .then(result => {
             let results = result.data.results;
 
@@ -111,7 +112,7 @@ function PartyCard({ navigate }) {
     const clickHeart = (e, partyBoardNumber) => {
         e.stopPropagation();
 
-        axios.put(`/likes/partyBoards/${partyBoardNumber}`)
+        api.put(`/likes/partyBoards/${partyBoardNumber}`)
         .then(result => {
             let results = result.data.results;
 

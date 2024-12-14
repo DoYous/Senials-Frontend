@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
+import api from '../common/tokenApi';
 
 // CSS
 import common from '../common/MainVer1.module.css';
@@ -40,7 +41,7 @@ function PartyUpdate() {
 
         if(!partyBoard.hasOwnProperty('partyBoardNumber')) {
             
-            axios.get(`/partyboards/${partyNumber}`)
+            api.get(`/partyboards/${partyNumber}`)
             .then(response => {
                 let results = response.data.results;
                 
@@ -227,11 +228,7 @@ function PartyUpdate() {
         formData.append('partyBoardDetail', partyBoardDetailInput.current.value);
         formData.append('partyBoardStatus', partyBoardStatusInput.current.value);
 
-        axios.put(`/partyboards/${partyNumber}`, formData , {
-            headers: {
-                'Content-Type' : 'multipart/form-data'
-            }
-        })
+        api.put(`/partyboards/${partyNumber}`, formData)
         .then(result => {
             console.log(result.data.message);
             navigate(`/party/${partyNumber}`);
