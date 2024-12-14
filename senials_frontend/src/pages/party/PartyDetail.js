@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
+import api from "../common/tokenApi";
 
 import { setMember, setPartyBoardDetail, toggleDetailLike, 
     setMeets, increaseMeetPageNumber, setHasMoreMeets, toggleMeetJoined, 
@@ -51,11 +52,7 @@ function PartyDetail() {
 
     useEffect(() => {
         const token = localStorage.getItem("token");
-        axios.get(`/partyboards/${partyNumber}`, {
-            headers: {
-                'Authorization': token // JWT 토큰을 Authorization 헤더에 추가
-            }
-        })
+        api.get(`/partyboards/${partyNumber}`)
         .then(response => {
             let results = response.data.results;
             
@@ -69,13 +66,9 @@ function PartyDetail() {
 
             dispatch(setPartyBoardDetail(results.partyBoard));
         })
-        // 일정 정보
 
-        axios.get(`/partyboards/${partyNumber}/meets`, {
-            headers: {
-                'Authorization': token // JWT 토큰을 Authorization 헤더에 추가
-            }
-        })
+        // 일정 정보
+        api.get(`/partyboards/${partyNumber}/meets`)
         .then(response => {
             let results = response.data.results;
 
@@ -85,12 +78,9 @@ function PartyDetail() {
         .catch(error => {
             console.error("74줄 오류:", error.response ? error.response.data : error.message);
         })
+
         // 후기 정보
-        axios.get(`/partyboards/${partyNumber}/partyreviews`,{
-            headers: {
-                'Authorization': token // JWT 토큰을 Authorization 헤더에 추가
-            }
-        })
+        api.get(`/partyboards/${partyNumber}/partyreviews`)
         .then(response => {
             let results = response.data.results
 
@@ -102,16 +92,13 @@ function PartyDetail() {
         })
 
         // 취미 기반 추천 정보
-        axios.get(`/partyboards/recommended-parties?&partyBoardNumber=${partyNumber}`, {
-            headers: {
-                'Authorization': token // JWT 토큰을 Authorization 헤더에 추가
-            }
-        })
+        api.get(`/partyboards/recommended-parties?&partyBoardNumber=${partyNumber}`)
         .then(result => {
             let results = result.data.results;
 
             dispatch(setRecommParties(results.recommendedPartyBoards));
         })
+
     }, [dispatch, navigate]);
 
 
@@ -202,20 +189,26 @@ function PartyDetail() {
                 {/* 카테고리 */}
                 <span className={`${styles.whiteIndicator}`}>{partyBoard.categoryName}</span>
                 &nbsp;
-                <span className={`${styles.whiteBtn} ${styles.thirdFont}`} onClick={clickLike}>
-                    {
-                        partyBoard.isLiked ? 
-                        <FaHeart style={{color: 'red'}}/>
-                        :
-                        <FaRegHeart style={{color: 'red'}}/>
-                    }
-                    &nbsp;&nbsp;좋아요
-                </span>
-
-                <span className={`${styles.whiteBtn} ${styles.thirdFont} ${styles.mlAuto}`} style={{color: 'red'}} onClick={() => navigate(`/report?party=${partyNumber}`)}>
-                    <FaBell />
-                    &nbsp;&nbsp;신고
-                </span>
+                {
+                    !partyBoard.isMaster ?
+                        <>
+                        <span className={`${styles.whiteBtn} ${styles.thirdFont}`} onClick={clickLike}>
+                        {
+                            partyBoard.isLiked ? 
+                            <FaHeart style={{color: 'red'}}/>
+                            :
+                            <FaRegHeart style={{color: 'red'}}/>
+                        }
+                        &nbsp;&nbsp;좋아요
+                        </span>
+                        <span className={`${styles.whiteBtn} ${styles.thirdFont} ${styles.mlAuto}`} style={{color: 'red'}} onClick={() => navigate(`/report?party=${partyNumber}`)}>
+                            <FaBell />
+                            &nbsp;&nbsp;신고
+                        </span>
+                        </>
+                    :
+                        null
+                }
             </div>
             <div className={styles.separator}>
                 <span className={`${styles.firstFont}`}>
@@ -737,7 +730,7 @@ function RecommendedPartyCard({ party, idx, navigate }) {
     const clickHeart = (e, partyBoardNumber) => {
         e.stopPropagation();
 
-        axios.put(`/likes/partyBoards/${partyBoardNumber}`)
+        api.put(`/likes/partyBoards/${partyBoardNumber}`)
         .then(result => {
             let results = result.data.results;
 

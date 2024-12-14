@@ -3,6 +3,7 @@ import common from '../common/Common.module.css';
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import api from '../common/tokenApi';
 
 function PartyMeet() {
     const navigate = useNavigate();
@@ -47,7 +48,7 @@ function PartyMeet() {
         };
 
         try {
-            const response = await axios.post(`/partyboards/${partyNumber}/meets`, payload);
+            const response = await api.post(`/partyboards/${partyNumber}/meets`, payload);
             alert("일정이 성공적으로 추가되었습니다!");
             navigate(-1); // 이전 페이지로 이동
         } catch (error) {

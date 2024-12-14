@@ -7,6 +7,7 @@ import {useNavigate, useParams} from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { partyBoardDetail, setPartyBoardDetail } from '../../redux/partySlice';
 import axios from 'axios';
+import api from '../common/tokenApi';
 
 /*모임 멤버 전체 보기*/
 function MypageMember() {
@@ -34,7 +35,7 @@ function MypageMember() {
     useEffect(() => {
         
         if(!partyBoard.hasOwnProperty('partyBoardNumber') || partyBoard.partyBoardNumber != partyNumber){
-            axios.get(`/partyboards/${partyNumber}`)
+            api.get(`/partyboards/${partyNumber}`)
             .then(response => {
                 let results = response.data.results;
                 
@@ -50,7 +51,7 @@ function MypageMember() {
             })
         }
 
-        axios.get(`/partyboards/${partyNumber}/partymembers-page?pageNumber=${pageNumber}`)
+        api.get(`/partyboards/${partyNumber}/partymembers-page?pageNumber=${pageNumber}`)
         .then(response => {
             let results = response.data.results;
             
@@ -73,7 +74,7 @@ function MypageMember() {
 
     const loadMoreMembers = () => {
 
-        axios.get(`/partyboards/${partyNumber}/partymembers-page?pageNumber=${pageNumber + 1}`)
+        api.get(`/partyboards/${partyNumber}/partymembers-page?pageNumber=${pageNumber + 1}`)
         .then(response => {
             let results = response.data.results;
             
@@ -123,7 +124,7 @@ function MypageMember() {
     const kickMember = () => {
         let jsonData = JSON.stringify([...checked]);
         
-        axios.put(`/partyboards/${partyNumber}/partymembers`, jsonData, {
+        api.put(`/partyboards/${partyNumber}/partymembers`, jsonData, {
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -151,7 +152,7 @@ function MypageMember() {
                     <div className={styles.bigName}>
                         <FaAngleLeft size={20} onClick={handleBack}/>
                         <div className={`${styles.nameflexDiv} ${common.firstFont}`}>
-                            <div className={`${styles.pink} ${styles.marginLeft}`}>모임이름</div>
+                            <div className={`${styles.pink} ${styles.marginLeft}`}>{partyBoard.partyBoardName}</div>
                             <div className={styles.marginLeft}>- 멤버 목록</div>
                         </div>
                     </div>
