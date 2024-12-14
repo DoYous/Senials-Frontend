@@ -34,7 +34,11 @@ function ManageUser(){
                     <div className={styles.mainTitle}>
                         사용자 관리
                     </div>
+                    
                     <div className={styles.mainDetail}>
+                    <div><input className={styles.searchBox} placeholder='검색'></input></div>
+                    <br/>
+                    <br/>
                         <div className={styles.mainSubtitle}>
                             <input type='checkbox'></input>
                             <span>ID</span>
