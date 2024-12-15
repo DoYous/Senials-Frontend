@@ -6,9 +6,13 @@ import axios from 'axios';
 import api from '../common/tokenApi';
 import createApiInstance from '../common/tokenApi';
 
+const wrongRequest = () => {
+    alert('잘못된 접근입니다.');
+}
+
 function PartyReviewModify() {
 
-    const api = createApiInstance();
+    const [api, setApi] = useState(null);
     
     const navigate = useNavigate();
     const { partyNumber } = useParams(); // URL에서 따오기
@@ -22,6 +26,14 @@ function PartyReviewModify() {
     // 정보 가져오기
     useEffect(() => {
     const fetchMeetData = async () => {
+
+        const token = localStorage.getItem('token');
+        if(token == null) {
+            wrongRequest();
+        }
+        
+        const api = createApiInstance();
+
         try {
             const response = await api.get(`/partyboards/${partyNumber}/partyreviews/${partyReviewNumber}`);
             const meetData = response.data.results;

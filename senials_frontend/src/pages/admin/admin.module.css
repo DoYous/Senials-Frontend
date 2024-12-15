@@ -156,3 +156,11 @@
     border-radius: 10px;
     border:none;
 }
+
+
+.link {
+    cursor: pointer;
+}
+.link:hover {
+    text-decoration: underline;
+}
