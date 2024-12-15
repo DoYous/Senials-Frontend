@@ -36,7 +36,7 @@ import MypageMade from "./pages/mypage/MypageMade";
 import MypageParticipate from "./pages/mypage/MypageParticipate";
 import PartyMeetModify from "./pages/party/PartyMeetModify";
 import PartyReviewModify from "./pages/party/PartyReviewModify";
-import ManageUser from "./pages/admin/ManageUser";
+
 import Login from "./pages/login/Login";
 import Join from "./pages/login/Join";
 import Success from "./pages/login/Success";
@@ -44,6 +44,10 @@ import KakaoCallBack from "./pages/login/KakaoCallBack";
 
 import Suggestion from './pages/admin/Suggestion.js';
 import Report from './pages/admin/ReportComponent.js';
+import ManageUser from "./pages/admin/ManageUser";
+import ManageReport from './pages/admin/ManageReport.js';
+import ManageSuggestion from './pages/admin/ManageSuggestion.js';
+
 
 function App() {
     return (
@@ -62,7 +66,7 @@ function App() {
                     {/*test 성공페이지*/}
                     <Route path="success" element={<Success />} />
 
-                    {/* 신고하기 */}
+                    {/* 신고페이지지 */}
                     <Route path="report" element={<Report />} />
 
                     {/*마이페이지*/}
@@ -135,16 +139,15 @@ function App() {
                             {/* 모임 멤버 전체보기*/}
                             <Route path="members" element={<MypageMember />} />
                         </Route>
-                       
-
                     </Route>
-
-
-
                 </Route>
                 <Route path="admin">
                     {/*관리자페이지-사용자 관리*/}
                     <Route path="manage-user" element={<ManageUser/>}/>
+                    {/*관리자페이지-신고 관리*/}
+                    <Route path="manage-report" element={<ManageReport/>}/>
+                    {/*관리자페이지-건의 관리*/}
+                    <Route path="manage-suggestion" element={<ManageSuggestion/>}/>
                 </Route>
             </Routes>
             
