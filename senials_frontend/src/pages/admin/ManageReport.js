@@ -92,9 +92,10 @@ function ManageReport(){
                                 return <Report key={idx} report={report} type={0} />
                             })
                         }
-                        {/* <Report />
-                        <Report />
-                        <Report /> */}
+                        {
+                            userReports.length == 0 &&
+                            <span className={`${styles.noData}`}>해당당 신고 내역이 없습니다.</span>
+                        }
                         </div>
                     </div>
 
@@ -114,6 +115,10 @@ function ManageReport(){
                             partyBoardReports.map((report, idx) => {
                                 return <Report key={idx} report={report} type={1} />
                             })
+                        }
+                        {
+                            partyBoardReports.length == 0 &&
+                            <span className={`${styles.noData}`}>해당당 신고 내역이 없습니다.</span>
                         }
                         </div>
                     </div>
@@ -135,6 +140,10 @@ function ManageReport(){
                                 return <Report key={idx} report={report} type={2} />
                             })
                         }
+                        {
+                            partyReviewReports.length == 0 &&
+                            <span className={`${styles.noData}`}>해당당 신고 내역이 없습니다.</span>
+                        }
                         </div>
                     </div>
 
@@ -154,6 +163,10 @@ function ManageReport(){
                             hobbyReviewReports.map((report, idx) => {
                                 return <Report key={idx} report={report} type={3} />
                             })
+                        }
+                        {
+                            hobbyReviewReports.length == 0 &&
+                            <span className={`${styles.noData}`}>해당당 신고 내역이 없습니다.</span>
                         }
                         </div>
                     </div>
