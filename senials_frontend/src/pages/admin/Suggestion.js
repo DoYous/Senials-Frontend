@@ -11,7 +11,6 @@ function Suggestion(){
     const[kind,setKind]=useState(0);
     const[title,setTitle]=useState('');
     const[detail,setDetail]=useState('');
-    const [date, setDate] = useState(new Date());
 
     // 이전 페이지로 돌아가기 이벤트
     const goBack = () => {
@@ -27,10 +26,10 @@ function Suggestion(){
             suggestionTitle:title,
             suggestionType:kind,
             suggestionDetail:detail,
-            suggestionDate:date
         }
         try {
             const token = localStorage.getItem("token");
+            console.log(suggestionData);
 
             await axios.post(`/suggestion`, suggestionData, {
                 headers: {
