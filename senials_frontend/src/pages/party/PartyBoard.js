@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { FaHeart, FaRegHeart } from 'react-icons/fa';
 import axios from 'axios';
-import api from '../common/tokenApi.js';
+import createApiInstance from '../common/tokenApi.js';
 
 // actions
 import { setCategories } from '../../redux/categorySlice.js';
@@ -16,6 +16,7 @@ import { setLastestParties, toggleLastestLike } from '../../redux/partySlice.js'
 
 function PartyBoard() {
 
+    const api = createApiInstance();
 
     const navigate = useNavigate();
 
@@ -23,16 +24,19 @@ function PartyBoard() {
     
     
     useEffect(() => {
+        
         api.get('/partyboards/search?size=4')
         .then(result => {
             let results = result.data.results;
 
             dispatch(setLastestParties(results.partyBoards));
         })
+
         axios.get('/categories')
         .then(result => {
             dispatch(setCategories(result.data.results.categories));
         })
+
     }, [dispatch])
 
 
@@ -101,6 +105,8 @@ function Rate({averageRating}) {
 
 // 모임 카드
 function PartyCard({ navigate }) {
+
+    const api = createApiInstance();
 
     const dispatch = useDispatch();
 

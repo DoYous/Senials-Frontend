@@ -7,8 +7,10 @@ import axios from 'axios';
 import common from '../common/MainVer1.module.css';
 import styles from './PartyForm.module.css';
 import { setCategoriesWithHobbies, setHobbiesForWrite } from '../../redux/categorySlice';
+import createApiInstance from '../common/tokenApi';
 
 function PartyWrite() {
+    const api = createApiInstance();
 
     const navigate = useNavigate();
 
@@ -35,6 +37,7 @@ function PartyWrite() {
 
             dispatch(setCategoriesWithHobbies(results.categories));
         })
+        
     }, [dispatch])
 
 
@@ -134,7 +137,7 @@ function PartyWrite() {
         formData.append('partyBoardName', partyBoardNameInput.current.value);
         formData.append('partyBoardDetail', partyBoardDetailInput.current.value);
 
-        axios.post('/partyboards', formData , {
+        api.post('/partyboards', formData , {
             headers: {
                 'Content-Type' : 'multipart/form-data'
             }

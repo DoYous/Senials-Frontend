@@ -9,9 +9,10 @@ import { FaAngleLeft } from "react-icons/fa6";
 import { useNavigate, useParams } from "react-router-dom";
 
 import axios from 'axios';
-import api from '../common/tokenApi';
+import createApiInstance from '../common/tokenApi';
 
 function PartyMember() {
+    
     const navigate = useNavigate();
     const { meetNumber } = useParams();
 
@@ -25,6 +26,9 @@ function PartyMember() {
     const [meet, setMeet] = useState({});
 
     useEffect(() => {
+
+        const api = createApiInstance();
+
         api.get(`/meets/${meetNumber}/meetmembers`)
         .then(response => {
             let results = response.data.results;

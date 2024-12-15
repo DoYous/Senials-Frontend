@@ -6,7 +6,6 @@ import axios from "axios";
 import Calendar from "react-calendar"; // 캘린더 컴포넌트
 import "react-calendar/dist/Calendar.css"; // 기본 스타일
 import {jwtDecode} from "jwt-decode";
-import api from '../common/tokenApi';
 
 function MypageCalender() {
 
@@ -107,7 +106,13 @@ function MypageCalender() {
                 setMadePartyCount(madeCountResponse.data.results.madePartyCount);
 
                 // 좋아한 모임 개수 가져오기
-                await fetchLikedPartyCount();
+                const likedCountResponse = await axios.get(`/users/${userNumber}/like/count`, {
+                    headers: {
+                        'Authorization': `${token}` // Authorization 헤더 추가
+                    }
+                });
+                setLikedPartyCount(likedCountResponse.data.results.likesPartyCount);
+                // await fetchLikedPartyCount();
             }catch (error) {
                 if (error.response && error.response.status === 500) {
                     alert("서버 오류가 발생했습니다. 나중에 다시 시도해 주세요.");
@@ -123,28 +128,28 @@ function MypageCalender() {
 
 
     // 좋아한 모임 개수 가져오기
-    const fetchLikedPartyCount = async () => {
-        try {
-            const token = localStorage.getItem("token");
-            if (!token) {
-                alert("로그인이 필요합니다!")
-                navigate('/login'); // 토큰이 없으면 로그인 페이지로 리다이렉트
-                return;
-            }
-            const decodedToken = jwtDecode(token); // JWT 디코드
-            const userNumber = decodedToken.userNumber; // userNumber 추출
-            console.log("fetchLikedPartyCount 유저 확인", userNumber)
+    // const fetchLikedPartyCount = async () => {
+    //     try {
+    //         const token = localStorage.getItem("token");
+    //         if (!token) {
+    //             alert("로그인이 필요합니다!")
+    //             navigate('/login'); // 토큰이 없으면 로그인 페이지로 리다이렉트
+    //             return;
+    //         }
+    //         const decodedToken = jwtDecode(token); // JWT 디코드
+    //         const userNumber = decodedToken.userNumber; // userNumber 추출
+    //         console.log("fetchLikedPartyCount 유저 확인", userNumber)
 
-            const likedCountResponse = await api.get(`/users/${userNumber}/like/count`);
-            if (likedCountResponse.data && likedCountResponse.data.results) {
-                setLikedPartyCount(likedCountResponse.data.results.likesPartyCount);
-            } else {
-                console.error("Unexpected response format:", likedCountResponse.data);
-            }
-        } catch (error) {
-            console.error("좋아한 모임 개수 가져오기 에러:", error.response ? error.response.data : error.message);
-        }
-    };
+    //         const likedCountResponse = await api.get(`/users/${userNumber}/like/count`);
+    //         if (likedCountResponse.data && likedCountResponse.data.results) {
+    //             setLikedPartyCount(likedCountResponse.data.results.likesPartyCount);
+    //         } else {
+    //             console.error("Unexpected response format:", likedCountResponse.data);
+    //         }
+    //     } catch (error) {
+    //         console.error("좋아한 모임 개수 가져오기 에러:", error.response ? error.response.data : error.message);
+    //     }
+    // };
 
 
     // 사용자 모임 일정 가져오기

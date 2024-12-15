@@ -6,7 +6,9 @@ import main from "../common/MainVer1.module.css";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import {jwtDecode} from "jwt-decode";
-import api from '../common/tokenApi';
+import createApiInstance from '../common/tokenApi';
+    
+const api = createApiInstance();
 
 function MypageParticipate({userNumber}) {
     /* 예비 데이터 */
@@ -79,7 +81,7 @@ function MypageParticipate({userNumber}) {
 
     const quitParty = (partyNumber, idx) => {
 
-        api.delete(`/partyboards/${partyNumber}/partymembers`)
+            api.delete(`/partyboards/${partyNumber}/partymembers`)
         .then(result => {
             let results = result.data.results;
 

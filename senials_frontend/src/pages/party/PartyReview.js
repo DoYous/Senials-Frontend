@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import styles from "./PartyReview.module.css";
 import common from "../common/Common.module.css";
-import api from "../common/tokenApi";
+import createApiInstance from "../common/tokenApi";
 
 function PartyReview() {
+  const [api, setApi] = useState(null);
   const navigate = useNavigate();
   const { partyNumber } = useParams(); // URL에서 partyBoardNumber 가져오기
   const [review, setReview] = useState({
@@ -14,6 +15,12 @@ function PartyReview() {
     rating: 0,
     content: "",
   });
+
+  useEffect(() => {
+    setApi(() => {
+      return createApiInstance();
+    });
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
