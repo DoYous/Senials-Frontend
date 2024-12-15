@@ -1,11 +1,12 @@
 import styles from './PartyMeet.module.css';
 import common from '../common/Common.module.css';
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-import api from '../common/tokenApi';
+import createApiInstance from '../common/tokenApi';
 
 function PartyMeet() {
+    const api = createApiInstance();
     const navigate = useNavigate();
     const { partyNumber } = useParams(); // partyBoardNumber를 URL에서 가져오기
     const [formData, setFormData] = useState({

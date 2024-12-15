@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
-import api from '../common/tokenApi';
+import createApiInstance from '../common/tokenApi';
 
 // CSS
 import common from '../common/MainVer1.module.css';
@@ -11,6 +11,7 @@ import { setPartyBoardDetail } from '../../redux/partySlice';
 import { setCategoriesWithHobbies } from '../../redux/categorySlice';
 
 function PartyUpdate() {
+    const api = createApiInstance();
 
     const navigate = useNavigate();
     const dispatch = useDispatch();

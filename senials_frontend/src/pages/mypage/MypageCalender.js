@@ -6,7 +6,6 @@ import axios from "axios";
 import Calendar from "react-calendar"; // 캘린더 컴포넌트
 import "react-calendar/dist/Calendar.css"; // 기본 스타일
 import {jwtDecode} from "jwt-decode";
-import api from '../common/tokenApi';
 
 function MypageCalender() {
 
@@ -107,7 +106,13 @@ function MypageCalender() {
                 setMadePartyCount(madeCountResponse.data.results.madePartyCount);
 
                 // 좋아한 모임 개수 가져오기
-                await fetchLikedPartyCount();
+                const likedCountResponse = await axios.get(`/users/${userNumber}/like/count`, {
+                    headers: {
+                        'Authorization': `${token}` // Authorization 헤더 추가
+                    }
+                });
+                setLikedPartyCount(likedCountResponse.data.results.likesPartyCount);
+                // await fetchLikedPartyCount();
             }catch (error) {
                 if (error.response && error.response.status === 500) {
                     alert("서버 오류가 발생했습니다. 나중에 다시 시도해 주세요.");

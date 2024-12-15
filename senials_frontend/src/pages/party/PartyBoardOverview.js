@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { FaHeart, FaRegHeart, FaSearch } from "react-icons/fa";
 import axios from 'axios';
-import api from '../common/tokenApi';
+import createApiInstance from '../common/tokenApi';
 
 // CSS
 import styles from '../common/MainVer1.module.css';
@@ -13,6 +13,8 @@ import PopularPartyBoards from './PartyBoardComponent/PopularPartyBoards';
 
 // actions
 import { setRemain, setCursor, setSortMethod, setPartyKeyword, setWholeParties, addWholeParties, toggleLike } from '../../redux/partySlice';
+    
+const api = createApiInstance();
 
 
 function PartyBoardOverview() {

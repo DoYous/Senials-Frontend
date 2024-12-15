@@ -7,7 +7,7 @@ import {useNavigate, useParams} from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { partyBoardDetail, setPartyBoardDetail } from '../../redux/partySlice';
 import axios from 'axios';
-import api from '../common/tokenApi';
+import createApiInstance from '../common/tokenApi';
 
 /*모임 멤버 전체 보기*/
 function MypageMember() {
@@ -31,6 +31,8 @@ function MypageMember() {
     const partyBoard = useSelector(state => state.partyBoardDetail);
 
     /* 추방 버튼 클릭 이벤트 */
+
+    const api = createApiInstance();
 
     useEffect(() => {
         

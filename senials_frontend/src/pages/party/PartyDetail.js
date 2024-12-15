@@ -5,20 +5,22 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
-import api from "../common/tokenApi";
+import createApiInstance from "../common/tokenApi";
 
 import { setMember, setPartyBoardDetail, toggleDetailLike, 
     setMeets, increaseMeetPageNumber, setHasMoreMeets, toggleMeetJoined, 
     setReviews, setHasMoreReviews, setReviewCnt, setAvgReviewRate, increaseReviewPageNumber, 
     setRecommParties, toggleRecommLike,
     addReviews,
-    addMeets} from "../../redux/partySlice";
+    addMeets,
+    partyBoardDetail} from "../../redux/partySlice";
 
 // CSS
 import styles from '../common/MainVer1.module.css';
 
 function PartyDetail() {
 
+    const api = createApiInstance();
 
     const { partyNumber } = useParams();
 
@@ -50,56 +52,44 @@ function PartyDetail() {
     const recommParties = useSelector(state => state.recommParties);
 
 
-    useEffect(() => {
-        const token = localStorage.getItem("token");
-        api.get(`/partyboards/${partyNumber}`)
-        .then(response => {
-            let results = response.data.results;
-            
-            let partyBoardDetail = results.partyBoard;
-            partyBoardDetail.partyMaster = results.partyMaster;
-            partyBoardDetail.myReview = results.myReview;
-            partyBoardDetail.isLiked = results.isLiked;
-            partyBoardDetail.isMember = results.isMember;
-            partyBoardDetail.isMaster = results.isMaster;
-            partyBoardDetail.randMembers = results.randMembers;
+    useEffect(() => { 
+        const fetchData = async () => { 
+            try { 
+                const response1 = await api.get(`/partyboards/${partyNumber}`); 
+                const results1 = response1.data.results; 
+                let partyBoardDetail = results1.partyBoard; 
+                partyBoardDetail.partyMaster = results1.partyMaster; 
+                partyBoardDetail.myReview = results1.myReview; 
+                partyBoardDetail.isLiked = results1.isLiked; 
+                partyBoardDetail.isMember = results1.isMember; 
+                partyBoardDetail.isMaster = results1.isMaster; 
+                partyBoardDetail.randMembers = results1.randMembers; 
+                dispatch(setPartyBoardDetail(results1.partyBoard)); 
 
-            dispatch(setPartyBoardDetail(results.partyBoard));
-        })
+                const response2 = await api.get(`/partyboards/${partyNumber}/meets`); 
+                const results2 = response2.data.results; 
+                dispatch(setMeets(results2.meets)); 
+                dispatch(setHasMoreMeets(results2.hasMore)); 
 
-        // 일정 정보
-        api.get(`/partyboards/${partyNumber}/meets`)
-        .then(response => {
-            let results = response.data.results;
+                const response3 = await api.get(`/partyboards/${partyNumber}/partyreviews`); 
+                const results3 = response3.data.results; 
+                dispatch(setHasMoreReviews(results3.hasMoreReviews)); 
+                dispatch(setReviews(results3.partyReviews)); 
+                dispatch(setAvgReviewRate(results3.partyAvgReviewRate)); 
+                dispatch(setReviewCnt(results3.partyReviewCnt)); 
 
-            dispatch(setMeets(results.meets));
-            dispatch(setHasMoreMeets(results.hasMore));
-        })
-        .catch(error => {
-            console.error("74줄 오류:", error.response ? error.response.data : error.message);
-        })
+                const response4 = await api.get(`/partyboards/recommended-parties?&partyBoardNumber=${partyNumber}`); 
+                const results4 = response4.data.results; 
+                dispatch(setRecommParties(results4.recommendedPartyBoards)); 
 
-        // 후기 정보
-        api.get(`/partyboards/${partyNumber}/partyreviews`)
-        .then(response => {
-            let results = response.data.results
-
-            dispatch(setHasMoreReviews(results.hasMoreReviews));
-            dispatch(setReviews(results.partyReviews));
-            dispatch(setAvgReviewRate(results.partyAvgReviewRate));
-            dispatch(setReviewCnt(results.partyReviewCnt));
-
-        })
-
-        // 취미 기반 추천 정보
-        api.get(`/partyboards/recommended-parties?&partyBoardNumber=${partyNumber}`)
-        .then(result => {
-            let results = result.data.results;
-
-            dispatch(setRecommParties(results.recommendedPartyBoards));
-        })
-
-    }, [dispatch, navigate]);
+            } catch (error) { 
+                console.error('Error fetching data:', error); 
+            } 
+        }; 
+        
+        fetchData(); 
+    
+    }, [dispatch, partyNumber]);
 
 
 
@@ -134,22 +124,21 @@ function PartyDetail() {
             }
         })
         .catch(err => {
-            alert(err.response.data.message);
+            alert('로그인이 필요합니다.');
         })
 
     }
 
     const quitParty = () => {
 
-        axios.delete(`/partyboards/${partyNumber}/partymembers`)
+        api.delete(`/partyboards/${partyNumber}/partymembers`)
         .then(result => {
-            let results = result.data.results;
 
-            if(results.code === 1){
-                dispatch(setMember(false));
-            } else {
-                alert(result.message);
-            }
+            dispatch(setMember(false));
+
+        })
+        .catch(err => {
+            alert('모임 탈퇴 실패');
         })
     }
 
@@ -604,6 +593,8 @@ function Review({review, navigate}) {
 
 function Meet({meet, idx, isMaster, navigate}) {
 
+    const api = createApiInstance();    
+
     const dispatch = useDispatch();
 
     let tempPresent = new Date();
@@ -737,6 +728,8 @@ function Meet({meet, idx, isMaster, navigate}) {
 
 
 function RecommendedPartyCard({ party, idx, navigate }) {
+
+    const api = createApiInstance();
 
     const dispatch = useDispatch();
 

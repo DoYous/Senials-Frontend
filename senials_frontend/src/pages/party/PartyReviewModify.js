@@ -4,8 +4,12 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from 'axios';
 import api from '../common/tokenApi';
+import createApiInstance from '../common/tokenApi';
 
 function PartyReviewModify() {
+
+    const api = createApiInstance();
+    
     const navigate = useNavigate();
     const { partyNumber } = useParams(); // URL에서 따오기
     const { partyReviewNumber } = useParams();
@@ -14,8 +18,9 @@ function PartyReviewModify() {
     const [rating, setRating] = useState(0);                // 별점
     const [content, setContent] = useState("");             // 내용
 
+
     // 정보 가져오기
- useEffect(() => {
+    useEffect(() => {
     const fetchMeetData = async () => {
         try {
             const response = await api.get(`/partyboards/${partyNumber}/partyreviews/${partyReviewNumber}`);
