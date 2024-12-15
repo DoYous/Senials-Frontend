@@ -65,6 +65,10 @@ function HobbyBoardPost() {
         navigate(0); 
     }
 
+    const linkSuggestion=()=>{
+        navigate(`/suggestion`);
+    }
+
 
     //검색 버튼 클릭시 목록 필터링 이벤트
     const textSearch=(e)=>{
@@ -96,7 +100,7 @@ function HobbyBoardPost() {
                 return <HobbyList key={index} hobby={item} linkHobbyDetail={linkHobbyDetail}/>
             })}
             
-            <button className={styles.suggestHobbyButton}>취미 추가 건의</button>
+            <button className={styles.suggestHobbyButton} onClick={linkSuggestion}>취미 추가 건의</button>
         </div>
     );
 }
