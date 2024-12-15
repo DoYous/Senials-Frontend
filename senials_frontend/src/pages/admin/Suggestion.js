@@ -31,7 +31,7 @@ function Suggestion(){
         }
         try {
             const token = localStorage.getItem("token");
-            console.log(token);
+
             await axios.post(`/suggestion`, suggestionData, {
                 headers: {
                     'Authorization': token // JWT 토큰을 Authorization 헤더에 추가
@@ -40,7 +40,7 @@ function Suggestion(){
             alert('건의 요청이 완료되었습니다.');
             goBack();  
         } catch (error) {
-            alert('건의 요청청이 완료되지 않았습니다.');
+            alert('건의 요청이 완료되지 않았습니다.');
             console.error(error); // 오류 처리
         }
     };

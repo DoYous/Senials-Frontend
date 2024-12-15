@@ -109,7 +109,7 @@ function App() {
                     {/*취미 게시판 후기 수정 */}
                     <Route path="/hobby-review-modify" element={<HobbyReviewModify/>}/>
                     {/* 취미 게시판 건의의 */}
-                    <Route path="suggestion" element={<Suggestion/>}/>
+                    <Route path="/suggestion" element={<Suggestion/>}/>
 
                     <Route path='party'>
                         {/* 모임 작성 */}

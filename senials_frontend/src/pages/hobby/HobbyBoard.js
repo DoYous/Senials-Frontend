@@ -65,8 +65,14 @@ function HobbyBoardPost() {
         navigate(0); 
     }
 
+    //건의 사항 추가 페이지 이동
     const linkSuggestion=()=>{
-        navigate(`/suggestion`);
+        const token = localStorage.getItem("token");
+        if (!token) {
+            navigate('/login'); // 토큰이 없으면 로그인 페이지로 리다이렉트
+        } else {
+            navigate(`/suggestion`);
+        }
     }
 
 
