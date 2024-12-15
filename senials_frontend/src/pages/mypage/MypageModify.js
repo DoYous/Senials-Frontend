@@ -3,16 +3,19 @@ import common from '../common/Common.module.css';
 import React, { useState, useEffect } from "react";
 /*아이콘*/
 import { FaAngleLeft, FaArrowUpRightFromSquare } from "react-icons/fa6";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import {jwtDecode} from "jwt-decode";
 
 function MypageModify() {
+
+    const { userNumber } = useParams();
+
     // const [userNumber] = useState(10); //유저 넘버
     const navigate = useNavigate();
     const [nickname, setNickname] = useState(""); // 닉네임
     const [detail, setDetail] = useState(""); // 한줄 소개
-    const [profileImg, setProfileImg] = useState(""); // 프로필 이미지
+    const [profileImg, setProfileImg] = useState(`/img/userProfile/${userNumber}`); // 프로필 이미지
     const [imgSrc, setImgSrc] = useState('/img/defaultProfile.png');
 
     /* 테스트용 */
@@ -46,7 +49,6 @@ function MypageModify() {
                 const userData = response.data.results.user;
                 setNickname(userData.userNickname);
                 setDetail(userData.userDetail);
-                setProfileImg(userData.userProfileImg);
             } catch (error) {
                 console.error("에러:", error.response ? error.response.data : error.message);
             }
@@ -58,8 +60,15 @@ function MypageModify() {
     const handleProfileChange = async (event) => {
         const file = event.target.files[0];
         if (file) {
-            const formData = new FormData();
-            formData.append("profileImage", file);
+
+            /* 확장자 검사 */
+            const allowedTypes = ['image/png', 'image/jpeg']
+            if(!allowedTypes.includes(file.type)) {
+                event.target.value = '';
+                alert('이미지 파일만 업로드 가능합니다.(JPG, JPEG, PNG)');
+                return;
+            }
+
 
             try {
                 const token = localStorage.getItem("token");
@@ -70,10 +79,14 @@ function MypageModify() {
                 }
                 const decodedToken = jwtDecode(token); // JWT 디코드
                 const userNumber = decodedToken.userNumber; // userNumber 추출
+
                 // 이미지 업로드 API 호출
+                const formData = new FormData();
+                formData.append("profileImage", file);
                 const response = await axios.post(`/users/${userNumber}/profile/upload`, formData, {
                     headers: {
-                        "Content-Type": "multipart/form-data",
+                        "Content-Type": "multipart/form-data"
+                        , 'Authorization': token
                     },
                 });
 
@@ -149,10 +162,10 @@ function MypageModify() {
         }
     }
 
-    useEffect(() => {
-        const imgSrc = fetchUserProfileImage();
-        // imgSrc를 상태로 설정하거나 다른 방식으로 사용
-    }, []);
+    // useEffect(() => {
+    //     const imgSrc = fetchUserProfileImage();
+    //     // imgSrc를 상태로 설정하거나 다른 방식으로 사용
+    // }, []);
 
     return (
         <div>
@@ -171,18 +184,13 @@ function MypageModify() {
                     <div className={styles.mainDiv}>
                         <div className={styles.mainName}>
                             <div className={`${common.secondFont} ${styles.margin0} ${styles.profileFlex}`}>
-                                <img src={imgSrc} className={styles.profile}></img>
+                                <img src={profileImg} className={styles.profile}></img>
                             프로필 사진 변경
                         </div>
-                        <label className={styles.profileChange}>
+                        <label htmlFor='userProfileImgInput' className={styles.profileChange} style={{cursor: 'pointer'}}>
                                 <FaArrowUpRightFromSquare size={20} />
-                                <input
-                                    type="file"
-                                    accept="image/*"
-                                    style={{ display: "none" }}
-                                    onChange={handleProfileChange}
-                                />
-                            </label>
+                        </label>
+                        <input id='userProfileImgInput' type="file" accept=".png, .jpeg, .jpg" style={{ display: "none" }} onChange={handleProfileChange} />
                         </div>
                         <hr className={styles.divHr} />
                         <div className={styles.flexName}>

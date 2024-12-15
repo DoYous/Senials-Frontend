@@ -55,7 +55,8 @@ background: none;}
     width: 80%;
     justify-content: space-between;
 }
-.userProfileDiv{border: 1px solid;
+.userProfileDiv{
+    border: 1px solid #999999;
     border-radius: 50%;
     width: 70px;
     height: 70px;

@@ -111,6 +111,14 @@ function MypageMade({userNumber}) {
                                 />
                             ))}
                         </div>
+                        {
+                            madeParties.length == 0 ?
+                            <div className={`${common.firstFont}`} style={{display: 'flex', justifyContent: 'center', color: '#999999'}}>
+                            <   span className={`${styles.noSearchResult}`}>생성한 모임이 없습니다.</span>
+                            </div>
+                            :
+                            null
+                        }
                     </div>
                 </div>
             </div>

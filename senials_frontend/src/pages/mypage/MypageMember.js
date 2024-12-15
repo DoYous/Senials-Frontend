@@ -68,6 +68,9 @@ function MypageMember() {
                 setHasMoreMembers(false);
             }
         })
+        .catch(err => {
+            alert(err.response.data.message);
+        })
 
     }, [])
 
@@ -236,7 +239,7 @@ function Profile({ member, clickEvent }) {
                         {member.isChecked ? <MdCheckBox size={25}/> : <MdCheckBoxOutlineBlank size={25}/>}
                     </div>
                     <div className={styles.smallContentDiv}>
-                        <p className={styles.userProfileDiv}>프로필</p>
+                        <img className={styles.userProfileDiv} src={`/img/userProfile/${member.info.userNumber}`} />
                         <div className={styles.bigProfileDiv}>
                             <h3 className={common.secondFont}>{member.info.userNickname}</h3>
                             <div className={styles.smallProfileDiv}>

@@ -3,6 +3,7 @@ import common from '../common/Common.module.css';
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from 'axios';
+import api from '../common/tokenApi';
 
 function PartyReviewModify() {
     const navigate = useNavigate();
@@ -17,7 +18,7 @@ function PartyReviewModify() {
  useEffect(() => {
     const fetchMeetData = async () => {
         try {
-            const response = await axios.get(`/partyboards/${partyNumber}/partyreviews/${partyReviewNumber}`);
+            const response = await api.get(`/partyboards/${partyNumber}/partyreviews/${partyReviewNumber}`);
             const meetData = response.data.results;
 
             if (!meetData) {

@@ -73,7 +73,7 @@ function Profile( {meetMember} ) {
                     <div className={styles.userDiv}>
                         <div className={styles.flexDiv2}>
                             {/*사용자 프로필로 이동*/}
-                            <p className={styles.userProfileDiv}>프로필</p>
+                            <img className={styles.userProfileDiv} src={`/img/userProfile/${meetMember.userNumber}`} />
                             <p className={`${styles.userNameDiv} ${common.secondFont2}`}>{meetMember.userNickname}</p>
                         </div>
                         <button type="submit" className={`${styles.flexDiv} ${styles.reportDiv}`}>

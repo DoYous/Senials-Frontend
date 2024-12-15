@@ -99,6 +99,14 @@ function MypageLikedParty({ userNumber }) {
                                     />
                                 ))}
                             </div>
+                            {
+                                likedParties.length == 0 ?
+                                <div className={`${common.firstFont}`} style={{display: 'flex', justifyContent: 'center', color: '#999999'}}>
+                                    <span className={`${common.noSearchResult}`}>좋아요 한 모임이 없습니다.</span>
+                                </div>
+                                :
+                                null
+                            }
                         </div>
                     </div>
                 </div>
