@@ -128,28 +128,28 @@ function MypageCalender() {
 
 
     // 좋아한 모임 개수 가져오기
-    const fetchLikedPartyCount = async () => {
-        try {
-            const token = localStorage.getItem("token");
-            if (!token) {
-                alert("로그인이 필요합니다!")
-                navigate('/login'); // 토큰이 없으면 로그인 페이지로 리다이렉트
-                return;
-            }
-            const decodedToken = jwtDecode(token); // JWT 디코드
-            const userNumber = decodedToken.userNumber; // userNumber 추출
-            console.log("fetchLikedPartyCount 유저 확인", userNumber)
+    // const fetchLikedPartyCount = async () => {
+    //     try {
+    //         const token = localStorage.getItem("token");
+    //         if (!token) {
+    //             alert("로그인이 필요합니다!")
+    //             navigate('/login'); // 토큰이 없으면 로그인 페이지로 리다이렉트
+    //             return;
+    //         }
+    //         const decodedToken = jwtDecode(token); // JWT 디코드
+    //         const userNumber = decodedToken.userNumber; // userNumber 추출
+    //         console.log("fetchLikedPartyCount 유저 확인", userNumber)
 
-            const likedCountResponse = await api.get(`/users/${userNumber}/like/count`);
-            if (likedCountResponse.data && likedCountResponse.data.results) {
-                setLikedPartyCount(likedCountResponse.data.results.likesPartyCount);
-            } else {
-                console.error("Unexpected response format:", likedCountResponse.data);
-            }
-        } catch (error) {
-            console.error("좋아한 모임 개수 가져오기 에러:", error.response ? error.response.data : error.message);
-        }
-    };
+    //         const likedCountResponse = await api.get(`/users/${userNumber}/like/count`);
+    //         if (likedCountResponse.data && likedCountResponse.data.results) {
+    //             setLikedPartyCount(likedCountResponse.data.results.likesPartyCount);
+    //         } else {
+    //             console.error("Unexpected response format:", likedCountResponse.data);
+    //         }
+    //     } catch (error) {
+    //         console.error("좋아한 모임 개수 가져오기 에러:", error.response ? error.response.data : error.message);
+    //     }
+    // };
 
 
     // 사용자 모임 일정 가져오기
