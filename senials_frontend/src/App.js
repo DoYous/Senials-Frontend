@@ -48,6 +48,7 @@ import ManageUser from "./pages/admin/ManageUser";
 import ManageReport from './pages/admin/ManageReport.js';
 import ManageSuggestion from './pages/admin/ManageSuggestion.js';
 import ManageCateogry from './pages/admin/ManageCateogry.js';
+import SuggestionDetail from './pages/admin/SuggestionDetail.js';
 
 
 function App() {
@@ -108,8 +109,10 @@ function App() {
                     <Route path="/hobby-review" element={<HobbyReview/>}/>
                     {/*취미 게시판 후기 수정 */}
                     <Route path="/hobby-review-modify" element={<HobbyReviewModify/>}/>
-                    {/* 취미 게시판 건의의 */}
+                    {/* 취미 게시판 건의 */}
                     <Route path="/suggestion" element={<Suggestion/>}/>
+                    {/* 건의 readOnly */}
+                    <Route path="/suggestionDetail" element={<SuggestionDetail/>}/>
 
                     <Route path='party'>
                         {/* 모임 작성 */}
