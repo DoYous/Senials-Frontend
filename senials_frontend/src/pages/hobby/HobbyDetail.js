@@ -71,6 +71,13 @@ function HobbyDetailPost() {
     const [userNumber, setUserNumber] = useState(null);
 
     useEffect(() => {
+
+        const token = localStorage.getItem('token')
+        if(token != null) {
+            const decodedUserNumber = jwtDecode(token).userNumber;
+            setUserNumber(decodedUserNumber);
+        }
+
         if (hobbyNumber) {
             axios.get(`/hobby-detail/${hobbyNumber}`)
                 .then((response) => {
@@ -114,7 +121,7 @@ function HobbyDetailPost() {
 
     //후기작성페이지 이동 이벤트
     const linkHobbyReview = () => {
-        const token = localStorage.getItem("token");
+        const token = localStorage.getItem('token');
         if (!token) {
             navigate('/login'); // 토큰이 없으면 로그인 페이지로 리다이렉트
         } else {
@@ -126,6 +133,11 @@ function HobbyDetailPost() {
     const linkHobbyReviewModify=(reviewNumber,hobbyNumber)=>{
         // alert("userNumber는 : " + userNumber)
         navigate(`/hobby-review-modify?review=${reviewNumber}&hobbyNumber=${hobbyNumber}`);
+    }
+
+    // 신고 페이지 이동 이벤트
+    const linkHobbyReviewReport = (reviewNumber) => {
+        navigate(`/report?type=3&target=${reviewNumber}`);
     }
 
  
@@ -183,27 +195,24 @@ function HobbyDetailPost() {
                 </div>  
             </div>
             {sortedReviews.map((item, index) => (
-                <HobbyReview key={index} review={item} linkHobbyReviewModify={linkHobbyReviewModify} userNumber={userNumber} />
+                <HobbyReview key={index} review={item} linkHobbyReviewModify={linkHobbyReviewModify} userNumber={userNumber} linkHobbyReviewReport={linkHobbyReviewReport} />
             ))}
             </div>
         </>
     );
 }
 
-function HobbyReview({ review, linkHobbyReviewModify, userNumber }) {
+function HobbyReview({ review, linkHobbyReviewModify, userNumber, linkHobbyReviewReport }) {
     return (
         <div className={styles.hobbyReview}>
             <div className={styles.hobbyReviewDetail}>
                 <div className={styles.userInfo}>
-                    <img src={`/img/userProfile/${userNumber}`} onError={(e) => e.target.src = '/img/defaultUser.png'}  className={styles.userImg} alt="사용자" />
+                    <img src={`/img/userProfile/${review.userNumber}`} onError={(e) => e.target.src = '/img/defaultUser.png'}  className={styles.userImg} alt="사용자" />
                     <div className={styles.userName}>{review.userName}</div>
                     <div className={styles.date}>{convertDate(review.hobbyReviewWriteDate)}</div>
                     <div className={styles.reviewPoint}><span className={styles.star}>별점</span>
                         <Rate averageRating={review.hobbyReviewRate} />
                     </div>
-                    <button className={`${styles.reportButton} ${common.reportDiv}`}>
-                        <FaBell/> 신고
-                    </button>
                 </div>
                     
                     <div className={styles.reviewSummation}>성향: {getTendency(review.hobbyReviewTendency)}</div>
@@ -214,11 +223,16 @@ function HobbyReview({ review, linkHobbyReviewModify, userNumber }) {
                     {/* <img src='/img/sampleImg4.png' className={styles.reviewImg} alt="후기" /> */}
                     {/* <img src='/img/sampleImg4.png' className={styles.reviewImg} alt="후기" /> */}
                 </div>
-                {userNumber === review.userNumber && (
+                {
+                userNumber === review.userNumber ?
                     <button className={styles.updateReviewButton} onClick={() => linkHobbyReviewModify(review.hobbyReviewNumber, review.hobbyNumber)}>
                         수정
                     </button>
-                )}
+                    :
+                    <button className={`${styles.reportButton} ${common.reportDiv}`} style={{marginLeft: 'auto'}} onClick={() => linkHobbyReviewReport(review.hobbyReviewNumber)}>
+                        <FaBell/> 신고
+                    </button>
+                }
             </div>
         </div>
     );

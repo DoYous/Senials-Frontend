@@ -42,6 +42,7 @@ function ReportComponent(){
                 reportTargetType.current = type;
             } else {
                 wrongRequest();
+                return;
             }
     
     
@@ -50,6 +51,7 @@ function ReportComponent(){
                 reportTargetNumber.current = target;
             } else {
                 wrongRequest();
+                return;
             }
     
     
@@ -59,6 +61,7 @@ function ReportComponent(){
                     reportTargetParentNumber.current = targetParent;
                 } else {
                     wrongRequest();
+                    return;
                 }
             }
             
@@ -95,19 +98,20 @@ function ReportComponent(){
                         setAboutTarget(`[사용자] ${results.user.userNickname}`);
                         break;
                     case 1:
-                        setAboutTarget(`[모임] ${results.partyBoard.partyBoardName}`);
+                        setAboutTarget(`[모임 게시글] ${results.partyBoard.partyBoardName}`);
                         break;
                     case 2:
-                        setAboutTarget(`[모임후기] ${results.partyReview.partyReviewDetail}`);
+                        setAboutTarget(`[모임 후기] ${results.partyReview.partyReviewDetail}`);
                         break;
                     case 3:
-                        setAboutTarget(`[취미후기] ${results.hobbyReview.hobbyReviewDetail}`);
+                        setAboutTarget(`[취미 후기] ${results.hobbyReview.hobbyReviewDetail}`);
                         break;
                 }
             })
             .catch(error => {
                 console.error('Error fetching data:', error);
                 wrongRequest();
+                return;
             });
 
         }
@@ -175,7 +179,7 @@ function ReportComponent(){
             </div>
 
             <div className={`${styles1.floatRight}`}>
-                <button className={styles1.cancleButton}>취소</button>
+                <button className={styles1.cancleButton} onClick={() => navigate(-1)}>취소</button>
                 <button className={styles1.submitButton} onClick={submitReport}>제출</button>
             </div>
         </div>

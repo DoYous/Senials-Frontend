@@ -51,6 +51,12 @@
     flex-direction: column;
 }
 
+.flexColumnCenter {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
 .flexCenter {
     display: flex;
     justify-content: center;
@@ -621,6 +627,7 @@
     flex-direction: column;
     justify-content: space-evenly;
     margin-left: 32px;
+    width: 100%;
 }
 
 .memberContainer {

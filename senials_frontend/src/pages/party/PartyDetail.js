@@ -1,7 +1,7 @@
 import { FaBell, FaHeart, FaRegHeart, FaRegClock, FaWonSign } from "react-icons/fa";
 import { FaLocationDot  } from "react-icons/fa6";
 import { BsPeopleFill } from "react-icons/bs";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
@@ -17,6 +17,7 @@ import { setMember, setPartyBoardDetail, toggleDetailLike,
 
 // CSS
 import styles from '../common/MainVer1.module.css';
+import { jwtDecode } from "jwt-decode";
 
 function PartyDetail() {
 
@@ -27,6 +28,8 @@ function PartyDetail() {
     const navigate = useNavigate();
 
     const dispatch = useDispatch();
+
+    const tokenUserNumber = useRef(0);
 
 
     const {partyBoard, partyMaster} = useSelector(state => ({
@@ -53,6 +56,13 @@ function PartyDetail() {
 
 
     useEffect(() => { 
+
+        const token = localStorage.getItem('token');
+        if(token != null) {
+            const decodedToken = jwtDecode(token);
+            tokenUserNumber.current = decodedToken.userNumber;
+        }
+
         const fetchData = async () => { 
             try { 
                 const response1 = await api.get(`/partyboards/${partyNumber}`); 
@@ -194,7 +204,7 @@ function PartyDetail() {
                         }
                         &nbsp;&nbsp;좋아요
                         </span>
-                        <span className={`${styles.whiteBtn} ${styles.thirdFont} ${styles.mlAuto}`} style={{color: 'red'}} onClick={() => navigate(`/report?party=${partyNumber}`)}>
+                        <span className={`${styles.whiteBtn} ${styles.thirdFont} ${styles.mlAuto}`} style={{color: 'red'}} onClick={() => navigate(`/report?type=1&target=${partyNumber}`)}>
                             <FaBell />
                             &nbsp;&nbsp;신고
                         </span>
@@ -301,7 +311,7 @@ function PartyDetail() {
                             null
                         }
                     </div>
-                    <Review review={partyBoard.myReview} navigate={navigate}/>
+                    <Review review={partyBoard.myReview} navigate={navigate} tokenUserNumber={tokenUserNumber} />
                     <hr />
                 </>
                 :
@@ -325,7 +335,7 @@ function PartyDetail() {
                 reviews.length != 0 ?
                     reviews.map((review, idx) => {
                         return (
-                            <Review key={idx} review={review} navigate={navigate} />
+                            <Review key={idx} review={review} navigate={navigate} tokenUserNumber={tokenUserNumber} />
                         )
                     })
                     :
@@ -571,7 +581,7 @@ function DetailRateAverage({ avgReviewRate }) {
     )
 }
 
-function Review({review, navigate}) {
+function Review({review, navigate, tokenUserNumber}) {
 
     // 구조분해할당으로 깊은복사 안하면 오류남
     // 아니면 이런식으로 >> const user = review.user || {}; // user가 undefined일 경우 빈 객체로 대체 
@@ -584,6 +594,15 @@ function Review({review, navigate}) {
                 <div className={`${styles.flex}`}>
                     <span className={`${styles.secondFont}`}>{reviewWriter.userNickname}</span>
                     <DetailRate reviewRate={review.partyReviewRate} />
+                    {
+                        tokenUserNumber.current != reviewWriter.userNumber ?
+                        <span className={`${styles.whiteBtn} ${styles.thirdFont} ${styles.mlAuto}`} style={{color: 'red'}} onClick={() => {navigate(`/report?type=2&target=${review.partyReviewNumber}`)}}>
+                            <FaBell />
+                            &nbsp;&nbsp;신고
+                        </span>
+                        :
+                        null
+                    }
                 </div>
                 <span className={`${styles.secondFontNormal}`}>{review.partyReviewDetail}</span>
             </div>
