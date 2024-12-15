@@ -45,7 +45,7 @@ function ManageSuggestion(){
         })
     },[]);
 
-    //건의 글 상세보기기
+    //건의 글 상세보기
     const linkSuggestion=(suggestionNumber)=>{
         navigate(`/suggestionDetail?suggestionNumber=${suggestionNumber}`);
     };
