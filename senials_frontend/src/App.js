@@ -47,6 +47,7 @@ import Report from './pages/admin/ReportComponent.js';
 import ManageUser from "./pages/admin/ManageUser";
 import ManageReport from './pages/admin/ManageReport.js';
 import ManageSuggestion from './pages/admin/ManageSuggestion.js';
+import ManageCateogry from './pages/admin/ManageCateogry.js';
 
 
 function App() {
@@ -148,6 +149,8 @@ function App() {
                     <Route path="manage-report" element={<ManageReport/>}/>
                     {/*관리자페이지-건의 관리*/}
                     <Route path="manage-suggestion" element={<ManageSuggestion/>}/>
+                    {/*관리자페이지-카테고리 관리*/}
+                    <Route path="manage-category" element={<ManageCateogry/>}/>
                 </Route>
             </Routes>
             

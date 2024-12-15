@@ -71,16 +71,6 @@ function HobbyDetailPost() {
     const [userNumber, setUserNumber] = useState(null);
 
     useEffect(() => {
-        const token = localStorage.getItem("token");
-        try {
-            const decodedToken = jwtDecode(token); // JWT 디코드
-            setUserNumber(decodedToken.userNumber); // userNumber 설정
-        } catch (error) {
-            console.error('Invalid token:', error);
-            navigate('/login'); // 잘못된 토큰이면 로그인 페이지로 리다이렉트
-            return;
-        }
-
         if (hobbyNumber) {
             axios.get(`/hobby-detail/${hobbyNumber}`)
                 .then((response) => {
