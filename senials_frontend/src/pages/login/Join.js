@@ -67,63 +67,68 @@ function Join() {
 
 
     return (
-        <div className={styles.signupcontainer}>
-            <h1 className={styles.signuptitle}>회원가입 페이지</h1>
-            <hr className={styles.signupdivider} />
+                <div className={styles.bigDiv}>
+                            <div className={styles.smallDiv}>
+            <h1 className={styles.signuptitle}>회원가입</h1>
             <form className={styles.signupform} onSubmit={handleSubmit}>
+            <label htmlFor="username">이름</label>
                 <input
                     className={styles.signupinput}
                     type="text"
                     name="username"
-                    placeholder="Username"
+                    placeholder="정확한 이름을 기입해주세요!"
                     value={formData.username}
                     onChange={handleChange}
                     required
                     disabled={isLoading}
                 />
+                <label htmlFor="password">비밀번호</label>
                 <input
                     className={styles.signupinput}
                     type="password"
                     name="password"
-                    placeholder="Password"
+                    placeholder="영문,숫자,특수문자 포함해서 작성해주세요!"
                     value={formData.password}
                     onChange={handleChange}
                     required
                     disabled={isLoading}
                 />
+                <label htmlFor="email">이메일</label>
                 <input
                     className={styles.signupinput}
                     type="email"
                     name="email"
-                    placeholder="Email"
+                    placeholder="이메일 형식 지켜서 작성해주세요!"
                     value={formData.email}
                     onChange={handleChange}
                     required
                     disabled={isLoading}
                 />
-                <label htmlFor="nickname">닉네임:</label>
+                <label htmlFor="nickname">닉네임</label>
                 <input
                     className={styles.signupinput}
                     type="text"
                     name="nickname"
                     id="nickname"
+                    placeholder="등록되어 있지 않은 이름을 작성해주세요!"
                     value={formData.nickname}
                     onChange={handleChange}
                     required
                     disabled={isLoading}
                 />
-                <label htmlFor="birth">생년월일:</label>
+                <label htmlFor="birth">생년월일</label>
                 <input
                     className={styles.signupinput}
                     type="date"
                     name="birth"
                     id="birth"
+                    placeholder="생년원일"
                     value={formData.birth}
                     onChange={handleChange}
                     required
                     disabled={isLoading}
                 />
-                <label htmlFor="gender">성별:</label>
+                <label htmlFor="gender">성별</label>
                 <select
                     className={styles.signupselect}
                     name="gender"
@@ -133,7 +138,7 @@ function Join() {
                     required
                     disabled={isLoading}
                 >
-                    <option value="">선택하세요</option>
+                    <option value="">성별 선택</option>
                     <option value="0">남성</option>
                     <option value="1">여성</option>
                     <option value="2">기타</option>
@@ -145,6 +150,7 @@ function Join() {
                     {isLoading ? '회원가입 중...' : '회원가입'}
                 </button>
             </form>
+        </div>
         </div>
     );
 }

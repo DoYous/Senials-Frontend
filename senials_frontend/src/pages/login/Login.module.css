@@ -1,9 +1,28 @@
-.kakaocontainer {
+.bigDiv{height: 860px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    min-width: 1020px;}
+.smallDiv{
+    height: 50%;
+    background: white;
+    width: 800px;
     display: flex;
     flex-direction: column;
-    align-items: center; /* 수평 중앙 정렬 */
-    padding-top : 10%;
-    padding-bottom: 10%;
+    align-content: center;
+    align-items: center;
+    padding: 20px;
+    border-radius: 10px;
+    justify-content: center;
+}
+
+.kakaocontainer {
+    display: flex;
+        flex-direction: column;
+        align-items: center;
+        /* padding-bottom: 10%; */
+        justify-content: center;
 }
 
 .kakaoimageWrapper {
@@ -13,8 +32,8 @@
 }
 
 .SimpleLogin {
+    font-size: 40px;
     color: #569AFF;
-    font-size: 200%;
 }
 
 .OrgLogin {
@@ -35,15 +54,18 @@
 }
 
 .simpleSignupButton {
-    margin-top: 5%;
-    padding: 11px 50px;
+
     background-color: #6CB7DA;
+    margin-top: 20px;
+       width: 405px;
+    height: 50px;
+    padding: 12px;
     border: none;
-    border-radius: 5px; /* 라운드 모서리 */
-    cursor: pointer; /* 마우스 커서 변경 */
-    font-size: 14px; /* 글자 크기 */
-    transition: filter 0.3s ease;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 20px;
     color: white;
+    transition: background-color 0.3s ease;
 }
 
 .simpleSignupButton:hover {
@@ -59,12 +81,13 @@
 }
 
 .OrginputField {
-    width: 80%; /* 너비 조정 */
+    width: 100%;
+    height: 30px;
     padding: 12px; /* 패딩 추가 */
     margin-bottom: 15px; /* 아래쪽 여백 추가 */
     border: 1px solid #ccc; /* 테두리 색상 */
     border-radius: 5px; /* 모서리 둥글게 */
-    font-size: 16px; /* 글자 크기 */
+    font-size: 20px; /* 글자 크기 */
     transition: border 0.3s ease; /* 테두리 효과 */
 }
 
@@ -74,15 +97,16 @@
 }
 
 .OrgloginButton {
-    width: 87%; /* 버튼 너비 조정 */
-    padding: 12px; /* 패딩 추가 */
-    background-color: #569AFF; /* 버튼 색상 */
+    width: 405px;
+    height: 50px;
+    padding: 12px;
+    background-color: #569AFF;
     border: none;
-    border-radius: 5px; /* 모서리 둥글게 */
-    cursor: pointer; /* 마우스 커서 변경 */
-    font-size: 16px; /* 글자 크기 */
-    color: white; /* 글자 색상 */
-    transition: background-color 0.3s ease; /* 배경색 변화 */
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 20px;
+    color: white;
+    transition: background-color 0.3s ease;
 }
 
 .OrgloginButton:hover {
