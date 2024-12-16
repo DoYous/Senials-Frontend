@@ -20,9 +20,10 @@ function ManageUser(){
 
     const [api, setApi] = useState();
     const [users, setUsers] = useState([]);
-    const [boxChecked, setBoxChecked] = useState([]);
     const [checkedUsers, setCheckedUsers] = useState(new Set());
     const [checkedIdx, setCheckedIdx] = useState(new Set());
+
+    const searchKeyword = useRef('');
 
     useEffect(() => {
 
@@ -40,10 +41,6 @@ function ManageUser(){
             let results = response.data.results;
 
             setUsers(results.users);
-            let newArr = [];
-            newArr.length = results.users.length;
-            newArr.fill(false);
-            setBoxChecked(newArr);
         })
 
     }, [])
@@ -72,14 +69,6 @@ function ManageUser(){
             }
             return copySet;
         })
-
-        setBoxChecked(state => {
-            let copy = [...state];
-
-            copy[idx] = checked;
-
-            return copy;
-        })
     }
 
 
@@ -103,12 +92,6 @@ function ManageUser(){
                     }
                     return copy;
                 })
-
-                setBoxChecked(state => {
-                    let copy = [...state];
-                    copy.fill(false);
-                    return copy;
-                });
     
                 if (state == 0) {
                     alert('임시 활동정지 해제제완료');
@@ -120,6 +103,20 @@ function ManageUser(){
             })
             .catch(err => {
                 alert('요청에 실패했습니다.');
+            })
+
+        }
+    }
+
+    
+    const searchUsers = (e) => {
+        if(e.key == 'Enter') {
+
+            api.get(`/users-manage?keyword=${e.target.value}`)
+            .then(response => {
+                let results = response.data.results;
+    
+                setUsers(results.users);
             })
 
         }
@@ -140,7 +137,7 @@ function ManageUser(){
                     </div>
                     
                     <div className={styles.mainDetail}>
-                    <div><input className={styles.searchBox} placeholder='검색'></input></div>
+                    <div><input className={styles.searchBox} placeholder='검색' onKeyDown={searchUsers}></input></div>
                     <br/>
                     <br/>
                         <div className={styles.mainSubtitle}>
@@ -156,7 +153,7 @@ function ManageUser(){
                         <div className={styles.mainBox}>
                         {
                             users.map((user, idx) => {
-                                return <UserData key={idx} user={user} idx={idx} boxChecked={boxChecked} selectUser={selectUser} />
+                                return <UserData key={idx} user={user} idx={idx} selectUser={selectUser} />
                             })
                         }
                         </div>
@@ -174,7 +171,7 @@ function ManageUser(){
     )
 }
 
-function UserData({ user, idx, boxChecked, selectUser }){
+function UserData({ user, idx, selectUser }){
 
     let style = user.userStatus == 1 &&
                 {color: 'blue'}
@@ -188,7 +185,7 @@ function UserData({ user, idx, boxChecked, selectUser }){
     return(
         <>
         <div className={styles.mainSubtitle} style={style}>
-                <input type='checkbox' onChange={(e) => selectUser(e, user.userNumber, idx)} value={boxChecked[idx]}></input>
+                <input type='checkbox' onChange={(e) => selectUser(e, user.userNumber, idx)}></input>
                 <span>{user.userNickname}</span>
                 <span>{user.userName}</span>
                 <span>{user.userBirth}</span>
