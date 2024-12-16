@@ -117,9 +117,15 @@
 .mainSubtitle{
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
 }
 
-.mainSubtitle span {
+.mainSubtitle > input {
+    margin-top: 20px;
+}
+
+.mainSubtitle > span {
     flex: 1;
     text-align: center; 
     margin-top: 10px;
