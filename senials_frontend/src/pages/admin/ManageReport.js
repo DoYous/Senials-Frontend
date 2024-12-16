@@ -97,7 +97,7 @@ function ManageReport(){
                         }
                         {
                             userReports.length == 0 &&
-                            <span className={`${styles.noData}`}>해당당 신고 내역이 없습니다.</span>
+                            <span className={`${styles.noData}`}>해당 신고 내역이 없습니다.</span>
                         }
                         </div>
                     </div>

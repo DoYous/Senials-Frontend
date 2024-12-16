@@ -3,20 +3,24 @@ import styles from './Admin.module.css';
 import {useDispatch,userSelector, useSelector} from "react-redux";
 import AdminNav from './AdminNav.js';
 import createApiInstance from '../common/tokenApi.js';
+import { useNavigate } from 'react-router-dom';
+import { jwtDecode } from 'jwt-decode';
 
 
 let userData={id:'sangik', name:'김상익',birth:'1999-09-09', email:'sangik9999@naver.com',gender:'male',reportCount:12}
 
 
-const wrongReqeust = () => {
+const wrongReqeust = (navigate) => {
     alert('잘못된 요청입니다.');
+    navigate(-1);
 }
 
 
 function ManageUser(){
 
     let state=useSelector((state)=>state)
-    let dispatch=useDispatch()
+    let dispatch = useDispatch()
+    let navigate = useNavigate();
 
     const [api, setApi] = useState();
     const [users, setUsers] = useState([]);
@@ -30,7 +34,11 @@ function ManageUser(){
         let api;
         const token = localStorage.getItem('token');
         if(token == null) {
-            wrongReqeust();
+            wrongReqeust(navigate);
+        } else {
+            if(jwtDecode(token).userNumber != 1) {
+                wrongReqeust(navigate);
+            }
         }
 
         setApi(createApiInstance);
@@ -142,12 +150,12 @@ function ManageUser(){
                     <br/>
                         <div className={styles.mainSubtitle}>
                             <input type='checkbox'></input>
-                            <span>NICKNAME</span>
-                            <span>NAME</span>
-                            <span>BIRTH</span>
+                            <span>닉네임</span>
+                            <span>이름</span>
+                            <span>생년월일</span>
                             <span>E-MAIL</span>
-                            <span>GENDER</span>
-                            <span>REPORT COUNT</span>
+                            <span>성별</span>
+                            <span>신고수</span>
                         </div>
                         <hr/>
                         <div className={styles.mainBox}>
@@ -161,8 +169,8 @@ function ManageUser(){
 
                     <div className={styles.buttons}>
                         <button className={styles.activeButton} onClick={() => changeStatus(1)}>임시활동정지</button>
-                        <button className={styles.activeButton} onClick={() => changeStatus(0)}>임시활동정지해제</button>
                         <button className={styles.activeButton} onClick={() => changeStatus(2)}>활동정지</button>
+                        <button className={styles.activeButton} onClick={() => changeStatus(0)}>활동정지 해제</button>
                     </div>
                 </div>
               
