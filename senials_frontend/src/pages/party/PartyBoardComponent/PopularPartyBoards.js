@@ -40,7 +40,6 @@ function PopularPartyBoards({ printAllBtn = false }) {
             <div className={`${styles.separatorContent}`}>
                 <PopularPartyCard navigate={navigate} />
             </div>
-            <hr/>
         </>
     )
 }
@@ -90,6 +89,15 @@ function PopularPartyCard({ navigate }) {
             Array.from({length: maxLength - (length % maxLength)}).map((_, i) => {
                 return <div key={`emptyCard${i}`} className={`${styles.emptyCardContainer}`} />
             })
+            :
+            null
+        }
+        {
+            length === 0 ?
+            // 결과 없음 안내
+            <div className={`${styles.flexCenter} ${styles.fullWidth}`}>
+                <span className={`${styles.noSearchResult}`}>서비스 준비 중</span>
+            </div>
             :
             null
         }

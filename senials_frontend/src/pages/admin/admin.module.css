@@ -117,9 +117,15 @@
 .mainSubtitle{
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
 }
 
-.mainSubtitle span {
+.mainSubtitle > input {
+    margin-top: 20px;
+}
+
+.mainSubtitle > span {
     flex: 1;
     text-align: center; 
     margin-top: 10px;
@@ -157,8 +163,27 @@
     border:none;
 }
 
+
 .explain{
     white-space: nowrap; 
     overflow: hidden;
     text-overflow: ellipsis; 
+}
+
+
+.link {
+    cursor: pointer;
+}
+.link:hover {
+    text-decoration: underline;
+}
+
+
+.noData {
+    display: flex;
+    justify-content: center;
+    padding-top: 16px;
+    color: #999999;
+    font-size: 33px;
+    font-weight: bold;
 }

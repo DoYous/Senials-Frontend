@@ -43,6 +43,7 @@ function PartyBoard() {
     return (
         <div className={styles.centerContainer}>
             <PopularPartyBoards />
+            <hr />
             <div className={styles.separator}>
                 <span className={`${styles.firstFont}`}>
                     <span className={styles.pointColor}>최근</span> 오픈한 모임

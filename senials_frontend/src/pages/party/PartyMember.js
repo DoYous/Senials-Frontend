@@ -1,6 +1,6 @@
 import styles from './PartyMember.module.css';
 import common from '../common/Common.module.css';
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 /*리액트 아이콘 사용*/
 import { FaSearch } from "react-icons/fa";
 import { FaBell } from "react-icons/fa";
@@ -10,6 +10,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import axios from 'axios';
 import createApiInstance from '../common/tokenApi';
+import { jwtDecode } from 'jwt-decode';
 
 function PartyMember() {
     
@@ -24,8 +25,25 @@ function PartyMember() {
 
     const [meetMembers, setMeetMembers] = useState([]);
     const [meet, setMeet] = useState({});
+    
+    const userNumber = useRef(0);
 
     useEffect(() => {
+
+        const token = localStorage.getItem('token');
+        if(token == null) {
+            needLogin();
+            return;
+        } 
+
+        const decodedToken = jwtDecode(token);
+        const tokenUserNumber = decodedToken.userNumber;
+        if(tokenUserNumber === undefined) {
+            needLogin();
+            return;
+        } else {
+            userNumber.current = tokenUserNumber;
+        }
 
         const api = createApiInstance();
 
@@ -35,6 +53,10 @@ function PartyMember() {
     
             setMeetMembers(results.meetMembers);
         })
+        .catch(err => {
+            wrongRequest();
+            return;
+        })
 
         axios.get(`/meets/${meetNumber}`)
         .then(response => {
@@ -42,7 +64,24 @@ function PartyMember() {
 
             setMeet(results.meet);
         })
+
+
     }, [])
+
+    const needLogin = () => {
+        alert('로그인이 필요합니다.');
+        navigate('/login');
+    }
+
+
+    const wrongRequest = () => {
+        alert('잘못된 요청입니다.');
+        navigate('/');
+    }
+
+    const handleReportBtn = (targetNumber) => {
+        navigate(`/report?type=0&target=${targetNumber}`)
+    }
 
 
     return (
@@ -62,7 +101,7 @@ function PartyMember() {
                 <hr className={styles.divHr}/>
                 {
                     meetMembers.map((meetMember, idx) => 
-                        <Profile key={idx} meetMember={meetMember}/>
+                        <Profile key={idx} meetMember={meetMember} userNumber={userNumber.current} handleReportBtn={handleReportBtn}/>
                     )
                 }
             </div>
@@ -70,7 +109,7 @@ function PartyMember() {
     );
 }
 
-function Profile( {meetMember} ) {
+function Profile( {meetMember, userNumber, handleReportBtn} ) {
     return (
             <div className={styles.profile}>
                 <div className={styles.bigUserDiv}>
@@ -80,10 +119,15 @@ function Profile( {meetMember} ) {
                             <img className={styles.userProfileDiv} src={`/img/userProfile/${meetMember.userNumber}`} />
                             <p className={`${styles.userNameDiv} ${common.secondFont2}`}>{meetMember.userNickname}</p>
                         </div>
-                        <button type="submit" className={`${styles.flexDiv} ${styles.reportDiv}`}>
-                            {/*신고 페이지 만들어지면 연결*/}
-                            <FaBell/>신고
-                        </button>
+                        {
+                            userNumber != meetMember.userNumber ?
+                            <button type="submit" className={`${styles.flexDiv} ${styles.reportDiv}`} onClick={() => handleReportBtn(meetMember.userNumber)}>
+                                {/*신고 페이지 만들어지면 연결*/}
+                                <FaBell/>신고
+                            </button>
+                            :
+                            null
+                        }
                     </div>
                 </div>
                 <hr className={styles.divHr}/>
