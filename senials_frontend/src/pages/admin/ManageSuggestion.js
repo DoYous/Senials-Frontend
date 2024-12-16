@@ -1,7 +1,8 @@
 import React,{useEffect, useState} from 'react';
 import styles from './Admin.module.css';
-import {useDispatch,userSelector, useSelector} from "react-redux";
 import AdminNav from './AdminNav.js';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 
 
@@ -10,9 +11,44 @@ let userData={name:'김상익',title:'스퀴시라는 취미를 추가해주세�
 
 function ManageSuggestion(){
 
-    let state=useSelector((state)=>state)
-    let dispatch=useDispatch()
+    const navigate= useNavigate();
 
+    const [suggestionList,setSuggestionList]=useState([]);
+
+    const[searchText, setSearchText]=useState("");
+    const[filterList,setFilterList]=useState([]);
+
+    //검색 텍스트가 변화할 때마다 리스트 내용 변환
+    useEffect(() => {
+        const filtered = suggestionList.filter(item => 
+            item.suggestionTitle.includes(searchText)
+        );
+        setFilterList(filtered);
+    }, [searchText, suggestionList]); 
+
+    //검색 텍스트 값 변환 핸들러
+    const handleSearchChange = (e) => {
+        setSearchText(e.target.value);
+    };
+
+
+    useEffect(()=>{
+        axios.get(`/suggestion`)
+        .then((response)=>{
+            //가장 최신 글이 위로 올라오게끔 변경
+            const sortedSuggestions = response.data.results.suggestionDTOList.sort((a, b) => {
+                const dateA = new Date(b.suggestionDate);
+                const dateB = new Date(a.suggestionDate);
+                return dateA - dateB;
+            });
+            setSuggestionList(sortedSuggestions);
+        })
+    },[]);
+
+    //건의 글 상세보기
+    const linkSuggestion=(suggestionNumber)=>{
+        navigate(`/suggestionDetail?suggestionNumber=${suggestionNumber}`);
+    };
 
     return(
         <div>
@@ -28,7 +64,7 @@ function ManageSuggestion(){
                     </div>
                     
                     <div className={styles.mainDetail}>
-                    <div><input className={styles.searchBox} placeholder='검색'></input></div>
+                    <div><input className={styles.searchBox} placeholder='검색'  value={searchText} onChange={handleSearchChange}></input></div>
                     <br/>
                     <br/>
                         <div className={styles.mainSubtitle}>
@@ -40,9 +76,9 @@ function ManageSuggestion(){
                         </div>
                         <hr/>
                         <div className={styles.mainBox}>
-                        <UserData/>
-                        <UserData/>
-                        <UserData/>
+                        {filterList.map((item, index)=>(
+                            <UserData key={index} suggestion={item} linkSuggestion={linkSuggestion}/>
+                        ))}
                         </div>
                     </div>
                 </div>
@@ -52,14 +88,36 @@ function ManageSuggestion(){
     )
 }
 
-function UserData(){
+function UserData({suggestion,linkSuggestion}){
     return(
-        <div className={styles.mainSubtitle}>
-                <span>{userData.name}</span>
-                <span>{userData.title}</span>
-                <span>{userData.kind}</span>
-                <span>{userData.date}</span>
+        <div className={styles.mainSubtitle} onClick={()=>linkSuggestion(suggestion.suggestionNumber)}>
+                <span>{suggestion.userName}</span>
+                <span>{suggestion.suggestionTitle}</span>
+                <span>{convertSuggestionType(suggestion.suggestionType)}</span>
+                <span>{convertDate(suggestion.suggestionDate)}</span>
         </div>
     );
 }
+
+function convertSuggestionType(suggestionType){
+    switch(suggestionType){
+        case 0:
+            return "취미추가";
+        case 1:
+            return "버그제보";
+        default:
+            return "알수없음"
+    }
+
+}
+
+function convertDate(datetime){
+    const date = new Date(datetime); 
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    return `${year}-${month}-${day}`;
+}
+
+
 export default ManageSuggestion;
