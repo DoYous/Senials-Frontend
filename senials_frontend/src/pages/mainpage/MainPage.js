@@ -71,7 +71,7 @@ function MainPage() {
                     null
                 }
             </div>
-            
+            <hr />
             {/* 핫 매칭 게시글 출력 영역 */}
             <PopularPartyBoards printAllBtn={true} />
             {/* <div className={`${styles.separator}`}>

@@ -27,6 +27,8 @@ const typeWriter = (type) => {
 
 function ManageReport(){
 
+    const navigate = useNavigate();
+
     const [partyBoardReports, setPartyBoardReports] = useState([]);
     const [userReports, setUserReports] = useState([]);
     const [partyReviewReports, setPartyReviewReports] = useState([]);
@@ -60,6 +62,7 @@ function ManageReport(){
 
     const wrongRequest = () => {
         alert('잘못된 요청입니다.');
+        navigate(-1);
     }
 
     return(
