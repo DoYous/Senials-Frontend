@@ -147,6 +147,7 @@ function App() {
                 </Route>
                 <Route path="admin">
                     {/*관리자페이지-사용자 관리*/}
+                    <Route index element={<ManageUser/>}/>
                     <Route path="manage-user" element={<ManageUser/>}/>
                     {/*관리자페이지-신고 관리*/}
                     <Route path="manage-report" element={<ManageReport/>}/>

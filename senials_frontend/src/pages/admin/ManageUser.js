@@ -198,7 +198,15 @@ function UserData({ user, idx, selectUser }){
                 <span>{user.userName}</span>
                 <span>{user.userBirth}</span>
                 <span>{user.userEmail}</span>
-                <span>{user.userGender}</span>
+                <span>
+                {
+                    user.userGender == 0 && '남성'
+                    ||
+                    user.userGender == 1 && '여성'
+                    ||
+                    user.userGender == 2 && '기타'
+                }
+                </span>
                 <span>{user.userReportCnt}</span>
         </div>
         </>

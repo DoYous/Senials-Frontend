@@ -169,7 +169,7 @@ function ReportComponent(){
                     <option value={0}>불법 홍보물 게시</option>
                     <option value={1}>테러 조장</option>
                     <option value={2}>증오 또는 악의적인 콘텐츠</option>
-                    <option value={3}>취미 후기 신고</option>
+                    <option value={3}>부적절한 닉네임</option>
                 </select>
             </div>
 

@@ -4,8 +4,6 @@ import AdminNav from './AdminNav.js';
 import createApiInstance from '../common/tokenApi.js';
 import { useNavigate } from 'react-router-dom';
 
-let userData={name:'김상익',path:'http://localhost:3000/admin/manage-report', kind:'재물손괴',reason:'횡령',date:'2024-01-20'}
-
 
 const typeWriter = (type) => {
     switch(type) {
@@ -19,7 +17,7 @@ const typeWriter = (type) => {
             return '증오 또는 악의적인 콘텐츠'
             break;
         case 3:
-            return '법적 문제'
+            return '부적절한 닉네임'
             break;
     }
 }
