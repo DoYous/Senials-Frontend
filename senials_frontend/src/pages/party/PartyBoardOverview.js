@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { FaHeart, FaRegHeart, FaSearch } from "react-icons/fa";
@@ -13,11 +13,16 @@ import PopularPartyBoards from './PartyBoardComponent/PopularPartyBoards';
 
 // actions
 import { setRemain, setCursor, setSortMethod, setPartyKeyword, setWholeParties, addWholeParties, toggleLike } from '../../redux/partySlice';
-    
-const api = createApiInstance();
+import { jwtDecode } from 'jwt-decode';
 
+
+const api = createApiInstance();
+    
 
 function PartyBoardOverview() {
+
+    const [api, setApi] = useState();
+    const [tokenUserNumber, setTokenUserNumber] = useState(null);
 
     const navigate = useNavigate();
 
@@ -27,6 +32,16 @@ function PartyBoardOverview() {
     
     
     useEffect(() => {
+
+        const token = localStorage.getItem('token');
+        if(token != null ) {
+            setTokenUserNumber(jwtDecode(token).userNumber);
+        } 
+
+
+        setApi(createApiInstance);
+        let api = createApiInstance();
+
 
         if(wholeParties.length === 0) {
 
@@ -62,6 +77,7 @@ function PartyBoardOverview() {
     return (
         <div className={styles.centerContainer}>
             <PopularPartyBoards />
+            <hr />
             <div className={styles.separator}>
                 <span className={`${styles.firstFont}`}>
                     전체 모임
@@ -71,9 +87,12 @@ function PartyBoardOverview() {
             <div className={`${styles.separatorContent}`}>
                 <PartyCard navigate={navigate} />
             </div>
-            <div className={styles.separator}>
-                <span className={`${styles.commonBtn} ${styles.mlAuto}`} onClick={() => navigate('/party')}>게시글 작성</span>
-            </div>
+            {
+                tokenUserNumber != null &&
+                <div className={styles.separator}>
+                    <span className={`${styles.commonBtn} ${styles.mlAuto}`} onClick={() => navigate('/party')}>게시글 작성</span>
+                </div>
+            }
             {
                 isRemain ? 
                 <div className={styles.flexCenter}>
