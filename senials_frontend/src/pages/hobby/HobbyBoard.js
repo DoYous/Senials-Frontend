@@ -65,6 +65,16 @@ function HobbyBoardPost() {
         navigate(0); 
     }
 
+    //건의 사항 추가 페이지 이동
+    const linkSuggestion=()=>{
+        const token = localStorage.getItem("token");
+        if (!token) {
+            navigate('/login'); // 토큰이 없으면 로그인 페이지로 리다이렉트
+        } else {
+            navigate(`/suggestion`);
+        }
+    }
+
 
     //검색 버튼 클릭시 목록 필터링 이벤트
     const textSearch=(e)=>{
@@ -96,7 +106,7 @@ function HobbyBoardPost() {
                 return <HobbyList key={index} hobby={item} linkHobbyDetail={linkHobbyDetail}/>
             })}
             
-            <button className={styles.suggestHobbyButton}>취미 추가 건의</button>
+            <button className={styles.suggestHobbyButton} onClick={linkSuggestion}>취미 추가 건의</button>
         </div>
     );
 }
