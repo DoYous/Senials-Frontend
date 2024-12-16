@@ -1,5 +1,8 @@
 # 시니얼
-<br><br>
+
+![image](https://github.com/user-attachments/assets/5acc378b-fd0c-4832-87d8-d4e1cf62f84c)
+
+<br>
 
 ## 시니얼 프로젝트 소개
 #### 프로젝트명: 시니얼 맞춤 취미 매칭 서비
@@ -15,14 +18,14 @@
 - 위의 문제를 해결하고자 활동적인 취미와 사람들과 어울리는 활동을 가지는 것이 바람직하다.
 - 오프라인을 통한 해결은 한계가 있기 때문에 온라인 웹사이트를 통해 자신에게 맞춤형 취미를 추천하고 사람들과 매칭을 통해 문제를 해결한다.
 
-### **기능요구사항**:
+#### **기능요구사항**:
 - 웹사이트 내에서 사용자의 성향과 상황에 따라 맞춤형 취미를 추천해준다.
 - 웹사이트 내에서 특정 취미에 대해서 선호도를 표시하고, 해당 취미를 가진 사람들의 후기를 등록하거나 조회 할 수 있다.
 - 웹사이트 내에서 특정 취미를 목표로 하는 집단이나 동호회를 만들거나 참여하고 활동할 수 있다.
 - 웹사이트 내에서 회원은 취미 활동을 위한 스케줄을 조정하거나, 관심 있는 취미 집단이나 참여한 취미 집단을 관리할 수 있다.
 - 웹사이트 내에서 관리자는 회원 관리와 취미에 관한 데이터베이스 조작이 가능하다.
 
-### **구성 도메인**:
+#### **구성 도메인**:
 - 메인페이지 - 각 도메인으로 연결, 프로젝트의 메인 페이지
 - 맞춤형 취미 추천 - 자신의 환경과 성향을 토대로 취미를 추천
 - 매칭게시판 - 모임을 개설하고, 모임의 일정을 만들거나 참여
@@ -31,48 +34,27 @@
 - 마이페이지  + 캘린더 - 회원의 정보를 조회, 관리 그리고 자신이 참여한 일정의 관리
 - 관리자 - 해당 웹의 전체적인 관리
 
-<br><br><br><br>
-
+<br><br><br>
 
 ## 🔧팀원 구성
 
 <div align="center">
 
-| **김상익** | **도영익** | **배민서** | **안효준** | **이수빈** |
-| :------: |  :------: | :------: | :------: | :------: |
-|[<img src="https://github.com/WebAppTeamPJ/HanulDure/assets/105586878/853f5f6c-10a6-435b-9c69-3546fac28751" width="150" height="150"> <br/> @GTU9](https://github.com/GTU9)|[<img src="https://github.com/WebAppTeamPJ/HanulDure/assets/105586878/6944c8d3-1960-4e71-a8a8-6d6789e26469" width="150" height="150"> <br/> @do0ik](https://github.com/do0ik) |[<img src="https://github.com/WebAppTeamPJ/HanulDure/assets/105586878/3d01c55f-5b2d-494e-98c1-2257860c3e06" width="150" height="150"/> <br/> @Baeminseo](https://github.com/Baeminseo) | [<img src="https://github.com/WebAppTeamPJ/HanulDure/assets/105586878/be37e3ee-5fa1-4abc-a93b-43fc2d37e675" width="150" height="150"/> <br/> @hyojunahn111](https://github.com/hyojunahn111) | [<img src="https://github.com/WebAppTeamPJ/HanulDure/assets/105586878/cb8d0ba5-ebcb-4cfe-94af-926a32a62141" width="150" height="150"><br/> @joy:)](https://github.com/sb-77) |
-
+| **김상익** | **도영익** | **배민서** | **안효준** |
+| :------: |  :------: | :------: | :------: |
+|[<img src="https://github.com/WebAppTeamPJ/HanulDure/assets/105586878/853f5f6c-10a6-435b-9c69-3546fac28751" width="150" height="150"> <br/> @GTU9](https://github.com/GTU9)|[<img src="https://github.com/WebAppTeamPJ/HanulDure/assets/105586878/6944c8d3-1960-4e71-a8a8-6d6789e26469" width="150" height="150"> <br/> @do0ik](https://github.com/do0ik) |[<img src="https://github.com/WebAppTeamPJ/HanulDure/assets/105586878/3d01c55f-5b2d-494e-98c1-2257860c3e06" width="150" height="150"/> <br/> @min-g126](https://github.com/min-g126) | [<img src="https://github.com/WebAppTeamPJ/HanulDure/assets/105586878/be37e3ee-5fa1-4abc-a93b-43fc2d37e675" width="150" height="150"/> <br/> @hyojunahn111](https://github.com/hyojunahn111) |
 
 </div>
-<BR><BR>
 
-<br><br>
+<br><br><br>
 
-## 🗓️시니얼얼 프로젝트 타임라인
+## 🗓️개발 과정 타임라인
+![image](https://github.com/user-attachments/assets/7a0e7404-0342-4155-ad89-6913f146e83c)
 
-<br>
+<br><br><br>
 
-
-
-<br><br> <br><br><br><br>
-
-## 🗓️개발 과정
-
-
-<br><br> 
-
-
-<br><br><br><br>
 ## 💻개발환경
-<br><br> 
-
-<p align="center"><img src="https://github.com/WebAppTeamPJ/HanulDure/assets/105586878/0000951f-3a2c-42c2-a902-fe930149d968" height=500 width=500></p>
-
-
-
-<br><br> 
-- HanulDure-Project : IntelliJ IDEA
-- 버전 및 이슈관리 : Github, Github Issues, Github Project
+<img src="https://github.com/WebAppTeamPJ/HanulDure/assets/105586878/0000951f-3a2c-42c2-a902-fe930149d968" height=500 width=500>
 
 <br>
   
@@ -83,25 +65,24 @@
 <br>
 <br>
 
+## 🌳브랜치 전략
+### _Trunk-based_
+![image](https://github.com/user-attachments/assets/57eebe55-fd12-40ed-af06-51f5456548df)
 
-
-
-
-### 🌳브랜치 전략
 - main 브랜치와 feature 개인 브랜치로 나눠서 운용
 - **main** 브랜치는 배포 단계에서만 사용하는 브랜치
 - **feature** 브랜치는 각 구현 단위로 구분하여 사용
 - **feature** 브랜치를 개인 브랜치 커밋 및 테스트
 
-
-
-
-
-
-
-
-<br><br><br><br><br>
+<br>
+<br>
+<br>
 
 ## 📌ERD
+![image](https://github.com/user-attachments/assets/25802fab-a94c-42d2-82f0-63b3d20eba8d)
+![image](https://github.com/user-attachments/assets/f2cf3eac-1855-4133-a5ea-1013ec7df807)
 
-<br><br><br><br>
+
+<br>
+<br>
+<br>
