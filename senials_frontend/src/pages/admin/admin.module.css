@@ -156,3 +156,9 @@
     border-radius: 10px;
     border:none;
 }
+
+.explain{
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
