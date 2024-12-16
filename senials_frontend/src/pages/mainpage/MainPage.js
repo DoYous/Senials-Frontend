@@ -113,14 +113,19 @@ function MainCarousel({navigate}) {
     const [current, setCurrent] = useState(0);
     const [posx, setPosx] = useState('');
 
-
+    const localImages = [
+        { id: 1, src: "/img/1.png", alt: "이미지 1" },
+        { id: 2, src: "/img/2.png", alt: "이미지 2" },
+        { id: 3, src: "/img/3.png", alt: "이미지 3" },
+        { id: 4, src: "/img/4.png", alt: "이미지 4" },
+    ];
     useEffect(() => {
-        axios.get('/categories?asRandom=true')
-        .then(response => {
-            let results = response.data.results;
-
-            setCategories(results.categories);
-        })
+        // axios.get('/categories?asRandom=true')
+        // .then(response => {
+        //     let results = response.data.results;
+        //     setCategories(results.categories);
+        // })
+        setCategories(localImages);
     }, [])
 
 
@@ -160,7 +165,7 @@ function MainCarousel({navigate}) {
             <div className={`${styles.mcsContainer}`} style={{width: '100%'}}>
                 <div className={`${styles.mcsInner}`} style={{width: `calc(${550 * total})px`, transform: `translateX(${posx})`}}>
                     {categories.map((category, idx) => {
-                        return <div className={`${styles.mcsItem}`} key={`mcsItem${idx}`} style={{backgroundImage: `url(/img/category/${category.categoryNumber})`}} onClick={ () => {} } />
+                        return <div className={`${styles.mcsItem}`} key={`mcsItem${idx}`} style={{ backgroundImage: `url(${category.src})`}} onClick={ () => {} } />
                     })}
                 </div>
             </div>
