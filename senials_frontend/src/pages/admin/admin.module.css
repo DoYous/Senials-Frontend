@@ -156,3 +156,21 @@
     border-radius: 10px;
     border:none;
 }
+
+
+.link {
+    cursor: pointer;
+}
+.link:hover {
+    text-decoration: underline;
+}
+
+
+.noData {
+    display: flex;
+    justify-content: center;
+    padding-top: 16px;
+    color: #999999;
+    font-size: 33px;
+    font-weight: bold;
+}
