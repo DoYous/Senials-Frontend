@@ -77,12 +77,14 @@ function Login() {
     }, [navigate]);
 
     return (
+         <div className={styles.bigDiv}>
+                    <div className={styles.smallDiv}>
         <div className={styles.kakaocontainer}>
             <h1 className={styles.SimpleLogin}>로그인</h1>
             <div className={styles.OrginputContainer}>
                 <input
                     type="text"
-                    placeholder="아이디"
+                    placeholder="이름"
                     value={userName}
                     onChange={(e) => setUserName(e.target.value)}
                     className={styles.OrginputField}
@@ -103,14 +105,13 @@ function Login() {
                 </button>
                 {/*{errorMessage && <div className={styles.errorMessage}>{errorMessage}</div>} /!* 에러 메시지 표시 *!/*/}
             </div>
-            <div className={styles.kakaoimageWrapper}>
-                <img className={styles.kakaobt} src={'/image/kakaologinbt.png'} alt="카카오 로그인" onClick={handleKakaoLogin} />
-            </div>
             <div className={styles.buttonContainer}>
                 <button className={styles.simpleSignupButton} onClick={linkSignup}>
                     일반 회원가입
                 </button>
             </div>
+        </div>
+        </div>
         </div>
     );
 }

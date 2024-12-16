@@ -12,6 +12,10 @@ function MypageLike() {
     const [favoritesData, setFavoritesData] = useState([]);
     const [groupedData, setGroupedData] = useState({});
 
+    const token = localStorage.getItem("token");
+    const decodedToken = jwtDecode(token); // JWT 디코드
+    const userNumber = decodedToken.userNumber; // userNumber 추출
+
     /* 관심사 가져오기 */
     useEffect(() => {
         const fetchFavoriteData = async () => {
@@ -71,7 +75,7 @@ function MypageLike() {
             <div className={styles.smallDiv}>
                 <div className={styles.bigName}>
                     <div className={styles.bigNameFlex}>
-                        <FaAngleLeft size={20} onClick={() => navigate(`/user/1/meet`)} style={{ cursor: 'pointer' }} />
+                        <FaAngleLeft size={20} onClick={() => navigate(`/user/${userNumber}/meet`)} style={{ cursor: 'pointer' }} />
                         <h1 className={`${styles.nameflexDiv} ${common.firstFont}`}>
                             <div className={`${styles.pink} ${styles.marginName}`}>관심사</div> 설정
                         </h1>

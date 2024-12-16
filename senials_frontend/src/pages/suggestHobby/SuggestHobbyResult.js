@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useNavigate,useLocation } from 'react-router-dom';
 import { setHobbyDetail,setHobbyTop3Card } from '../../redux/hobbySlice';
 import { useSelector,useDispatch } from 'react-redux';
+import {jwtDecode} from "jwt-decode";
 
 function SuggestHobbyPost() {
 
@@ -29,7 +30,17 @@ function SuggestHobbyPost() {
 
     // 마이페이지 이동 이벤트
     const linkMyPage=()=>{
-        navigate('/mypage/calender');
+        const token = localStorage.getItem("token");
+        if (!token) {
+            alert("로그인이 필요합니다!")
+            navigate('/login'); 
+            return;
+        }else{
+            const decodedToken = jwtDecode(token);
+            const userNumber = decodedToken.userNumber;
+            navigate(`/user/${userNumber}/favorites`); 
+        }
+        
     }
 
     //모임 목록 이동 이벤트
